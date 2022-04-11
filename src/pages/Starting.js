@@ -4,6 +4,7 @@ import Logo from '../components/Logo'
 import Button from '../components/Button'
 // Style
 import styled from 'styled-components'
+import VideoBackground from '../components/VideoBackground'
 
 
 
@@ -12,7 +13,7 @@ const Starting = () => {
     <DivStyle>
     <Logo/>
     <Button buttonText="BEGIN YOUR JOURNEY" />
-   
+   <VideoBackground/>
     </DivStyle>
   )
 }
