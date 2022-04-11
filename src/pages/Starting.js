@@ -6,11 +6,13 @@ import Button from '../components/Button'
 import styled from 'styled-components'
 
 
+
 const Starting = () => {
   return (
     <DivStyle>
     <Logo/>
     <Button buttonText="BEGIN YOUR JOURNEY" />
+   
     </DivStyle>
   )
 }
