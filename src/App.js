@@ -1,6 +1,6 @@
 import React from 'react';
 import Logo from './components/Logo'
-import { AnimatePresence } from 'framer-motion';
+
 
 // Global Style
 import GlobalStyle from './components/GlobalStyle';
