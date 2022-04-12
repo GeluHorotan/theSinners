@@ -4,21 +4,22 @@ import styled from 'styled-components'
 import {motion} from 'framer-motion'
 import {popup} from './animation'
 // Global Style
-import {secondary} from '../components/GlobalStyle'
+import {secondary} from '../components/Colors'
 import { Link } from 'react-router-dom';
 
 
 
 
-const Button = ({setText , setLink, setIcon}) => {
+const Button = ({  setVariants, setInitial, setAnimate, setText , setLink, setIcon}) => {
 
   return (
-    <ButtonStyle variants={popup} initial='hidden' animate='show'>
+    <ButtonStyle variants={setVariants} initial={setInitial} animate={setAnimate} >
  
-      <SpanStyle id="top"></SpanStyle>
-      <SpanStyle id="bottom"></SpanStyle>
-      <SpanStyle id="right"></SpanStyle>
-      <SpanStyle id="left"></SpanStyle>
+    <SpanStyle id="top"></SpanStyle>
+    <SpanStyle id="bottom"></SpanStyle>
+    <SpanStyle id="right"></SpanStyle>
+    <SpanStyle id="left"></SpanStyle>
+    
      
 
   <Link to={setLink}> {setIcon} {setText}  </Link>

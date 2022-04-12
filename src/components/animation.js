@@ -33,3 +33,15 @@ export const popup = {
   show: {scale: 1, transition: {  duration: 0.6, ease: 'easeInOut' }}
 }
 
+
+export const navUl = {
+  hidden: { x: 2500, opacity:0},
+   show: { x: 0, opacity:1, transition: {  duration: 1, ease: 'easeOut' } }
+}
+
+export const navLogo = {
+  hidden: { x: -1000, opacity:0},
+   show: { x: 0, opacity:1, transition: {  duration: 1, ease: 'easeOut' } }
+}
+
+

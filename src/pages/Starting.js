@@ -4,8 +4,12 @@ import Logo from '../components/Logo'
 import Button from '../components/Button'
 // Style
 import styled from 'styled-components'
-import {primary,desaturatedRed} from '../components/GlobalStyle'
+import {primary,desaturatedRed} from '../components/Colors'
 
+
+// Animations 
+
+import {popup} from '../components/animation'
 // Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -20,7 +24,11 @@ const Starting = () => {
   return (
     <DivStyle>
     <Logo/>
-    <Button setIcon= {<FontAwesomeIcon id="openBook" size='1x' icon={faBookOpen} />} setText="BEGIN YOUR JOURNEY" setLink = "/homepage" />
+    <Button
+    setVariants={popup}
+    setInitial='hidden'
+    setAnimate='show'
+    setIcon= {<FontAwesomeIcon id="openBook" size='1x' icon={faBookOpen} />}  setText="BEGIN YOUR JOURNEY" setLink = "/homepage" />
     </DivStyle>
   )
 }

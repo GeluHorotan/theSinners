@@ -8,18 +8,65 @@ import { createGlobalStyle } from "styled-components";
   box-sizing: border-box;
 }
 
+h1 {
+  font-size: 3.75rem;
+  line-height: 5rem;
+  letter-spacing: 1px;
+  font-family: futura-pt,sans-serif;
+font-weight: 700;
+font-style: normal;
+}
+h2 {
+  font-size: 3rem;
+  line-height: 4rem;
+  letter-spacing: 1px;
+  font-family: futura-pt,sans-serif;
+font-weight: 600;
+font-style: normal;
+}
+h3 {
+  font-size:2.5rem;
+  line-height: 3.25rem;
+  letter-spacing: 1px;
+  font-family: futura-pt,sans-serif;
+font-weight: 500;
+font-style: normal;
+}
+h4 {
+  font-size: 2rem;
+  line-height: 2.75rem;
+  letter-spacing: 0px;
+    font-family: futura-pt,sans-serif;
+font-weight: 400;
+font-style: normal;
+}
+h5 {
+  font-size: 1.5rem;
+  line-height: 2.25rem;
+  letter-spacing: 0px;
+      font-family: futura-pt,sans-serif;
+font-weight: 400;
+font-style: normal;
+}
+h6 {
+  font-size: 1.25rem;
+  line-height: 2rem;
+  letter-spacing: 0px;
+      font-family: futura-pt,sans-serif;
+font-weight: 400;
+font-style: normal;
+}
+
+p {
+  font-size: 1rem;
+  line-height: 1rem;
+  letter-spacing: 24;
+      font-family: futura-pt,sans-serif;
+font-weight: 400;
+font-style: normal;
+}
+
 
 `
-
-// Colors
-export const primary = "#032522"
-export const secondary = "#F6EFED"
-export const accent = "#382B40"
-export const blue = "#0C1B40"
-export const brown = "#240101"
-export const red = "#FE4A3B"
-export const desaturatedRed = "#FF8882"
-export const saturatedRed = "#FF1200"
-export const gradient = "linear-gradient (#f65166, #692336 "
 
 export default GlobalStyle
