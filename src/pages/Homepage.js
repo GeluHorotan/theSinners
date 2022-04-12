@@ -3,7 +3,7 @@ import React from "react";
 
 // Style
 import styled from 'styled-components'
-import {primary,red} from '../components/GlobalStyle'
+import {primary} from '../components/GlobalStyle'
 
 
 
@@ -23,7 +23,7 @@ const DivStyle = styled.div `
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background: ${red};
+  background: ${primary};
      overflow-x: visible;
 
 `
