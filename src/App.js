@@ -1,5 +1,9 @@
 import React from 'react';
 import Starting from './pages/Starting'
+import Homepage from './pages/Homepage'
+
+// Router
+import { Routes, Route, useLocation } from 'react-router-dom';
 
 
 // Global Style
@@ -8,12 +12,22 @@ import GlobalStyle from './components/GlobalStyle';
 
 
 
+
+
 function App() {
+   const location = useLocation();
 return (
-  <div>
- <GlobalStyle/>
-  <Starting/>
-  </div>
+<div>
+    <GlobalStyle/>
+       
+       <Routes location={location} key={location.pathname}>
+          <Route path='/' exact element={<Starting/> } />
+          <Route path='/homepage' exact element={<Homepage/> } />
+   </Routes>
+   </div>
+  
+
+
 )
 }
 

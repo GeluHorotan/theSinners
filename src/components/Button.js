@@ -1,10 +1,16 @@
 import React from "react";
 import styled from 'styled-components'
+// Animation
 import {motion} from 'framer-motion'
 import {popup} from './animation'
+// Global Style
+import {secondary} from '../components/GlobalStyle'
+import { Link } from 'react-router-dom';
 
 
-const Button = ({buttonText}) => {
+
+
+const Button = ({setText , setLink, setIcon}) => {
 
   return (
     <ButtonStyle variants={popup} initial='hidden' animate='show'>
@@ -13,10 +19,15 @@ const Button = ({buttonText}) => {
       <SpanStyle id="bottom"></SpanStyle>
       <SpanStyle id="right"></SpanStyle>
       <SpanStyle id="left"></SpanStyle>
-      
-      {buttonText}
+     
+
+  <Link to={setLink}> {setIcon} {setText}  </Link>
+    
+           
+    
    
     </ButtonStyle>
+    
   )
 }
 
@@ -26,14 +37,22 @@ font-weight: 700;
 font-style: normal;
 font-size: 2rem;
 padding: 0.6rem 1.25rem;
+cursor: pointer;
 
-  position: relative;
-  display: inline-block;
-  letter-spacing: 4px;
+position: relative;
+display: inline-block;
+letter-spacing: 4px;
+text-decoration: none;
+background: none;
+border: none;
+color: ${secondary};
+
+a {
   text-decoration: none;
-  background: none;
-  border: none;
-  color: white;
+  color: ${secondary};
+  
+}
+
 
  
 `

@@ -9,7 +9,7 @@ import {logoTop , logoMiddle, logoBottom, logoLeft, logoRight} from './animation
  const  Logo = () => {
   return (
 
-<div>
+<ContainerStyle>
 <SvgStyle xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" width="1920" height="1080" viewBox="0 0 1920 1080">
   <defs>
     <linearGradient id="linear-gradient" x1="0.458" y1="-0.168" x2="0.568" y2="1.04" gradientUnits="objectBoundingBox">
@@ -1663,16 +1663,19 @@ import {logoTop , logoMiddle, logoBottom, logoLeft, logoRight} from './animation
 
 
 
- </div>
+ </ContainerStyle>
   )
 }
 
 const SvgStyle = styled.svg`
   display: flex;
   width: 100%;
-  height: 75vh;
+  height: 70vh;
+  overflow-x: visible;
   `
-
+const ContainerStyle = styled.div `
+width: 100%;
+`
 
 
 export default Logo

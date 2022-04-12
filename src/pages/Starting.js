@@ -4,7 +4,15 @@ import Logo from '../components/Logo'
 import Button from '../components/Button'
 // Style
 import styled from 'styled-components'
-import VideoBackground from '../components/VideoBackground'
+import {primary,desaturatedRed} from '../components/GlobalStyle'
+
+// Icons
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faBookOpen
+} from '@fortawesome/free-solid-svg-icons';
+
+
 
 
 
@@ -12,8 +20,7 @@ const Starting = () => {
   return (
     <DivStyle>
     <Logo/>
-    <Button buttonText="BEGIN YOUR JOURNEY" />
-   <VideoBackground/>
+    <Button setIcon= {<FontAwesomeIcon id="openBook" size='1x' icon={faBookOpen} />} setText="BEGIN YOUR JOURNEY" setLink = "/homepage" />
     </DivStyle>
   )
 }
@@ -25,6 +32,14 @@ const DivStyle = styled.div `
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  background: ${primary};
+     overflow-x: visible;
+
+     #openBook {
+       color: ${desaturatedRed};
+       margin-right: 0.5rem;
+     }
+
 `
 
 export default Starting
