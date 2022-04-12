@@ -16,7 +16,7 @@ const Navigation = () => {
     <NavigationStyle >
    
         <Link to='/homepage'>
-         <motion.img id='logo' src={Logo} alt="" />
+         <motion.img variants={navLogo} initial='hidden' animate='show'   id='logo' src={Logo} alt="" />
         </Link>
      
       <motion.ul variants={navUl} initial='hidden' animate='show'>
