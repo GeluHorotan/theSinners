@@ -1,6 +1,6 @@
 import React from "react";
 // Page Components
-import Navigation from '../components/Navigation'
+import ScreenSizeChecker from '../components/ScreenSizeChecker'
 
 // Style
 import styled from 'styled-components'
@@ -8,12 +8,12 @@ import {primary} from '../components/Colors'
 
 
 
-
-
 const Homepage = () => {
+
   return (
     <div>
-        <Navigation/>
+   
+      <ScreenSizeChecker />
     <DivStyle>
     <h1>Test</h1>
     </DivStyle>

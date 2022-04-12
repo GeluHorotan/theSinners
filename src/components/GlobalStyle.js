@@ -6,8 +6,12 @@ import { createGlobalStyle } from "styled-components";
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+ 
 }
 
+body {
+   overflow-x: hidden;
+}
 h1 {
   font-size: 3.75rem;
   line-height: 5rem;

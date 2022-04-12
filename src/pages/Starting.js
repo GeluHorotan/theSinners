@@ -12,9 +12,7 @@ import {primary,desaturatedRed} from '../components/Colors'
 import {popup} from '../components/animation'
 // Icons
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-  faBookOpen
-} from '@fortawesome/free-solid-svg-icons';
+import {faBookOpen} from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -23,6 +21,8 @@ import {
 const Starting = () => {
   return (
     <DivStyle>
+
+
     <Logo/>
     <Button
     setVariants={popup}
