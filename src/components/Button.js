@@ -2,7 +2,7 @@ import React from "react";
 import styled from 'styled-components'
 // Animation
 import {motion} from 'framer-motion'
-import {popup} from './animation'
+
 // Global Style
 import {secondary} from '../components/Colors'
 import { Link } from 'react-router-dom';

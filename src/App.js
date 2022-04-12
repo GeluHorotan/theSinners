@@ -3,8 +3,8 @@ import React from 'react';
 import Starting from './pages/Starting'
 import Homepage from './pages/Homepage'
 
-// Components
-import Navigation from './components/Navigation';
+
+
 
 // Router
 import { Routes, Route, useLocation } from 'react-router-dom';
