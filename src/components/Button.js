@@ -10,10 +10,10 @@ import { Link } from 'react-router-dom';
 
 
 
-const Button = ({  setVariants, setInitial, setAnimate, setText , setLink, setIcon}) => {
+const Button = ({ setClassName,isLink, children,  setVariants, setInitial, setAnimate, setText , setLink, setIcon}) => {
 
   return (
-    <ButtonStyle variants={setVariants} initial={setInitial} animate={setAnimate} >
+    <ButtonStyle className={setClassName} variants={setVariants} initial={setInitial} animate={setAnimate} >
  
     <SpanStyle id="top"></SpanStyle>
     <SpanStyle id="bottom"></SpanStyle>
@@ -21,8 +21,8 @@ const Button = ({  setVariants, setInitial, setAnimate, setText , setLink, setIc
     <SpanStyle id="left"></SpanStyle>
     
      
+  {isLink === true ? ( <Link to={setLink}> {setIcon} {children}  </Link>) : children}
 
-  <Link to={setLink}> {setIcon} {setText}  </Link>
     
            
     

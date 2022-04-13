@@ -24,11 +24,13 @@ const Starting = () => {
 
 
     <Logo/>
+    {/* <Button  setLink='/'> <Logo/> </Button> */}
     <Button
+    isLink
     setVariants={popup}
     setInitial='hidden'
     setAnimate='show'
-    setIcon= {<FontAwesomeIcon id="openBook" size='1x' icon={faBookOpen} />}  setText="BEGIN YOUR JOURNEY" setLink = "/homepage" />
+    setIcon= {<FontAwesomeIcon id="openBook" size='1x' icon={faBookOpen} />}  setLink = "/homepage" > BEGIN YOUR JOURNEY</Button>
     </DivStyle>
   )
 }

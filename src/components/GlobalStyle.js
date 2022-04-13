@@ -70,6 +70,10 @@ font-weight: 400;
 font-style: normal;
 }
 
+.hidden {
+  display: none;
+}
+
 
 `
 

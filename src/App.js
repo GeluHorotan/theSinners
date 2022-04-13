@@ -13,6 +13,11 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 // Global Style
 import GlobalStyle from './components/GlobalStyle';
 
+// Components
+import Navigation from './components/Navigation'
+
+
+
 
 
 
@@ -20,10 +25,14 @@ import GlobalStyle from './components/GlobalStyle';
 
 function App() {
    const location = useLocation();
+
 return (
 <div>
     <GlobalStyle/>
-     
+   <div className={`${location.pathname === '/' && 'hidden'}`}>
+      <Navigation/>
+
+   </div>
        <Routes location={location} key={location.pathname}>
           <Route path='/' exact element={<Starting/> } />
           <Route path='/homepage' exact element={<Homepage/> } />
