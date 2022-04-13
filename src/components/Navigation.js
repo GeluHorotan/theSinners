@@ -6,7 +6,7 @@ import Button from '../components/Button'
 // Images
 import Logo from '../img/logo.png'
 // Global Style
-import {accent,desaturatedRed} from '../components/Colors'
+import {accent,desaturatedRed, brown} from '../components/Colors'
 // Animation
 import {motion} from 'framer-motion'
 import {navUl, navLogo} from './animation'
@@ -51,11 +51,12 @@ const NavigationStyle = styled.nav`
   margin: auto;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem 10rem;
+  padding: 0.5rem 7rem;
   background: ${accent};
   position: sticky;
   top: 0;
   z-index: 10;
+  filter: drop-shadow(0 0.2rem 0.3rem ${brown});
 
 
   #top {
@@ -75,6 +76,7 @@ const NavigationStyle = styled.nav`
   a {
     color: white;
     text-decoration: none;
+    font-size: 1.5rem;
    
    
   

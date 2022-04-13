@@ -1,10 +1,15 @@
 import React from "react";
 // Page Components
 import ScreenSizeChecker from '../components/ScreenSizeChecker'
+import Carousel from '../components/Carousel'
+import {SliderData}  from '../Data/SliderData'
 
 // Style
 import styled from 'styled-components'
-import {primary} from '../components/Colors'
+
+
+// Images
+
 
 
 
@@ -15,21 +20,23 @@ const Homepage = () => {
    
       <ScreenSizeChecker />
     <DivStyle>
-    <h1>Test</h1>
+      <Carousel slides={SliderData} />
     </DivStyle>
     </div>
   )
 }
 
 const DivStyle = styled.div `
-  width: 100%;
-  height: 100vh;
+  width: 100vw;
+  height: 90vh;
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
-  background: ${primary};
-     overflow-x: visible;
+  justify-content: center;
+
+ 
+  
+
+ 
 
 `
 
