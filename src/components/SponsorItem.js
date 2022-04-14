@@ -39,6 +39,12 @@ const MainContainer = styled(motion.div)`
   border-radius: 3rem;
   padding: 2rem;
 
+  @media screen and (max-width: 934px) {
+    display: block;
+    width: 100%;
+    border-radius: 0;
+  }
+
   &:hover {
     background: ${secondary};
     transition: 0.4 all ease-in-out;
@@ -54,9 +60,26 @@ const MainContainer = styled(motion.div)`
 
   &:nth-child(even) {
     margin-left: 65rem;
+
+    @media screen and (max-width: 934px) {
+      margin-left: 0;
+      display: block;
+    }
+    @media screen and (max-width: 1024) {
+      margin-left: 0;
+      display: block;
+    }
   }
   &:nth-child(odd) {
     margin-right: 65rem;
+    @media screen and (max-width: 934px) {
+      margin-right: 0;
+      display: block;
+    }
+    @media screen and (max-width: 1024) {
+      margin-right: 0;
+      display: block;
+    }
   }
 
   a {
