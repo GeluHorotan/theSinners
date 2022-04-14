@@ -31,20 +31,20 @@ const Navigation = () => {
   
         <li>
       
-         <Button   setText="ABOUT" setLink = "/" />
+         <Button   isLink setLink = "/" >ABOUT</Button>
         
         </li>
         <li>
-            <Button  setText="NEWS" setLink = "/" />
+             <Button   isLink setLink = "/" >NEWS</Button>
         </li>
         <li>
-            <Button  setText="TEAMS" setLink = "/" />
+             <Button   isLink setLink = "/" >TEAMS</Button>
         </li>
         <li>
-           <Button  setText="SHOP" setLink = "/" />
+           <Button   isLink setLink = "/" >SHOP</Button>
         </li>
         <li>
-          <Button  setText="CONTACT" setLink = "/" />
+        <Button   isLink setLink = "/" >CONTACT</Button>
         </li>
       </motion.ul>
     </NavigationStyle>

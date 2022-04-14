@@ -63,10 +63,10 @@ font-style: normal;
 
 p {
   font-size: 1rem;
-  line-height: 1rem;
-  letter-spacing: 24;
+  line-height: 1.3rem;
+  letter-spacing: 1px;
       font-family: futura-pt,sans-serif;
-font-weight: 400;
+font-weight: 300;
 font-style: normal;
 }
 

@@ -24,6 +24,8 @@ const ContainerStyle = styled.div`
   flex-direction: column;
   align-items: center;
 
+ 
+
 
   .right {
     width: 50%;

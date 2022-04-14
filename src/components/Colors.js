@@ -1,8 +1,8 @@
 
 
-export const primary = "#032522"
+export const primary = "#181818"
 export const secondary = "#F6EFED"
-export const accent = "#382B40"
+export const accent = "#202020"
 export const blue = "#0C1B40"
 export const brown = "#240101"
 export const red = "#FE4A3B"
