@@ -5,15 +5,23 @@ import Button from './Button';
 // Colors
 import { accent, secondary, saturatedRed } from './Colors';
 
-const SponsorItem = ({ setImage, setAlt, setText }) => {
+import { motion } from 'framer-motion';
+
+const SponsorItem = ({ setImage, setAlt, setText, setVariants }) => {
+  console.log(setVariants);
   return (
-    <MainContainer>
+    <MainContainer
+      variants={setVariants}
+      initial='hidden'
+      animate='show'
+      whileHover='hover'
+    >
       <ImgStyle src={setImage} alt={setAlt} />
 
       <SecondaryContainer>
         <PStyle>{setText}</PStyle>
 
-        <Button setClassName='red' isLink setLink='/'>
+        <Button isLink setLink='/'>
           SHOP NOW
         </Button>
       </SecondaryContainer>
@@ -21,7 +29,7 @@ const SponsorItem = ({ setImage, setAlt, setText }) => {
   );
 };
 
-const MainContainer = styled.div`
+const MainContainer = styled(motion.div)`
   display: flex;
   flex-direction: row;
   width: 35%;
@@ -30,12 +38,10 @@ const MainContainer = styled.div`
   background: ${accent};
   border-radius: 3rem;
   padding: 2rem;
-  transition: 0.4s all ease;
 
   &:hover {
     background: ${secondary};
-
-    transform: scale(1.03);
+    transition: 0.4 all ease-in-out;
     box-shadow: -1px 1px 1.2rem 0.8rem #0e0e0e;
   }
   &:hover p {
@@ -59,20 +65,17 @@ const MainContainer = styled.div`
   }
   &:hover a {
     color: ${accent};
-   
   }
 
   button {
-    transition: 0.5s all ease;
     border-radius: 2rem;
-
+    transition: 0.4s all ease-in-out;
     margin-top: 1rem;
   }
 
   &:hover button {
-    transform: scale(1.2);
+    transform: scale(1.1);
     color: ${accent};
-  
   }
 
   #top {
