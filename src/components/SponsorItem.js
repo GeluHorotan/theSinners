@@ -36,6 +36,7 @@ const MainContainer = styled.div`
     background: ${secondary};
 
     transform: scale(1.03);
+    box-shadow: -1px 1px 1.2rem 0.8rem #0e0e0e;
   }
   &:hover p {
     color: ${accent};
