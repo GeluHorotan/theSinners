@@ -5,6 +5,7 @@ import Carousel from '../components/Carousel';
 import { SliderData } from '../Data/SliderData';
 import SponsorShowcase from '../components/SponsorShowcase';
 import SponsorItem from '../components/SponsorItem';
+import SponsorsBar from '../components/SponsorsBar';
 import { sponsorItemLeft, sponsorItemRight } from '../components/animation';
 
 // Style
@@ -72,6 +73,7 @@ const Homepage = () => {
           />
         ))}
       </SponsorShowcase>
+      <SponsorsBar></SponsorsBar>
     </div>
   );
 };

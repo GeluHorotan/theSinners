@@ -104,3 +104,29 @@ export const sponsorItemRight = {
     transition: { duration: 0.4, ease: 'easeInOut' },
   },
 };
+
+export const sponsorsBar = {
+  hidden: { x: '-100vw' },
+  show: {
+    x: '100vw',
+    transition: {
+      repeat: Infinity,
+      repeatType: 'loop',
+      duration: 25,
+    },
+  },
+};
+
+export const logo = {
+  hidden: { origin: 'center', rotate: 0, scale: 1 },
+  show: {
+    origin: 'center',
+    rotate: 360,
+
+    transition: {
+      repeat: Infinity,
+
+      duration: 10,
+    },
+  },
+};
