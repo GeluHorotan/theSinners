@@ -72,72 +72,74 @@ const Navigation = () => {
       </NavigationStyle>
 
       <IconContext.Provider value={{ color: `${secondary}` }}>
-        <SidebarStyles className={sidebar ? 'active' : ''}>
-          <UlStyle variants={comingTop} initial='hidden' animate='show'>
-            <BarsStyle>
-              <FaIcons.FaBars
-                className={sidebar ? 'hidden' : 'visible'}
-                onClick={showSidebar}
-              />
-              <AiIcons.AiOutlineClose
-                className={sidebar ? 'visible' : 'hidden'}
-                onClick={showSidebar}
-              />
-            </BarsStyle>
+        <nav>
+          <SidebarStyles className={sidebar ? 'active' : ''}>
+            <UlStyle variants={comingTop} initial='hidden' animate='show'>
+              <BarsStyle>
+                <FaIcons.FaBars
+                  className={sidebar ? 'hidden' : 'visible'}
+                  onClick={showSidebar}
+                />
+                <AiIcons.AiOutlineClose
+                  className={sidebar ? 'visible' : 'hidden'}
+                  onClick={showSidebar}
+                />
+              </BarsStyle>
 
-            <li>
-              <Button
-                setClassName='sidebar-btn'
-                isLink
-                setLink='/homepage'
-                setIcon={<AiIcons.AiOutlineTeam />}
-              >
-                <div className='margin-text'>ABOUT</div>
-              </Button>
-            </li>
-            <li>
-              <Button
-                setClassName='sidebar-btn'
-                isLink
-                setLink='/homepage'
-                setIcon={<FaIcons.FaNewspaper />}
-              >
-                <div className='margin-text'>NEWS</div>
-              </Button>
-            </li>
-            <li>
-              <Button
-                setClassName='sidebar-btn'
-                isLink
-                setLink='/homepage'
-                setIcon={<FaIcons.FaPeopleArrows />}
-              >
-                <div className='margin-text'>TEAMS</div>
-              </Button>
-            </li>
-            <li>
-              <Button
-                setClassName='sidebar-btn'
-                isLink
-                setLink='/homepage'
-                setIcon={<AiIcons.AiOutlineShoppingCart />}
-              >
-                {' '}
-                <div className='margin-text'> SHOP</div>
-              </Button>
-            </li>
-            <li>
-              <Button
-                setClassName='sidebar-btn'
-                isLink
-                setLink='/homepage'
-                setIcon={<FaIcons.FaNewspaper />}
-              >
-                <div className='margin-text'>CONTACT</div>
-              </Button>
-            </li>
-          </UlStyle>
-        </SidebarStyles>
+              <li>
+                <Button
+                  setClassName='sidebar-btn'
+                  isLink
+                  setLink='/homepage'
+                  setIcon={<AiIcons.AiOutlineTeam />}
+                >
+                  <div className='margin-text'>ABOUT</div>
+                </Button>
+              </li>
+              <li>
+                <Button
+                  setClassName='sidebar-btn'
+                  isLink
+                  setLink='/homepage'
+                  setIcon={<FaIcons.FaNewspaper />}
+                >
+                  <div className='margin-text'>NEWS</div>
+                </Button>
+              </li>
+              <li>
+                <Button
+                  setClassName='sidebar-btn'
+                  isLink
+                  setLink='/homepage'
+                  setIcon={<FaIcons.FaPeopleArrows />}
+                >
+                  <div className='margin-text'>TEAMS</div>
+                </Button>
+              </li>
+              <li>
+                <Button
+                  setClassName='sidebar-btn'
+                  isLink
+                  setLink='/homepage'
+                  setIcon={<AiIcons.AiOutlineShoppingCart />}
+                >
+                  {' '}
+                  <div className='margin-text'> SHOP</div>
+                </Button>
+              </li>
+              <li>
+                <Button
+                  setClassName='sidebar-btn'
+                  isLink
+                  setLink='/homepage'
+                  setIcon={<FaIcons.FaNewspaper />}
+                >
+                  <div className='margin-text'>CONTACT</div>
+                </Button>
+              </li>
+            </UlStyle>
+          </SidebarStyles>
+        </nav>
       </IconContext.Provider>
     </>
   );
