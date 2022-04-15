@@ -4,18 +4,24 @@ import { Link } from 'react-router-dom';
 
 // Components
 import Button from '../components/Button';
-import { SidebarData } from './SidebarData';
 // Images
 import Logo from '../img/logo.png';
 // Global Style
-import { accent, desaturatedRed, brown, secondary } from '../components/Colors';
+import {
+  accent,
+  desaturatedRed,
+  brown,
+  secondary,
+  primary,
+} from '../components/Colors';
 // Icons
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
 import { IconContext } from 'react-icons';
+
 // Animation
 import { motion } from 'framer-motion';
-import { navUl, navLogo } from './animation';
+import { navUl, navLogo, comingTop } from './animation';
 
 const Navigation = () => {
   const [sidebar, setSidebar] = useState(false);
@@ -66,35 +72,72 @@ const Navigation = () => {
       </NavigationStyle>
 
       <IconContext.Provider value={{ color: `${secondary}` }}>
-        <MenuBarsStyle className='navbar'>
-          <Link to='#' className='menu-bars'>
-            <FaIcons.FaBars onClick={showSidebar} />
-          </Link>
-        </MenuBarsStyle>
-        <Hamburger>
-          <nav
-            className={sidebar ? 'nav-menu active' : 'nav-menu'}
-            onClick={showSidebar}
-          >
-            <XStyle>
-              <Link to='#'>
-                <AiIcons.AiOutlineClose />
-              </Link>
-            </XStyle>
-            <ul className='nav-menu-items'>
-              {SidebarData.map((item, index) => {
-                return (
-                  <li key={index} className={item.cName}>
-                    <Link to={item.path}>
-                      {item.icon}
-                      <h6> {item.title} </h6>
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          </nav>
-        </Hamburger>
+        <SidebarStyles className={sidebar ? 'active' : ''}>
+          <UlStyle variants={comingTop} initial='hidden' animate='show'>
+            <BarsStyle>
+              <FaIcons.FaBars
+                className={sidebar ? 'hidden' : 'visible'}
+                onClick={showSidebar}
+              />
+              <AiIcons.AiOutlineClose
+                className={sidebar ? 'visible' : 'hidden'}
+                onClick={showSidebar}
+              />
+            </BarsStyle>
+
+            <li>
+              <Button
+                setClassName='sidebar-btn'
+                isLink
+                setLink='/homepage'
+                setIcon={<AiIcons.AiOutlineTeam />}
+              >
+                <div className='margin-text'>ABOUT</div>
+              </Button>
+            </li>
+            <li>
+              <Button
+                setClassName='sidebar-btn'
+                isLink
+                setLink='/homepage'
+                setIcon={<FaIcons.FaNewspaper />}
+              >
+                <div className='margin-text'>NEWS</div>
+              </Button>
+            </li>
+            <li>
+              <Button
+                setClassName='sidebar-btn'
+                isLink
+                setLink='/homepage'
+                setIcon={<FaIcons.FaPeopleArrows />}
+              >
+                <div className='margin-text'>TEAMS</div>
+              </Button>
+            </li>
+            <li>
+              <Button
+                setClassName='sidebar-btn'
+                isLink
+                setLink='/homepage'
+                setIcon={<AiIcons.AiOutlineShoppingCart />}
+              >
+                {' '}
+                <div className='margin-text'> SHOP</div>
+              </Button>
+            </li>
+            <li>
+              <Button
+                setClassName='sidebar-btn'
+                isLink
+                setLink='/homepage'
+                setIcon={<FaIcons.FaNewspaper />}
+              >
+                <div className='margin-text'>CONTACT</div>
+              </Button>
+            </li>
+          </UlStyle>
+        </SidebarStyles>
       </IconContext.Provider>
     </>
   );
@@ -117,15 +160,12 @@ const NavigationStyle = styled.nav`
     display: flex;
   }
 
-  #top {
-    background: none;
-  }
-  #right {
-    background: none;
-  }
+  #top,
+  #right,
   #left {
     background: none;
   }
+
   #bottom {
     height: 3px;
     background: ${desaturatedRed};
@@ -149,92 +189,51 @@ const NavigationStyle = styled.nav`
   }
 `;
 
-const MenuBarsStyle = styled.div`
-  .menu-bars {
-    margin-left: 2rem;
-    font-size: 1.5rem;
+const SidebarStyles = styled.div`
+  width: 6rem;
+  background: ${accent};
+  height: 100vh;
+  position: fixed;
+  z-index: 10;
+  align-items: center;
+
+  #top,
+  #bottom,
+  #left,
+  #right {
     background: none;
-    position: fixed;
-    z-index: 5;
-    top: 4%;
-    filter: drop-shadow(0.15rem 0.15rem 0.05rem #000000);
-    @media screen and (min-width: 768px) {
-      display: none;
-    }
   }
-`;
 
-const XStyle = styled.span`
-  width: 100%;
-  display: flex;
-  justify-content: start;
-  align-items: center;
-  font-size: 2rem;
-  margin: 1rem;
-  position: absolute;
-  left: 100%;
-  filter: drop-shadow(0.15rem 0.15rem 0.05rem #000000);
-`;
-
-const Hamburger = styled.nav`
-  display: flex;
-  justify-content: start;
-  align-items: center;
   @media screen and (min-width: 768px) {
     display: none;
   }
+`;
 
-  .nav-menu {
-    background-color: ${accent};
-    width: 35%;
-    height: 100vh;
-    z-index: 10;
-    display: flex;
-    justify-content: center;
-    position: fixed;
-    top: 0;
-    left: -100%;
-    transition: 850ms;
-  }
-
-  .nav-menu.active {
-    left: 0;
-    transition: 350ms;
-  }
-
-  .nav-text {
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    padding: 0.5rem 0px 0.5rem 1rem;
-    list-style: none;
-  }
-
-  .nav-text a {
-    text-decoration: none;
-    color: ${secondary};
-    font-size: 1.5rem;
-    width: 95%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    padding: 0 16px;
-    border-radius: 0.5rem;
-  }
-
-  .nav-text a:hover {
-    background-color: ${desaturatedRed};
-  }
-
-  .nav-menu-items {
+const UlStyle = styled(motion.ul)`
+  list-style: none;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  li {
+    padding: 1rem;
     width: 100%;
-    margin: 3rem 0;
+    transition: 0.4s all ease-in-out;
   }
-
-  h6 {
-    margin-left: 1rem;
+  li:hover {
+    background: ${primary};
+    transform: scale(1.05);
+  }
+  a {
     font-size: 1.5rem;
   }
+`;
+
+const BarsStyle = styled.div`
+  display: flex;
+  margin: 2.2rem;
+  width: 100%;
+  font-size: 1.5rem;
 `;
 
 export default Navigation;

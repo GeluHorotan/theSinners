@@ -1,6 +1,6 @@
-import { createGlobalStyle } from "styled-components";
+import { createGlobalStyle } from 'styled-components';
 
- const GlobalStyle = createGlobalStyle`
+const GlobalStyle = createGlobalStyle`
   
 * {
   margin: 0;
@@ -56,7 +56,7 @@ h6 {
   font-size: 1.25rem;
   line-height: 2rem;
   letter-spacing: 0px;
-      font-family: futura-pt,sans-serif;
+ font-family: futura-pt,sans-serif;
 font-weight: 400;
 font-style: normal;
 }
@@ -72,9 +72,24 @@ font-style: normal;
 
 .hidden {
   display: none;
+
 }
 
+.visible {
+  display: flex;
+}
 
-`
+.active {
+    width: 17rem;
+  }
 
-export default GlobalStyle
+   .margin-text {
+      margin-left: 1.5rem;
+    }
+
+
+
+
+`;
+
+export default GlobalStyle;
