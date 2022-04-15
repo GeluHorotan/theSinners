@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
 // Global Style
-import { secondary } from '../components/Colors';
+import { secondary } from '../Utility/Colors';
 import { Link } from 'react-router-dom';
 
 const Button = ({

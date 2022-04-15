@@ -7,7 +7,7 @@ import Homepage from './pages/Homepage';
 import { Routes, Route, useLocation } from 'react-router-dom';
 
 // Global Style
-import GlobalStyle from './components/GlobalStyle';
+import GlobalStyle from './Utility/GlobalStyle';
 
 // Components
 import Navigation from './components/Navigation';

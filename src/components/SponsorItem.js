@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Button from './Button';
 
 // Colors
-import { accent, secondary, saturatedRed } from './Colors';
+import { accent, secondary, saturatedRed } from '../Utility/Colors';
 
 import { motion } from 'framer-motion';
 

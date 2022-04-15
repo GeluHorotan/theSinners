@@ -7,7 +7,7 @@ import { motion } from 'framer-motion';
 import { sponsorsBar } from './animation';
 
 // Colors
-import { accent } from '../components/Colors';
+import { accent } from '../Utility/Colors';
 
 const SponsorsBar = ({
   setSponsor1,
