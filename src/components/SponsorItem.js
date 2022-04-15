@@ -38,10 +38,10 @@ const MainContainer = styled(motion.div)`
   background: ${accent};
   border-radius: 3rem;
   padding: 2rem;
+  overflow: hidden;
 
   @media screen and (max-width: 934px) {
     display: block;
-    width: 100%;
     border-radius: 0;
   }
 
@@ -59,7 +59,7 @@ const MainContainer = styled(motion.div)`
   }
 
   &:nth-child(even) {
-    margin-left: 65rem;
+    margin-left: 35rem;
 
     @media screen and (max-width: 934px) {
       margin-left: 0;
@@ -71,7 +71,7 @@ const MainContainer = styled(motion.div)`
     }
   }
   &:nth-child(odd) {
-    margin-right: 65rem;
+    margin-right: 35rem;
     @media screen and (max-width: 934px) {
       margin-right: 0;
       display: block;
@@ -101,15 +101,9 @@ const MainContainer = styled(motion.div)`
     color: ${accent};
   }
 
-  #top {
-    background: none;
-  }
-  #bottom {
-    background: none;
-  }
-  #left {
-    background: none;
-  }
+  #top,
+  #bottom,
+  #left,
   #right {
     background: none;
   }

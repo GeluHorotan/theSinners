@@ -151,6 +151,7 @@ const NavigationStyle = styled.nav`
   padding: 0.5rem 7rem;
   background: ${accent};
   position: sticky;
+  overflow: hidden;
   top: 0;
   z-index: 10;
   filter: drop-shadow(0 0.2rem 0.3rem ${brown});

@@ -2,15 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
-// Logos
-import RazerLogo from '../img/SponsorLogos/razer.png';
-import Redbull from '../img/SponsorLogos/redbull.svg';
-import Logitech from '../img/SponsorLogos/logitech.png';
-import Hyperx from '../img/SponsorLogos/hyperx.svg';
-import Nvidia from '../img/SponsorLogos/nvidia.svg';
-import Northface from '../img/SponsorLogos/northface.svg';
-import Tesla from '../img/SponsorLogos/tesla.png';
-
 // Animation
 
 import { sponsorsBar } from './animation';
@@ -18,17 +9,25 @@ import { sponsorsBar } from './animation';
 // Colors
 import { accent } from '../components/Colors';
 
-const SponsorsBar = () => {
+const SponsorsBar = ({
+  setSponsor1,
+  setSponsor2,
+  setSponsor3,
+  setSponsor4,
+  setSponsor5,
+  setSponsor6,
+  setSponsor7,
+}) => {
   return (
     <BarStyle>
       <ImagesStyle variants={sponsorsBar} initial='hidden' animate='show'>
-        <motion.img src={RazerLogo} alt='' />
-        <motion.img src={Redbull} alt='' />
-        <motion.img src={Logitech} class='bigger' alt='' />
-        <motion.img src={Hyperx} class='bigger' alt='' />
-        <motion.img src={Nvidia} alt='' />
-        <motion.img src={Northface} alt='' />
-        <motion.img src={Tesla} alt='' />
+        <motion.img src={setSponsor1} alt='' />
+        <motion.img src={setSponsor2} alt='' />
+        <motion.img src={setSponsor3} class='bigger' alt='' />
+        <motion.img src={setSponsor4} class='bigger' alt='' />
+        <motion.img src={setSponsor5} alt='' />
+        <motion.img src={setSponsor6} alt='' />
+        <motion.img src={setSponsor7} alt='' />
       </ImagesStyle>
     </BarStyle>
   );
@@ -42,6 +41,7 @@ const BarStyle = styled.div`
   justify-content: center;
   flex-direction: row;
   padding: 2rem;
+  overflow: hidden;
 
   .bigger {
     width: 7rem;

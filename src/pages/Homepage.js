@@ -18,6 +18,15 @@ import HyperxStuff from '../img/SponsorItems/hyperxStuff.png';
 import RazerMouse from '../img/SponsorItems/razerMouse.png';
 import RazerLaptop from '../img/SponsorItems/razerLaptop.png';
 
+// Logos
+import RazerLogo from '../img/SponsorLogos/razer.png';
+import Redbull from '../img/SponsorLogos/redbull.svg';
+import Logitech from '../img/SponsorLogos/logitech.png';
+import Hyperx from '../img/SponsorLogos/hyperx.svg';
+import Nvidia from '../img/SponsorLogos/nvidia.svg';
+import Northface from '../img/SponsorLogos/northface.svg';
+import Tesla from '../img/SponsorLogos/tesla.png';
+
 const sponsorItems = [
   {
     setImage: SteelseriesHeadset,
@@ -73,13 +82,20 @@ const Homepage = () => {
           />
         ))}
       </SponsorShowcase>
-      <SponsorsBar></SponsorsBar>
+      <SponsorsBar
+        setSponsor1={RazerLogo}
+        setSponsor2={Redbull}
+        setSponsor3={Logitech}
+        setSponsor4={Hyperx}
+        setSponsor5={Nvidia}
+        setSponsor6={Northface}
+        setSponsor7={Tesla}
+      ></SponsorsBar>
     </div>
   );
 };
 
 const DivStyle = styled.div`
-  width: 100%;
   height: 90vh;
   display: flex;
   flex-direction: row;
