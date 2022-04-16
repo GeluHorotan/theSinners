@@ -110,6 +110,10 @@ font-style: normal;
      }
   }
 
+  #red {
+    color: red;
+  }
+
 
 
 
