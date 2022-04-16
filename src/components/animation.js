@@ -130,9 +130,9 @@ export const sponsorItemRight = {
 };
 
 export const sponsorsBar = {
-  hidden: { x: '-100vw' },
+  hidden: { x: '-100%' },
   show: {
-    x: '100vw',
+    x: '100%',
     transition: {
       repeat: Infinity,
       repeatType: 'loop',
