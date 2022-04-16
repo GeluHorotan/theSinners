@@ -23,8 +23,8 @@ const SponsorsBar = ({
       <ImagesStyle variants={sponsorsBar} initial='hidden' animate='show'>
         <motion.img src={setSponsor1} alt='' />
         <motion.img src={setSponsor2} alt='' />
-        <motion.img src={setSponsor3} class='bigger' alt='' />
-        <motion.img src={setSponsor4} class='bigger' alt='' />
+        <motion.img src={setSponsor3} className='bigger' alt='' />
+        <motion.img src={setSponsor4} className='bigger' alt='' />
         <motion.img src={setSponsor5} alt='' />
         <motion.img src={setSponsor6} alt='' />
         <motion.img src={setSponsor7} alt='' />

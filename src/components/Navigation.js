@@ -157,6 +157,7 @@ const NavigationStyle = styled.nav`
   background: ${accent};
   position: sticky;
   overflow: hidden;
+
   top: 0;
   z-index: 10;
   filter: drop-shadow(0 0.2rem 0.3rem ${brown});
@@ -196,10 +197,11 @@ const NavigationStyle = styled.nav`
 `;
 
 const SidebarStyles = styled.div`
-  width: 2rem;
+  width: 3rem;
   background: ${accent};
   height: 100vh;
   position: fixed;
+
   z-index: 10;
   align-items: center;
   opacity: 0.85;
@@ -218,13 +220,13 @@ const SidebarStyles = styled.div`
 
 const UlStyle = styled(motion.ul)`
   list-style: none;
-  overflow: hidden;
+
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 
   li:first-child {
-    margin: 1.5rem 0;
+    margin: 2rem 0.3rem;
     width: 100%;
   }
 
@@ -234,7 +236,7 @@ const UlStyle = styled(motion.ul)`
   }
 
   li {
-    padding: 0.5rem 0;
+    padding: 0.5rem 0.4rem;
     width: 100%;
     transition: 0.4s all ease-in-out;
   }
@@ -243,7 +245,10 @@ const UlStyle = styled(motion.ul)`
     transform: scale(1.03);
   }
   a {
-    font-size: 1rem;
+    font-size: 1.2rem;
+  }
+  .margin-text {
+    display: none;
   }
   button {
     padding: 0.6rem 0.5rem;

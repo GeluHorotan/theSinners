@@ -81,11 +81,12 @@ font-style: normal;
 
 #active {
     width: 17rem;
+    .margin-text {
+       margin-left: 1rem;
+       display: flex;
+     }
   }
 
-   .margin-text {
-      margin-left: 1.5rem;
-    }
 
 
 

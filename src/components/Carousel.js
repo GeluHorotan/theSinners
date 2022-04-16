@@ -61,6 +61,7 @@ const SectionStyle = styled.section`
   display: flex;
   justify-content: center;
   align-items: center;
+
   .right-arrow {
     position: absolute;
     top: 50%;
