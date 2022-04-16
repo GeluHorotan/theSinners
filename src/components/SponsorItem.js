@@ -8,7 +8,6 @@ import { accent, secondary, saturatedRed } from '../Utility/Colors';
 import { motion } from 'framer-motion';
 
 const SponsorItem = ({ setImage, setAlt, setText, setVariants }) => {
-  console.log(setVariants);
   return (
     <MainContainer
       variants={setVariants}
@@ -40,9 +39,13 @@ const MainContainer = styled(motion.div)`
   padding: 2rem;
   overflow: hidden;
 
-  @media screen and (max-width: 934px) {
+  @media screen and (max-width: 768px) {
     display: block;
-    border-radius: 0;
+    margin: 10rem;
+    @media screen and (max-width: 1024px) {
+      display: block;
+      margin: 10rem 0;
+    }
   }
 
   &:hover {
@@ -59,26 +62,56 @@ const MainContainer = styled(motion.div)`
   }
 
   &:nth-child(even) {
-    margin-left: 35rem;
+    margin-left: 65rem;
 
-    @media screen and (max-width: 934px) {
-      margin-left: 0;
+    overflow-x: hidden;
+
+    @media screen and (max-width: 768px) {
+      display: block;
+      width: 85%;
+      margin: 4rem auto;
+    }
+    @media screen and (max-width: 1024px) {
+      display: block;
+      width: 85%;
+      margin: 4rem auto;
+    }
+    @media screen and (max-width: 1200px) {
+      display: block;
+      width: 85%;
+      margin: 4rem auto;
+    }
+    @media screen and (min-width: 1201px) {
+      margin-left: 45rem;
       display: block;
     }
-    @media screen and (max-width: 1024) {
-      margin-left: 0;
-      display: block;
+    @media screen and (min-width: 1700px) {
+      margin-left: 65rem;
     }
   }
   &:nth-child(odd) {
-    margin-right: 35rem;
-    @media screen and (max-width: 934px) {
-      margin-right: 0;
+    margin-right: 65rem;
+    @media screen and (max-width: 768px) {
+      display: block;
+      width: 85%;
+      margin: 4rem auto;
+    }
+    @media screen and (max-width: 1024px) {
+      display: block;
+      width: 85%;
+      margin: 4rem auto;
+    }
+    @media screen and (max-width: 1200px) {
+      display: block;
+      width: 85%;
+      margin: 4rem auto;
+    }
+    @media screen and (min-width: 1201px) {
+      margin-right: 45rem;
       display: block;
     }
-    @media screen and (max-width: 1024) {
-      margin-right: 0;
-      display: block;
+    @media screen and (min-width: 1700px) {
+      margin-right: 65rem;
     }
   }
 
@@ -116,6 +149,16 @@ const ImgStyle = styled.img`
   align-items: center;
   justify-content: center;
   width: 15rem;
+  margin: 1rem;
+  @media screen and (max-width: 768px) {
+    width: 10rem;
+  }
+  @media screen and (max-width: 1024px) {
+    width: 12rem;
+  }
+  @media screen and (max-width: 1200px) {
+    width: 14rem;
+  }
 `;
 
 const SecondaryContainer = styled.div`
@@ -124,6 +167,16 @@ const SecondaryContainer = styled.div`
   align-items: flex-end;
   justify-content: center;
   margin: 1rem;
+
+  @media screen and (max-width: 768px) {
+    align-items: center;
+  }
+  @media screen and (max-width: 1024px) {
+    align-items: center;
+  }
+  @media screen and (max-width: 1200px) {
+    align-items: center;
+  }
 `;
 
 export default SponsorItem;

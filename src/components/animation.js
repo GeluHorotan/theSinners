@@ -49,7 +49,7 @@ export const logoLeft = {
 };
 
 export const logoRight = {
-  hidden: { x: 2000, y: 237.242, scale: 0, opacity: 0 },
+  hidden: { x: '2000', y: 237.242, scale: 0, opacity: 0 },
   show: {
     x: 981.247,
     y: 237.242,
@@ -65,11 +65,17 @@ export const popup = {
 };
 
 export const navUl = {
-  hidden: { x: 2500, opacity: 0 },
+  hidden: { x: '100vw', opacity: 0 },
   show: {
     x: 0,
     opacity: 1,
-    transition: { duration: 1, type: 'spring', stiffness: '80' },
+    transition: {
+      duration: 1,
+      type: 'spring',
+      stiffness: '70',
+      damping: 8,
+      mass: 0.5,
+    },
   },
 };
 
@@ -78,15 +84,27 @@ export const navLogo = {
   show: {
     x: 0,
     opacity: 1,
-    transition: { duration: 1, type: 'spring', stiffness: '80' },
+    transition: {
+      duration: 1,
+      type: 'spring',
+      stiffness: '70',
+      damping: 8,
+      mass: 0.5,
+    },
   },
 };
 
 export const sponsorItemLeft = {
-  hidden: { x: '-100vw ' },
+  hidden: { x: '-60% ' },
   show: {
     x: 0,
-    transition: { duration: 2, type: 'spring', stiffness: 70 },
+    transition: {
+      duration: 2,
+      type: 'spring',
+      stiffness: 70,
+      damping: 8,
+      mass: 1,
+    },
   },
   hover: {
     scale: 1.03,
@@ -94,10 +112,16 @@ export const sponsorItemLeft = {
   },
 };
 export const sponsorItemRight = {
-  hidden: { x: '100vw' },
+  hidden: { x: '60%' },
   show: {
     x: 0,
-    transition: { duration: 2, type: 'spring', stiffness: 70 },
+    transition: {
+      duration: 2,
+      type: 'spring',
+      stiffness: 70,
+      damping: 8,
+      mass: 1,
+    },
   },
   hover: {
     scale: 1.03,

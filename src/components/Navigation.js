@@ -76,14 +76,17 @@ const Navigation = () => {
           <SidebarStyles className={sidebar ? 'active' : ''}>
             <UlStyle variants={comingTop} initial='hidden' animate='show'>
               <BarsStyle>
-                <FaIcons.FaBars
-                  className={sidebar ? 'hidden' : 'visible'}
-                  onClick={showSidebar}
-                />
-                <AiIcons.AiOutlineClose
-                  className={sidebar ? 'visible' : 'hidden'}
-                  onClick={showSidebar}
-                />
+                <li>
+                  <FaIcons.FaBars
+                    className={sidebar ? 'hidden' : 'visible'}
+                    onClick={showSidebar}
+                  />
+
+                  <AiIcons.AiOutlineClose
+                    className={sidebar ? 'visible' : 'hidden'}
+                    onClick={showSidebar}
+                  />
+                </li>
               </BarsStyle>
 
               <li>
@@ -150,14 +153,14 @@ const NavigationStyle = styled.nav`
   margin: auto;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem 7rem;
+  padding: 0.5rem 4rem;
   background: ${accent};
   position: sticky;
   overflow: hidden;
   top: 0;
   z-index: 10;
   filter: drop-shadow(0 0.2rem 0.3rem ${brown});
-
+  overflow-x: hidden;
   display: none;
   @media screen and (min-width: 768px) {
     display: flex;
@@ -176,7 +179,7 @@ const NavigationStyle = styled.nav`
   a {
     color: ${secondary};
     text-decoration: none;
-    font-size: 1.5rem;
+    font-size: 1rem;
   }
   ul {
     display: flex;
@@ -184,7 +187,7 @@ const NavigationStyle = styled.nav`
   }
 
   li {
-    padding-left: 5rem;
+    padding-left: 1rem;
     position: relative;
   }
   #logo {
@@ -193,12 +196,13 @@ const NavigationStyle = styled.nav`
 `;
 
 const SidebarStyles = styled.div`
-  width: 6rem;
+  width: 2rem;
   background: ${accent};
   height: 100vh;
   position: fixed;
   z-index: 10;
   align-items: center;
+  opacity: 0.85;
 
   #top,
   #bottom,
@@ -218,25 +222,40 @@ const UlStyle = styled(motion.ul)`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+
+  li:first-child {
+    margin: 1.5rem 0;
+    width: 100%;
+  }
+
+  li:first-child:hover {
+    transform: scale(1);
+    background: none;
+  }
+
   li {
-    padding: 1rem;
+    padding: 0.5rem 0;
     width: 100%;
     transition: 0.4s all ease-in-out;
   }
   li:hover {
     background: ${primary};
-    transform: scale(1.05);
+    transform: scale(1.03);
   }
   a {
-    font-size: 1.5rem;
+    font-size: 1rem;
+  }
+  button {
+    padding: 0.6rem 0.5rem;
   }
 `;
 
 const BarsStyle = styled.div`
   display: flex;
-  margin: 2.2rem;
+  flex-direction: column;
+  margin-left: 0.5rem;
   width: 100%;
-  font-size: 1.5rem;
+  font-size: 1rem;
 `;
 
 export default Navigation;

@@ -14,14 +14,6 @@ const ContainerStyle = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  .right {
-    width: 50%;
-    /* margin-right: 50rem; */
-  }
-  .left {
-    width: 50%;
-  }
 `;
 
 export default SponsorShowcase;

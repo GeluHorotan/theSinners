@@ -44,12 +44,31 @@ const BarStyle = styled.div`
   overflow: hidden;
 
   .bigger {
-    width: 7rem;
+    width: 5.5rem;
+    @media screen and (max-width: 768px) {
+      width: 4rem;
+    }
+    @media screen and (max-width: 1024px) {
+      width: 4.5rem;
+    }
+    @media screen and (max-width: 1200px) {
+      width: 5rem;
+    }
   }
 
   img {
-    width: 5rem;
+    width: 4rem;
     margin: 0 5rem;
+
+    @media screen and (max-width: 768px) {
+      width: 2rem;
+    }
+    @media screen and (max-width: 1024px) {
+      width: 3rem;
+    }
+    @media screen and (max-width: 1200px) {
+      width: 3.5rem;
+    }
   }
 `;
 
@@ -57,7 +76,6 @@ const ImagesStyle = styled(motion.div)`
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
 `;
 
 export default SponsorsBar;

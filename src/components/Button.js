@@ -64,9 +64,6 @@ const ButtonStyle = styled(motion.button)`
     display: flex;
     justify-content: center;
     align-items: center;
-    svg {
-      margin-right: 1rem;
-    }
   }
 `;
 
