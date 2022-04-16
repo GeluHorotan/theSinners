@@ -30,8 +30,9 @@ const SponsorItem = ({ setImage, setAlt, setText, setVariants }) => {
 
 const MainContainer = styled(motion.div)`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: 35%;
+
   align-items: center;
   margin: 8rem auto;
   background: ${accent};
@@ -44,7 +45,7 @@ const MainContainer = styled(motion.div)`
     margin: 10rem;
     @media screen and (max-width: 1024px) {
       display: block;
-      margin: 10rem 0;
+      margin: 10rem 0rem;
     }
   }
 
@@ -138,7 +139,7 @@ const MainContainer = styled(motion.div)`
   #bottom,
   #left,
   #right {
-    background: none;
+    display: none;
   }
 `;
 const PStyle = styled.p`

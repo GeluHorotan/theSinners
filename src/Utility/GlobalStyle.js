@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import { secondary, primary } from './Colors';
 
 const GlobalStyle = createGlobalStyle`
   
@@ -7,6 +8,28 @@ const GlobalStyle = createGlobalStyle`
   padding: 0;
   box-sizing: border-box;
  
+}
+
+* {
+  scrollbar-width: 0.4rem;
+  scrollbar-color: ${secondary};
+}
+
+*::-webkit-scrollbar {
+  width: 0.4rem;
+  
+}
+*::-webkit-scrollbar-track {
+  background: ${primary}
+
+  
+}
+*::-webkit-scrollbar-thumb {
+  background-color: ${secondary};
+  width: 5rem;
+  border-radius: 2.5rem;
+  border: transparent;
+
 }
 
 body {
