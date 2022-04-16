@@ -73,7 +73,7 @@ const Navigation = () => {
 
       <IconContext.Provider value={{ color: `${secondary}` }}>
         <nav>
-          <SidebarStyles className={sidebar ? 'active' : ''}>
+          <SidebarStyles id={sidebar ? 'active' : ''}>
             <UlStyle variants={comingTop} initial='hidden' animate='show'>
               <BarsStyle>
                 <li>

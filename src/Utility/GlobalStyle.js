@@ -79,7 +79,7 @@ font-style: normal;
   display: flex;
 }
 
-.active {
+#active {
     width: 17rem;
   }
 
