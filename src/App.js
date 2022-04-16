@@ -2,6 +2,11 @@ import React from 'react';
 // Pages
 import Starting from './pages/Starting';
 import Homepage from './pages/Homepage';
+import About from './pages/About';
+import News from './pages/News';
+import Teams from './pages/Teams';
+import Shop from './pages/Shop';
+import Contact from './pages/Contact';
 
 // Router
 import { Routes, Route, useLocation } from 'react-router-dom';
@@ -24,6 +29,11 @@ function App() {
       <Routes location={location} key={location.pathname}>
         <Route path='/' exact element={<Starting />} />
         <Route path='/homepage' exact element={<Homepage />} />
+        <Route path='/about' exact element={<About />} />
+        <Route path='/news' exact element={<News />} />
+        <Route path='/teams' exact element={<Teams />} />
+        <Route path='/shop' exact element={<Shop />} />
+        <Route path='/contact' exact element={<Contact />} />
       </Routes>
     </div>
   );

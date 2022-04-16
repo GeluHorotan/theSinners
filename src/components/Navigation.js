@@ -44,27 +44,27 @@ const Navigation = () => {
 
         <motion.ul variants={navUl} initial='hidden' animate='show'>
           <li>
-            <Button isLink setLink='/'>
+            <Button isLink setLink='/about'>
               ABOUT
             </Button>
           </li>
           <li>
-            <Button isLink setLink='/'>
+            <Button isLink setLink='/news'>
               NEWS
             </Button>
           </li>
           <li>
-            <Button isLink setLink='/'>
+            <Button isLink setLink='/teams'>
               TEAMS
             </Button>
           </li>
           <li>
-            <Button isLink setLink='/'>
+            <Button isLink setLink='/shop'>
               SHOP
             </Button>
           </li>
           <li>
-            <Button isLink setLink='/'>
+            <Button isLink setLink='/contact'>
               CONTACT
             </Button>
           </li>
