@@ -1,96 +1,92 @@
-import React from 'react';
-import styled from 'styled-components';
-import { PlayerCard } from '../components/playerCard/PlayerCard';
+import React from "react";
+import styled from "styled-components";
+import Card from "../components/playerCard/Card";
+import Button from "../components/Button";
 
 // Utility
-import { primary } from '../Utility/Colors';
+import { primary } from "../Utility/Colors";
 
 // Players photos
-import Puppey from '../img/playerCards/puppey.png';
-import Sumail from '../img/playerCards/sumail.png';
-import Nisha from '../img/playerCards/nisha.png';
-import Yapzor from '../img/playerCards/yapzor.png';
-import iceiceice from '../img/playerCards/iceiceice.png';
+import Puppey from "../img/playerCards/puppey.png";
+import Sumail from "../img/playerCards/sumail.png";
+import Nisha from "../img/playerCards/nisha.png";
+import Yapzor from "../img/playerCards/yapzor.png";
+import iceiceice from "../img/playerCards/iceiceice.png";
 
 const Teams = () => {
   return (
-    <BackgroundStyle>
-      <PlayerCard
-        setInfo1=''
-        setInfo2='Name: '
-        setInfo3='Location: '
-        setInfo4='Age: '
-        setInfo5='Position: '
-        setInfo6=''
-        setNickname='Rein.'
-        setName='Alexandru Butnaru'
-        setLocation='Romania'
-        setAge='24'
-        setPosition='Safelane (1)'
-        setSignatureHeroes='NAIX, SF, STORM SPIRIT'
-        setPhoto={Sumail}
-      />
-      <PlayerCard
-        setInfo1=''
-        setInfo2='Name: '
-        setInfo3='Location: '
-        setInfo4='Age: '
-        setInfo5='Position: '
-        setInfo6=''
-        setNickname='oxymoron'
-        setName='Gelu Horotan'
-        setLocation='Romania'
-        setAge='23'
-        setPosition='Midlane (2)'
-        setSignatureHeroes='SF, SF, SF'
-        setPhoto={Nisha}
-      />
-      <PlayerCard
-        setInfo1=''
-        setInfo2='Name: '
-        setInfo3='Location: '
-        setInfo4='Age: '
-        setInfo5='Position: '
-        setInfo6=''
-        setNickname='gnx'
-        setName='Ronald Solticzki'
-        setLocation='Romania'
-        setAge='21'
-        setPosition='Offlane (3)'
-        setSignatureHeroes='TIDEHUNTER, AXE, BRISTLEBACK'
-        setPhoto={iceiceice}
-      />
-      <PlayerCard
-        setInfo1=''
-        setInfo2='Name: '
-        setInfo3='Location: '
-        setInfo4='Age: '
-        setInfo5='Position: '
-        setInfo6=''
-        setNickname='YapzOr'
-        setName='Yazied Jaradat'
-        setLocation='Jordan'
-        setAge='27'
-        setPosition='Soft Support (4)'
-        setSignatureHeroes='NAIX, SF, STORM SPIRIT'
-        setPhoto={Yapzor}
-      />
-      <PlayerCard
-        setInfo1=''
-        setInfo2='Name: '
-        setInfo3='Location: '
-        setInfo4='Age: '
-        setInfo5='Position: '
-        setInfo6=''
-        setNickname='Puppey'
-        setName='Clement Ivanov'
-        setLocation='Estonia'
-        setAge='32'
-        setPosition='Hard Support (5)'
-        setSignatureHeroes='CRYSTAL MAIDEN, OGRE, ELROND'
-        setPhoto={Puppey}
-      />
-    </BackgroundStyle>
+    <>
+      <BackgroundStyle>
+        <Card>
+          <Button>hello test button</Button>
+        </Card>
+      </BackgroundStyle>
+      <BackgroundStyle>
+        <Card
+          className="player-card"
+          age={22}
+          cardType="player"
+          location="Romania"
+          name="Test Tester Very Long Name To See How Player Card Reacts To Longer Text"
+          nickname="TestNick"
+          position="Test Position"
+          signatureHeroes={[
+            "aba",
+            "beta",
+            "gamma",
+            "test",
+            "long test",
+            "longer test",
+            "very long test",
+            "extremely long test oh yeah",
+          ]}
+          src={Puppey}
+        />
+        <Card
+          className="player-card"
+          age={22}
+          cardType="player"
+          location="Romania"
+          name="Test Tester"
+          nickname="TestNick"
+          position="Test Position"
+          signatureHeroes={["aba", "beta", "gamma"]}
+          src={Puppey}
+        />
+        <Card
+          className="player-card"
+          age={22}
+          cardType="player"
+          location="Romania"
+          name="Test Tester"
+          nickname="TestNick"
+          position="Test Position"
+          signatureHeroes={["aba", "beta", "gamma"]}
+          src={Puppey}
+        />
+        <Card
+          className="player-card"
+          age={22}
+          cardType="player"
+          location="Romania"
+          name="Test Tester"
+          nickname="TestNick"
+          position="Test Position"
+          signatureHeroes={["aba", "beta", "gamma"]}
+          src={Puppey}
+        />
+        <Card
+          className="player-card"
+          age={22}
+          cardType="player"
+          location="Romania"
+          name="Test Tester"
+          nickname="TestNick"
+          position="Test Position"
+          signatureHeroes={["aba", "beta", "gamma"]}
+        />
+      </BackgroundStyle>
+    </>
   );
 };
 
@@ -98,11 +94,15 @@ const BackgroundStyle = styled.div`
   width: 100%;
   height: 100vh;
   background: ${primary};
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  padding: 0 4rem;
+  grid-auto-rows: 1fr;
   gap: 5rem;
+
+  .player-card {
+    min-height: 100%;
+  }
 `;
 
 export default Teams;

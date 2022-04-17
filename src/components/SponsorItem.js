@@ -1,26 +1,26 @@
-import React from 'react';
-import styled from 'styled-components';
-import Button from './Button';
+import React from "react";
+import styled from "styled-components";
+import Button from "./Button";
 
 // Colors
-import { accent, secondary, saturatedRed } from '../Utility/Colors';
+import { accent, secondary, saturatedRed } from "../Utility/Colors";
 
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
 const SponsorItem = ({ setImage, setAlt, setText, setVariants }) => {
   return (
     <MainContainer
       variants={setVariants}
-      initial='hidden'
-      animate='show'
-      whileHover='hover'
+      initial="hidden"
+      animate="show"
+      whileHover="hover"
     >
       <ImgStyle src={setImage} alt={setAlt} />
 
       <SecondaryContainer>
         <PStyle>{setText}</PStyle>
 
-        <Button isLink setLink='/'>
+        <Button isLink setLink="/">
           SHOP NOW
         </Button>
       </SecondaryContainer>
