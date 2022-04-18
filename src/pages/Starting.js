@@ -26,8 +26,7 @@ const Starting = () => {
         setIcon={<FontAwesomeIcon id='openBook' size='1x' icon={faBookOpen} />}
         setLink='/homepage'
       >
-        {' '}
-        BEGIN YOUR JOURNEY
+        <h4> BEGIN YOUR JOURNEY</h4>
       </Button>
     </DivStyle>
   );

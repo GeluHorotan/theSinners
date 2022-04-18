@@ -109,15 +109,50 @@ font-style: normal;
        display: flex;
      }
   }
+ 
+ #magenta {
+   background: magenta;
+    transition: 0.4s all ease-in-out;
+ }
+ #magenta:hover {
+    color: darkgoldenrod;
+   background: whitesmoke;
+ }
+ #orange {
+   background: #FF8C32;
+    transition: 0.4s all ease-in-out;
+ }
+ #orange:hover {
+    color: darkgoldenrod;
+   background: whitesmoke;
+ }
+ #pink {
+   background: #FF85B3;
+    transition: 0.4s all ease-in-out;
+ }
+ #pink:hover {
+   color: darkgoldenrod;
+   background: whitesmoke;
+ }
+ #lightblue {
+   background: #84DFFF;
+     transition: 0.4s all ease-in-out;
+ }
+ #lightblue:hover {
+    color: darkgoldenrod;
+   background: whitesmoke;
+ }
+ #desaturated-red
+ {
+   background: #FF8882;
+   transition: 0.4s all ease-in-out;
 
-  #red {
-    color: red;
-  }
-
-
-
-
-
+ }
+ #desaturated-red:hover
+ {
+   color: darkgoldenrod;
+   background: whitesmoke;
+ }
 `;
 
 export default GlobalStyle;

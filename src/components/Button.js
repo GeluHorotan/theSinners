@@ -17,6 +17,7 @@ const Button = ({
   setText,
   setLink,
   setIcon,
+  setId,
 }) => {
   return (
     <ButtonStyle
@@ -24,6 +25,7 @@ const Button = ({
       variants={setVariants}
       initial={setInitial}
       animate={setAnimate}
+      id={setId}
     >
       <SpanStyle id='top'></SpanStyle>
       <SpanStyle id='bottom'></SpanStyle>
@@ -46,7 +48,7 @@ const ButtonStyle = styled(motion.button)`
   font-family: futura-pt, sans-serif;
   font-weight: 700;
   font-style: normal;
-  font-size: 2rem;
+  font-size: 1rem;
   padding: 0.6rem 1.25rem;
   cursor: pointer;
 

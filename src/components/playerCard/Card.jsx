@@ -1,22 +1,28 @@
-import { motion, useMotionValue, useTransform } from "framer-motion";
-import React, { Fragment, useState } from "react";
-import styled from "styled-components";
+import { motion, useMotionValue, useTransform } from 'framer-motion';
+import React from 'react';
+import styled from 'styled-components';
 
-import { Marginer } from "../marginer";
-import SinnersLogo from "../../img/logo.png";
+// Components
+import Button from '../Button';
+
+import { Marginer } from '../marginer';
+import SinnersLogo from '../../img/logo.png';
 
 // Utility
-import { desaturatedRed, accent, secondary } from "../../Utility/Colors";
+import { desaturatedRed, accent, secondary } from '../../Utility/Colors';
 
 const Card = ({
+  topText,
+  cardColor,
+  buttonText,
   nickname,
   name,
   location,
   age,
   position,
   signatureHeroes,
+  signatureHeroesClassName = 'heroes',
   src,
-  color,
   cardType,
   children,
   className,
@@ -26,55 +32,61 @@ const Card = ({
   const rotateX = useTransform(y, [-100, 100], [30, -30]);
   const rotateY = useTransform(x, [-100, 100], [-30, 30]);
 
-  if (cardType === "player") {
+  if (cardType === 'player') {
     return (
       <StyledDiv className={className}>
         <motion.div
-          className="container"
+          className='container'
           style={{ x, y, rotateX, rotateY, z: 100 }}
           drag
           dragElastic={0.16}
           dragConstraints={{ top: 0, left: 0, right: 0, bottom: 0 }}
-          whileTap={{ cursor: "grabbing" }}
+          whileTap={{ cursor: 'grabbing' }}
         >
-          <div className="player-image-container">
+          <div className='player-image-container' id={cardColor}>
             <motion.div
-              className="player-image"
-              style={{ x, y, rotateX, rotateY, rotate: "0", z: 100000 }}
+              className='player-image'
+              style={{ x, y, rotateX, rotateY, rotate: '0', z: 100000 }}
               drag
               dragElastic={0.12}
-              whileTap={{ cursor: "grabbing" }}
+              whileTap={{ cursor: 'grabbing' }}
             >
-              {src && <img src={src} alt="card" />}
+              {src && <img src={src} alt='card' />}
             </motion.div>
-            <h2 className="nickname">{nickname}</h2>
+            {topText && <h2 className='top-text'>{topText}</h2>}
           </div>
-
-          <div className="player-details-container">
-            <div className="player-details">
-              <div className="horizontal-container">
-                <div className="medium-text" id={color}>
+          <div className='nickname-container'>
+            {nickname && <h4 className='nickname'>{nickname}</h4>}
+          </div>
+          <div className='player-details-container'>
+            <div className='player-details'>
+              <div className='horizontal-container'>
+                <div className='medium-text'>
                   {name && <h6>Name: {name}</h6>}
                   {location && <h6>Location: {location}</h6>}
                   {age && <h6>Age: {age}</h6>}
                   {position && <h6>Position: {position}</h6>}
+
                   {signatureHeroes && (
-                    <h6>
-                      Signature Heroes:{" "}
-                      {signatureHeroes.map((hero, index) => (
-                        <Fragment key={index}>
-                          {hero}
-                          {index !== signatureHeroes.length - 1 && ", "}
-                        </Fragment>
+                    <div className={signatureHeroesClassName}>
+                      {signatureHeroes.map((heroIcon, index) => (
+                        <div className={`d2mh ${heroIcon}`} key={index}>
+                          {' '}
+                        </div>
                       ))}
-                    </h6>
+                    </div>
                   )}
                 </div>
               </div>
-              <Marginer direction="vertical" margin="1.2em" />
 
-              <div className="small-logo">
-                <img src={SinnersLogo} alt="test" />
+              <Button setId={cardColor}>
+                {' '}
+                <div id='btn-text'>{buttonText}</div>
+              </Button>
+              <Marginer direction='vertical' margin='1.2em' />
+
+              <div className='small-logo'>
+                <img src={SinnersLogo} alt='test' />
               </div>
             </div>
           </div>
@@ -86,12 +98,12 @@ const Card = ({
   return (
     <StyledDiv>
       <motion.div
-        className="container"
+        className='container'
         style={{ x, y, rotateX, rotateY, z: 100 }}
         drag
         dragElastic={0.16}
         dragConstraints={{ top: 0, left: 0, right: 0, bottom: 0 }}
-        whileTap={{ cursor: "grabbing" }}
+        whileTap={{ cursor: 'grabbing' }}
       >
         {children}
       </motion.div>
@@ -151,10 +163,18 @@ const StyledDiv = styled.div`
         }
       }
 
-      h2.nickname {
-        font-size: 5rem;
+      h2.top-text {
         align-self: flex-start;
         justify-content: center;
+      }
+    }
+    .nickname-container {
+      width: 100%;
+      display: flex;
+      justify-content: flex-end;
+      padding: 0.5rem;
+      h4.nickname {
+        color: ${secondary};
       }
     }
 
@@ -162,7 +182,28 @@ const StyledDiv = styled.div`
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 0 1rem;
+
+      .heroes {
+        display: flex;
+        justify-content: center;
+        margin: 1rem;
+
+        gap: 1rem;
+      }
+
+      button {
+        width: 100%;
+        border-radius: 1rem;
+        &:hover {
+          transform: scale(1.04);
+        }
+        #top,
+        #bottom,
+        #left,
+        #right {
+          display: none;
+        }
+      }
 
       .player-details {
         width: 100%;
