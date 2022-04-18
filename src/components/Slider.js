@@ -10,8 +10,9 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
+import 'swiper/css/effect-fade';
 
-const Slider = ({ slidesPerView, sliderClass, items, pagination }) => {
+const Slider = ({ slidesPerView, sliderClass, items }) => {
   return (
     <div className='slider-wrapper'>
       <Swiper
@@ -20,8 +21,7 @@ const Slider = ({ slidesPerView, sliderClass, items, pagination }) => {
         modules={[Navigation, Pagination, Scrollbar, A11y]}
         slidesPerView={slidesPerView}
         navigation
-        pagination={{ pagination } ? { clickable: true } : ''}
-        scrollbar={{ draggable: true }}
+        pagination={{ clickable: true }}
       >
         <SwiperSlide>
           <div className='page'>{items[0]}</div>
