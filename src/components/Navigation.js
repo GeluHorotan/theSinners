@@ -54,8 +54,8 @@ const Navigation = () => {
             </Button>
           </li>
           <li>
-            <Button isLink setLink='/teams'>
-              TEAMS
+            <Button isLink setLink='/team'>
+              TEAM
             </Button>
           </li>
           <li>
@@ -93,7 +93,7 @@ const Navigation = () => {
                 <Button
                   setClassName='sidebar-btn'
                   isLink
-                  setLink='/homepage'
+                  setLink='/about'
                   setIcon={<AiIcons.AiOutlineTeam />}
                 >
                   <div className='margin-text'>ABOUT</div>
@@ -103,7 +103,7 @@ const Navigation = () => {
                 <Button
                   setClassName='sidebar-btn'
                   isLink
-                  setLink='/homepage'
+                  setLink='/news'
                   setIcon={<FaIcons.FaNewspaper />}
                 >
                   <div className='margin-text'>NEWS</div>
@@ -113,17 +113,17 @@ const Navigation = () => {
                 <Button
                   setClassName='sidebar-btn'
                   isLink
-                  setLink='/homepage'
+                  setLink='/team'
                   setIcon={<FaIcons.FaPeopleArrows />}
                 >
-                  <div className='margin-text'>TEAMS</div>
+                  <div className='margin-text'>TEAM</div>
                 </Button>
               </li>
               <li>
                 <Button
                   setClassName='sidebar-btn'
                   isLink
-                  setLink='/homepage'
+                  setLink='/shop'
                   setIcon={<AiIcons.AiOutlineShoppingCart />}
                 >
                   {' '}
@@ -134,7 +134,7 @@ const Navigation = () => {
                 <Button
                   setClassName='sidebar-btn'
                   isLink
-                  setLink='/homepage'
+                  setLink='/contact'
                   setIcon={<FaIcons.FaNewspaper />}
                 >
                   <div className='margin-text'>CONTACT</div>

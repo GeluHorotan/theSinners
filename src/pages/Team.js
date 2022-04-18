@@ -10,7 +10,7 @@ import { primary } from '../Utility/Colors';
 import '../Utility/dota2heroes.css';
 
 import { PlayersData } from '../Data/PlayersData';
-const Teams = () => {
+const Team = () => {
   return (
     <BackgroundStyle>
       <WrapperStyle>
@@ -72,4 +72,4 @@ const WrapperStyle = styled.div`
   }
 `;
 
-export default Teams;
+export default Team;

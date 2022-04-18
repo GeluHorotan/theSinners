@@ -4,7 +4,7 @@ import Starting from './pages/Starting';
 import Homepage from './pages/Homepage';
 import About from './pages/About';
 import News from './pages/News';
-import Teams from './pages/Teams';
+import Team from './pages/Team';
 import Shop from './pages/Shop';
 import Contact from './pages/Contact';
 
@@ -31,7 +31,7 @@ function App() {
         <Route path='/homepage' exact element={<Homepage />} />
         <Route path='/about' exact element={<About />} />
         <Route path='/news' exact element={<News />} />
-        <Route path='/teams' exact element={<Teams />} />
+        <Route path='/team' exact element={<Team />} />
         <Route path='/shop' exact element={<Shop />} />
         <Route path='/contact' exact element={<Contact />} />
       </Routes>
