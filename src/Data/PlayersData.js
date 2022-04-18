@@ -22,7 +22,6 @@ export const PlayersData = [
       'monkey_king_alt1',
     ],
     src: `${Sumail}`,
-    key: '1',
   },
   {
     topText: 'THE SINNERS',
@@ -37,7 +36,6 @@ export const PlayersData = [
     position: 'Midlane (2)',
     signatureHeroes: ['queenofpain_alt1', 'nevermore_alt1', 'invoker_persona1'],
     src: `${Nisha}`,
-    key: '2',
   },
   {
     topText: 'THE SINNERS',
@@ -52,7 +50,6 @@ export const PlayersData = [
     position: 'Offlane (3)',
     signatureHeroes: ['timbersaw', 'tidehunter', 'natures_prophet'],
     src: `${iceiceice}`,
-    key: '3',
   },
   {
     topText: 'THE SINNERS',
@@ -67,7 +64,6 @@ export const PlayersData = [
     position: 'Soft Support (4)',
     signatureHeroes: ['crystal_maiden_alt1', 'vengefulspirit', 'rubick_alt1'],
     src: `${Yapzor}`,
-    key: '4',
   },
   {
     topText: 'THE SINNERS',
@@ -82,6 +78,5 @@ export const PlayersData = [
     position: 'Hard Support (5)',
     signatureHeroes: ['chen', 'enchantress', 'bane'],
     src: `${Puppey}`,
-    key: '5',
   },
 ];

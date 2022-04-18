@@ -25,8 +25,8 @@ const Slider = ({ slidesPerView, sliderClass, items }) => {
       >
         {items.map((item, index) => {
           return (
-            <div key={item.key} className='page'>
-              <SwiperSlide key={item.key}>{item}</SwiperSlide>
+            <div key={index} className='page'>
+              <SwiperSlide key={index}>{item}</SwiperSlide>
             </div>
           );
         })}

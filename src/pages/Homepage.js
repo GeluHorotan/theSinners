@@ -2,11 +2,13 @@ import React from 'react';
 // Page Components
 
 import Carousel from '../components/Carousel';
-import { SliderData } from '../Data/SliderData';
-import SponsorShowcase from '../components/SponsorShowcase';
-import SponsorItem from '../components/SponsorItem';
 import SponsorsBar from '../components/SponsorsBar';
-import { sponsorItems } from '../Data/SponsorData';
+import Slider from '../components/Slider';
+import Card from '../components/playerCard/Card';
+
+// Datas
+import { SliderData } from '../Data/SliderData';
+import { SponsorData } from '../Data/SponsorData';
 
 // Style
 import styled from 'styled-components';
@@ -19,24 +21,38 @@ import Hyperx from '../img/SponsorLogos/hyperx.svg';
 import Nvidia from '../img/SponsorLogos/nvidia.svg';
 import Northface from '../img/SponsorLogos/northface.svg';
 import Tesla from '../img/SponsorLogos/tesla.png';
+import { primary } from '../Utility/Colors';
 
 const Homepage = () => {
   return (
-    <div>
+    <StyledPage>
       <DivStyle>
         <Carousel slides={SliderData} />
       </DivStyle>
-      <SponsorShowcase>
-        {sponsorItems.map((item, index) => (
-          <SponsorItem
-            setImage={item.setImage}
-            setAlt={item.setAlt}
-            setText={item.setText}
-            key={index}
-            setVariants={item.setVariants}
-          />
-        ))}
-      </SponsorShowcase>
+
+      <StyledSponsorShowcase>
+        <Slider
+          slidesPerView='3'
+          sliderClass='slider'
+          items={SponsorData.map((item, index) => {
+            return (
+              <Card
+                topText={item.title}
+                product={item.product}
+                deliveryTime={item.delivery}
+                price={item.price}
+                description={item.description}
+                cardColor={item.color}
+                cardType={item.cardType}
+                buttonText={item.buttonText}
+                src={item.src}
+                key={index}
+              />
+            );
+          })}
+        ></Slider>
+      </StyledSponsorShowcase>
+
       <SponsorsBar
         setSponsor1={RazerLogo}
         setSponsor2={Redbull}
@@ -46,15 +62,44 @@ const Homepage = () => {
         setSponsor6={Northface}
         setSponsor7={Tesla}
       ></SponsorsBar>
-    </div>
+    </StyledPage>
   );
 };
+
+const StyledPage = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: ${primary};
+  display: flex;
+  flex-direction: column;
+`;
 
 const DivStyle = styled.div`
   height: 90vh;
   display: flex;
   flex-direction: row;
   justify-content: center;
+`;
+
+const StyledSponsorShowcase = styled.div`
+  .player-card {
+    min-height: 100%;
+  }
+  .slider-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .slider {
+    padding: 10rem;
+    width: 80%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 export default Homepage;

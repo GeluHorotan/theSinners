@@ -32,7 +32,7 @@ const Team = () => {
                 position={player.position}
                 signatureHeroes={player.signatureHeroes}
                 src={player.src}
-                key={player.key}
+                key={index}
               />
             );
           })}
@@ -52,14 +52,15 @@ const WrapperStyle = styled.div`
   .player-card {
     min-height: 100%;
   }
-  .slider {
-    width: 100%;
-    height: 85vh;
-    background: ${primary};
 
+  .slider {
+    padding: 4rem;
+    width: 80%;
     display: flex;
     justify-content: center;
     align-items: center;
+    background: ${primary};
+    display: flex;
   }
   .page {
     display: flex;
