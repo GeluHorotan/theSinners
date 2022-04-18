@@ -10,7 +10,6 @@ import { primary } from '../Utility/Colors';
 import '../Utility/dota2heroes.css';
 
 import { PlayersData } from '../Data/PlayersData';
-
 const Teams = () => {
   return (
     <BackgroundStyle>
@@ -33,7 +32,7 @@ const Teams = () => {
                 position={player.position}
                 signatureHeroes={player.signatureHeroes}
                 src={player.src}
-                key={index}
+                key={player.key}
               />
             );
           })}
@@ -46,7 +45,7 @@ const Teams = () => {
 const BackgroundStyle = styled.div`
   width: 100%;
   background: ${primary};
-  height: 90vh;
+  height: 100vh;
 `;
 
 const WrapperStyle = styled.div`
@@ -55,19 +54,21 @@ const WrapperStyle = styled.div`
   }
   .slider {
     width: 100%;
-
+    height: 85vh;
     background: ${primary};
+
     display: flex;
     justify-content: center;
     align-items: center;
-
-    .page {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 3rem;
-      width: 100%;
-    }
+  }
+  .page {
+    display: flex;
+    height: 85vh;
+    justify-content: center;
+    align-items: center;
+    margin: 3rem;
+    width: 100%;
+    background: red;
   }
 `;
 

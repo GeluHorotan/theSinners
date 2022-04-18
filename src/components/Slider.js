@@ -23,25 +23,13 @@ const Slider = ({ slidesPerView, sliderClass, items }) => {
         navigation
         pagination={{ clickable: true }}
       >
-        <SwiperSlide>
-          <div className='page'>{items[0]}</div>
-        </SwiperSlide>
-        <SwiperSlide>
-          {' '}
-          <div className='page'>{items[1]}</div>
-        </SwiperSlide>
-        <SwiperSlide>
-          {' '}
-          <div className='page'>{items[2]}</div>
-        </SwiperSlide>
-        <SwiperSlide>
-          {' '}
-          <div className='page'>{items[3]}</div>
-        </SwiperSlide>
-        <SwiperSlide>
-          {' '}
-          <div className='page'>{items[4]}</div>
-        </SwiperSlide>
+        {items.map((item, index) => {
+          return (
+            <div key={item.key} className='page'>
+              <SwiperSlide key={item.key}>{item}</SwiperSlide>
+            </div>
+          );
+        })}
       </Swiper>
     </div>
   );
