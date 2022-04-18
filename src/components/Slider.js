@@ -1,11 +1,9 @@
 import React from 'react';
-import styled from 'styled-components';
 
 /// import Swiper core and required modules
 import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-import Card from './playerCard/Card';
 
 // Import Swiper styles
 import 'swiper/css';
