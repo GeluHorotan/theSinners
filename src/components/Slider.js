@@ -6,49 +6,42 @@ import { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 // Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import 'swiper/css/scrollbar';
-import 'swiper/css/effect-fade';
+import 'swiper/scss';
+import 'swiper/scss/navigation';
+import 'swiper/scss/pagination';
+import 'swiper/scss/scrollbar';
 
 const Slider = ({ slidesPerView, sliderClass, items }) => {
+  const params = {
+    spaceBetween: 0,
+    className: 'sliderClass',
+    modules: [Navigation, Pagination, Scrollbar, A11y],
+    slidesPerView: 3,
+    Navigation: true,
+    pagination: {
+      clickable: true,
+      el: '.slider-scrollbar',
+      type: 'progressbar',
+    },
+    autoHeight: true,
+  };
   return (
-    <div className='slider-wrapper'>
-      <Swiper
-        spaceBetween={50}
-        className={sliderClass}
-        modules={[Navigation, Pagination, Scrollbar, A11y]}
-        breakpoints={{
-          // when window width is >= 320px
-          320: {
-            slidesPerView: 1,
-            spaceBetween: 20,
-          },
-          // when window width is >= 480px
-          480: {
-            slidesPerView: 1,
-            spaceBetween: 30,
-          },
-          // when window width is >= 640px
-          640: {
-            slidesPerView: 3,
-            spaceBetween: 140,
-          },
-        }}
-        slidesPerView={slidesPerView}
-        navigation
-        pagination={{ clickable: true }}
-      >
+    <Swiper {...params}>
+      <div className='swiper-wrapper'>
         {items.map((item, index) => {
           return (
-            <div key={index} className='page'>
-              <SwiperSlide key={index}>{item}</SwiperSlide>
-            </div>
+            <SwiperSlide key={index}>
+              {' '}
+              <div className='swiper-slide'>{item}</div>{' '}
+            </SwiperSlide>
           );
         })}
-      </Swiper>
-    </div>
+      </div>
+      <div class='swiper-pagination'></div>
+
+      <div class='swiper-button-prev'></div>
+      <div class='swiper-button-next'></div>
+    </Swiper>
   );
 };
 

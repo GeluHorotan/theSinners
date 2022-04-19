@@ -82,23 +82,18 @@ const DivStyle = styled.div`
 `;
 
 const StyledSponsorShowcase = styled.div`
+  width: 80%;
+  margin: 0 auto;
   .player-card {
     min-height: 100%;
   }
-  .slider-wrapper {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+
+  .swiper {
+    padding: 7rem 0;
+    width: 100%;
   }
 
-  .slider {
-    padding: 10rem;
-    width: 80%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  .swiper-slide {
   }
 `;
 
