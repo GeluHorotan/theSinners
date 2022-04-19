@@ -175,12 +175,11 @@ const Card = ({
               <div className='horizontal-container'>
                 <div className='medium-text'>
                   <p>{description}</p>
-                  <div className='low-text'>
-                    {product && <h6>Product: {product}</h6>}
 
-                    {deliveryTime && <h6>Delivery on: {date} </h6>}
-                    {price && <h6>Price: {price} &euro;</h6>}
-                  </div>
+                  {product && <h6>Product: {product}</h6>}
+
+                  {deliveryTime && <h6>Delivery on: {date} </h6>}
+                  {price && <h6>Price: {price} &euro;</h6>}
                 </div>
               </div>
 
@@ -369,10 +368,11 @@ const StyledSponsorDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 100%;
 
   .container {
     width: 300px;
-    min-height: 500px;
+    min-height: 100%;
     display: flex;
     flex-direction: column;
     border-radius: 2rem;
@@ -437,8 +437,9 @@ const StyledSponsorDiv = styled.div`
 
     .sponsor-details-container {
       display: flex;
-      justify-content: center;
+      justify-content: space-between;
       align-items: center;
+      height: 100%;
 
       .heroes {
         display: flex;
@@ -451,9 +452,11 @@ const StyledSponsorDiv = styled.div`
       .sponsor-details {
         width: 100%;
         height: 100%;
+        background: black;
         display: flex;
         flex-direction: column;
         padding: 2.5rem 0.5rem 0 0.5rem;
+        justify-content: space-between;
 
         .small-logo {
           width: 100%;
@@ -498,19 +501,18 @@ const StyledSponsorDiv = styled.div`
           display: flex;
           flex-direction: column;
           align-items: center;
-          justify-content: center;
+          justify-content: space-between;
+          height: 100%;
 
           .medium-text {
-            height: 25vh;
             padding: 0.5rem;
             color: ${secondary};
             font-weight: 400;
-
-            .low-text {
-              width: 100%;
-              height: 100vh;
-              margin-top: 2rem;
-            }
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: green;
+            min-height: auto;
           }
         }
       }
