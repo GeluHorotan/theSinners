@@ -43,7 +43,6 @@ const Homepage = () => {
                 price={item.price}
                 description={item.description}
                 cardColor={item.color}
-                cardType={item.cardType}
                 buttonText={item.buttonText}
                 src={item.src}
                 key={index}
@@ -87,10 +86,20 @@ const StyledSponsorShowcase = styled.div`
   .player-card {
     min-height: 100%;
   }
+  .container {
+    background: red;
+    min-height: 10rem;
+    width: 10rem;
+  }
 
   .swiper {
     padding: 7rem 0;
     width: 100%;
+    height: 2rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .swiper-slide {
