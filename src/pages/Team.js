@@ -53,23 +53,22 @@ const WrapperStyle = styled.div`
     min-height: 100%;
   }
 
-  .slider {
-    padding: 4rem;
-    width: 80%;
+  .swiper {
+    padding: 3rem 0;
     display: flex;
-    justify-content: center;
     align-items: center;
-    background: ${primary};
-    display: flex;
+    justify-content: center;
   }
-  .page {
+
+  .swiper-slide {
+    height: 100%;
+
     display: flex;
-    height: 85vh;
-    justify-content: center;
     align-items: center;
-    margin: 3rem;
-    width: 100%;
-    background: red;
+    justify-content: center;
+  }
+  .swiper-pagination {
+    top: 98%;
   }
 `;
 

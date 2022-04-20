@@ -21,7 +21,7 @@ import Hyperx from '../img/SponsorLogos/hyperx.svg';
 import Nvidia from '../img/SponsorLogos/nvidia.svg';
 import Northface from '../img/SponsorLogos/northface.svg';
 import Tesla from '../img/SponsorLogos/tesla.png';
-import { primary } from '../Utility/Colors';
+import { accent, primary, secondary } from '../Utility/Colors';
 
 const Homepage = () => {
   return (
@@ -31,22 +31,16 @@ const Homepage = () => {
       </DivStyle>
 
       <StyledSponsorShowcase>
+        <h2 className='title'>Products showcase</h2>
         <Slider
           slidesPerView='3'
           sliderClass='slider'
           items={SponsorData.map((item, index) => {
             return (
               <Card
+                cardType='sponsorProduct'
                 topText={item.title}
-                product={item.product}
-                deliveryTime={item.delivery}
-                price={item.price}
-                cardType={item.cardType}
-                description={item.description}
-                cardColor={item.color}
-                buttonText={item.buttonText}
                 src={item.src}
-                key={index}
               />
             );
           })}
@@ -84,14 +78,35 @@ const DivStyle = styled.div`
 const StyledSponsorShowcase = styled.div`
   width: 80%;
   margin: 0 auto;
+
+  .title {
+    color: ${secondary};
+    text-align: center;
+    transition: 0.4s all ease-in-out;
+    margin-top: 2rem;
+  }
+  .title:hover {
+    letter-spacing: 0.5rem;
+    transform: scale(1.1);
+  }
+
   .player-card {
     min-height: 100%;
   }
 
+  .container {
+    width: 15rem;
+    height: 10rem;
+    .product-image-container {
+      background: ${accent};
+    }
+  }
+
   .swiper {
     padding: 7rem 0;
+    height: 2rem;
     width: 100%;
-    background: red;
+
     display: flex;
     align-items: center;
     justify-content: center;
@@ -99,7 +114,18 @@ const StyledSponsorShowcase = styled.div`
 
   .swiper-slide {
     height: 100%;
-    background: blue;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .swiper-pagination {
+    top: 99%;
+    width: 100%;
+
+    .swiper-pagination-progressbar-fill {
+      border-radius: 1rem;
+    }
   }
 `;
 

@@ -141,7 +141,7 @@ const Card = ({
     );
   }
 
-  if (cardType === 'sponsorItem') {
+  if (cardType === 'shopProduct') {
     return (
       <StyledSponsorDiv className={className}>
         <motion.div
@@ -202,6 +202,39 @@ const Card = ({
     );
   }
 
+  if (cardType === 'sponsorProduct') {
+    return (
+      <StyledSponsorProduct>
+        <motion.div
+          className='container'
+          onDrag={() => setIsDragging(true)}
+          onDragEnd={() => setIsDragging(false)}
+          style={{ x, y, rotateX, rotateY, z: 100 }}
+          drag
+          dragElastic={0.16}
+          dragConstraints={{ top: 0, left: 0, right: 0, bottom: 0 }}
+          whileTap={{ cursor: 'grabbing' }}
+        >
+          <div
+            id={cardColor}
+            className={`product-image-container ${isDragging && 'dragged'} `}
+          >
+            <motion.div
+              className='product-image'
+              style={{ x, y, rotateX, rotateY, rotate: '0', z: 100000 }}
+              drag
+              dragElastic={0.12}
+              whileTap={{ cursor: 'grabbing' }}
+            >
+              {src && <img src={src} alt='card' />}
+            </motion.div>
+            {topText && <h3 className='top-text'>{topText}</h3>}
+          </div>
+        </motion.div>
+      </StyledSponsorProduct>
+    );
+  }
+
   return (
     <StyledDiv>
       <motion.div
@@ -227,7 +260,7 @@ const StyledDiv = styled.div`
 
   .container {
     width: 300px;
-    min-height: 500px;
+    min-height: 100%;
     display: flex;
     flex-direction: column;
     border-radius: 2rem;
@@ -368,11 +401,11 @@ const StyledSponsorDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  height: 2rem;
 
   .container {
     width: 300px;
-    min-height: 100%;
+    height: 2rem;
     display: flex;
     flex-direction: column;
     border-radius: 2rem;
@@ -402,7 +435,7 @@ const StyledSponsorDiv = styled.div`
 
       .sponsor-image {
         width: auto;
-        height: 100%;
+
         z-index: 1;
         position: absolute;
         user-select: none;
@@ -439,7 +472,6 @@ const StyledSponsorDiv = styled.div`
       display: flex;
       justify-content: space-between;
       align-items: center;
-      height: 100%;
 
       .heroes {
         display: flex;
@@ -451,12 +483,11 @@ const StyledSponsorDiv = styled.div`
 
       .sponsor-details {
         width: 100%;
-        height: 100%;
+
         background: black;
         display: flex;
         flex-direction: column;
         padding: 2.5rem 0.5rem 0 0.5rem;
-        justify-content: space-between;
 
         .small-logo {
           width: 100%;
@@ -501,20 +532,86 @@ const StyledSponsorDiv = styled.div`
           display: flex;
           flex-direction: column;
           align-items: center;
-          justify-content: space-between;
-          height: 100%;
+          justify-content: center;
 
           .medium-text {
             padding: 0.5rem;
             color: ${secondary};
             font-weight: 400;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+
             background: green;
-            min-height: auto;
           }
         }
+      }
+    }
+  }
+`;
+
+const StyledSponsorProduct = styled.div`
+  width: 100%;
+  perspective: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .container {
+    width: 15rem;
+    height: 10rem;
+    display: flex;
+    flex-direction: column;
+    border-radius: 2rem;
+    box-shadow: 0 2px 7px 1px rgba(31, 31, 31, 0.2);
+    background-color: ${accent};
+    color: ${secondary};
+    position: relative;
+    cursor: grab;
+
+    .product-image-container {
+      width: 100%;
+      height: 250px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 1rem;
+      background: ${desaturatedRed};
+      border-radius: 2rem;
+
+      &.dragged {
+        color: darkgoldenrod;
+        background: whitesmoke !important;
+      }
+
+      .product-image {
+        width: auto;
+
+        z-index: 1;
+        position: absolute;
+        user-select: none;
+        align-self: center;
+        bottom: 0;
+        top: 3%;
+        left: 3%;
+        pointer-events: none;
+
+        img {
+          height: 5rem;
+          user-select: none;
+          margin-top: 0.05rem;
+        }
+      }
+
+      h3.top-text {
+        align-self: flex-end;
+        justify-content: flex-end;
+      }
+      .horizontal-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
       }
     }
   }

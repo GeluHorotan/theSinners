@@ -7,7 +7,7 @@ import RazerLaptop from '../img/SponsorItems/razerLaptop.png';
 
 export const SponsorData = [
   {
-    title: 'SteelSeries',
+    title: 'Steel Series',
     product: 'Siberia Elite',
     delivery: '3',
     price: '209.99',
@@ -20,7 +20,7 @@ export const SponsorData = [
     alt: 'Steelseries Headset',
   },
   {
-    title: 'HyperX',
+    title: 'Hyper X',
     product: 'Alloy Origins™',
     delivery: '5',
     price: '134',
@@ -46,7 +46,7 @@ export const SponsorData = [
     alt: 'Razer mouse',
   },
   {
-    title: 'SteelSeries',
+    title: 'Steel Series',
     product: 'QPad',
     delivery: '2',
     price: '28.99',
