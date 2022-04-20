@@ -24,6 +24,33 @@ import Tesla from '../img/SponsorLogos/tesla.png';
 import { accent, primary, secondary } from '../Utility/Colors';
 
 const Homepage = () => {
+  const getDate = (separator = ' - ') => {
+    let newDate = new Date();
+    let date = newDate.getDate();
+    let month = newDate.getMonth() + 1;
+    const monthNames = [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ];
+
+    return `${date}${separator}${
+      month < 10
+        ? `${monthNames[newDate.getMonth()]}`
+        : `${monthNames[newDate.getMonth()]}`
+    }`;
+  };
+
+  const date = getDate();
   return (
     <StyledPage>
       <DivStyle>
@@ -33,19 +60,47 @@ const Homepage = () => {
       <StyledSponsorShowcase>
         <h2 className='title'>Products showcase</h2>
         <Slider
-          slidesPerView='3'
-          sliderClass='slider'
+          slidesPerView={3}
+          spaceBetween={30}
+          loop={true}
+          simulateTouch={true}
+          grabCursor={true}
+          speed={500}
+          mousewheelInvert={false}
+          mousewheelReleaseOnEdges={true}
+          mousewheelSensitivity={1000}
+          keyboardEnabled={true}
+          keyboardOnlyInViewport={true}
+          paginationEl={'.swiper-pagination'}
+          paginationType={'progressbar'}
+          navigationNextEl={'.swiper-button-next'}
+          navigationPrevEl={'.swiper-button-prev'}
+          autoplayDelay={3000}
+          autoplayDisableOnInteraction={false}
+          autoplayPauseOnMouseEnter={true}
           items={SponsorData.map((item, index) => {
             return (
-              <Card
-                cardType='sponsorProduct'
-                topText={item.title}
-                src={item.src}
-              />
+              <>
+                <Card
+                  cardColor={item.color}
+                  cardType='sponsorProduct'
+                  topText={item.title}
+                  src={item.src}
+                />
+                <div className='infos'>
+                  <h4>{item.product}</h4>
+                  <p className='description'>{item.description}</p>
+                  <h6> Delivery time: {date} </h6>
+                  <h6> Price: {item.price} &euro; </h6>
+                </div>
+              </>
             );
           })}
         ></Slider>
       </StyledSponsorShowcase>
+
+      <div className='placeholder'></div>
+      <div className='placeholder'></div>
 
       <SponsorsBar
         setSponsor1={RazerLogo}
@@ -56,6 +111,9 @@ const Homepage = () => {
         setSponsor6={Northface}
         setSponsor7={Tesla}
       ></SponsorsBar>
+
+      <div className='placeholder'></div>
+      <div className='placeholder'></div>
     </StyledPage>
   );
 };
@@ -66,6 +124,12 @@ const StyledPage = styled.div`
   background-color: ${primary};
   display: flex;
   flex-direction: column;
+  .placeholder {
+    width: 100%;
+    background: ${primary};
+    height: 10rem;
+    margin: 5rem;
+  }
 `;
 
 const DivStyle = styled.div`
@@ -90,6 +154,17 @@ const StyledSponsorShowcase = styled.div`
     transform: scale(1.1);
   }
 
+  .infos {
+    display: flex;
+    flex-direction: column;
+    margin: 0 5rem 0 2rem;
+    color: ${secondary};
+  }
+  .description {
+    margin: 0;
+    padding: 0;
+  }
+
   .player-card {
     min-height: 100%;
   }
@@ -104,7 +179,8 @@ const StyledSponsorShowcase = styled.div`
 
   .swiper {
     padding: 7rem 0;
-    height: 2rem;
+
+    height: 20rem;
     width: 100%;
 
     display: flex;
@@ -119,8 +195,9 @@ const StyledSponsorShowcase = styled.div`
     align-items: center;
     justify-content: center;
   }
+
   .swiper-pagination {
-    top: 99%;
+    top: 97%;
     width: 100%;
 
     .swiper-pagination-progressbar-fill {

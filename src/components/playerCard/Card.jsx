@@ -66,8 +66,6 @@ const Card = ({
     }`;
   };
 
-  console.log(deliveryTime);
-
   const date = getDate();
 
   if (cardType === 'player') {

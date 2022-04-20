@@ -155,34 +155,18 @@ font-style: normal;
  }
 
  
+ #hyperx,
+ #razer-mouse,
+ #ss-pack,
+ #razer-laptop ,
  #siberia-white {
-   color: #0C1B40;
    
-   background-color: #FF9A8B;
+ 
 background-image: linear-gradient(to right, #ed6ea0 0%, #ec8c69 100%);
 
   transition: 0.4s all ease-in-out;
  }
- #hyperx {
-      color: #0C1B40;
-   background-image: linear-gradient(to top, #c471f5 0%, #fa71cd 100%);  transition: 0.4s all ease-in-out;
- }
- #ss-pack {
-  color: #0C1B40;
-  background-image: linear-gradient( 68.3deg,  rgba(245,177,97,1) 0.4%, rgba(236,54,110,1) 100.2% );
-  transition: 0.4s all ease-in-out;
-}
-#razer-mouse {
-  color: #0C1B40;
-  background-image: linear-gradient(120deg, #fccb90 0%, #d57eeb 100%);
 
-  transition: 0.4s all ease-in-out;
- }
- #razer-laptop {
-  color: #0C1B40;
-background-image: linear-gradient(to top, #50cc7f 0%, #f5d100 100%);
-  transition: 0.4s all ease-in-out;
- }
 
  `;
 

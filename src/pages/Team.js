@@ -15,8 +15,24 @@ const Team = () => {
     <BackgroundStyle>
       <WrapperStyle>
         <Slider
-          slidesPerView='3'
-          sliderClass='slider'
+          slidesPerView={3}
+          spaceBetween={30}
+          loop={true}
+          simulateTouch={true}
+          grabCursor={true}
+          speed={500}
+          mousewheelInvert={false}
+          mousewheelReleaseOnEdges={true}
+          mousewheelSensitivity={1000}
+          keyboardEnabled={true}
+          keyboardOnlyInViewport={true}
+          paginationEl={'.swiper-pagination'}
+          paginationType={'progressbar'}
+          navigationNextEl={'.swiper-button-next'}
+          navigationPrevEl={'.swiper-button-prev'}
+          autoplayDelay={3000}
+          autoplayDisableOnInteraction={false}
+          autoplayPauseOnMouseEnter={true}
           items={PlayersData.map((player, index) => {
             return (
               <Card

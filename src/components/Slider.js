@@ -21,52 +21,70 @@ import 'swiper/scss/pagination';
 import 'swiper/scss/scrollbar';
 import 'swiper/scss/autoplay';
 
-const Slider = ({ slidesPerView, sliderClass, items }) => {
-  const params = {
-    modules: [
-      Navigation,
-      Pagination,
-      Scrollbar,
-      A11y,
-      Autoplay,
-      Mousewheel,
-      Keyboard,
-    ],
-    slidesPerView: 3,
-    spaceBetween: -30,
-    centeredSlides: true,
-    loop: true,
-    height: 2000,
-    simulateTouch: true,
-    grabCursor: true,
-    speed: 500,
-    mousewheel: {
-      invert: false,
-      releaseOnEdges: true,
-      sensitivity: 1,
-    },
-    keyboard: {
-      enabled: true,
-      onlyInViewport: true,
-    },
-    pagination: {
-      el: '.swiper-pagination',
-      type: 'progressbar',
-    },
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
-    autoplay: {
-      delay: 3000,
-      disableOnInteraction: false,
-      pauseOnMouseEnter: true,
-    },
-  };
+const Slider = ({
+  slidesPerView,
+  sliderClass,
+  spaceBetween,
+  loop,
+  simulateTouch,
+  grabCursor,
+  speed,
+  mousewheelInvert,
+  mousewheelReleaseOnEdges,
+  mousewheelSensitivity,
+  keyboardEnabled,
+  keyboardOnlyInViewport,
+  paginationEl,
+  paginationType,
+  navigationNextEl,
+  navigationPrevEl,
+  autoplayDelay,
+  autoplayDisableOnInteraction,
+  autoplayPauseOnMouseEnter,
 
+  items,
+}) => {
   return (
     <MainContainer>
-      <Swiper {...params}>
+      <Swiper
+        modules={[
+          Navigation,
+          Pagination,
+          Scrollbar,
+          A11y,
+          Autoplay,
+          Mousewheel,
+          Keyboard,
+        ]}
+        slidesPerView={slidesPerView}
+        spaceBetween={spaceBetween}
+        loop={loop}
+        simulateTouch={simulateTouch}
+        grabCursor={grabCursor}
+        speed={speed}
+        mousewheel={{
+          invert: { mousewheelInvert },
+          releaseOnEdges: { mousewheelReleaseOnEdges },
+          sensitivity: { mousewheelSensitivity },
+        }}
+        keyboard={{
+          enabled: { keyboardEnabled },
+          onlyInViewport: { keyboardOnlyInViewport },
+        }}
+        navigation={{
+          nextEl: `${navigationNextEl}`,
+          prevEl: `${navigationPrevEl}`,
+        }}
+        pagination={{
+          el: `${paginationEl}`,
+          type: `${paginationType}`,
+        }}
+        // autoplay={{
+        //   delay: `${autoplayDelay}`,
+        //   disableOnInteraction: false,
+        //   pauseOnMouseEnter: true,
+        // }}
+      >
         <div className='swiper-wrapper'>
           {' '}
           {items.map((item, index) => {
@@ -78,14 +96,14 @@ const Slider = ({ slidesPerView, sliderClass, items }) => {
             );
           })}
         </div>
-        <div class='swiper-pagination'></div>
+        <div className='swiper-pagination'></div>
 
-        <div class='swiper-button-prev'></div>
-        <div class='swiper-button-next'></div>
+        <div className='swiper-button-prev'></div>
+        <div className='swiper-button-next'></div>
 
-        <div class='swiper-progress-bar'>
-          <div class='progress'></div>
-          <div class='progress-sections'></div>
+        <div className='swiper-progress-bar'>
+          <div className='progress'></div>
+          <div className='progress-sections'></div>
         </div>
       </Swiper>
     </MainContainer>
