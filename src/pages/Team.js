@@ -9,6 +9,31 @@ import Slider from '../components/Slider';
 import { primary, secondary } from '../Utility/Colors';
 import '../Utility/dota2heroes.css';
 import SinnersLogo from '../img/logo.png';
+import esl from '../img/teamGallery/esl.jpg';
+import esl2 from '../img/teamGallery/es2.webp';
+import esl3 from '../img/teamGallery/esl3.jpg';
+import portrait from '../img/teamGallery/portrait.jpg';
+import ts from '../img/teamGallery/TS.jpg';
+import rage from '../img/teamGallery/rage.jpg';
+import secretDesign from '../img/teamGallery/secretDesign.webp';
+import tatoo from '../img/teamGallery/tatoo.webp';
+import wallpaper from '../img/teamGallery/wallpaper.webp';
+import wallpaper2 from '../img/teamGallery/wallpaper2.webp';
+import wallpaper3 from '../img/teamGallery/wallpaper3.webp';
+import wallpaper4 from '../img/teamGallery/wallpaper4.webp';
+import wallpaper5 from '../img/teamGallery/wallpaper5.webp';
+import wallpaper6 from '../img/teamGallery/wallpaper6.webp';
+import wallpaper7 from '../img/teamGallery/wallpaper7.webp';
+import wallpaper8 from '../img/teamGallery/wallpaper8.webp';
+import wallpaper9 from '../img/teamGallery/wallpaper9.webp';
+import wallpaper10 from '../img/teamGallery/wallpaper10.webp';
+import wallpaper11 from '../img/teamGallery/wallpaper11.webp';
+import wallpaper12 from '../img/teamGallery/wallpaper12.webp';
+import wallpaper13 from '../img/teamGallery/wallpaper13.webp';
+import wallpaper14 from '../img/teamGallery/wallpaper14.jpg';
+import wallpaper15 from '../img/teamGallery/wallpaper15.webp';
+import wallpaper16 from '../img/teamGallery/wallpaper16.webp';
+import wallpaper17 from '../img/teamGallery/wallpaper17.webp';
 
 import { PlayersData } from '../Data/PlayersData';
 const Team = () => {
@@ -56,8 +81,8 @@ const Team = () => {
         ></Slider>
       </WrapperStyle>
       <StyledTeamDescription>
-        <div className='team-description'>
-          <div className='upper-part'>
+        <div className='container'>
+          <div className='section'>
             <img src={SinnersLogo} alt='test' />
             <h2 className='section-title'>About The Sinners</h2>
           </div>
@@ -119,21 +144,57 @@ const Team = () => {
             The Sinners would go on to win the finals in a very convincing
             manner with a results of 3–1 over Team Liquid.
           </h6>
-          <div className='upper-part'>
+          <div className='section'>
             <img src={SinnersLogo} alt='test' />
             <h2 className='section-title'>Past Tournaments</h2>
           </div>
-          <div className='upper-part'>
+          <div className='section'>
             <img src={SinnersLogo} alt='test' />
             <h2 className='section-title'>Upcoming Tournaments</h2>
           </div>
-          <div className='upper-part'>
+          <div className='section'>
             <img src={SinnersLogo} alt='test' />
             <h2 className='section-title'>Won Tournaments</h2>
           </div>
-          <div className='upper-part'>
+          <div className='section'>
             <img src={SinnersLogo} alt='test' />
             <h2 className='section-title'>Gallery</h2>
+          </div>
+          <div class='row'>
+            <div class='column'>
+              <img src={esl} alt='test' />
+              <img src={esl2} alt='test' />
+              <img src={esl3} alt='test' />
+              <img src={portrait} alt='test' />
+              <img src={ts} alt='test' />
+              <img src={rage} alt='test' />
+              <img src={secretDesign} alt='test' />
+            </div>
+            <div class='column'>
+              <img src={tatoo} alt='test' />
+              <img src={wallpaper} alt='test' />
+              <img src={wallpaper2} alt='test' />
+              <img src={wallpaper3} alt='test' />
+              <img src={wallpaper4} alt='test' />
+              <img src={wallpaper5} alt='test' />
+            </div>
+            <div class='column'>
+              <img src={wallpaper6} alt='test' />
+              <img src={wallpaper7} alt='test' />
+              <img src={wallpaper8} alt='test' />
+              <img src={wallpaper9} alt='test' />
+              <img src={wallpaper10} alt='test' />
+              <img src={wallpaper11} alt='test' />
+              <img src={wallpaper12} alt='test' />
+            </div>
+            <div class='column'>
+              <img src={wallpaper13} alt='test' />
+              <img src={wallpaper14} alt='test' />
+              <img src={wallpaper15} alt='test' />
+              <img src={wallpaper16} alt='test' />
+              <img src={wallpaper17} alt='test' />
+              <img src={wallpaper13} alt='test' />
+            </div>
           </div>
         </div>
       </StyledTeamDescription>
@@ -153,10 +214,11 @@ const StyledTeamDescription = styled.div`
   background: ${primary};
   color: ${secondary};
 
-  .team-description {
+  .container {
     width: 100%;
     display: flex;
     flex-direction: column;
+
     justify-content: flex-start;
 
     .section-title {
@@ -169,73 +231,53 @@ const StyledTeamDescription = styled.div`
       }
     }
 
-    .upper-part {
+    .section {
       display: flex;
       flex-direction: row;
       align-items: center;
       justify-content: flex-start;
-      margin: 1rem 2cm;
+      margin: 1rem 0;
       img {
         height: 3rem;
       }
     }
-
-    .gallery {
+    .row {
       display: flex;
-      padding: 2px;
-      transition: 0.3s;
+      flex-wrap: wrap;
+      padding: 0 0.5rem;
+    }
 
-      &:hover &__image {
-        filter: grayscale(1);
+    /* Create four equal columns that sits next to each other */
+    .column {
+      flex: 25%;
+      max-width: 25%;
+      padding: 0 0.5rem;
+    }
+
+    .column img {
+      margin-top: 0.5rem;
+      vertical-align: middle;
+      width: 100%;
+    }
+
+    @media screen and (max-width: 1024px) {
+      .column {
+        flex: 35%;
+        max-width: 35%;
       }
-
-      &__column {
-        display: flex;
-        flex-direction: column;
-        width: 25%;
+    }
+    @media screen and (max-width: 800px) {
+      .column {
+        flex: 50%;
+        max-width: 50%;
       }
+    }
 
-      &__link {
-        margin: 2px;
-        overflow: hidden;
-
-        &:hover {
-          .gallery__image {
-            filter: grayscale(0);
-          }
-
-          .gallery__caption {
-            opacity: 1;
-          }
-        }
-      }
-
-      &__image {
-        display: block;
-        width: 100%;
-        transition: 0.3s;
-
-        &:hover {
-          transform: scale(1.1);
-        }
-      }
-
-      &__caption {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        padding: 25px 15px 15px;
-        width: 100%;
-        font-family: 'Raleway', sans-serif;
-        font-size: 16px;
-        color: white;
-        opacity: 0;
-        background: linear-gradient(
-          0deg,
-          rgba(0, 0, 0, 0.5) 0%,
-          rgba(255, 255, 255, 0) 100%
-        );
-        transition: 0.3s;
+    /* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+    @media screen and (max-width: 600px) {
+      .column {
+        flex: 100%;
+        max-width: 100%;
       }
     }
   }
