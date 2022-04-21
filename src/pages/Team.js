@@ -4,6 +4,7 @@ import styled from 'styled-components';
 // Components
 import Card from '../components/playerCard/Card';
 import Slider from '../components/Slider';
+import Tournaments from '../components/Tournaments';
 
 // Utility
 import { primary, secondary } from '../Utility/Colors';
@@ -86,7 +87,7 @@ const Team = () => {
             <img src={SinnersLogo} alt='test' />
             <h2 className='section-title'>About The Sinners</h2>
           </div>
-          <h6>
+          <h6 className='paragraph'>
             The Sinners is a European team that was first established during the
             post-TI4 shuffle. The original team drew upon players from former
             Natus Vincere, Fnatic and Alliance squads. The team has since
@@ -148,6 +149,7 @@ const Team = () => {
             <img src={SinnersLogo} alt='test' />
             <h2 className='section-title'>Past Tournaments</h2>
           </div>
+          <Tournaments></Tournaments>
           <div className='section'>
             <img src={SinnersLogo} alt='test' />
             <h2 className='section-title'>Upcoming Tournaments</h2>
@@ -160,8 +162,8 @@ const Team = () => {
             <img src={SinnersLogo} alt='test' />
             <h2 className='section-title'>Gallery</h2>
           </div>
-          <div class='row'>
-            <div class='column'>
+          <div className='row'>
+            <div className='column'>
               <img src={esl} alt='test' />
               <img src={esl2} alt='test' />
               <img src={esl3} alt='test' />
@@ -170,7 +172,7 @@ const Team = () => {
               <img src={rage} alt='test' />
               <img src={secretDesign} alt='test' />
             </div>
-            <div class='column'>
+            <div className='column'>
               <img src={tatoo} alt='test' />
               <img src={wallpaper} alt='test' />
               <img src={wallpaper2} alt='test' />
@@ -178,7 +180,7 @@ const Team = () => {
               <img src={wallpaper4} alt='test' />
               <img src={wallpaper5} alt='test' />
             </div>
-            <div class='column'>
+            <div className='column'>
               <img src={wallpaper6} alt='test' />
               <img src={wallpaper7} alt='test' />
               <img src={wallpaper8} alt='test' />
@@ -187,7 +189,7 @@ const Team = () => {
               <img src={wallpaper11} alt='test' />
               <img src={wallpaper12} alt='test' />
             </div>
-            <div class='column'>
+            <div className='column'>
               <img src={wallpaper13} alt='test' />
               <img src={wallpaper14} alt='test' />
               <img src={wallpaper15} alt='test' />
@@ -224,7 +226,7 @@ const StyledTeamDescription = styled.div`
     .section-title {
       margin: 3rem 1rem;
     }
-    h6 {
+    .paragraph {
       text-indent: 2cm;
       .indent {
         margin-left: 2cm;
