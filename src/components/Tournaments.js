@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
-import { accent } from '../Utility/Colors';
+import { accent, primary, secondary } from '../Utility/Colors';
 
 const Tournaments = () => {
   const [tournamentData, setTournamentData] = useState();
@@ -29,25 +29,24 @@ const Tournaments = () => {
           .filter((tournament) => tournament.prizepool)
           .map((tournament, index) => (
             <div key={index} className='tournaments'>
-              <img
-                className='tournament-logo'
-                src={tournament.league.image_url}
-                alt=''
-              />
-
-              <div className='participants'>
-                {tournament.teams.map((team, index) => (
-                  <div className='team-container' key={index}>
-                    <h6 className='team-name'>{team.name}</h6>
-                    <img className='team-logo' src={team.image_url} alt='' />
-                  </div>
-                ))}
+              <div className='top-part'>
+                <img
+                  className='tournament-logo'
+                  src={tournament.league.image_url}
+                  alt=''
+                />
               </div>
-              <div className='infos'>
+
+              <div className='bottom-part'>
                 <h6>{tournament.serie.full_name}</h6>
                 <p>{tournament.begin_at.split('T')[0]}</p>
                 <p>{tournament.end}</p>
                 <h5>{tournament.prizepool.split(' ')[0]} &#36;</h5>
+                <div className='participants'>
+                  {tournament.teams.map((team, index) => (
+                    <img className='team-logo' src={team.image_url} alt='' />
+                  ))}
+                </div>
               </div>
             </div>
           ))}
@@ -56,57 +55,69 @@ const Tournaments = () => {
 };
 
 const StyledTournaments = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(16rem, 0.3fr));
+  grid-gap: 5rem;
+  justify-content: center;
+  align-items: center;
   justify-content: center;
 
-  width: auto;
+  width: 90%;
+  margin: 0 auto;
 
   .tournaments {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
-    align-items: flex-end;
+    align-items: center;
     width: 100%;
-    margin: 1rem;
     background: ${accent};
-    padding: 5rem;
-    border-radius: 2rem;
-    .infos {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      align-items: flex-end;
+    border-radius: 1rem;
 
-      width: 100%;
+    transition: all 0.4s ease;
+
+    &:hover {
+      transform: scale(1.1);
+      background: ${secondary};
+      color: ${primary};
     }
+
     .tournament-logo {
-      width: 8rem;
+      width: 10rem;
+      border-radius: 1rem;
+      box-shadow: 5px 10px 5px ${primary};
       object-fit: contain;
       object-position: center center;
     }
 
-    .participants {
+    .top-part {
+      padding: 1rem 1.6rem;
       display: flex;
-      flex-direction: row;
-      gap: 2rem;
-      justify-content: center;
-      align-items: flex-end;
-      margin: 0 4rem;
+      align-items: center;
+      justify-content: flex-start;
 
-      img {
-        width: 4rem;
-        margin: 0.5rem;
-        padding: 0.5rem;
-      }
+      width: 100%;
+    }
 
-      .team-container {
+    .bottom-part {
+      padding: 1rem 1.6rem;
+      width: 100%;
+      transition: 0.4s all ease;
+
+      .participants {
         display: flex;
-        flex-direction: column-reverse;
-        justify-content: center !important;
-        align-items: center !important;
-        text-align-last: end;
+        flex-direction: row;
+        background: rgba(12, 27, 64, 0.15);
+        box-shadow: 5px 10px 5px ${primary};
+        padding: 1rem;
+        margin: 1rem 0;
+        border-radius: 1rem;
+        justify-content: space-between;
+        align-items: center;
+
+        .team-logo {
+          width: 2rem;
+        }
       }
     }
   }
