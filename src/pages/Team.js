@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 // Components
 import Card from '../components/playerCard/Card';
 import Slider from '../components/Slider';
 import Tournaments from '../components/Tournaments';
+import Modal from '../components/Modal';
 
 // Utility
 import { primary, secondary } from '../Utility/Colors';
@@ -38,6 +39,8 @@ import wallpaper17 from '../img/teamGallery/wallpaper17.webp';
 
 import { PlayersData } from '../Data/PlayersData';
 const Team = () => {
+  const [openModal, setOpenModal] = useState(false);
+
   return (
     <BackgroundStyle>
       <WrapperStyle>
@@ -69,6 +72,9 @@ const Team = () => {
                 cardType={player.cardType}
                 className={player.className}
                 buttonText={player.buttonText}
+                buttonFunction={() => {
+                  setOpenModal(true);
+                }}
                 age={player.age}
                 location={player.location}
                 nickname={player.nickname}
@@ -146,19 +152,14 @@ const Team = () => {
             The Sinners would go on to win the finals in a very convincing
             manner with a results of 3–1 over Team Liquid.
           </h6>
+
           <div className='section'>
             <img src={SinnersLogo} alt='test' />
             <h2 className='section-title'>Past Tournaments</h2>
           </div>
+
           <Tournaments></Tournaments>
-          <div className='section'>
-            <img src={SinnersLogo} alt='test' />
-            <h2 className='section-title'>Upcoming Tournaments</h2>
-          </div>
-          <div className='section'>
-            <img src={SinnersLogo} alt='test' />
-            <h2 className='section-title'>Won Tournaments</h2>
-          </div>
+
           <div className='section'>
             <img src={SinnersLogo} alt='test' />
             <h2 className='section-title'>Gallery</h2>

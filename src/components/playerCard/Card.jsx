@@ -10,6 +10,7 @@ import SinnersLogo from '../../img/logo.png';
 
 // Utility
 import { desaturatedRed, accent, secondary } from '../../Utility/Colors';
+import Modal from '../Modal';
 
 const Card = ({
   topText,
@@ -30,6 +31,7 @@ const Card = ({
   product,
   deliveryTime,
   price,
+  buttonFunction,
 }) => {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -68,6 +70,21 @@ const Card = ({
 
   const date = getDate();
 
+  const [openModal, setOpenModal] = useState(false);
+  if (openModal === true) {
+    return (
+      <Modal
+        nickname={nickname}
+        src={src}
+        cardColor={cardColor}
+        name={name}
+        SinnersLogo={SinnersLogo}
+      >
+        TEST{' '}
+      </Modal>
+    );
+  }
+
   if (cardType === 'player') {
     return (
       <StyledDiv className={className}>
@@ -75,7 +92,7 @@ const Card = ({
           className='container'
           onDrag={() => setIsDragging(true)}
           onDragEnd={() => setIsDragging(false)}
-          style={{ x, y, rotateX, rotateY, z: 100 }}
+          style={{ x, y, rotateX, rotateY, z: 10 }}
           drag
           dragElastic={0.16}
           dragConstraints={{ top: 0, left: 0, right: 0, bottom: 0 }}
@@ -121,6 +138,7 @@ const Card = ({
               </div>
 
               <Button
+                onClick={() => setOpenModal(true)}
                 setId={cardColor}
                 setClassName={` ${isDragging && 'dragged'} `}
               >

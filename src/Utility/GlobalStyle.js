@@ -168,6 +168,9 @@ background-image: linear-gradient(to right, #ed6ea0 0%, #ec8c69 100%);
  }
 
 
+
+
+
  `;
 
 export default GlobalStyle;

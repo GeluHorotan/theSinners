@@ -20,8 +20,6 @@ const Tournaments = () => {
     getTournamentData();
   }, []);
 
-  console.log(tournamentData);
-
   return (
     <StyledTournaments>
       {tournamentData &&

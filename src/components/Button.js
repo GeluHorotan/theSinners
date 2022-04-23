@@ -18,6 +18,7 @@ const Button = ({
   setLink,
   setIcon,
   setId,
+  onClick,
 }) => {
   return (
     <ButtonStyle
@@ -26,6 +27,7 @@ const Button = ({
       initial={setInitial}
       animate={setAnimate}
       id={setId}
+      onClick={onClick}
     >
       <SpanStyle id='top'></SpanStyle>
       <SpanStyle id='bottom'></SpanStyle>
