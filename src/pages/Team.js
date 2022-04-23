@@ -48,6 +48,7 @@ const Team = () => {
           simulateTouch={true}
           grabCursor={true}
           speed={500}
+          mousewheel={false}
           mousewheelInvert={false}
           mousewheelReleaseOnEdges={true}
           mousewheelSensitivity={1000}

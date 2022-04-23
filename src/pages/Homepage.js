@@ -5,6 +5,7 @@ import Carousel from '../components/Carousel';
 import SponsorsBar from '../components/SponsorsBar';
 import Slider from '../components/Slider';
 import Card from '../components/playerCard/Card';
+import Comics from '../components/Comics';
 
 // Datas
 import { SliderData } from '../Data/SliderData';
@@ -66,6 +67,7 @@ const Homepage = () => {
           simulateTouch={true}
           grabCursor={true}
           speed={500}
+          mousewheel={true}
           mousewheelInvert={false}
           mousewheelReleaseOnEdges={true}
           mousewheelSensitivity={1000}
@@ -98,6 +100,8 @@ const Homepage = () => {
           })}
         ></Slider>
       </StyledSponsorShowcase>
+
+      <Comics></Comics>
 
       <div className='placeholder'></div>
       <div className='placeholder'></div>

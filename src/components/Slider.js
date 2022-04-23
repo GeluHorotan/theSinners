@@ -29,6 +29,7 @@ const Slider = ({
   simulateTouch,
   grabCursor,
   speed,
+  mousewheel,
   mousewheelInvert,
   mousewheelReleaseOnEdges,
   mousewheelSensitivity,
@@ -62,11 +63,7 @@ const Slider = ({
         simulateTouch={simulateTouch}
         grabCursor={grabCursor}
         speed={speed}
-        mousewheel={{
-          invert: { mousewheelInvert },
-          releaseOnEdges: { mousewheelReleaseOnEdges },
-          sensitivity: { mousewheelSensitivity },
-        }}
+        mousewheel={mousewheel}
         keyboard={{
           enabled: { keyboardEnabled },
           onlyInViewport: { keyboardOnlyInViewport },

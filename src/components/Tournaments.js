@@ -43,9 +43,11 @@ const Tournaments = () => {
                 <p>{tournament.end}</p>
                 <h5>{tournament.prizepool.split(' ')[0]} &#36;</h5>
                 <div className='participants'>
-                  {tournament.teams.map((team, index) => (
-                    <img className='team-logo' src={team.image_url} alt='' />
-                  ))}
+                  {tournament.teams
+                    .filter((team) => team.image_url)
+                    .map((team, index) => (
+                      <img className='team-logo' src={team.image_url} alt='' />
+                    ))}
                 </div>
               </div>
             </div>
