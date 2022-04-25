@@ -78,9 +78,9 @@ const Team = () => {
                 age={player.age}
                 location={player.location}
                 nickname={player.nickname}
+                player_id={player.player_id}
                 name={player.name}
                 position={player.position}
-                player_id={player.player_id}
                 signatureHeroes={player.signatureHeroes}
                 src={player.src}
                 key={index}
