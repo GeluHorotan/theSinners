@@ -32,15 +32,16 @@ const Tournaments = () => {
                   className='tournament-logo'
                   src={tournament.league.image_url}
                   alt=''
+                  key={index}
                 />
               </div>
 
-              <div className='bottom-part'>
+              <div key={index} className='bottom-part'>
                 <h6>{tournament.serie.full_name}</h6>
                 <p>{tournament.begin_at.split('T')[0]}</p>
                 <p>{tournament.end}</p>
                 <h5>{tournament.prizepool.split(' ')[0]} &#36;</h5>
-                <div className='participants'>
+                <div key={index} className='participants'>
                   {tournament.teams
                     .filter((team) => team.image_url)
                     .map((team, index) => (

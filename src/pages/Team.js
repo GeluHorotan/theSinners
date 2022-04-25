@@ -80,6 +80,7 @@ const Team = () => {
                 nickname={player.nickname}
                 name={player.name}
                 position={player.position}
+                player_id={player.player_id}
                 signatureHeroes={player.signatureHeroes}
                 src={player.src}
                 key={index}
@@ -158,7 +159,7 @@ const Team = () => {
             <h2 className='section-title'>Past Tournaments</h2>
           </div>
 
-          <Tournaments></Tournaments>
+          <Tournaments />
 
           <div className='section'>
             <img src={SinnersLogo} alt='test' />

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { createPortal } from 'react-dom';
@@ -7,12 +7,43 @@ import { primary, secondary } from '../Utility/Colors';
 
 // Test Logos
 
+// 869095183;
+
 import First from '../img/1.svg';
 
-const Modal = ({ nickname, src, cardColor, name, SinnersLogo }) => {
-  console.log(name);
+const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
   const splittedName = name.split(' ');
-  console.log(splittedName);
+  console.log(player_id);
+
+  const [playerData, setPlayerData] = useState();
+
+  const getPlayerData = async () => {
+    const res = await fetch(
+      `https://api.opendota.com/api/players/${player_id}/recentMatches`
+    );
+
+    const json = await res.json();
+
+    setPlayerData(json);
+  };
+
+  useEffect(() => {
+    getPlayerData();
+  }, []);
+
+  const [heroData, setHeroData] = useState();
+
+  const getHeroData = async () => {
+    const res = await fetch(`https://api.opendota.com/api/heroStats`);
+
+    const json = await res.json();
+
+    setHeroData(json);
+  };
+
+  useEffect(() => {
+    getHeroData();
+  }, []);
 
   return createPortal(
     <StyledModal>
@@ -33,7 +64,21 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo }) => {
             </h3>
           </div>
           <div className='body'>
-            <p>TEST</p>
+            {playerData &&
+              playerData.map((match, index) => (
+                <div className='match-data'>
+                  <p>ID: {match.match_id} </p>
+                  <p>Hero ID: {match.hero_id} </p>
+                  <p>
+                    KDA: {match.kills}/{match.deaths}/{match.assists}
+                  </p>
+
+                  <p>GPM: {match.gold_per_min}</p>
+                  <p>XPM: {match.xp_per_min}</p>
+                  <p>Last hits: {match.last_hits}</p>
+                  <p>Duration: {match.duration}</p>
+                </div>
+              ))}
           </div>
           <div className='footer'></div>
         </div>
@@ -70,7 +115,7 @@ const StyledModal = styled.div`
       background: ${secondary};
 
       width: 90%;
-      height: 100%;
+      min-height: 100%;
 
       display: flex;
       flex-direction: column;
@@ -91,17 +136,13 @@ const StyledModal = styled.div`
         }
 
         .sinnersLogo {
-          position: absolute;
-          right: 40%;
-          bottom: 15%;
-          height: 80%;
+          justify-content: center;
+          height: 50%;
         }
         h1.team-name {
-          position: absolute;
           font-size: 10rem;
+          justify-content: center;
 
-          right: 15%;
-          bottom: 35%;
           text-align-last: start;
           line-height: 10rem;
         }
@@ -118,9 +159,17 @@ const StyledModal = styled.div`
     }
   }
   .body {
-    width: 95%;
+    width: 100%;
     margin: 0 auto;
     padding: 2rem;
+    color: black;
+    .match-data {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 5rem;
+      margin: 1rem 0;
+    }
   }
 `;
 

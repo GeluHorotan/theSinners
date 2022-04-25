@@ -22,6 +22,7 @@ const Card = ({
   location,
   age,
   position,
+  player_id,
   signatureHeroes,
   signatureHeroesClassName = 'heroes',
   src,
@@ -39,7 +40,6 @@ const Card = ({
   const rotateY = useTransform(x, [-100, 100], [-30, 30]);
 
   const [isDragging, setIsDragging] = useState(false);
-
   const getDate = (separator = ' - ') => {
     let newDate = new Date();
     let date = newDate.getDate();
@@ -79,6 +79,7 @@ const Card = ({
         cardColor={cardColor}
         name={name}
         SinnersLogo={SinnersLogo}
+        player_id={player_id}
       >
         TEST{' '}
       </Modal>
