@@ -49,6 +49,40 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
     getHeroData();
   }, []);
 
+  const [gameData, setGameData] = useState();
+  const [gameTotal, setGameTotal] = useState();
+
+  const getGameData = async () => {
+    const res = await fetch(
+      `https://api.opendota.com/api/players/${player_id}/wl`
+    );
+
+    const json = await res.json();
+
+    setGameData(json);
+    setGameTotal(json.win + json.lose);
+  };
+
+  useEffect(() => {
+    getGameData();
+  }, []);
+
+  const [steamData, setSteamData] = useState();
+
+  const getSteamData = async () => {
+    const res = await fetch(
+      `https://api.opendota.com/api/players/${player_id}`
+    );
+
+    const json = await res.json();
+
+    setSteamData(json);
+  };
+
+  useEffect(() => {
+    getSteamData();
+  }, []);
+
   return createPortal(
     <StyledModal>
       <div className='modal-background'>
@@ -64,7 +98,44 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
               {splittedName[0]} "{nickname}" {splittedName[1]}
             </h3>
           </div>
+
           <div className='body'>
+            {gameData && steamData && (
+              <StyledSteamDiv>
+                <div className='first-container'>
+                  <div className='img-container'>
+                    <img src={steamData.profile.avatarfull} alt='' />
+                  </div>
+
+                  <div className='profile-text'>
+                    <h4 className='nickname'>
+                      {steamData.profile.personaname}
+                    </h4>
+                    <h4>
+                      Solo competitive rank:{' '}
+                      {steamData.solo_competitive_rank === null
+                        ? 'Uncalibrated'
+                        : steamData.solo_competitive_rank}
+                    </h4>
+                    <h4>
+                      MMR:{' '}
+                      {steamData.mmr_estimate.estimate === null
+                        ? 'Uncalibrated'
+                        : steamData.mmr_estimate.estimate}
+                    </h4>
+                  </div>
+                </div>
+                <div className='second-container'>
+                  <h4>Total: {gameTotal && gameTotal}</h4>
+                  <h5>
+                    LOSS {gameData.lose} - {gameData.win} WINS
+                  </h5>{' '}
+                  <h5>
+                    Winrate {((gameData.win * 100) / gameTotal).toFixed('2')} %
+                  </h5>{' '}
+                </div>
+              </StyledSteamDiv>
+            )}
             <div className='table-box'></div>
             <div className='table-row table-head'>
               <div className='table-cell first-cell'>
@@ -256,7 +327,7 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
                     })}
 
                   <div className='table-cell'>
-                    {match.radiant_win ? (
+                    {match.radiant_win && match.isRadiant ? (
                       <h6
                         style={{
                           color: '#6da54a',
@@ -272,7 +343,7 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
                           textShadow: '1px 1px 5px #bc3e36',
                         }}
                       >
-                        LOST
+                        WON
                       </h6>
                     )}
                   </div>
@@ -487,7 +558,7 @@ const StyledModal = styled.div`
   }
   .body {
     width: 100%;
-    height: 20rem;
+    height: 20px;
     margin: 0 auto;
     padding: 2rem;
     display: flex;
@@ -578,7 +649,11 @@ const StyledModal = styled.div`
     }
 
     .table-head {
-      background-image: linear-gradient(120deg, #f093fb 0%, #f5576c 100%);
+      background-image: linear-gradient(
+        120deg,
+        #f093fb 0%,
+        #f5576c 100%
+      ) !important;
       box-shadow: none;
       color: ${secondary};
       font-weight: 600;
@@ -590,6 +665,33 @@ const StyledModal = styled.div`
     .last-cell {
       border-right: none;
     }
+  }
+`;
+
+const StyledSteamDiv = styled.div`
+  width: 100%;
+  padding: 2rem;
+  display: flex;
+  color: ${secondary};
+
+  justify-content: center;
+  .first-container {
+    display: flex;
+
+    .profile-text {
+      height: 100%;
+      display: flex;
+      justify-content: end;
+      flex-direction: column;
+      padding: 0 2rem;
+    }
+  }
+  .second-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: flex-start;
+    padding: 0.5rem 0;
   }
 `;
 
