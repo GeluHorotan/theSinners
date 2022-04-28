@@ -1,56 +1,62 @@
 import React from 'react';
 import styled from 'styled-components';
 
+const templar = 'templar assassin';
+console.log(templar.replace(' ', '-').toUpperCase());
 const About = () => {
   return (
-    <TableStyle>
-      <div>TABLE TEST</div>
-      <div className='table-box'></div>
-      <div className='table-row table-head'>
-        <div className='table-cell first-cell'>
-          <p>MATCH ID</p>
+    <>
+      <TableStyle>
+        <div>TABLE TEST</div>
+        <div className='table-box'></div>
+        <div className='table-row table-head'>
+          <div className='table-cell first-cell'>
+            <p>MATCH ID</p>
+          </div>
+          <div className='table-cell'>
+            <p>HERO</p>
+          </div>
+          <div className='table-cell'>
+            <p>KDA</p>
+          </div>
         </div>
-        <div className='table-cell'>
-          <p>HERO</p>
+        <div className='table-row'>
+          <div className='table-cell first-cell'>
+            <p>54654765765</p>
+          </div>
+          <div className='table-cell'>
+            <p>Templar Assassin</p>
+          </div>
+          <div className='table-cell last-cell'>
+            <p>100/14/2</p>
+          </div>
         </div>
-        <div className='table-cell'>
-          <p>KDA</p>
+        <div className='table-row'>
+          <div className='table-cell first-cell'>
+            <p>54654765765</p>
+          </div>
+          <div className='table-cell'>
+            <p>Chaos Knight</p>
+          </div>
+          <div className='table-cell last-cell'>
+            <p>1014231/1241234/12412</p>
+          </div>
         </div>
-      </div>
-      <div className='table-row'>
-        <div className='table-cell first-cell'>
-          <p>54654765765</p>
+        <div className='table-row'>
+          <div className='table-cell first-cell'>
+            <p>546547657655465476576554654765765</p>
+          </div>
+          <div className='table-cell'>
+            <p>Phantom Lancer suck my cancer</p>
+          </div>
+          <div className='table-cell last-cell'>
+            <p>1234321/34124324/234</p>
+          </div>
         </div>
-        <div className='table-cell'>
-          <p>Templar Assassin</p>
-        </div>
-        <div className='table-cell last-cell'>
-          <p>100/14/2</p>
-        </div>
-      </div>
-      <div className='table-row'>
-        <div className='table-cell first-cell'>
-          <p>54654765765</p>
-        </div>
-        <div className='table-cell'>
-          <p>Chaos Knight</p>
-        </div>
-        <div className='table-cell last-cell'>
-          <p>1014231/1241234/12412</p>
-        </div>
-      </div>
-      <div className='table-row'>
-        <div className='table-cell first-cell'>
-          <p>546547657655465476576554654765765</p>
-        </div>
-        <div className='table-cell'>
-          <p>Phantom Lancer suck my cancer</p>
-        </div>
-        <div className='table-cell last-cell'>
-          <p>1234321/34124324/234</p>
-        </div>
-      </div>
-    </TableStyle>
+      </TableStyle>
+
+      {/* <h5>{templar}</h5> */}
+    </>
   );
 };
 
