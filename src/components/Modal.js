@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
+import ReactTooltip from 'react-tooltip';
 
 import { createPortal } from 'react-dom';
 
@@ -33,6 +34,7 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
 
   useEffect(() => {
     getPlayerData();
+    ReactTooltip.rebuild();
   }, []);
 
   const [heroData, setHeroData] = useState();
@@ -47,6 +49,7 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
 
   useEffect(() => {
     getHeroData();
+    ReactTooltip.rebuild();
   }, []);
 
   // const [gameData, setGameData] = useState();
@@ -84,6 +87,8 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
   // }, []);
 
   const [heroAbilities, setHeroAbilities] = useState();
+  let [property, setProperty] = useState();
+  let [array, setArray] = useState();
 
   const getHeroAbilities = async () => {
     const res = await fetch(`https://api.opendota.com/api/constants/abilities`);
@@ -91,29 +96,27 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
     const json = await res.json();
 
     setHeroAbilities(json);
+    setProperty(json);
+    setArray(json);
   };
 
   useEffect(() => {
     getHeroAbilities();
+    ReactTooltip.rebuild();
   }, []);
 
-  const property = Object.getOwnPropertyDescriptors(heroAbilities);
-
-  const array = Object.entries(property);
-
-  const checker = () => {
-    array.map((hero, index) => {
-      if (hero[0].includes('templar')) {
-        console.log([hero[1].value.img]);
-      }
-    });
-  };
-
-  checker();
+  if (heroAbilities) {
+    property = Object.getOwnPropertyDescriptors(heroAbilities);
+  }
+  if (heroAbilities) {
+    array = Object.entries(property);
+  }
 
   const errorImgHandler = (ev) => {
     ev.target.style.display = 'none';
   };
+
+  console.log(array);
 
   return createPortal(
     <StyledModal>
@@ -219,6 +222,7 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
                                     src={`https://api.opendota.com${hero.img}`}
                                     alt=''
                                   />
+
                                   <div className='horizontal-aligner'>
                                     <h6>{hero.localized_name}</h6>
                                     {hero.attack_type === 'Melee' ? (
@@ -237,6 +241,19 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
                                         if (hero[1].value.img) {
                                           return (
                                             <img
+                                              data-tip={`<h5>${hero[1].value.dname}</h5>
+                                              <h6>${hero[1].value.behavior}</h6>
+                                              
+                                              <p>Piercing though spell imunity: ${hero[1].value.bkbpierce}</p>
+                                              <p>Cooldown: ${hero[1].value.cd}</p>
+                                              <p>DMG: ${hero[1].value.dmg}</p>
+                                              <p>Damage Type: ${hero[1].value.dmg_type}</p>
+                                              <p>${hero[1].value.desc}</p>`}
+                                              data-class='TESTER'
+                                              data-html={true}
+                                              data-multiline={true}
+                                              data-place='top'
+                                              data-effect='solid'
                                               onError={errorImgHandler}
                                               src={`https://api.opendota.com${hero[1].value.img}`}
                                               alt=''
@@ -253,7 +270,7 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
                                 {hero.primary_attr.toUpperCase()}
                               </p> */}
                                 </div>
-
+                                <ReactTooltip />
                                 <div className='table-cell atr'>
                                   <div className='attributes'>
                                     {hero.roles.map((role, index) => {
@@ -752,6 +769,13 @@ const StyledTable = styled.div`
 
   .last-cell {
     border-right: none;
+  }
+
+  .TESTER {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 25%;
   }
 `;
 
