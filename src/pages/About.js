@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-
+const matches = [1, 2, 3, 4, 5, 6, 7, 8];
+matches.forEach((match) => console.log(match));
 const templar = 'templar assassin';
 console.log(templar.replace(' ', '-').toUpperCase());
 const About = () => {

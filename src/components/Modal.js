@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+/* eslint-disable array-callback-return */
+import React, { Fragment, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ReactTooltip from 'react-tooltip';
 
@@ -21,24 +22,35 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
   const splittedName = name.split(' ');
 
   const [playerData, setPlayerData] = useState();
-
   const getPlayerData = async () => {
     const res = await fetch(
       `https://api.opendota.com/api/players/${player_id}/recentMatches`
     );
-
     const json = await res.json();
-
     setPlayerData(json);
   };
 
   useEffect(() => {
     getPlayerData();
     ReactTooltip.rebuild();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const [matchData, setMatchData] = useState();
+  const [itemData, setItemData] = useState();
+  const getItemData = async () => {
+    const res = await fetch(`  https://api.opendota.com/api/constants/items`);
+
+    const json = await res.json();
+
+    setItemData(json);
+  };
+
+  useEffect(() => {
+    getItemData();
   }, []);
 
   const [heroData, setHeroData] = useState();
-
   const getHeroData = async () => {
     const res = await fetch(`https://api.opendota.com/api/heroStats`);
 
@@ -49,7 +61,6 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
 
   useEffect(() => {
     getHeroData();
-    ReactTooltip.rebuild();
   }, []);
 
   // const [gameData, setGameData] = useState();
@@ -116,8 +127,6 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
     ev.target.style.display = 'none';
   };
 
-  console.log(array);
-
   return createPortal(
     <StyledModal>
       <div className='modal-background'>
@@ -136,41 +145,41 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
 
           <div className='body'>
             {/* {gameData && steamData && (
-              <StyledSteamDiv>
-                <div className='first-container'>
-                  <div className='img-container'>
-                    <img src={steamData.profile.avatarfull} alt='' />
-                  </div>
-
-                  <div className='profile-text'>
-                    <h4 className='nickname'>
-                      {steamData.profile.personaname}
-                    </h4>
-                    <h4>
-                      Solo competitive rank:{' '}
-                      {steamData.solo_competitive_rank === null
-                        ? 'Uncalibrated'
-                        : steamData.solo_competitive_rank}
-                    </h4>
-                    <h4>
-                      MMR:{' '}
-                      {steamData.mmr_estimate.estimate === null
-                        ? 'Uncalibrated'
-                        : steamData.mmr_estimate.estimate}
-                    </h4>
-                  </div>
-                </div>
-                <div className='second-container'>
-                  <h4>Total: {gameTotal && gameTotal}</h4>
-                  <h5>
-                    LOSS {gameData.lose} - {gameData.win} WINS
-                  </h5>{' '}
-                  <h5>
-                    Winrate {((gameData.win * 100) / gameTotal).toFixed('2')} %
-                  </h5>{' '}
-                </div>
-              </StyledSteamDiv>
-            )} */}
+        <StyledSteamDiv>
+        <div className='first-container'>
+        <div className='img-container'>
+        <img src={steamData.profile.avatarfull} alt='' />
+        </div>
+        
+        <div className='profile-text'>
+        <h4 className='nickname'>
+        {steamData.profile.personaname}
+        </h4>
+        <h4>
+        Solo competitive rank:{' '}
+        {steamData.solo_competitive_rank === null
+          ? 'Uncalibrated'
+          : steamData.solo_competitive_rank}
+          </h4>
+          <h4>
+          MMR:{' '}
+          {steamData.mmr_estimate.estimate === null
+            ? 'Uncalibrated'
+            : steamData.mmr_estimate.estimate}
+            </h4>
+            </div>
+            </div>
+            <div className='second-container'>
+            <h4>Total: {gameTotal && gameTotal}</h4>
+            <h5>
+            LOSS {gameData.lose} - {gameData.win} WINS
+            </h5>{' '}
+            <h5>
+            Winrate {((gameData.win * 100) / gameTotal).toFixed('2')} %
+            </h5>{' '}
+            </div>
+            </StyledSteamDiv>
+          )} */}
             <StyledTable>
               <div className='table-box'></div>
               <div className='table-row table-head'>
@@ -203,9 +212,10 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
                   <h6>GAME DURATION</h6>
                 </div>
               </div>
+
               {playerData &&
                 playerData.map((match, index) => (
-                  <>
+                  <Fragment key={index}>
                     <div className='table-row'>
                       {heroData &&
                         heroData.map((hero, index) => {
@@ -213,9 +223,10 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
                             'npc_dota_hero_',
                             ''
                           );
+
                           if (hero.id === match.hero_id) {
                             return (
-                              <>
+                              <Fragment key={index}>
                                 <div className='table-cell first-cell'>
                                   <img
                                     key={index}
@@ -225,6 +236,7 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
 
                                   <div className='horizontal-aligner'>
                                     <h6>{hero.localized_name}</h6>
+
                                     {hero.attack_type === 'Melee' ? (
                                       <GiIcons.GiCrossedSwords
                                         style={{ color: '#ff6564' }}
@@ -235,40 +247,44 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
                                       />
                                     )}
                                   </div>
+
                                   <div className='hero-skills'>
-                                    {array.map((hero, index) => {
-                                      if (hero[0].includes(`${replaced}`)) {
-                                        if (hero[1].value.img) {
-                                          return (
-                                            <img
-                                              data-tip={`<h5>${hero[1].value.dname}</h5>
-                                              <h6>${hero[1].value.behavior}</h6>
-                                              
-                                              <p>Piercing though spell imunity: ${hero[1].value.bkbpierce}</p>
-                                              <p>Cooldown: ${hero[1].value.cd}</p>
-                                              <p>DMG: ${hero[1].value.dmg}</p>
-                                              <p>Damage Type: ${hero[1].value.dmg_type}</p>
-                                              <p>${hero[1].value.desc}</p>`}
-                                              data-class='TESTER'
-                                              data-html={true}
-                                              data-multiline={true}
-                                              data-place='top'
-                                              data-effect='solid'
-                                              onError={errorImgHandler}
-                                              src={`https://api.opendota.com${hero[1].value.img}`}
-                                              alt=''
-                                            />
-                                          );
-                                        } else {
-                                          return null;
+                                    {array &&
+                                      array.map((hero, index) => {
+                                        if (hero[0].includes(`${replaced}_`)) {
+                                          if (hero[1].value.img) {
+                                            return (
+                                              <img
+                                                key={index}
+                                                data-tip={`<h5>${hero[1].value.dname}</h5>
+                                    <h6>${hero[1].value.behavior}</h6>
+                                    
+                                    <p>Piercing though spell imunity: ${hero[1].value.bkbpierce}</p>
+                                    <p>Cooldown: ${hero[1].value.cd}</p>
+                                    <p>DMG: ${hero[1].value.dmg}</p>
+                                    <p>Damage Type: ${hero[1].value.dmg_type}</p>
+                                    <p>${hero[1].value.desc}</p>`}
+                                                data-class='TESTER'
+                                                data-html={true}
+                                                data-multiline={true}
+                                                data-place='top'
+                                                data-effect='solid'
+                                                onError={errorImgHandler}
+                                                src={`https://api.opendota.com${hero[1].value.img}`}
+                                                alt=''
+                                              />
+                                            );
+                                          } else {
+                                            return null;
+                                          }
                                         }
-                                      }
-                                    })}
+                                      })}
                                   </div>
+
                                   {/* <p>
-                                Primary Attribute:{' '}
-                                {hero.primary_attr.toUpperCase()}
-                              </p> */}
+                              Primary Attribute:{' '}
+                              {hero.primary_attr.toUpperCase()}
+                            </p> */}
                                 </div>
                                 <ReactTooltip />
                                 <div className='table-cell atr'>
@@ -281,6 +297,8 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
                                               style={{
                                                 color: '#ff6564',
                                               }}
+                                              key={index}
+                                              title='TEST'
                                             />
                                           );
                                         case 'Nuker':
@@ -289,6 +307,7 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
                                               style={{
                                                 color: '#F0D800',
                                               }}
+                                              key={index}
                                             />
                                           );
                                         case 'Initiator':
@@ -297,6 +316,7 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
                                               style={{
                                                 color: '#FF6600',
                                               }}
+                                              key={index}
                                             />
                                           );
                                         case 'Durable':
@@ -305,6 +325,7 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
                                               style={{
                                                 color: '#D00000',
                                               }}
+                                              key={index}
                                             />
                                           );
                                         case 'Jungler':
@@ -313,6 +334,7 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
                                               style={{
                                                 color: '#00CD0D',
                                               }}
+                                              key={index}
                                             />
                                           );
                                         case 'Support':
@@ -321,6 +343,7 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
                                               style={{
                                                 color: '#0066FF',
                                               }}
+                                              key={index}
                                             />
                                           );
                                         case 'Pusher':
@@ -329,6 +352,7 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
                                               style={{
                                                 color: '#8D3D00',
                                               }}
+                                              key={index}
                                             />
                                           );
                                         case 'Disabler':
@@ -337,6 +361,7 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
                                               style={{
                                                 color: '#b26abf',
                                               }}
+                                              key={index}
                                             />
                                           );
 
@@ -346,17 +371,18 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
                                               style={{
                                                 color: '#960084',
                                               }}
+                                              key={index}
                                             />
                                           );
                                         default:
-                                          return <p>NULL</p>;
+                                          return <p key={index}>NULL</p>;
                                       }
                                     })}
                                   </div>
 
                                   {/* <p>AGI Gain: {hero.agi_gain}</p>
-                              <p>STR Gain: {hero.str_gain}</p>
-                              <p>INT Gain: {hero.int_gain}</p> */}
+                                              <p>STR Gain: {hero.str_gain}</p>
+                                            <p>INT Gain: {hero.int_gain}</p> */}
 
                                   <div className='horizontal-aligner'>
                                     {' '}
@@ -389,11 +415,11 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
                                     </div>
                                   </div>
                                   {/* <p>Attack range: {hero.attack_range}</p>
-                              <p>Attack rate: {hero.attack_rate}</p>
-                              <p>Projectile speed: {hero.projectile_speed}</p>
-                              <p>Movement speed: {hero.move_speed}</p> */}
+                                            <p>Attack rate: {hero.attack_rate}</p>
+                                            <p>Projectile speed: {hero.projectile_speed}</p>
+                                          <p>Movement speed: {hero.move_speed}</p> */}
                                 </div>
-                              </>
+                              </Fragment>
                             );
                           }
                         })}
@@ -539,9 +565,46 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
                       </div>
                     </div>
                     <div className='table-row bottom-infos'>
-                      <h6>TEST</h6>
+                      <div className='picks-bans'>
+                        {matchData &&
+                          matchData.picks_bans.map((picks, index) =>
+                            heroData.map((hero, index) => {
+                              if (picks.hero_id === hero.id) {
+                                return (
+                                  <img
+                                    className='lineup-img'
+                                    src={`https://api.opendota.com${hero.img}`}
+                                    alt=''
+                                  />
+                                );
+                              }
+                            })
+                          )}
+
+                        <div className='picks-bans'>
+                          {/* {playerData &&
+                            matchData &&
+                            itemData &&
+                            matchData.players.map((player, index) =>
+                              playerData.map((match, index) => {
+                                if (46 === player.hero_id) {
+                                  itemData.map((item, index) => {
+                                    if (item.id.includes('1')) {
+                                      return (
+                                        <img
+                                          src={`https://api.opendota.com${item.img}`}
+                                          alt=''
+                                        />
+                                      );
+                                    }
+                                  });
+                                }
+                              })
+                            )} */}
+                        </div>
+                      </div>
                     </div>
-                  </>
+                  </Fragment>
                 ))}
             </StyledTable>
           </div>
@@ -769,6 +832,25 @@ const StyledTable = styled.div`
 
   .last-cell {
     border-right: none;
+  }
+
+  .picks-bans {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 1rem 0;
+    .lineup-img {
+      width: 3rem;
+    }
+  }
+
+  .bans {
+    align-self: flex-end;
+  }
+  .picks {
+    align-self: flex-start;
   }
 
   .TESTER {
