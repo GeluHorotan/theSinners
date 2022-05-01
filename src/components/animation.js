@@ -18,11 +18,17 @@ export const logoTop = {
 };
 
 export const logoMiddle = {
-  hidden: { scale: 0, opacity: 0 },
+  hidden: { x: -2322.03, y: -2054.64 },
   show: {
-    transition: { delay: 0.2, duration: 1.25, ease: 'easeOut' },
-    scale: 1,
-    opacity: 1,
+    x: -2322.03,
+    y: -2054.64,
+    rotateY: '360deg',
+    transition: {
+      delay: 1.2,
+      repeat: Infinity,
+      repeatType: 'loop',
+      duration: 15,
+    },
   },
 };
 
@@ -38,22 +44,24 @@ export const logoBottom = {
 };
 
 export const logoLeft = {
-  hidden: { x: -1500, y: 237.242, scale: 0, opacity: 0 },
+  hidden: { x: '+100%', y: '-100%', scale: 0, opacity: 0 },
   show: {
-    x: 188,
-    y: 237.242,
-    transition: { delay: 0.6, duration: 1, ease: 'easeOut' },
+    x: -2322.03,
+    y: -2054.64,
+    rotate: '360deg',
+    transition: { type: 'spring', delay: 0.6, duration: 1.5, ease: 'easeOut' },
     scale: 1,
     opacity: 1,
   },
 };
 
 export const logoRight = {
-  hidden: { x: '2000', y: 237.242, scale: 0, opacity: 0 },
+  hidden: { x: '-100%', y: '100%', scale: 0, opacity: 0 },
   show: {
-    x: 981.247,
-    y: 237.242,
-    transition: { delay: 0.6, duration: 1, ease: 'easeOut' },
+    x: -2322.03,
+    y: -2054.64,
+    rotate: '360deg',
+    transition: { type: 'spring', delay: 0.6, duration: 1.5, ease: 'easeOut' },
     scale: 1,
     opacity: 1,
   },
