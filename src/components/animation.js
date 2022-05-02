@@ -174,3 +174,20 @@ export const comingTop = {
     },
   },
 };
+
+export const pathTest = {
+  hidden: {
+    opacity: 0,
+    pathLength: 0,
+    strokeDash: 100,
+  },
+  show: {
+    opacity: 1,
+    strokeDash: 1000,
+    pathLength: 1,
+    transition: {
+      duration: 3,
+      ease: 'easeInOut',
+    },
+  },
+};
