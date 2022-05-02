@@ -1,15 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import Tester from './Tester';
-import {
-  logoTop,
-  logoMiddle,
-  logoBottom,
-  logoLeft,
-  logoRight,
-  pathTest,
-} from './animation';
+import { logoMiddle, logoLeft, logoRight, pathTest } from './animation';
 
 const Logo = () => {
   return (
@@ -170,7 +162,6 @@ const Logo = () => {
           </motion.g>
         </g>
       </SvgStyle>
-      <Tester />
     </ContainerStyle>
   );
 };
@@ -178,14 +169,13 @@ const Logo = () => {
 const SvgStyle = styled.svg`
   display: flex;
   width: 100%;
-  height: 70vh;
+  height: 45vh;
   overflow-x: visible;
 
   align-items: center;
 `;
 const ContainerStyle = styled.div`
   width: 100%;
-  height: 80vh;
 `;
 
 export default Logo;
