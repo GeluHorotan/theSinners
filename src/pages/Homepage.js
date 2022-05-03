@@ -1,5 +1,10 @@
 import React from 'react';
-import ParticleImage, { ParticleOptions } from 'react-particle-image';
+import ParticleImage, {
+  ParticleOptions,
+  Vector,
+  forces,
+  ParticleForce,
+} from 'react-particle-image';
 
 // Page Components
 
@@ -9,6 +14,7 @@ import Slider from '../components/Slider';
 import Card from '../components/playerCard/Card';
 import DotaLogo from '../components/DotaLogo';
 import Logo from '../img/logo.png';
+import Nisha from '../img/playerCards/nisha.png';
 
 // Datas
 import { SliderData } from '../Data/SliderData';
@@ -36,7 +42,14 @@ const Homepage = () => {
       // Make a particle for this pixel if blue > 50 (range 0-255)
       return pixel.b > 50;
     },
-    color: ({ x, y, image }) => '#61dafb',
+    color: ({ x, y, image }) => '#FF8882',
+    radius: () => Math.random() * 1.5 + 0.5,
+    mass: () => 40,
+    friction: () => 0.15,
+  };
+
+  const motionForce = (x: number, y: number): ParticleForce => {
+    return forces.disturbance(x, y, 5);
   };
 
   const getDate = (separator = ' - ') => {
@@ -131,10 +144,12 @@ const Homepage = () => {
           <div className='text'>
             <ParticleImage
               src={Logo}
-              scale={3}
-              entropy={20}
-              maxParticles={4200}
+              scale={4}
+              entropy={15}
+              maxParticles={2000}
               particleOptions={particleOptions}
+              mouseMoveForce={motionForce}
+              touchMoveForce={motionForce}
             />
             <h4>
               A premier global esports organization, representing professional
