@@ -80,9 +80,7 @@ const Card = ({
         name={name}
         SinnersLogo={SinnersLogo}
         player_id={player_id}
-      >
-        TEST{' '}
-      </Modal>
+      ></Modal>
     );
   }
 

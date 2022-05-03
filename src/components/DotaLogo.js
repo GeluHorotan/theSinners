@@ -70,7 +70,7 @@ const DotaLogo = () => {
 
 const StyledDiv = styled.div`
   svg {
-    width: 35%;
+    width: 100%;
   }
   #Rectangle_2 {
     opacity: 0;

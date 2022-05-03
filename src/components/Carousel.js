@@ -6,9 +6,6 @@ import { secondary, primary, saturatedRed } from '../Utility/Colors';
 import { SliderData } from '../Data/SliderData';
 
 // Icons
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
-import { faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
 const Carousel = ({ slides }) => {
   const [current, setCurrent] = useState(0);
@@ -27,20 +24,6 @@ const Carousel = ({ slides }) => {
 
   return (
     <SectionStyle className='slider'>
-      <FontAwesomeIcon
-        id='openBook'
-        size='1x'
-        icon={faAngleLeft}
-        className='left-arrow'
-        onClick={prevSlide}
-      />
-      <FontAwesomeIcon
-        id='openBook'
-        size='1x'
-        icon={faAngleRight}
-        className='right-arrow'
-        onClick={nextSlide}
-      />
       {SliderData.map((slide, index) => {
         return (
           <div className={index === current ? ' active' : ''} key={index}>

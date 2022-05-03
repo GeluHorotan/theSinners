@@ -1,7 +1,7 @@
 /* eslint-disable array-callback-return */
 import React, { Fragment, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import ReactTooltip from 'react-tooltip';
+// import ReactTooltip from 'react-tooltip';
 
 import { createPortal } from 'react-dom';
 
@@ -20,7 +20,7 @@ import int from '../img/Modal/int.webp';
 
 const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
   const splittedName = name.split(' ');
-
+  // LAST 20 PLAYER GAMES
   const [playerData, setPlayerData] = useState();
   const getPlayerData = async () => {
     const res = await fetch(
@@ -32,17 +32,14 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
 
   useEffect(() => {
     getPlayerData();
-    ReactTooltip.rebuild();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const [matchData, setMatchData] = useState();
+  //
   const [itemData, setItemData] = useState();
   const getItemData = async () => {
     const res = await fetch(`  https://api.opendota.com/api/constants/items`);
-
     const json = await res.json();
-
     setItemData(json);
   };
 
@@ -50,12 +47,11 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
     getItemData();
   }, []);
 
+  // ----------------------- HERO DATA STATS ( IMAGES AND SKILLS AND ATTR ROLES ETC)
   const [heroData, setHeroData] = useState();
   const getHeroData = async () => {
     const res = await fetch(`https://api.opendota.com/api/heroStats`);
-
     const json = await res.json();
-
     setHeroData(json);
   };
 
@@ -63,6 +59,39 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
     getHeroData();
   }, []);
 
+  //  ----------------------- MATCH STATS
+  let ids = [];
+  const [matchStats, setMatchStats] = useState();
+
+  let games = [];
+  const getMatchesData = () => {
+    ids.forEach(async (id, index) => {
+      games = [];
+      if (ids.length !== 0) {
+        const res = await fetch(`https://api.opendota.com/api/matches/${id}`);
+        const json = await res.json();
+
+        games.push(json);
+      }
+
+      setMatchStats(games);
+    });
+  };
+  useEffect(() => {
+    getMatchesData();
+  }, []);
+
+  const gettingIds = () => {
+    if (playerData) {
+      ids = [];
+      playerData.map((game, index) => ids.push(game.match_id));
+    }
+  };
+  gettingIds();
+  console.log(matchStats);
+  console.log(matchStats);
+
+  // ----------------------- TOTAL GAMES AND LOSES DATA
   // const [gameData, setGameData] = useState();
   // const [gameTotal, setGameTotal] = useState();
 
@@ -81,8 +110,8 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
   //   getGameData();
   // }, []);
 
+  // ----------------------- STEAM PROFILE DATA
   // const [steamData, setSteamData] = useState();
-
   // const getSteamData = async () => {
   //   const res = await fetch(
   //     `https://api.opendota.com/api/players/${player_id}`
@@ -113,7 +142,6 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
 
   useEffect(() => {
     getHeroAbilities();
-    ReactTooltip.rebuild();
   }, []);
 
   if (heroAbilities) {
@@ -286,7 +314,7 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
                               {hero.primary_attr.toUpperCase()}
                             </p> */}
                                 </div>
-                                <ReactTooltip />
+                                {/* <ReactTooltip /> */}
                                 <div className='table-cell atr'>
                                   <div className='attributes'>
                                     {hero.roles.map((role, index) => {
@@ -298,7 +326,6 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
                                                 color: '#ff6564',
                                               }}
                                               key={index}
-                                              title='TEST'
                                             />
                                           );
                                         case 'Nuker':
@@ -565,44 +592,7 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
                       </div>
                     </div>
                     <div className='table-row bottom-infos'>
-                      <div className='picks-bans'>
-                        {matchData &&
-                          matchData.picks_bans.map((picks, index) =>
-                            heroData.map((hero, index) => {
-                              if (picks.hero_id === hero.id) {
-                                return (
-                                  <img
-                                    className='lineup-img'
-                                    src={`https://api.opendota.com${hero.img}`}
-                                    alt=''
-                                  />
-                                );
-                              }
-                            })
-                          )}
-
-                        <div className='picks-bans'>
-                          {/* {playerData &&
-                            matchData &&
-                            itemData &&
-                            matchData.players.map((player, index) =>
-                              playerData.map((match, index) => {
-                                if (46 === player.hero_id) {
-                                  itemData.map((item, index) => {
-                                    if (item.id.includes('1')) {
-                                      return (
-                                        <img
-                                          src={`https://api.opendota.com${item.img}`}
-                                          alt=''
-                                        />
-                                      );
-                                    }
-                                  });
-                                }
-                              })
-                            )} */}
-                        </div>
-                      </div>
+                      <p></p>
                     </div>
                   </Fragment>
                 ))}
@@ -832,32 +822,6 @@ const StyledTable = styled.div`
 
   .last-cell {
     border-right: none;
-  }
-
-  .picks-bans {
-    height: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-    padding: 1rem 0;
-    .lineup-img {
-      width: 3rem;
-    }
-  }
-
-  .bans {
-    align-self: flex-end;
-  }
-  .picks {
-    align-self: flex-start;
-  }
-
-  .TESTER {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    width: 25%;
   }
 `;
 

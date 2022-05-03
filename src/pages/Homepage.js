@@ -1,11 +1,14 @@
 import React from 'react';
+import ParticleImage, { ParticleOptions } from 'react-particle-image';
+
 // Page Components
 
 import Carousel from '../components/Carousel';
 import SponsorsBar from '../components/SponsorsBar';
 import Slider from '../components/Slider';
 import Card from '../components/playerCard/Card';
-import Comics from '../components/Comics';
+import DotaLogo from '../components/DotaLogo';
+import Logo from '../img/logo.png';
 
 // Datas
 import { SliderData } from '../Data/SliderData';
@@ -23,8 +26,19 @@ import Nvidia from '../img/SponsorLogos/nvidia.svg';
 import Northface from '../img/SponsorLogos/northface.svg';
 import Tesla from '../img/SponsorLogos/tesla.png';
 import { accent, primary, secondary } from '../Utility/Colors';
+import Button from '../components/Button';
 
 const Homepage = () => {
+  const particleOptions: ParticleOptions = {
+    filter: ({ x, y, image }) => {
+      // Get pixel
+      const pixel = image.get(x, y);
+      // Make a particle for this pixel if blue > 50 (range 0-255)
+      return pixel.b > 50;
+    },
+    color: ({ x, y, image }) => '#61dafb',
+  };
+
   const getDate = (separator = ' - ') => {
     let newDate = new Date();
     let date = newDate.getDate();
@@ -101,11 +115,6 @@ const Homepage = () => {
         ></Slider>
       </StyledSponsorShowcase>
 
-      <Comics></Comics>
-
-      <div className='placeholder'></div>
-      <div className='placeholder'></div>
-
       <SponsorsBar
         setSponsor1={RazerLogo}
         setSponsor2={Redbull}
@@ -116,6 +125,25 @@ const Homepage = () => {
         setSponsor7={Tesla}
       ></SponsorsBar>
 
+      <StyledAboutRefContainer>
+        <div className='about-ref'>
+          <DotaLogo />
+          <div className='text'>
+            <ParticleImage
+              src={Logo}
+              scale={3}
+              entropy={20}
+              maxParticles={4200}
+              particleOptions={particleOptions}
+            />
+            <h4>
+              A premier global esports organization, representing professional
+              teams and gamers across the world.
+            </h4>
+            <Button>MEET US</Button>
+          </div>
+        </div>
+      </StyledAboutRefContainer>
       <div className='placeholder'></div>
       <div className='placeholder'></div>
     </StyledPage>
@@ -207,6 +235,30 @@ const StyledSponsorShowcase = styled.div`
     .swiper-pagination-progressbar-fill {
       border-radius: 1rem;
     }
+  }
+`;
+
+const StyledAboutRefContainer = styled.div`
+  width: 100%;
+  margin: 10rem 0;
+  canvas {
+    background: none !important;
+  }
+  svg {
+    width: 150%;
+  }
+  .about-ref {
+    display: flex;
+
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  .text {
+    color: ${secondary};
+    width: 25%;
+    justify-self: end;
+    align-items: center;
   }
 `;
 
