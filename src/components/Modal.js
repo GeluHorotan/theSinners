@@ -59,28 +59,7 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
     getHeroData();
   }, []);
 
-  //  ----------------------- MATCH STATS
   let ids = [];
-  const [matchStats, setMatchStats] = useState();
-
-  let games = [];
-  const getMatchesData = () => {
-    ids.forEach(async (id, index) => {
-      games = [];
-      if (ids.length !== 0) {
-        const res = await fetch(`https://api.opendota.com/api/matches/${id}`);
-        const json = await res.json();
-
-        games.push(json);
-      }
-
-      setMatchStats(games);
-    });
-  };
-  useEffect(() => {
-    getMatchesData();
-  }, []);
-
   const gettingIds = () => {
     if (playerData) {
       ids = [];
@@ -88,8 +67,24 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
     }
   };
   gettingIds();
-  console.log(matchStats);
-  console.log(matchStats);
+
+  //  ----------------------- MATCH STATS
+  const [matchStats, setMatchStats] = useState([]);
+  let games = [];
+  const getMatchesData = () => {
+    ids.forEach(async (id, index) => {
+      if (ids.length !== 0) {
+        const res = await fetch(`https://api.opendota.com/api/matches/${id}`);
+        const json = await res.json();
+        games.push(json);
+        setMatchStats([...matchStats, games]);
+      }
+    });
+  };
+
+  useEffect(() => {
+    getMatchesData();
+  }, []);
 
   // ----------------------- TOTAL GAMES AND LOSES DATA
   // const [gameData, setGameData] = useState();
@@ -591,9 +586,7 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
                         </div>
                       </div>
                     </div>
-                    <div className='table-row bottom-infos'>
-                      <p></p>
-                    </div>
+                    <div className='table-row bottom-infos'></div>
                   </Fragment>
                 ))}
             </StyledTable>

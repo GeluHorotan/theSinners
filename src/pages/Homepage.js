@@ -5,6 +5,7 @@ import ParticleImage, {
   forces,
   ParticleForce,
 } from 'react-particle-image';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 // Page Components
 
@@ -13,8 +14,8 @@ import SponsorsBar from '../components/SponsorsBar';
 import Slider from '../components/Slider';
 import Card from '../components/playerCard/Card';
 import DotaLogo from '../components/DotaLogo';
-import Logo from '../img/logo.png';
-import Nisha from '../img/playerCards/nisha.png';
+import NinjaLogo from '../img/NinjaLogo.png';
+import Button from '@mui/material/Button';
 
 // Datas
 import { SliderData } from '../Data/SliderData';
@@ -31,8 +32,14 @@ import Hyperx from '../img/SponsorLogos/hyperx.svg';
 import Nvidia from '../img/SponsorLogos/nvidia.svg';
 import Northface from '../img/SponsorLogos/northface.svg';
 import Tesla from '../img/SponsorLogos/tesla.png';
-import { accent, primary, secondary } from '../Utility/Colors';
-import Button from '../components/Button';
+import {
+  accent,
+  blue,
+  desaturatedRed,
+  primary,
+  saturatedRed,
+  secondary,
+} from '../Utility/Colors';
 
 const Homepage = () => {
   const particleOptions: ParticleOptions = {
@@ -42,7 +49,7 @@ const Homepage = () => {
       // Make a particle for this pixel if blue > 50 (range 0-255)
       return pixel.b > 50;
     },
-    color: ({ x, y, image }) => '#FF8882',
+    color: ({ x, y, image }) => '#FF1200',
     radius: () => Math.random() * 1.5 + 0.5,
     mass: () => 40,
     friction: () => 0.15,
@@ -141,26 +148,29 @@ const Homepage = () => {
       <StyledAboutRefContainer>
         <div className='about-ref'>
           <DotaLogo />
-          <div className='text'>
-            <ParticleImage
-              src={Logo}
-              scale={4}
+          <div className='right-side'>
+            {/* <ParticleImage
+              src={NinjaLogo}
+              scale={0.1}
               entropy={15}
-              maxParticles={2000}
+              maxParticles={3000}
               particleOptions={particleOptions}
               mouseMoveForce={motionForce}
               touchMoveForce={motionForce}
-            />
+            /> */}
+
             <h4>
               A premier global esports organization, representing professional
               teams and gamers across the world.
             </h4>
-            <Button>MEET US</Button>
+            <ThemeProvider theme={theme}>
+              <Button color='primary' variant='outlined'>
+                <h5>Read More</h5>
+              </Button>
+            </ThemeProvider>
           </div>
         </div>
       </StyledAboutRefContainer>
-      <div className='placeholder'></div>
-      <div className='placeholder'></div>
     </StyledPage>
   );
 };
@@ -171,12 +181,6 @@ const StyledPage = styled.div`
   background-color: ${primary};
   display: flex;
   flex-direction: column;
-  .placeholder {
-    width: 100%;
-    background: ${primary};
-    height: 10rem;
-    margin: 5rem;
-  }
 `;
 
 const DivStyle = styled.div`
@@ -254,27 +258,60 @@ const StyledSponsorShowcase = styled.div`
 `;
 
 const StyledAboutRefContainer = styled.div`
-  width: 100%;
-  margin: 10rem 0;
+  width: 90%;
+  margin: 10rem auto;
+  align-items: center;
   canvas {
     background: none !important;
+    width: 100% !important;
   }
   svg {
     width: 150%;
   }
   .about-ref {
     display: flex;
-
+    gap: 5rem;
     justify-content: space-evenly;
     align-items: center;
+    @media only screen and (max-width: 1200px) {
+      & {
+       flex-direction: column;
+       align-items: center;
+   
+       svg {
+         width: 80%;
+         align-self: center;
+       }
+     
+       .right-side {
+          width: 100% !important;
+          margin: 0 auto;
+       
+          padding: 0 3rem;
+         
+        }
+    }
   }
 
-  .text {
+  .right-side {
     color: ${secondary};
     width: 25%;
+
     justify-self: end;
-    align-items: center;
+    align-items: flex-start;
+    button {
+      margin: 1rem 0;
+    }
   }
 `;
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: `${saturatedRed}`,
+      darker: '#053e85',
+    },
+  },
+});
 
 export default Homepage;

@@ -69,6 +69,7 @@ const DotaLogo = () => {
 };
 
 const StyledDiv = styled.div`
+  text-align: center;
   svg {
     width: 100%;
   }

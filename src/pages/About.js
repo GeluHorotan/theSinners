@@ -1,9 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
+const removeDuplicates = (array) => {
+  return array.filter((el, index) => array.indexOf(el) === index);
+};
+
 const About = () => {
+  let ids = [6552334091, 6552288017, 6547247338, 6535358226, 6532598897];
+  const [matchStats, setMatchStats] = useState([]);
+  let games = [];
+  const getMatchesData = () => {
+    ids.forEach(async (id, index) => {
+      if (ids.length !== 0) {
+        const res = await fetch(`https://api.opendota.com/api/matches/${id}`);
+        const json = await res.json();
+        games.push(json);
+      }
+      setMatchStats([...matchStats, games]);
+    });
+  };
+  console.log(matchStats);
+  useEffect(() => {
+    getMatchesData();
+  }, []);
   return (
     <>
+      {matchStats &&
+        matchStats[0].map((game, index) => {
+          return <p>{game.match_id}</p>;
+        })}
       <TableStyle>
         <div>TABLE TEST</div>
         <div className='table-box'></div>
