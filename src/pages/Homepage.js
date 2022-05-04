@@ -95,8 +95,8 @@ const Homepage = () => {
       <StyledSponsorShowcase>
         <h2 className='title'>Products showcase</h2>
         <Slider
-          slidesPerView={3}
-          spaceBetween={30}
+          slidesPerView={2}
+          spaceBetween={-50}
           loop={true}
           simulateTouch={true}
           grabCursor={true}
@@ -158,16 +158,17 @@ const Homepage = () => {
               mouseMoveForce={motionForce}
               touchMoveForce={motionForce}
             /> */}
-
-            <h4>
-              A premier global esports organization, representing professional
-              teams and gamers across the world.
-            </h4>
-            <ThemeProvider theme={theme}>
-              <Button color='primary' variant='outlined'>
-                <h5>Read More</h5>
-              </Button>
-            </ThemeProvider>
+            <div className='details'>
+              <h4>
+                A premier global esports organization, representing professional
+                teams and gamers across the world.
+              </h4>
+              <ThemeProvider theme={theme}>
+                <Button color='primary' variant='outlined'>
+                  <h5>Read More</h5>
+                </Button>
+              </ThemeProvider>
+            </div>
           </div>
         </div>
       </StyledAboutRefContainer>
@@ -191,7 +192,7 @@ const DivStyle = styled.div`
 `;
 
 const StyledSponsorShowcase = styled.div`
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
 
   .title {
@@ -200,20 +201,13 @@ const StyledSponsorShowcase = styled.div`
     transition: 0.4s all ease-in-out;
     margin-top: 2rem;
   }
-  .title:hover {
-    letter-spacing: 0.5rem;
-    transform: scale(1.1);
-  }
 
   .infos {
     display: flex;
     flex-direction: column;
-    margin: 0 5rem 0 2rem;
+    width: 50%;
+
     color: ${secondary};
-  }
-  .description {
-    margin: 0;
-    padding: 0;
   }
 
   .player-card {
@@ -221,8 +215,6 @@ const StyledSponsorShowcase = styled.div`
   }
 
   .container {
-    width: 15rem;
-    height: 10rem;
     .product-image-container {
       background: ${accent};
     }
@@ -231,7 +223,6 @@ const StyledSponsorShowcase = styled.div`
   .swiper {
     padding: 7rem 0;
 
-    height: 20rem;
     width: 100%;
 
     display: flex;
@@ -241,10 +232,10 @@ const StyledSponsorShowcase = styled.div`
 
   .swiper-slide {
     height: 100%;
-
+    margin: 0 0.2rem;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
   }
 
   .swiper-pagination {
@@ -259,7 +250,7 @@ const StyledSponsorShowcase = styled.div`
 
 const StyledAboutRefContainer = styled.div`
   width: 90%;
-  margin: 10rem auto;
+  margin: 7rem auto;
   align-items: center;
   canvas {
     background: none !important;
@@ -270,7 +261,7 @@ const StyledAboutRefContainer = styled.div`
   }
   .about-ref {
     display: flex;
-    gap: 5rem;
+    gap: 2rem;
     justify-content: space-evenly;
     align-items: center;
     @media only screen and (max-width: 1200px) {
@@ -283,24 +274,33 @@ const StyledAboutRefContainer = styled.div`
          align-self: center;
        }
      
-       .right-side {
-          width: 100% !important;
-          margin: 0 auto;
-       
-          padding: 0 3rem;
-         
-        }
+      
     }
   }
 
   .right-side {
     color: ${secondary};
-    width: 25%;
+    width: 50%;
+      padding: 0 5rem;
 
-    justify-self: end;
-    align-items: flex-start;
+      .details {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+           justify-content: center;
+           align-items: center;
+          }
+
+   
     button {
       margin: 1rem 0;
+    }
+
+    @media only screen and (max-width: 1200px) { 
+  
+          width: 90% ;
+          margin: 0 auto;
+   
     }
   }
 `;

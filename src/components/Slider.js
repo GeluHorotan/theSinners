@@ -42,7 +42,6 @@ const Slider = ({
   autoplayDelay,
   autoplayDisableOnInteraction,
   autoplayPauseOnMouseEnter,
-
   items,
 }) => {
   return (
@@ -81,6 +80,14 @@ const Slider = ({
         //   disableOnInteraction: false,
         //   pauseOnMouseEnter: true,
         // }}
+        breakpoints={{
+          320: {
+            slidesPerView: 1,
+          },
+          1500: {
+            slidesPerView: 2,
+          },
+        }}
       >
         <div className='swiper-wrapper'>
           {' '}
