@@ -71,24 +71,21 @@ const Navigation = () => {
         </motion.ul>
       </NavigationStyle>
 
+      <BarsStyle>
+        <FaIcons.FaBars
+          className={sidebar ? 'hidden' : 'visible'}
+          onClick={showSidebar}
+        />
+
+        <AiIcons.AiOutlineClose
+          className={sidebar ? 'visible' : 'hidden'}
+          onClick={showSidebar}
+        />
+      </BarsStyle>
       <IconContext.Provider value={{ color: `${secondary}` }}>
         <nav>
-          <SidebarStyles id={sidebar ? 'active' : ''}>
+          <SidebarStyles id={sidebar ? 'sidebar-active' : ''}>
             <UlStyle variants={comingTop} initial='hidden' animate='show'>
-              <BarsStyle>
-                <li>
-                  <FaIcons.FaBars
-                    className={sidebar ? 'hidden' : 'visible'}
-                    onClick={showSidebar}
-                  />
-
-                  <AiIcons.AiOutlineClose
-                    className={sidebar ? 'visible' : 'hidden'}
-                    onClick={showSidebar}
-                  />
-                </li>
-              </BarsStyle>
-
               <li>
                 <Button
                   setClassName='sidebar-btn'
@@ -96,7 +93,7 @@ const Navigation = () => {
                   setLink='/about'
                   setIcon={<AiIcons.AiOutlineTeam />}
                 >
-                  <div className='margin-text'>ABOUT</div>
+                  <h6>About</h6>
                 </Button>
               </li>
               <li>
@@ -106,7 +103,7 @@ const Navigation = () => {
                   setLink='/news'
                   setIcon={<FaIcons.FaNewspaper />}
                 >
-                  <div className='margin-text'>NEWS</div>
+                  <h6>News</h6>
                 </Button>
               </li>
               <li>
@@ -116,7 +113,7 @@ const Navigation = () => {
                   setLink='/team'
                   setIcon={<FaIcons.FaPeopleArrows />}
                 >
-                  <div className='margin-text'>TEAM</div>
+                  <h6>Team</h6>
                 </Button>
               </li>
               <li>
@@ -127,7 +124,7 @@ const Navigation = () => {
                   setIcon={<AiIcons.AiOutlineShoppingCart />}
                 >
                   {' '}
-                  <div className='margin-text'> SHOP</div>
+                  <h6>Shop</h6>
                 </Button>
               </li>
               <li>
@@ -137,7 +134,7 @@ const Navigation = () => {
                   setLink='/contact'
                   setIcon={<FaIcons.FaNewspaper />}
                 >
-                  <div className='margin-text'>CONTACT</div>
+                  <h6>Contact</h6>
                 </Button>
               </li>
             </UlStyle>
@@ -157,7 +154,6 @@ const NavigationStyle = styled.nav`
   background: ${accent};
   position: sticky;
   overflow: hidden;
-
   top: 0;
   z-index: 10;
   filter: drop-shadow(0 0.2rem 0.3rem ${brown});
@@ -166,13 +162,11 @@ const NavigationStyle = styled.nav`
   @media screen and (min-width: 768px) {
     display: flex;
   }
-
   #top,
   #right,
   #left {
     background: none;
   }
-
   #bottom {
     height: 3px;
     background: ${desaturatedRed};
@@ -186,7 +180,6 @@ const NavigationStyle = styled.nav`
     display: flex;
     list-style: none;
   }
-
   li {
     padding-left: 1rem;
     position: relative;
@@ -197,22 +190,21 @@ const NavigationStyle = styled.nav`
 `;
 
 const SidebarStyles = styled.div`
-  width: 3rem;
+  width: 40%;
   background: ${accent};
   height: 100vh;
   position: fixed;
-
   z-index: 10;
   align-items: center;
-  opacity: 0.85;
-
+  justify-content: center;
+  transform: translateX(-100%);
+  transition: all 0.4s ease;
   #top,
   #bottom,
   #left,
   #right {
     background: none;
   }
-
   @media screen and (min-width: 768px) {
     display: none;
   }
@@ -220,46 +212,34 @@ const SidebarStyles = styled.div`
 
 const UlStyle = styled(motion.ul)`
   list-style: none;
-
+  margin-top: 0rem;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-
-  li:first-child {
-    margin: 2rem 0.3rem;
-    width: 100%;
-  }
-
-  li:first-child:hover {
-    transform: scale(1);
-    background: none;
-  }
-
-  li {
-    padding: 0.5rem 0.4rem;
-    width: 100%;
-    transition: 0.4s all ease-in-out;
-  }
-  li:hover {
-    background: ${primary};
-    transform: scale(1.03);
-  }
-  a {
-    font-size: 1.2rem;
-  }
-  .margin-text {
-    display: none;
-  }
+  justify-content: center;
+  align-items: start;
+  padding: 1rem;
+  margin-top: 2rem;
   button {
     padding: 0.6rem 0.5rem;
+    width: 100%;
+    .contains {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
   }
 `;
 
 const BarsStyle = styled.div`
   display: flex;
   flex-direction: column;
-  margin-left: 0.5rem;
+  color: white;
+  position: fixed;
+  left: 5%;
+  top: 2%;
+  z-index: 100;
   width: 100%;
+
   font-size: 1rem;
 `;
 

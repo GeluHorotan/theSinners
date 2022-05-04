@@ -17,6 +17,7 @@ const About = () => {
         games.push(json);
       }
       setMatchStats([...matchStats, games]);
+      setMatchStats(removeDuplicates(matchStats));
     });
   };
   console.log(matchStats);

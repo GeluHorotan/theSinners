@@ -9,12 +9,7 @@ import { Marginer } from '../marginer';
 import SinnersLogo from '../../img/logo.png';
 
 // Utility
-import {
-  desaturatedRed,
-  accent,
-  secondary,
-  gradient,
-} from '../../Utility/Colors';
+import { desaturatedRed, accent, secondary } from '../../Utility/Colors';
 import Modal from '../Modal';
 
 const Card = ({
@@ -44,35 +39,6 @@ const Card = ({
   const rotateY = useTransform(x, [-100, 100], [-30, 30]);
 
   const [isDragging, setIsDragging] = useState(false);
-  const getDate = (separator = ' - ') => {
-    let newDate = new Date();
-    let date = newDate.getDate();
-    let month = newDate.getMonth() + 1;
-    const monthNames = [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December',
-    ];
-
-    let dTime = parseInt(deliveryTime);
-
-    return `${date + dTime}${separator}${
-      month < 10
-        ? `${monthNames[newDate.getMonth()]}`
-        : `${monthNames[newDate.getMonth()]}`
-    }`;
-  };
-
-  const date = getDate();
 
   const [openModal, setOpenModal] = useState(false);
   if (openModal === true) {

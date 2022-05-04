@@ -37,7 +37,9 @@ const Button = ({
       {isLink === true ? (
         <Link to={setLink}>
           {' '}
-          {setIcon} {children}{' '}
+          <div className='contains'>
+            {setIcon} {children}{' '}
+          </div>
         </Link>
       ) : (
         children

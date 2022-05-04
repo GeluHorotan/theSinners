@@ -102,12 +102,8 @@ font-style: normal;
   display: flex;
 }
 
-#active {
-    width: 17rem;
-    .margin-text {
-       margin-left: 1rem;
-       display: flex;
-     }
+#sidebar-active {
+   transform: translateX(0%);
   }
  
  #magenta {
