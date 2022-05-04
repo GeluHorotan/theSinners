@@ -75,17 +75,21 @@ const Slider = ({
           el: `${paginationEl}`,
           type: `${paginationType}`,
         }}
-        // autoplay={{
-        //   delay: `${autoplayDelay}`,
-        //   disableOnInteraction: false,
-        //   pauseOnMouseEnter: true,
-        // }}
+        autoplay={{
+          delay: `${autoplayDelay}`,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true,
+        }}
         breakpoints={{
           320: {
             slidesPerView: 1,
           },
-          1500: {
+
+          1024: {
             slidesPerView: 2,
+          },
+          1362: {
+            slidesPerView: 3,
           },
         }}
       >

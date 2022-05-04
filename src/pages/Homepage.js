@@ -14,7 +14,6 @@ import SponsorsBar from '../components/SponsorsBar';
 import Slider from '../components/Slider';
 import Card from '../components/playerCard/Card';
 import DotaLogo from '../components/DotaLogo';
-import NinjaLogo from '../img/NinjaLogo.png';
 import Button from '@mui/material/Button';
 
 // Datas
@@ -32,14 +31,7 @@ import Hyperx from '../img/SponsorLogos/hyperx.svg';
 import Nvidia from '../img/SponsorLogos/nvidia.svg';
 import Northface from '../img/SponsorLogos/northface.svg';
 import Tesla from '../img/SponsorLogos/tesla.png';
-import {
-  accent,
-  blue,
-  desaturatedRed,
-  primary,
-  saturatedRed,
-  secondary,
-} from '../Utility/Colors';
+import { primary, saturatedRed, secondary } from '../Utility/Colors';
 
 const Homepage = () => {
   const particleOptions: ParticleOptions = {
@@ -59,33 +51,6 @@ const Homepage = () => {
     return forces.disturbance(x, y, 5);
   };
 
-  const getDate = (separator = ' - ') => {
-    let newDate = new Date();
-    let date = newDate.getDate();
-    let month = newDate.getMonth() + 1;
-    const monthNames = [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December',
-    ];
-
-    return `${date}${separator}${
-      month < 10
-        ? `${monthNames[newDate.getMonth()]}`
-        : `${monthNames[newDate.getMonth()]}`
-    }`;
-  };
-
-  const date = getDate();
   return (
     <StyledPage>
       <DivStyle>
@@ -93,10 +58,9 @@ const Homepage = () => {
       </DivStyle>
 
       <StyledSponsorShowcase>
-        <h2 className='title'>Products showcase</h2>
         <Slider
-          slidesPerView={2}
-          spaceBetween={-50}
+          slidesPerView={3}
+          spaceBetween={50}
           loop={true}
           simulateTouch={true}
           grabCursor={true}
@@ -116,20 +80,13 @@ const Homepage = () => {
           autoplayPauseOnMouseEnter={true}
           items={SponsorData.map((item, index) => {
             return (
-              <>
-                <Card
-                  cardColor={item.color}
-                  cardType='sponsorProduct'
-                  topText={item.title}
-                  src={item.src}
-                />
-                <div className='infos'>
-                  <h4>{item.product}</h4>
-                  <p className='description'>{item.description}</p>
-                  <h6> Delivery time: {date} </h6>
-                  <h6> Price: {item.price} &euro; </h6>
-                </div>
-              </>
+              <Card
+                cardColor={item.color}
+                cardType='sponsorProduct'
+                src={item.src}
+                price={item.price}
+                product={item.product}
+              />
             );
           })}
         ></Slider>
@@ -195,31 +152,6 @@ const StyledSponsorShowcase = styled.div`
   width: 90%;
   margin: 0 auto;
 
-  .title {
-    color: ${secondary};
-    text-align: center;
-    transition: 0.4s all ease-in-out;
-    margin-top: 2rem;
-  }
-
-  .infos {
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-
-    color: ${secondary};
-  }
-
-  .player-card {
-    min-height: 100%;
-  }
-
-  .container {
-    .product-image-container {
-      background: ${accent};
-    }
-  }
-
   .swiper {
     padding: 7rem 0;
 
@@ -233,9 +165,10 @@ const StyledSponsorShowcase = styled.div`
   .swiper-slide {
     height: 100%;
     margin: 0 0.2rem;
+
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
   }
 
   .swiper-pagination {
