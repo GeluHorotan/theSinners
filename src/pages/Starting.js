@@ -1,9 +1,8 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 
 // Page Components
 import ParticleImage, {
   ParticleOptions,
-  Vector,
   forces,
   ParticleForce,
 } from 'react-particle-image';
@@ -93,8 +92,8 @@ const Starting = () => {
         muted
       >
         <source
+          type='video/webm'
           src='https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/homepage/dota_montage_webm.webm'
-          type='video/mp4'
         />
       </video>
     </DivStyle>
