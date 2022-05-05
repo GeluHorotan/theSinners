@@ -1,11 +1,4 @@
 import React from 'react';
-import ParticleImage, {
-  ParticleOptions,
-  Vector,
-  forces,
-  ParticleForce,
-} from 'react-particle-image';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 // Page Components
 
@@ -34,23 +27,6 @@ import Tesla from '../img/SponsorLogos/tesla.png';
 import { primary, saturatedRed, secondary } from '../Utility/Colors';
 
 const Homepage = () => {
-  const particleOptions: ParticleOptions = {
-    filter: ({ x, y, image }) => {
-      // Get pixel
-      const pixel = image.get(x, y);
-      // Make a particle for this pixel if blue > 50 (range 0-255)
-      return pixel.b > 50;
-    },
-    color: ({ x, y, image }) => '#FF1200',
-    radius: () => Math.random() * 1.5 + 0.5,
-    mass: () => 40,
-    friction: () => 0.15,
-  };
-
-  const motionForce = (x: number, y: number): ParticleForce => {
-    return forces.disturbance(x, y, 5);
-  };
-
   return (
     <StyledPage>
       <DivStyle>
@@ -106,28 +82,44 @@ const Homepage = () => {
         <div className='about-ref'>
           <DotaLogo />
           <div className='right-side'>
-            {/* <ParticleImage
-              src={NinjaLogo}
-              scale={0.1}
-              entropy={15}
-              maxParticles={3000}
-              particleOptions={particleOptions}
-              mouseMoveForce={motionForce}
-              touchMoveForce={motionForce}
-            /> */}
             <div className='details'>
               <h4>
                 A premier global esports organization, representing professional
                 teams and gamers across the world.
               </h4>
-              <ThemeProvider theme={theme}>
-                <Button color='primary' variant='outlined'>
-                  <h5>Read More</h5>
-                </Button>
-              </ThemeProvider>
             </div>
           </div>
         </div>
+        <video autoPlay loop muted>
+          <source
+            src='https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/alchemist.webm'
+            type='video/mp4'
+          />
+        </video>
+        <video autoPlay loop muted>
+          <source
+            src='https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/templar_assassin.webm'
+            type='video/mp4'
+          />
+        </video>
+        <video autoPlay loop muted>
+          <source
+            src='https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/nevermore.webm'
+            type='video/mp4'
+          />
+        </video>
+        <video autoPlay loop muted>
+          <source
+            src='https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/antimage.webm'
+            type='video/mp4'
+          />
+        </video>
+        <video autoPlay loop muted>
+          <source
+            src='https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/life_stealer.webm'
+            type='video/mp4'
+          />
+        </video>
       </StyledAboutRefContainer>
     </StyledPage>
   );
@@ -185,9 +177,8 @@ const StyledAboutRefContainer = styled.div`
   width: 90%;
   margin: 7rem auto;
   align-items: center;
-  canvas {
-    background: none !important;
-    width: 100% !important;
+ video {
+    width: 25%;
   }
   svg {
     width: 150%;
@@ -237,14 +228,5 @@ const StyledAboutRefContainer = styled.div`
     }
   }
 `;
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: `${saturatedRed}`,
-      darker: '#053e85',
-    },
-  },
-});
 
 export default Homepage;

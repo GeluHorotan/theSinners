@@ -37,7 +37,7 @@ body {
 }
 h1 {
   font-size: 3.75rem;
-  line-height: 5rem;
+  line-height: 4rem;
   letter-spacing: 1px;
   font-family: futura-pt,sans-serif;
 font-weight: 700;
@@ -92,6 +92,13 @@ p {
 font-weight: 300;
 font-style: normal;
 }
+
+  .paragraph {
+      text-indent: 2cm;
+      .indent {
+        margin-left: 2cm;
+      }
+    }
 
 .hidden {
   display: none;

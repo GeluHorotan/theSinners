@@ -251,11 +251,14 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
                             return (
                               <Fragment key={index}>
                                 <div className='table-cell first-cell'>
-                                  <img
-                                    key={index}
-                                    src={`https://api.opendota.com${hero.img}`}
-                                    alt=''
-                                  />
+                                  {}
+
+                                  <video autoPlay loop muted>
+                                    <source
+                                      src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/${replaced}.webm`}
+                                      type='video/mp4'
+                                    />
+                                  </video>
 
                                   <div className='horizontal-aligner'>
                                     <h6>{hero.localized_name}</h6>
@@ -277,9 +280,10 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
                                         if (hero[0].includes(`${replaced}_`)) {
                                           if (hero[1].value.img) {
                                             return (
-                                              <img
-                                                key={index}
-                                                data-tip={`<h5>${hero[1].value.dname}</h5>
+                                              <>
+                                                <img
+                                                  key={index}
+                                                  data-tip={`<h5>${hero[1].value.dname}</h5>
                                     <h6>${hero[1].value.behavior}</h6>
                                     
                                     <p>Piercing though spell imunity: ${hero[1].value.bkbpierce}</p>
@@ -287,15 +291,16 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
                                     <p>DMG: ${hero[1].value.dmg}</p>
                                     <p>Damage Type: ${hero[1].value.dmg_type}</p>
                                     <p>${hero[1].value.desc}</p>`}
-                                                data-class='TESTER'
-                                                data-html={true}
-                                                data-multiline={true}
-                                                data-place='top'
-                                                data-effect='solid'
-                                                onError={errorImgHandler}
-                                                src={`https://api.opendota.com${hero[1].value.img}`}
-                                                alt=''
-                                              />
+                                                  data-class='TESTER'
+                                                  data-html={true}
+                                                  data-multiline={true}
+                                                  data-place='top'
+                                                  data-effect='solid'
+                                                  onError={errorImgHandler}
+                                                  src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/${hero[0]}.png`}
+                                                  alt=''
+                                                />
+                                              </>
                                             );
                                           } else {
                                             return null;
@@ -790,8 +795,8 @@ const StyledTable = styled.div`
     font-size: 1.5rem;
   }
 
-  img {
-    width: 10rem;
+  video {
+    width: 15rem;
   }
 
   .attr {
