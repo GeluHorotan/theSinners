@@ -48,6 +48,7 @@ const Starting = () => {
       skipBtn.current.style.animation = 'skip 1.5s ease';
       skipBtn.current.style.opacity = '0';
       skipBtn.current.style.pointerEvents = 'none';
+      skipBtn.current.style.display = 'none';
     }
   };
 
@@ -83,7 +84,14 @@ const Starting = () => {
         </div>
       </div>
       <div className='overlay'></div>
-      <video className='videoTag' autoPlay loop muted>
+      <video
+        className='videoTag'
+        preload='auto'
+        playsInline
+        autoPlay
+        loop
+        muted
+      >
         <source
           src='https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/homepage/dota_montage_webm.webm'
           type='video/mp4'
@@ -137,8 +145,8 @@ const DivStyle = styled.div`
   .overlay {
     width: 100%;
     height: 100vh;
-    background-image: linear-gradient(transparent, ${primary} 70%);
-    opacity: 0.9;
+    background-image: linear-gradient(transparent, ${primary} 65%);
+    opacity: 0.95;
     z-index: 9;
     position: absolute;
   }
@@ -180,16 +188,21 @@ const DivStyle = styled.div`
     }
   }
   @media screen and (max-width: 900px) {
+    .overlay {
+      background-image: linear-gradient(transparent, ${primary} 55%);
+    }
     .elements {
       flex-direction: column;
       justify-content: center;
       align-items: center;
       padding: 0;
+      margin-top: 25rem;
       canvas {
-        width: 25rem;
+        width: 15rem;
       }
       .skip-container {
         align-items: center;
+
         h5 {
           font-size: 1.3rem;
         }
@@ -202,13 +215,19 @@ const DivStyle = styled.div`
     }
   }
   @media screen and (max-width: 768px) {
+    .overlay {
+      background-image: linear-gradient(transparent, ${primary} 60%);
+    }
     .elements {
       height: 100vh;
-
+      canvas {
+        width: 12rem;
+      }
       .skip-container {
         h1 {
           font-size: 1.5rem;
           line-height: 2.5rem;
+          padding: 0 1rem;
         }
       }
       .animated-elements {
