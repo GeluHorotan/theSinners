@@ -7,7 +7,7 @@ import SponsorsBar from '../components/SponsorsBar';
 import Slider from '../components/Slider';
 import Card from '../components/playerCard/Card';
 import DotaLogo from '../components/DotaLogo';
-import Button from '@mui/material/Button';
+import Button from '../components/Button';
 
 // Datas
 import { SliderData } from '../Data/SliderData';
@@ -79,47 +79,13 @@ const Homepage = () => {
       ></SponsorsBar>
 
       <StyledAboutRefContainer>
-        <div className='about-ref'>
-          <DotaLogo />
-          <div className='right-side'>
-            <div className='details'>
-              <h4>
-                A premier global esports organization, representing professional
-                teams and gamers across the world.
-              </h4>
-            </div>
-          </div>
+        <div className='fade-top'>
+          <div className='fade-t'></div>
         </div>
-        <video autoPlay loop muted>
-          <source
-            src='https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/alchemist.webm'
-            type='video/mp4'
-          />
-        </video>
-        <video autoPlay loop muted>
-          <source
-            src='https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/templar_assassin.webm'
-            type='video/mp4'
-          />
-        </video>
-        <video autoPlay loop muted>
-          <source
-            src='https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/nevermore.webm'
-            type='video/mp4'
-          />
-        </video>
-        <video autoPlay loop muted>
-          <source
-            src='https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/antimage.webm'
-            type='video/mp4'
-          />
-        </video>
-        <video autoPlay loop muted>
-          <source
-            src='https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/life_stealer.webm'
-            type='video/mp4'
-          />
-        </video>
+        <div className='fade-bottom'>
+          <div className='fade-b'></div>
+        </div>
+        <DotaLogo />
       </StyledAboutRefContainer>
     </StyledPage>
   );
@@ -174,58 +140,56 @@ const StyledSponsorShowcase = styled.div`
 `;
 
 const StyledAboutRefContainer = styled.div`
-  width: 90%;
-  margin: 7rem auto;
-  align-items: center;
- video {
-    width: 25%;
+  max-width: 100%;
+  min-height: 100vh;
+  position: relative;
+  background: url('https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//home/radiant_dire5.jpg');
+  background-size: 2500px;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  .fade-top {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    pointer-events: none;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    .fade-t {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0) 60%,
+        rgba(24, 24, 24, 0.733) 90%,
+        rgb(24, 24, 24) 100%
+      );
+    }
+  }
+
+  .fade-bottom {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    pointer-events: none;
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    .fade-b {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        rgba(0, 0, 0, 0) 60%,
+        rgba(24, 24, 24, 0.733) 90%,
+        rgb(24, 24, 24) 100%
+      );
+    }
   }
   svg {
-    width: 150%;
-  }
-  .about-ref {
-    display: flex;
-    gap: 2rem;
-    justify-content: space-evenly;
-    align-items: center;
-    @media only screen and (max-width: 1200px) {
-      & {
-       flex-direction: column;
-       align-items: center;
-   
-       svg {
-         width: 80%;
-         align-self: center;
-       }
-     
-      
-    }
-  }
-
-  .right-side {
-    color: ${secondary};
-    width: 50%;
-      padding: 0 5rem;
-
-      .details {
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-           justify-content: center;
-           align-items: center;
-          }
-
-   
-    button {
-      margin: 1rem 0;
-    }
-
-    @media only screen and (max-width: 1200px) { 
-  
-          width: 90% ;
-          margin: 0 auto;
-   
-    }
+    width: 15rem;
   }
 `;
 

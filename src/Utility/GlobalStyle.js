@@ -34,6 +34,7 @@ const GlobalStyle = createGlobalStyle`
 
 body {
    overflow-x: hidden;
+   background: ${primary};
 }
 h1 {
   font-size: 3.75rem;

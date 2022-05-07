@@ -7,13 +7,7 @@ import Button from '../components/Button';
 // Images
 import Logo from '../img/logo.png';
 // Global Style
-import {
-  accent,
-  desaturatedRed,
-  brown,
-  secondary,
-  primary,
-} from '../Utility/Colors';
+import { accent, desaturatedRed, brown, secondary } from '../Utility/Colors';
 // Icons
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
@@ -56,6 +50,11 @@ const Navigation = () => {
           <li>
             <Button isLink setLink='/team'>
               TEAM
+            </Button>
+          </li>
+          <li>
+            <Button isLink setLink='/heroes'>
+              HEROES
             </Button>
           </li>
           <li>

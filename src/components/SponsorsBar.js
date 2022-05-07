@@ -42,7 +42,6 @@ const BarStyle = styled.div`
   flex-direction: row;
   padding: 2rem;
   overflow: hidden;
-  margin: 5rem 0;
 
   .bigger {
     width: 5.5rem;

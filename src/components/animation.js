@@ -191,3 +191,17 @@ export const pathTest = {
     },
   },
 };
+
+export const bounce = {
+  hidden: {
+    y: '0',
+  },
+  show: {
+    y: '-25px',
+    transition: {
+      repeat: Infinity,
+      duration: 1,
+      repeatType: 'reverse',
+    },
+  },
+};

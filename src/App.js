@@ -5,6 +5,7 @@ import Homepage from './pages/Homepage';
 import About from './pages/About';
 import News from './pages/News';
 import Team from './pages/Team';
+import Heroes from './pages/Heroes';
 import Shop from './pages/Shop';
 import Contact from './pages/Contact';
 
@@ -32,6 +33,7 @@ function App() {
         <Route path='/about' exact element={<About />} />
         <Route path='/news' exact element={<News />} />
         <Route path='/team' exact element={<Team />} />
+        <Route path='/heroes' exact element={<Heroes />} />
         <Route path='/shop' exact element={<Shop />} />
         <Route path='/contact' exact element={<Contact />} />
       </Routes>

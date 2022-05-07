@@ -1,6 +1,7 @@
 {
   "name": "the-sinners",
   "version": "0.1.0",
+  "proxy": "https://api.steampowered.com",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.9.0",
@@ -11,6 +12,7 @@
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
     "framer-motion": "^6.2.9",
+    "fs": "^0.0.1-security",
     "history": "^5.3.0",
     "install": "^0.13.0",
     "npm": "^8.8.0",
@@ -26,6 +28,7 @@
     "sass": "^1.50.0",
     "styled-components": "^5.3.5",
     "swiper": "^8.1.1",
+    "txt-file-to-json": "^3.0.6",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -51,5 +54,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "http-proxy-middleware": "^2.0.6"
   }
 }
