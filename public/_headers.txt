@@ -7,6 +7,6 @@
 
 [[headers]]
   
-  for = "/IEconDOTA2_570/GetHeroes/v0001/?key=D3ECAFCD18BAD344D7E3A0B44D55E53F"
+  for = "https://api.steampowered.com"
     [headers.values]
     Access-Control-Allow-Origin = "*"
