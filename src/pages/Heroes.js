@@ -8,6 +8,19 @@ import { bounce } from '../components/animation';
 // Colors
 import { accent, primary, secondary } from '../Utility/Colors';
 
+let HEADERS = {
+  'Access-Control-Allow-Headers':
+    'Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Origin',
+  'Content-Type': 'application/json', //optional
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+  'Access-Control-Max-Age': '8640',
+};
+
+//This solves the "No ‘Access-Control-Allow-Origin’ header is present on the requested resource."
+
+HEADERS['Access-Control-Allow-Origin'] = '*';
+HEADERS['Vary'] = 'Origin';
+
 const Heroes = () => {
   // Steam Valve API
   // DOta 2
@@ -15,7 +28,8 @@ const Heroes = () => {
   const [heroesData, setHeroesData] = useState();
   const getHeroes = async () => {
     const res = await fetch(
-      `/IEconDOTA2_570/GetHeroes/v0001/?key=${steamApiKey}`
+      `/IEconDOTA2_570/GetHeroes/v0001/?key=${steamApiKey}`,
+      { HEADERS }
     );
     const json = await res.json();
     setHeroesData(json);
