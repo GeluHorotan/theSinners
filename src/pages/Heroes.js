@@ -15,13 +15,7 @@ const Heroes = () => {
   const [heroesData, setHeroesData] = useState();
   const getHeroes = async () => {
     const res = await fetch(
-      `/IEconDOTA2_570/GetHeroes/v0001/?key=${steamApiKey}`,
-      {
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-      }
+      `/IEconDOTA2_570/GetHeroes/v0001/?key=${steamApiKey}`
     );
     const json = await res.json();
     setHeroesData(json);
