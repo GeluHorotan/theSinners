@@ -10,6 +10,6 @@
 
 [[headers]]
   # Define which paths this specific [[headers]] block will cover.
-  for = "/IEconDOTA2_570/GetHeroes/v0001/?key=D3ECAFCD18BAD344D7E3A0B44D55E53F"
+  for = "/*"
     [headers.values]
     Access-Control-Allow-Origin = "*"
