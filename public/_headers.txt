@@ -2,6 +2,6 @@
 
 [[headers]]
 
-  /IEconDOTA2_570/GetHeroes/v0001/?key=D3ECAFCD18BAD344D7E3A0B44D55E53F = "/*"
+  thesinners.netlify.app = "/*"
     [headers.values]
     Access-Control-Allow-Origin = "*"
