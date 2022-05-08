@@ -73,12 +73,11 @@ const Heroes = () => {
             heroesData.result.heroes.map((hero, index) => {
               const replaced = hero.name.replace('npc_dota_hero_', '');
               return (
-                <p>WORKING</p>
-                // <img
-                //   src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/${replaced}.png`}
-                //   alt=''
-                //   key={index}
-                // />
+                <img
+                  src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/${replaced}.png`}
+                  alt=''
+                  key={index}
+                />
               );
             })}
         </div>

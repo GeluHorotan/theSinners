@@ -4,7 +4,7 @@ module.exports = function (app) {
   app.use(
     proxy(`/IEconDOTA2_570/GetHeroes/v0001/?key=${steamApiKey}`, {
       target: `https://api.steampowered.com`,
-
+      secure: false,
       changeOrigin: true,
     })
   );
