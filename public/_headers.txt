@@ -1,7 +1,12 @@
-
+# The following redirect is intended for use with most SPAs that handle
+# routing internally.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
 
 [[headers]]
-
-  thesinners.netlify.app = "/*"
+  
+  for = "/IEconDOTA2_570/GetHeroes/v0001/?key=D3ECAFCD18BAD344D7E3A0B44D55E53F"
     [headers.values]
     Access-Control-Allow-Origin = "*"
