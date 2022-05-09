@@ -1,27 +1,30 @@
-import Image1 from '../img/Carousel/arena.webp'
-import Image2 from '../img/Carousel/TSlogo2.webp'
-import Image3 from '../img/Carousel/razer.jpg'
-import Image4 from '../img/Carousel/TIwinners.jpg'
-import Image5 from '../img/Carousel/secretRoshan.webp'
-import Image6 from '../img/Carousel/secretChees.webp'
+import ti from '../img/homepageCarousel/SliderTI.jpg';
+import meetus from '../img/homepageCarousel/SliderM3.jpg';
+import patch from '../img/homepageCarousel/SliderPatchImg.jpg';
+import heroes from '../img/homepageCarousel/SliderVoid.jpg';
 
 export const SliderData = [
   {
-    image:  `${Image1}`
-  },
-   {
-    image: `${Image2}`
-  },
-   {
-    image: `${Image3}`
-  },
-   {
-    image: `${Image4}`
-  },
-   {
-    image: `${Image5}`
+    image: `${ti}`,
+    title: 'Dota 2 The International Championship',
+    description:
+      'The esports community is looking forward to the beginning of the international 2022 in Dota 2. The tournament held on 14.08.22 - 24.08.22 has already drawn a lot of attention of experts, analysts, spectators and sportsbooks.',
   },
   {
-    image: `${Image6}`
-  }
-]
+    image: `${meetus}`,
+    title: 'The Sinners',
+    description:
+      'The Sinners is a European team that was first established during the post-TI4 shuffle. The original team drew upon players from former Natus Vincere, Fnatic and Alliance squads.',
+  },
+  {
+    image: `${patch}`,
+    title: 'Patch v7.32B',
+    description:
+      'Game State Integration now requires the command-line option "-gamestateintegration" to function. This is because there can be a per-frame performance impact to using game state integration.',
+  },
+  {
+    image: `${heroes}`,
+    title: 'List of dota 2 heroes',
+    description: `From magical tacticians to fierce brutes and cunning rogues, Dota 2's hero pool is massive and limitlessly diverse. Unleash incredible abilities and devastating ultimates on your way to victory.`,
+  },
+];

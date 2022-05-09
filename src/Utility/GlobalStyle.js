@@ -171,6 +171,11 @@ background-image: linear-gradient(to right, #ed6ea0 0%, #ec8c69 100%);
   transition: 0.4s all ease-in-out;
  }
 
+ .section {
+   width: 100%;
+   height: 100vh;
+ 
+ }
 
 
 

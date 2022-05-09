@@ -57,6 +57,7 @@ const Slider = ({
           Keyboard,
         ]}
         slidesPerView={slidesPerView}
+        centeredSlides={true}
         spaceBetween={spaceBetween}
         loop={loop}
         simulateTouch={simulateTouch}
@@ -75,11 +76,11 @@ const Slider = ({
           el: `${paginationEl}`,
           type: `${paginationType}`,
         }}
-        autoplay={{
-          delay: `${autoplayDelay}`,
-          disableOnInteraction: false,
-          pauseOnMouseEnter: true,
-        }}
+        // autoplay={{
+        //   delay: `${autoplayDelay}`,
+        //   disableOnInteraction: false,
+        //   pauseOnMouseEnter: true,
+        // }}
         breakpoints={{
           320: {
             slidesPerView: 1,
@@ -89,7 +90,7 @@ const Slider = ({
             slidesPerView: 2,
           },
           1362: {
-            slidesPerView: 3,
+            slidesPerView: 1,
           },
         }}
       >

@@ -155,9 +155,10 @@ const NavigationStyle = styled.nav`
   overflow: hidden;
   top: 0;
   z-index: 10;
-  filter: drop-shadow(0 0.2rem 0.3rem ${brown});
+
   overflow-x: hidden;
   display: none;
+
   @media screen and (min-width: 768px) {
     display: flex;
   }
