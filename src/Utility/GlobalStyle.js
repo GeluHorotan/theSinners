@@ -90,7 +90,7 @@ p {
   line-height: 1.3rem;
   letter-spacing: 1px;
       font-family: futura-pt,sans-serif;
-font-weight: 300;
+font-weight: 400;
 font-style: normal;
 }
 

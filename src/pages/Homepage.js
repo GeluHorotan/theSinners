@@ -640,7 +640,6 @@ const StyledPage = styled.div`
           justify-content: center;
           font-size: 5rem;
           align-items: center;
-          background: red;
         }
       }
     }
