@@ -35,7 +35,7 @@ const Heroes = () => {
     getHeroes();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log(heroesData.data.result.heroes);
+  console.log(heroesData);
   return (
     <StyledWrapper>
       <StyledImageBackground>
@@ -66,7 +66,7 @@ const Heroes = () => {
       </StyledHeader>
       <StyledGridContainer>
         <div className='heroes-grid'>
-          {heroesData &&
+          {/* {heroesData &&
             heroesData.data.result.heroes.map((hero, index) => {
               const replaced = hero.name.replace('npc_dota_hero_', '');
               return (
@@ -76,7 +76,7 @@ const Heroes = () => {
                   key={index}
                 />
               );
-            })}
+            })} */}
         </div>
       </StyledGridContainer>
     </StyledWrapper>
