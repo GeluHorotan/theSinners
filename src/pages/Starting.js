@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 // Page Components
 import ParticleImage, {
@@ -17,19 +17,6 @@ import styled from 'styled-components';
 import { primary, secondary } from '../Utility/Colors';
 
 const Starting = () => {
-  const [testData, setTestData] = useState();
-  const getTest = async () => {
-    const res = await fetch(`.netlify/functions/helloWorld`);
-    const json = await res.json();
-    setTestData(json);
-  };
-
-  useEffect(() => {
-    getTest();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  console.log(testData);
   const particleOptions: ParticleOptions = {
     filter: ({ x, y, image }) => {
       // Get pixel

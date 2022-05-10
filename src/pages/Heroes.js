@@ -24,13 +24,9 @@ HEADERS['Vary'] = 'Origin';
 const Heroes = () => {
   // Steam Valve API
   // DOta 2
-  const steamApiKey = 'D3ECAFCD18BAD344D7E3A0B44D55E53F';
   const [heroesData, setHeroesData] = useState();
   const getHeroes = async () => {
-    const res = await fetch(
-      `/IEconDOTA2_570/GetHeroes/v0001/?key=${steamApiKey}`,
-      { HEADERS }
-    );
+    const res = await fetch(`/.netlify/functions/helloWorld`);
     const json = await res.json();
     setHeroesData(json);
   };
@@ -39,20 +35,7 @@ const Heroes = () => {
     getHeroes();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  // OpenDota API
-  // Heroes Info
-  // const [heroAbilities, setHeroAbilities] = useState();
-  // const getHeroAbilities = async () => {
-  //   const res = await fetch(`https://api.opendota.com/api/constants/abilities`);
-  //   const json = await res.json();
-  //   setHeroAbilities([json]);
-  // };
-
-  // useEffect(() => {
-  //   getHeroAbilities();
-  // }, []);
-
+  console.log(heroesData.data.result.heroes);
   return (
     <StyledWrapper>
       <StyledImageBackground>
@@ -84,7 +67,7 @@ const Heroes = () => {
       <StyledGridContainer>
         <div className='heroes-grid'>
           {heroesData &&
-            heroesData.result.heroes.map((hero, index) => {
+            heroesData.data.result.heroes.map((hero, index) => {
               const replaced = hero.name.replace('npc_dota_hero_', '');
               return (
                 <img
