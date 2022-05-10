@@ -42,6 +42,9 @@ const Slider = ({
   autoplayDelay,
   autoplayDisableOnInteraction,
   autoplayPauseOnMouseEnter,
+  b1,
+  b2,
+  b3,
   items,
 }) => {
   return (
@@ -83,14 +86,14 @@ const Slider = ({
         // }}
         breakpoints={{
           320: {
-            slidesPerView: 1,
+            slidesPerView: `${b1}`,
           },
 
           1024: {
-            slidesPerView: 2,
+            slidesPerView: `${b2}`,
           },
           1362: {
-            slidesPerView: 1,
+            slidesPerView: `${b3}`,
           },
         }}
       >

@@ -19,7 +19,7 @@ const Homepage = () => {
       <div className='section'>
         <Slider
           slidesPerView={1}
-          spaceBetween={0}
+          spaceBetween={50}
           loop={false}
           simulateTouch={true}
           grabCursor={true}
@@ -34,16 +34,24 @@ const Homepage = () => {
           autoplayDelay={3000}
           autoplayDisableOnInteraction={false}
           autoplayPauseOnMouseEnter={true}
+          b1={1}
+          b2={1}
+          b3={1}
           items={SliderData.map((item, index) => {
             return (
               <>
-                <img src={item.image} alt='' />
+                <img className='mobileImg' src={item.imageMobile} alt='' />
+                <img className='desktopImg' src={item.image} alt='' />
                 <div className='description-container'>
-                  <h2 className='title'>{item.title}</h2>
-                  <p className='description paragraph'>{item.description}</p>
-                  <div className='buttons'>
-                    <Button>VISIT</Button>
-                    <Button setClassName={'button2'}>LEARN MORE</Button>
+                  <div className='text'>
+                    <h2 className='title'>{item.title}</h2>
+                    <p className='description paragraph'>{item.description}</p>
+                    <div className='buttons'>
+                      <Button setClassName={'button'}>VISIT</Button>
+                      <Button setClassName={'button2 button'}>
+                        LEARN MORE
+                      </Button>
+                    </div>
                   </div>
                 </div>
                 <div className='overlay'></div>
@@ -552,64 +560,97 @@ const StyledPage = styled.div`
   background-color: ${primary};
   display: flex;
   flex-direction: column;
-  .overlay {
+
+  .description-container {
+    position: absolute;
+    z-index: 1;
+    bottom: -50%;
+    left: 0;
+    opacity: 0;
     width: 100%;
-    height: 45%;
+    padding: 3rem 10rem;
+    transition: 0.6s all ease-in-out;
     background: linear-gradient(
       rgba(0, 0, 0, 0) 0%,
-      rgba(24, 24, 24, 1) 90%,
+      rgba(24, 24, 24, 0.95) 60%,
       rgb(24, 24, 24) 100%
     );
 
-    position: absolute;
-    bottom: 0;
-    left: 0;
-  }
-
-  .description-container {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    z-index: 1;
-    bottom: -35%;
-    opacity: 0;
-    left: 5%;
-    gap: 2rem;
-    transition: 0.6s all ease-in-out;
-    .title {
-      color: white;
-      transform: scale(1);
-    }
-
-    .description {
-      color: white;
-      width: 50%;
-    }
-    .buttons {
+    .text {
       display: flex;
-      align-items: flex-end;
-      .button2 {
-        transform: scale(0.75);
+      flex-direction: column;
+      gap: 2rem;
+      margin-top: 20rem;
+      .title {
+        color: white;
+        transform: scale(1);
+      }
+
+      .description {
+        color: white;
+        width: 50%;
+      }
+      .buttons {
+        display: flex;
+        align-items: flex-end;
+        .button2 {
+          transform: scale(0.75);
+        }
       }
     }
   }
 
-  img {
+  .desktopImg,
+  .mobileImg {
     width: 100%;
     height: 100vh;
     object-fit: cover;
     transition: 0.6s all ease;
   }
+
+  .mobileImg {
+    display: none;
+  }
+
+  @media screen and (max-width: 750px) {
+    .desktopImg {
+      display: none;
+    }
+    .mobileImg {
+      display: flex;
+    }
+    .swiper-slide:hover .description-container {
+      left: 0;
+      bottom: 0;
+    }
+
+    .description-container {
+      padding: 0 3rem;
+
+      .text {
+        gap: 2rem;
+        .title {
+          font-size: 1.5rem;
+          line-height: 1.6rem;
+        }
+        .description {
+          width: 100%;
+        }
+        .buttons {
+          justify-content: center;
+          font-size: 5rem;
+          align-items: center;
+          background: red;
+        }
+      }
+    }
+  }
   .swiper {
     height: 90vh;
   }
 
-  .swiper-slide:hover img,
-  .overlay {
-    transform: scale(1.05);
-  }
   .swiper-slide:hover .description-container {
-    bottom: 7%;
+    bottom: 0;
     opacity: 1;
   }
 
