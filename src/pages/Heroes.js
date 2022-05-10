@@ -66,7 +66,7 @@ const Heroes = () => {
       </StyledHeader>
       <StyledGridContainer>
         <div className='heroes-grid'>
-          {heroesData.data.result.heroes &&
+          {heroesData &&
             heroesData.data.result.heroes.map((hero, index) => {
               const replaced = hero.name.replace('npc_dota_hero_', '');
               return (
