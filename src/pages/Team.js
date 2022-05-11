@@ -4,38 +4,12 @@ import styled from 'styled-components';
 // Components
 import Card from '../components/playerCard/Card';
 import Slider from '../components/Slider';
-import Tournaments from '../components/Tournaments';
 import Modal from '../components/Modal';
 
 // Utility
 import { primary, secondary } from '../Utility/Colors';
 import '../Utility/dota2heroes.css';
 import SinnersLogo from '../img/logo.png';
-import esl from '../img/teamGallery/esl.jpg';
-import esl2 from '../img/teamGallery/es2.webp';
-import esl3 from '../img/teamGallery/esl3.jpg';
-import portrait from '../img/teamGallery/portrait.jpg';
-import ts from '../img/teamGallery/TS.jpg';
-import rage from '../img/teamGallery/rage.jpg';
-import secretDesign from '../img/teamGallery/secretDesign.webp';
-import tatoo from '../img/teamGallery/tatoo.webp';
-import wallpaper from '../img/teamGallery/wallpaper.webp';
-import wallpaper2 from '../img/teamGallery/wallpaper2.webp';
-import wallpaper3 from '../img/teamGallery/wallpaper3.webp';
-import wallpaper4 from '../img/teamGallery/wallpaper4.webp';
-import wallpaper5 from '../img/teamGallery/wallpaper5.webp';
-import wallpaper6 from '../img/teamGallery/wallpaper6.webp';
-import wallpaper7 from '../img/teamGallery/wallpaper7.webp';
-import wallpaper8 from '../img/teamGallery/wallpaper8.webp';
-import wallpaper9 from '../img/teamGallery/wallpaper9.webp';
-import wallpaper10 from '../img/teamGallery/wallpaper10.webp';
-import wallpaper11 from '../img/teamGallery/wallpaper11.webp';
-import wallpaper12 from '../img/teamGallery/wallpaper12.webp';
-import wallpaper13 from '../img/teamGallery/wallpaper13.webp';
-import wallpaper14 from '../img/teamGallery/wallpaper14.jpg';
-import wallpaper15 from '../img/teamGallery/wallpaper15.webp';
-import wallpaper16 from '../img/teamGallery/wallpaper16.webp';
-import wallpaper17 from '../img/teamGallery/wallpaper17.webp';
 
 import { PlayersData } from '../Data/PlayersData';
 const Team = () => {
@@ -64,6 +38,9 @@ const Team = () => {
           autoplayDelay={3000}
           autoplayDisableOnInteraction={false}
           autoplayPauseOnMouseEnter={true}
+          b1={1}
+          b2={1}
+          b3={3}
           items={PlayersData.map((player, index) => {
             return (
               <Card
@@ -157,49 +134,6 @@ const Team = () => {
           <div className='section'>
             <img src={SinnersLogo} alt='test' />
             <h2 className='section-title'>Past Tournaments</h2>
-          </div>
-
-          <Tournaments />
-
-          <div className='section'>
-            <img src={SinnersLogo} alt='test' />
-            <h2 className='section-title'>Gallery</h2>
-          </div>
-          <div className='row'>
-            <div className='column'>
-              <img src={esl} alt='test' />
-              <img src={esl2} alt='test' />
-              <img src={esl3} alt='test' />
-              <img src={portrait} alt='test' />
-              <img src={ts} alt='test' />
-              <img src={rage} alt='test' />
-              <img src={secretDesign} alt='test' />
-            </div>
-            <div className='column'>
-              <img src={tatoo} alt='test' />
-              <img src={wallpaper} alt='test' />
-              <img src={wallpaper2} alt='test' />
-              <img src={wallpaper3} alt='test' />
-              <img src={wallpaper4} alt='test' />
-              <img src={wallpaper5} alt='test' />
-            </div>
-            <div className='column'>
-              <img src={wallpaper6} alt='test' />
-              <img src={wallpaper7} alt='test' />
-              <img src={wallpaper8} alt='test' />
-              <img src={wallpaper9} alt='test' />
-              <img src={wallpaper10} alt='test' />
-              <img src={wallpaper11} alt='test' />
-              <img src={wallpaper12} alt='test' />
-            </div>
-            <div className='column'>
-              <img src={wallpaper13} alt='test' />
-              <img src={wallpaper14} alt='test' />
-              <img src={wallpaper15} alt='test' />
-              <img src={wallpaper16} alt='test' />
-              <img src={wallpaper17} alt='test' />
-              <img src={wallpaper13} alt='test' />
-            </div>
           </div>
         </div>
       </StyledTeamDescription>

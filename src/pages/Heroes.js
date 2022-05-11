@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 
@@ -8,33 +10,67 @@ import { bounce } from '../components/animation';
 // Colors
 import { accent, primary, secondary } from '../Utility/Colors';
 
-let HEADERS = {
-  'Access-Control-Allow-Headers':
-    'Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Origin',
-  'Content-Type': 'application/json', //optional
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
-  'Access-Control-Max-Age': '8640',
-};
-
-//This solves the "No ‘Access-Control-Allow-Origin’ header is present on the requested resource."
-
-HEADERS['Access-Control-Allow-Origin'] = '*';
-HEADERS['Vary'] = 'Origin';
-
 const Heroes = () => {
   // Steam Valve API
   // DOta 2
-  const [heroesData, setHeroesData] = useState();
-  const getHeroes = async () => {
+  const [heroesList, setHeroesList] = useState();
+  const getListHeroes = async () => {
     const res = await fetch(`/.netlify/functions/helloWorld`);
     const json = await res.json();
-    setHeroesData(json);
+    setHeroesList(json);
   };
 
   useEffect(() => {
-    getHeroes();
+    getListHeroes();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // OpenDota API
+  // Dota 2 Hero Attributes
+  const [heroAttr, setHeroAttr] = useState();
+  const getHeroAttr = async () => {
+    const res = await fetch(`https://api.opendota.com/api/heroStats`);
+    const json = await res.json();
+    setHeroAttr(json);
+  };
+
+  useEffect(() => {
+    getHeroAttr();
+  }, []);
+
+  // Switch function for returning hero attr image
+  // ------------------------------------
+
+  const getAttrImg = (element) => {
+    switch (element) {
+      case 'str':
+        return (
+          <img
+            className='attrImg'
+            src='https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_strength.png'
+            alt=''
+          />
+        );
+      case 'agi':
+        return (
+          <img
+            className='attrImg'
+            src='https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_agility.png'
+            alt=''
+          />
+        );
+      case 'int':
+        return (
+          <img
+            className='attrImg'
+            src='https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_intelligence.png'
+            alt=''
+          />
+        );
+      default:
+        return null;
+    }
+  };
 
   return (
     <StyledWrapper>
@@ -58,23 +94,87 @@ const Heroes = () => {
           Who will you <br />
           choose ?!
         </motion.h1>
-        <h5 className='short-'>
+        <p className='short-'>
           From magical tacticians to fierce brutes and cunning rogues, Dota 2's
           hero pool is massive and limitlessly diverse. Unleash incredible
           abilities and devastating ultimates on your way to victory.
-        </h5>
+        </p>
       </StyledHeader>
       <StyledGridContainer>
         <div className='heroes-grid'>
-          {heroesData &&
-            heroesData.data.result.heroes.map((hero, index) => {
-              const replaced = hero.name.replace('npc_dota_hero_', '');
+          {heroesList &&
+            heroAttr &&
+            heroesList.data.result.heroes.map((hero, index) => {
+              const localizedName = hero.name.replace('npc_dota_hero_', '');
+              const heroName = localizedName.replace('_', ' ');
+              // console.log(heroAttr);
               return (
-                <img
-                  src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/${replaced}.png`}
-                  alt=''
-                  key={index}
-                />
+                <Link
+                  to={`/hero/${localizedName}`}
+                  state={[
+                    {
+                      heroDETAILS: [
+                        { id: `${heroAttr[index].id}` },
+                        { name: `${localizedName}` },
+                        { primaryAttr: `${heroAttr[index].primary_attr}` },
+                        { attackType: `${heroAttr[index].attack_type}` },
+                        { roles: `${heroAttr[index].roles}` },
+                        { base_health: `${heroAttr[index].base_health}` },
+                        {
+                          base_health_regen: `${heroAttr[index].base_health_regen}`,
+                        },
+                        { base_mana: `${heroAttr[index].base_mana}` },
+                        {
+                          base_mana_regen: `${heroAttr[index].base_mana_regen}`,
+                        },
+                        { base_armor: `${heroAttr[index].base_armor}` },
+                        { base_mr: `${heroAttr[index].base_mr}` },
+                        {
+                          base_attack_min: `${heroAttr[index].base_attack_min}`,
+                        },
+                        {
+                          base_attack_max: `${heroAttr[index].base_attack_max}`,
+                        },
+                        { base_str: `${heroAttr[index].base_str}` },
+                        { base_agi: `${heroAttr[index].base_agi}` },
+                        { base_int: `${heroAttr[index].base_int}` },
+                        { str_gain: `${heroAttr[index].str_gain}` },
+                        { agi_gain: `${heroAttr[index].agi_gain}` },
+                        { int_gain: `${heroAttr[index].int_gain}` },
+                        { attack_range: `${heroAttr[index].attack_range}` },
+                        {
+                          projectile_speed: `${heroAttr[index].projectile_speed}`,
+                        },
+                        {
+                          attack_rate: `${heroAttr[index].attack_rate}`,
+                        },
+                        {
+                          move_speed: `${heroAttr[index].move_speed}`,
+                        },
+                        {
+                          turn_rate: `${heroAttr[index].turn_rate}`,
+                        },
+                        {
+                          cm_enabled: `${heroAttr[index].cm_enabled}`,
+                        },
+                        {
+                          legs: `${heroAttr[index].legs}`,
+                        },
+                      ],
+                      test: 'test123',
+                    },
+                  ]}
+                >
+                  <div className='hero-card' key={index}>
+                    <img
+                      src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/${localizedName}.png`}
+                      alt=''
+                    />
+                    <p>{heroName.toUpperCase()}</p>
+                    <p>{heroAttr.primary_attr}</p>
+                    {getAttrImg(heroAttr[index].primary_attr)}
+                  </div>
+                </Link>
               );
             })}
         </div>
@@ -158,27 +258,46 @@ const StyledHeader = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  h5 {
-    width: 50%;
+  p {
+    width: 75%;
   }
 `;
 
 const StyledGridContainer = styled.div`
   background: ${accent};
   padding: 1rem;
+
   .heroes-grid {
-    width: 60%;
+    width: 100%;
     margin: 5rem auto;
     display: flex;
-
     flex-wrap: wrap;
     justify-content: center;
     padding: 0rem 1rem;
-    gap: 1rem;
+    /* gap: 0.5rem; */
+    a {
+      text-decoration: none;
+    }
     img {
       width: 225px;
       height: 127px;
       cursor: pointer;
+      transition: 0.4s all ease-in-out;
+      border: 0.5rem solid ${primary};
+    }
+    img:hover {
+      transform: scale(1.2);
+    }
+    .hero-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+    }
+    .attrImg {
+      width: 3rem;
+      height: 3rem;
     }
   }
 `;

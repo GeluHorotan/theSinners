@@ -36,16 +36,16 @@ const Modal = ({ nickname, src, cardColor, name, SinnersLogo, player_id }) => {
   }, []);
 
   //
-  const [itemData, setItemData] = useState();
-  const getItemData = async () => {
-    const res = await fetch(`  https://api.opendota.com/api/constants/items`);
-    const json = await res.json();
-    setItemData(json);
-  };
+  // const [itemData, setItemData] = useState();
+  // const getItemData = async () => {
+  //   const res = await fetch(`  https://api.opendota.com/api/constants/items`);
+  //   const json = await res.json();
+  //   setItemData(json);
+  // };
 
-  useEffect(() => {
-    getItemData();
-  }, []);
+  // useEffect(() => {
+  //   getItemData();
+  // }, []);
 
   // ----------------------- HERO DATA STATS ( IMAGES AND SKILLS AND ATTR ROLES ETC)
   const [heroData, setHeroData] = useState();
