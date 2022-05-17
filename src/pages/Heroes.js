@@ -11,20 +11,19 @@ import { bounce } from '../components/animation';
 import { accent, primary, secondary } from '../Utility/Colors';
 
 const Heroes = () => {
-  // Steam Valve API
-  // DOta 2
+  // Steam Valve API / Dota2.com API
+  // Dota 2
   const [heroesList, setHeroesList] = useState();
   const getListHeroes = async () => {
     const res = await fetch(`/.netlify/functions/helloWorld`);
     const json = await res.json();
     setHeroesList(json);
   };
-
+  console.log(test);
   useEffect(() => {
     getListHeroes();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   // OpenDota API
   // Dota 2 Hero Attributes
   const [heroAttr, setHeroAttr] = useState();
@@ -38,39 +37,67 @@ const Heroes = () => {
     getHeroAttr();
   }, []);
 
+  // OpenDota API
+  // Dota 2 Hero Lore
+  const [heroLore, setHeroLore] = useState();
+  const getHeroLore = async () => {
+    const res = await fetch(`https://api.opendota.com/api/constants/hero_lore`);
+    const json = await res.json();
+    setHeroLore(json);
+  };
+
+  useEffect(() => {
+    getHeroLore();
+  }, []);
+
   // Switch function for returning hero attr image
   // ------------------------------------
 
   const getAttrImg = (element) => {
     switch (element) {
-      case 'str':
+      case '0':
         return (
-          <img
-            className='attrImg'
-            src='https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_strength.png'
-            alt=''
-          />
+          <>
+            <img
+              className='attrImg'
+              src='https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_strength.png'
+              alt=''
+            />
+            <p>STR</p>
+          </>
         );
-      case 'agi':
+      case '1':
         return (
-          <img
-            className='attrImg'
-            src='https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_agility.png'
-            alt=''
-          />
+          <>
+            <img
+              className='attrImg'
+              src='https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_agility.png'
+              alt=''
+            />
+            <p>AGI</p>
+          </>
         );
-      case 'int':
+      case '2':
         return (
-          <img
-            className='attrImg'
-            src='https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_intelligence.png'
-            alt=''
-          />
+          <>
+            <img
+              className='attrImg'
+              src='https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_intelligence.png'
+              alt=''
+            />
+            <p>INT</p>
+          </>
         );
       default:
         return null;
     }
   };
+
+  if (heroesList) {
+    heroesList.result.data.heroes.sort((a, b) =>
+      a.name_loc.localeCompare(b.name_loc)
+    );
+  }
 
   return (
     <StyledWrapper>
@@ -104,75 +131,19 @@ const Heroes = () => {
         <div className='heroes-grid'>
           {heroesList &&
             heroAttr &&
-            heroesList.data.result.heroes.map((hero, index) => {
+            heroesList.result.data.heroes.map((hero, index) => {
               const localizedName = hero.name.replace('npc_dota_hero_', '');
-              const heroName = localizedName.replace('_', ' ');
-              // console.log(heroAttr);
+
               return (
-                <Link
-                  to={`/hero/${localizedName}`}
-                  state={[
-                    {
-                      heroDETAILS: [
-                        { id: `${heroAttr[index].id}` },
-                        { name: `${localizedName}` },
-                        { primaryAttr: `${heroAttr[index].primary_attr}` },
-                        { attackType: `${heroAttr[index].attack_type}` },
-                        { roles: `${heroAttr[index].roles}` },
-                        { base_health: `${heroAttr[index].base_health}` },
-                        {
-                          base_health_regen: `${heroAttr[index].base_health_regen}`,
-                        },
-                        { base_mana: `${heroAttr[index].base_mana}` },
-                        {
-                          base_mana_regen: `${heroAttr[index].base_mana_regen}`,
-                        },
-                        { base_armor: `${heroAttr[index].base_armor}` },
-                        { base_mr: `${heroAttr[index].base_mr}` },
-                        {
-                          base_attack_min: `${heroAttr[index].base_attack_min}`,
-                        },
-                        {
-                          base_attack_max: `${heroAttr[index].base_attack_max}`,
-                        },
-                        { base_str: `${heroAttr[index].base_str}` },
-                        { base_agi: `${heroAttr[index].base_agi}` },
-                        { base_int: `${heroAttr[index].base_int}` },
-                        { str_gain: `${heroAttr[index].str_gain}` },
-                        { agi_gain: `${heroAttr[index].agi_gain}` },
-                        { int_gain: `${heroAttr[index].int_gain}` },
-                        { attack_range: `${heroAttr[index].attack_range}` },
-                        {
-                          projectile_speed: `${heroAttr[index].projectile_speed}`,
-                        },
-                        {
-                          attack_rate: `${heroAttr[index].attack_rate}`,
-                        },
-                        {
-                          move_speed: `${heroAttr[index].move_speed}`,
-                        },
-                        {
-                          turn_rate: `${heroAttr[index].turn_rate}`,
-                        },
-                        {
-                          cm_enabled: `${heroAttr[index].cm_enabled}`,
-                        },
-                        {
-                          legs: `${heroAttr[index].legs}`,
-                        },
-                      ],
-                      test: 'test123',
-                    },
-                  ]}
-                >
+                <Link to={`/hero/${localizedName}`} state={hero.id}>
                   <div className='hero-card' key={index}>
                     <img
                       src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/${localizedName}.png`}
                       alt=''
                     />
-                    <p>{heroName.toUpperCase()}</p>
-                    <p>{heroAttr.primary_attr}</p>
-                    {getAttrImg(heroAttr[index].primary_attr)}
+                    <p>{hero.name_loc}</p>
+                    <p>{hero.id}</p>
+                    {getAttrImg(`${hero.primary_attr}`)}
                   </div>
                 </Link>
               );

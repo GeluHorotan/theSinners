@@ -103,7 +103,6 @@ font-style: normal;
 
 .hidden {
   display: none;
-
 }
 
 .visible {
@@ -158,23 +157,16 @@ font-style: normal;
    background: whitesmoke;
  }
 
- 
- #hyperx,
- #razer-mouse,
- #ss-pack,
- #razer-laptop ,
- #siberia-white {
-   
- 
-background-image: linear-gradient(to right, #ed6ea0 0%, #ec8c69 100%);
-
-  transition: 0.4s all ease-in-out;
- }
-
  .section {
    width: 100%;
    height: 100vh;
- 
+ }
+
+ .health-color {
+    background: linear-gradient(to right, #286323, #7af03c);
+ }
+ .mana-color {
+       background: linear-gradient(to right, #1056db, #73f5fe);
  }
 
 

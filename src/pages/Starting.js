@@ -10,7 +10,7 @@ import Button from '../components/Button';
 
 // Video and Images
 
-import NinjaLogo from '../img/NinjaLogo.png';
+import Logo from '../img/logo.png';
 
 // Style
 import styled from 'styled-components';
@@ -69,8 +69,8 @@ const Starting = () => {
         <div className='animated-elements' ref={animatedElements}>
           <ParticleImage
             className='logo'
-            src={NinjaLogo}
-            scale={0.1}
+            src={Logo}
+            scale={0.3}
             entropy={15}
             maxParticles={3000}
             particleOptions={particleOptions}

@@ -70,19 +70,19 @@ const Navigation = () => {
         </motion.ul>
       </NavigationStyle>
 
-      <BarsStyle>
-        <FaIcons.FaBars
-          className={sidebar ? 'hidden' : 'visible'}
-          onClick={showSidebar}
-        />
-
-        <AiIcons.AiOutlineClose
-          className={sidebar ? 'visible' : 'hidden'}
-          onClick={showSidebar}
-        />
-      </BarsStyle>
       <IconContext.Provider value={{ color: `${secondary}` }}>
-        <nav>
+        <SideNavStyles>
+          <BarsStyle>
+            <FaIcons.FaBars
+              className={sidebar ? 'hidden' : 'visible'}
+              onClick={showSidebar}
+            />
+
+            <AiIcons.AiOutlineClose
+              className={sidebar ? 'visible' : 'hidden'}
+              onClick={showSidebar}
+            />
+          </BarsStyle>
           <SidebarStyles id={sidebar ? 'sidebar-active' : ''}>
             <UlStyle variants={comingTop} initial='hidden' animate='show'>
               <li>
@@ -138,7 +138,7 @@ const Navigation = () => {
               </li>
             </UlStyle>
           </SidebarStyles>
-        </nav>
+        </SideNavStyles>
       </IconContext.Provider>
     </>
   );
@@ -186,6 +186,12 @@ const NavigationStyle = styled.nav`
   }
   #logo {
     width: 3rem;
+  }
+`;
+
+const SideNavStyles = styled.nav`
+  @media screen and (min-width: 768px) {
+    display: none;
   }
 `;
 
