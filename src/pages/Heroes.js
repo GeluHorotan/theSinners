@@ -8,18 +8,18 @@ import { motion } from 'framer-motion';
 import { bounce } from '../components/animation';
 
 // Colors
-import { accent, primary, secondary } from '../Utility/Colors';
+import { accent, desaturatedRed, primary, secondary } from '../Utility/Colors';
 
 const Heroes = () => {
   // Steam Valve API / Dota2.com API
   // Dota 2
   const [heroesList, setHeroesList] = useState();
   const getListHeroes = async () => {
-    const res = await fetch(`/.netlify/functions/helloWorld`);
+    const res = await fetch(`/.netlify/functions/helloWorld/`);
     const json = await res.json();
     setHeroesList(json);
   };
-  console.log(test);
+
   useEffect(() => {
     getListHeroes();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -37,19 +37,6 @@ const Heroes = () => {
     getHeroAttr();
   }, []);
 
-  // OpenDota API
-  // Dota 2 Hero Lore
-  const [heroLore, setHeroLore] = useState();
-  const getHeroLore = async () => {
-    const res = await fetch(`https://api.opendota.com/api/constants/hero_lore`);
-    const json = await res.json();
-    setHeroLore(json);
-  };
-
-  useEffect(() => {
-    getHeroLore();
-  }, []);
-
   // Switch function for returning hero attr image
   // ------------------------------------
 
@@ -63,7 +50,6 @@ const Heroes = () => {
               src='https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_strength.png'
               alt=''
             />
-            <p>STR</p>
           </>
         );
       case '1':
@@ -74,7 +60,6 @@ const Heroes = () => {
               src='https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_agility.png'
               alt=''
             />
-            <p>AGI</p>
           </>
         );
       case '2':
@@ -85,7 +70,6 @@ const Heroes = () => {
               src='https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_intelligence.png'
               alt=''
             />
-            <p>INT</p>
           </>
         );
       default:
@@ -137,13 +121,26 @@ const Heroes = () => {
               return (
                 <Link to={`/hero/${localizedName}`} state={hero.id}>
                   <div className='hero-card' key={index}>
-                    <img
-                      src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/${localizedName}.png`}
-                      alt=''
-                    />
-                    <p>{hero.name_loc}</p>
-                    <p>{hero.id}</p>
-                    {getAttrImg(`${hero.primary_attr}`)}
+                    <div
+                      className='heroPortrait'
+                      style={{
+                        backgroundImage: `url(https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/${localizedName}.png)`,
+                      }}
+                    >
+                      {' '}
+                      <div
+                        className='attributeFade'
+                        style={{
+                          background:
+                            'linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.733) 40%, rgb(0, 0, 0) 100%)',
+                        }}
+                      >
+                        <div className='heroPortraitDetails'>
+                          {getAttrImg(`${hero.primary_attr}`)}
+                          <h5>{hero.name_loc.toUpperCase()}</h5>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </Link>
               );
@@ -155,8 +152,8 @@ const Heroes = () => {
 };
 
 const StyledWrapper = styled.div`
-  background: ${primary};
-  width: 90%;
+  background-image: linear-gradient(120deg, #f093fb 0%, #f5576c 100%);
+  width: 100%;
   min-height: 3000px;
   margin: 0 auto;
 `;
@@ -235,30 +232,71 @@ const StyledHeader = styled.div`
 `;
 
 const StyledGridContainer = styled.div`
-  background: ${accent};
   padding: 1rem;
 
   .heroes-grid {
-    width: 100%;
+    width: 90rem;
     margin: 5rem auto;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     padding: 0rem 1rem;
-    /* gap: 0.5rem; */
+    gap: 1.5rem;
     a {
       text-decoration: none;
     }
-    img {
+    .heroPortrait {
       width: 225px;
       height: 127px;
       cursor: pointer;
-      transition: 0.4s all ease-in-out;
-      border: 0.5rem solid ${primary};
+      transition: 0.4s all ease-in;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      box-shadow: 1px 1px 4px #000;
+      filter: saturate(0.8);
+
+      .attributeFade {
+        width: 100%;
+        transform: translateY(5rem);
+        transform-origin: bottom;
+        opacity: 0;
+        transform: scaleY(0);
+        transition: 0.4s all ease-in-out;
+      }
+
+      .heroPortraitDetails {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 0.1rem;
+        padding: 1.5rem 0.5rem 0.5rem 0.5rem;
+
+        h5 {
+          line-height: 1.5rem;
+        }
+
+        .attrImg {
+          width: 2.625rem;
+          height: 2.625rem;
+          padding: 0.25rem;
+        }
+      }
     }
-    img:hover {
-      transform: scale(1.2);
+    .heroPortrait:hover {
+      transform: scale(1.1);
+      z-index: 15;
     }
+    .heroPortrait:hover .attributeFade {
+      transform: translateY(0);
+      transform: scaleY(1);
+      opacity: 1;
+    }
+
     .hero-card {
       display: flex;
       flex-direction: column;

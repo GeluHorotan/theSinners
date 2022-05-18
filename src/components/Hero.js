@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router';
 import styled from 'styled-components';
-import { accent, primary, secondary } from '../Utility/Colors';
-import Logo from '../img/logo.png';
-export const test = 2;
+import { secondary } from '../Utility/Colors';
+
 const Hero = () => {
   const location = useLocation();
   const [heroProps, setHeroProps] = useState();
@@ -15,7 +14,24 @@ const Hero = () => {
     getProps();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  const [abilities, setAbilities] = useState();
+  const [roleLevels, setRoleLevels] = useState();
+  const [talents, setTalents] = useState();
+  const [heroData, setHeroData] = useState();
+  const getHeroData = async () => {
+    const res = await fetch(`/.netlify/functions/hero/?id=${location.state}`);
+    const json = await res.json();
+    setTalents(json.result.data.heroes[0].talents);
+    setRoleLevels(json.result.data.heroes[0].role_levels);
+    setAbilities(json.result.data.heroes[0].abilities);
+    setHeroData(json.result.data.heroes[0]);
+  };
 
+  useEffect(() => {
+    getHeroData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  console.log(heroData);
   // Setting images in variables
 
   const strength = (
@@ -42,21 +58,21 @@ const Hero = () => {
 
   const getAttrImg = (element) => {
     switch (element) {
-      case 'str':
+      case 0:
         return (
           <>
             {strength}
             <h6>STRENGTH</h6>
           </>
         );
-      case 'agi':
+      case 1:
         return (
           <>
             {agility}
             <h6>AGILITY</h6>
           </>
         );
-      case 'int':
+      case 2:
         return (
           <>
             {intelligence}
@@ -99,28 +115,28 @@ const Hero = () => {
     );
   };
 
-  if (heroProps)
+  if (heroData)
     return (
       <HeroContainer>
-        {/* <TopStyles>
+        <TopStyles>
           <div className='heroVerticalBar'>
-            {getAttrImg(heroProps[0][0].primary_attr)}
-            <h5> {heroProps[0][0].localized_name.toUpperCase()}</h5>
-            <h5>{heroProps[0][0].id}</h5>
+            {getAttrImg(heroData.primary_attr)}
+            <h5> {heroData.name_loc.toUpperCase()}</h5>
+            <h5>{heroData.id}</h5>
             <span className='verticalLine'></span>
           </div>
           <div className='heroDetails'>
             <div className='heroInfo'>
               <div className='attribute'>
-                {getAttrImg(heroProps[0][0].primary_attr)}
+                {getAttrImg(heroData.primary_attr)}
               </div>
-              <h1>{heroProps[0][0].localized_name}</h1>
-              <p className='heroLore'>{heroProps[1]}</p>
+              <h1>{heroData.name_loc}</h1>
+              <p className='heroLore'>{heroData.hype_loc}</p>
             </div>
             <video autoPlay loop muted>
               <source
                 src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/${processHeroName(
-                  heroProps[0][0].name
+                  heroData.name
                 )}.webm`}
                 type='video/mp4'
               />
@@ -131,35 +147,29 @@ const Hero = () => {
           <SmallPortraitStyles>
             <img
               src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/${processHeroName(
-                heroProps[0][0].name
+                heroData.name
               )}.png`}
               alt=''
             />
             <span className='base health-color'>
-              {processHeroHealth(
-                heroProps[0][0].base_str,
-                heroProps[0][0].base_health_regen
-              )}
+              {processHeroHealth(heroData.str_base, heroData.health_regen)}
             </span>
             <span className='base mana-color'>
-              {processHeroMana(
-                heroProps[0][0].base_int,
-                heroProps[0][0].base_mana_regen
-              )}
+              {processHeroMana(heroData.int_base, heroData.mana_regen)}
             </span>
           </SmallPortraitStyles>
           <div className='attribute_container'>
             <div className='heropage_single_attribute'>
-              {strength} <h5>{heroProps[0][0].base_str}</h5>
-              <p className='gain'> + {heroProps[0][0].str_gain}</p>
+              {strength} <h5>{heroData.str_base}</h5>
+              <p className='gain'> + {heroData.str_gain.toFixed(1)}</p>
             </div>
             <div className='heropage_single_attribute'>
-              {agility} <h5>{heroProps[0][0].base_agi}</h5>
-              <p className='gain'> + {heroProps[0][0].agi_gain}</p>
+              {agility} <h5>{heroData.agi_base}</h5>
+              <p className='gain'> + {heroData.agi_gain.toFixed(1)}</p>
             </div>
             <div className='heropage_single_attribute'>
-              {intelligence} <h5>{heroProps[0][0].base_int}</h5>
-              <p className='gain'> + {heroProps[0][0].int_gain}</p>
+              {intelligence} <h5>{heroData.int_base}</h5>
+              <p className='gain'> + {heroData.int_gain.toFixed(1)}</p>
             </div>
           </div>
           <div className='vertical_separator'></div>
@@ -180,7 +190,7 @@ const Hero = () => {
             <div className='heropage_role'>Pusher</div>
             <div className='heropage_role'>Initiator</div>
           </div>
-        </HeroDetailsBarContainerStyles> */}
+        </HeroDetailsBarContainerStyles>
       </HeroContainer>
     );
 };
@@ -221,7 +231,19 @@ const TopStyles = styled.div`
 
   .heroDetails {
     display: flex;
-    background: ${accent};
+
+    background-image: linear-gradient(45deg, #874da2 0%, #c43a30 100%);
+    background-size: 400%;
+    animation: bg-animation 5s infinite alternate;
+
+    @keyframes bg-animation {
+      0% {
+        background-position: left;
+      }
+      100% {
+        background-position: right;
+      }
+    }
 
     .heroInfo {
       display: flex;

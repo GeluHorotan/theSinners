@@ -14,7 +14,6 @@
 
 const fetch = (...args) =>
   import('node-fetch').then(({ default: fetch }) => fetch(...args));
-
 exports.handler = async function (event, context) {
   const dotaHeroes = `https://www.dota2.com/datafeed/herolist?language=english`;
   const response = await fetch(dotaHeroes);

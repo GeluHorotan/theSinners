@@ -119,6 +119,17 @@ const Navigation = () => {
                 <Button
                   setClassName='sidebar-btn'
                   isLink
+                  setLink='/heroes'
+                  setIcon={<AiIcons.AiOutlineShoppingCart />}
+                >
+                  {' '}
+                  <h6>Heroes</h6>
+                </Button>
+              </li>
+              <li>
+                <Button
+                  setClassName='sidebar-btn'
+                  isLink
                   setLink='/shop'
                   setIcon={<AiIcons.AiOutlineShoppingCart />}
                 >
