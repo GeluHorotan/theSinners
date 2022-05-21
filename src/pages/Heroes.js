@@ -152,7 +152,12 @@ const Heroes = () => {
 };
 
 const StyledWrapper = styled.div`
-  background-image: linear-gradient(120deg, #f093fb 0%, #f5576c 100%);
+  background: url('https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/backgrounds/greyfade.jpg');
+
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-attachment: fixed;
   width: 100%;
   min-height: 3000px;
   margin: 0 auto;
@@ -249,7 +254,7 @@ const StyledGridContainer = styled.div`
       width: 225px;
       height: 127px;
       cursor: pointer;
-      transition: 0.4s all ease-in;
+      transition: 0.25s all ease-in;
       display: flex;
       align-items: flex-end;
       justify-content: center;
@@ -265,7 +270,7 @@ const StyledGridContainer = styled.div`
         transform-origin: bottom;
         opacity: 0;
         transform: scaleY(0);
-        transition: 0.4s all ease-in-out;
+        transition: 0.25s all ease-in-out;
       }
 
       .heroPortraitDetails {
@@ -288,7 +293,7 @@ const StyledGridContainer = styled.div`
       }
     }
     .heroPortrait:hover {
-      transform: scale(1.1);
+      transform: scale(1.2);
       z-index: 15;
     }
     .heroPortrait:hover .attributeFade {

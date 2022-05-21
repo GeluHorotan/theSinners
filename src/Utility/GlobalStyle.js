@@ -162,10 +162,10 @@ font-style: normal;
    height: 100vh;
  }
 
- .health-color {
+ .health_color {
     background: linear-gradient(to right, #286323, #7af03c);
  }
- .mana-color {
+ .mana_color {
        background: linear-gradient(to right, #1056db, #73f5fe);
  }
 
