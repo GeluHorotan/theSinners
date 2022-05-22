@@ -205,3 +205,12 @@ export const bounce = {
     },
   },
 };
+
+export const width = {
+  hidden: {
+    width: '0%',
+  },
+  show: {
+    width: '100%',
+  },
+};
