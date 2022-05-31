@@ -3,7 +3,9 @@ import { useLocation } from 'react-router';
 import styled from 'styled-components';
 import { secondary, accent } from '../Utility/Colors';
 import { motion } from 'framer-motion';
-
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 const Hero = () => {
   const location = useLocation();
   const [heroProps, setHeroProps] = useState();
@@ -63,6 +65,11 @@ const Hero = () => {
       alt=''
     />
   );
+
+  const replaceText = (text) => {
+    const replaced = text.replace('<br>', 'TEST ');
+    return replaced;
+  };
 
   const getAttrIcon = (element) => {
     switch (element) {
@@ -261,7 +268,15 @@ const Hero = () => {
               </div>
               <h1>{heroData.name_loc}</h1>
               <h5>{heroData.npe_desc_loc}</h5>
-              <p className='heroLore'>{heroData.hype_loc}</p>
+              <div className='heroLore paragraph'>
+                <ReactMarkdown
+                  remarkPlugins={[remarkGfm]}
+                  rehypePlugins={[rehypeRaw]}
+                  components={{ b: 'span' }}
+                >
+                  {heroData.hype_loc}
+                </ReactMarkdown>
+              </div>
             </div>
             <video autoPlay loop muted>
               <source
@@ -271,6 +286,10 @@ const Hero = () => {
                 type='video/mp4'
               />
             </video>
+            <div className='pillar_bar'></div>
+            <div className='fade_container'>
+              <div className='fade_fade'></div>
+            </div>
           </div>
         </TopStyles>
         <DetailsBarStyles>
@@ -354,26 +373,61 @@ const HeroContainer = styled.div`
 
 const TopStyles = styled.div`
   display: flex;
-
+  background-color: #000;
+  background-image: url(https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//backgrounds/greyfade.jpg);
+  background-size: 100% auto;
+  background-position: center top;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  position: relative;
   height: 75vh;
   position: relative;
   justify-content: center;
-
+  .pillar_bar {
+    width: 150%;
+    height: 650px;
+    background-color: #00000060;
+    position: absolute;
+    transform: skewY(-45deg) translateX(-50vw);
+    overflow: hidden;
+  }
+  .fade_container {
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    pointer-events: none;
+    .fade_fade {
+      background: linear-gradient(
+        rgba(0, 0, 0, 0) 70%,
+        rgba(0, 0, 0, 0.733) 100%,
+        rgb(0, 0, 0) 100%
+      );
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+  }
   .heroVerticalBar {
     display: flex;
     gap: 1rem;
     align-items: center;
     justify-content: center;
-    transform-origin: left;
-
-    transform: rotate(-90deg);
+    transform: rotate(270deg);
+    transform-origin: bottom left;
     position: absolute;
     bottom: 10px;
     left: 100px;
+    width: 100%;
+    margin-bottom: 5rem;
+    z-index: 1;
     .verticalLine {
-      width: 50rem;
-      height: 0.2rem;
-      background: grey;
+      height: 2px;
+
+      flex-grow: 1;
+      background-color: #555;
     }
   }
 
@@ -396,10 +450,13 @@ const TopStyles = styled.div`
     .heroLore {
       width: 50%;
       padding: 2rem 0;
+      span {
+        font-weight: 700;
+      }
     }
     video {
       width: 70rem;
-      right: -7rem;
+      right: 15%;
       z-index: 1;
       position: absolute;
     }
