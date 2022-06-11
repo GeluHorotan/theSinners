@@ -16,9 +16,14 @@ import {
 } from '../Utility/Colors';
 import Input from '../components/Input';
 
+// Functions
+import { getAttrImg } from '../Functions/getAttrImg';
+
 const Heroes = () => {
   // Steam Valve API / Dota2.com API
   // Dota 2
+
+  const [linkState, setLinkState] = useState();
   const [inputSearch, setInputSearch] = useState();
   const [activeComplexity, setActiveComplexity] = useState(4);
   const [activeAttribute, setActiveAttribute] = useState(4);
@@ -27,6 +32,7 @@ const Heroes = () => {
   const getListHeroes = async () => {
     const res = await fetch(`/.netlify/functions/helloWorld/`);
     const json = await res.json();
+
     setHeroesList(json.result.data.heroes);
     setFilteredHeroes(json.result.data.heroes);
   };
@@ -52,46 +58,10 @@ const Heroes = () => {
   // Switch function for returning hero attr image
   // ------------------------------------
 
-  const getAttrImg = (element) => {
-    switch (element) {
-      case '0':
-        return (
-          <>
-            <img
-              className='attrImg'
-              src='https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_strength.png'
-              alt=''
-            />
-          </>
-        );
-      case '1':
-        return (
-          <>
-            <img
-              className='attrImg'
-              src='https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_agility.png'
-              alt=''
-            />
-          </>
-        );
-      case '2':
-        return (
-          <>
-            <img
-              className='attrImg'
-              src='https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_intelligence.png'
-              alt=''
-            />
-          </>
-        );
-      default:
-        return null;
-    }
-  };
-
   if (heroesList) {
     heroesList.sort((a, b) => a.name_loc.localeCompare(b.name_loc));
   }
+
   const filterButtons = [
     [
       { name: 'str', aLevel: 0 },
@@ -208,7 +178,19 @@ const Heroes = () => {
 
   const processNoResults = (message) => {
     if (filteredHeroes && filteredHeroes.length === 0) {
-      return <h2 id='heroes_no_heroes_warning'>{message}</h2>;
+      return (
+        <AnimatePresence>
+          <motion.h2
+            initial={{ x: 0, opacity: 0 }}
+            animate={{ x: '50%', opacity: 1 }}
+            exit={{ x: 0, opacity: 0 }}
+            transition={{ duration: 0.25, type: 'tween' }}
+            id='heroes_no_heroes_warning'
+          >
+            {message}
+          </motion.h2>
+        </AnimatePresence>
+      );
     }
   };
 
@@ -326,11 +308,13 @@ const Heroes = () => {
         ></Input>
       </StyledFilter>
       <StyledGridContainer>
+        {processNoResults('No heroes match your filter')}
+
         <motion.div layout className='heroes-grid'>
-          {processNoResults('No heroes match your filter')}
           {filteredHeroes &&
             filteredHeroes.map((hero, index) => {
               const localizedName = hero.name.replace('npc_dota_hero_', '');
+
               return (
                 <motion.div
                   layout
@@ -346,7 +330,7 @@ const Heroes = () => {
 
                     duration: 1,
 
-                    delay: index * 0.03,
+                    delay: index * 0.02,
                   }}
                   exit={{
                     y: index % 2 === 0 ? -10 : 10,
@@ -355,7 +339,20 @@ const Heroes = () => {
                   key={index}
                 >
                   <AnimatePresence>
-                    <Link to={`/hero/${localizedName}`} state={hero.id}>
+                    <Link
+                      to={`/hero/${localizedName}`}
+                      state={{
+                        currentHero: hero.id,
+                        currentIndex: index,
+
+                        prevIndex:
+                          index - 1 === -1 ? heroesList.length - 1 : index - 1,
+
+                        nextIndex:
+                          index + 1 > heroesList.length - 1 ? 0 : index + 1,
+                        list: heroesList,
+                      }}
+                    >
                       <div className='hero-card'>
                         <div
                           className='heroPortrait'
@@ -372,7 +369,7 @@ const Heroes = () => {
                             }}
                           >
                             <div className='heroPortraitDetails'>
-                              {getAttrImg(`${hero.primary_attr}`)}
+                              {getAttrImg(hero.primary_attr)}
                               <h5>{hero.name_loc.toUpperCase()}</h5>
                             </div>
                           </div>
@@ -400,7 +397,7 @@ const StyledWrapper = styled.div`
   background-position: center top;
   background-attachment: fixed;
   width: 100%;
-  min-height: 3000px;
+  min-height: 187.5rem;
   margin: 0 auto;
 `;
 
@@ -538,8 +535,8 @@ const StyledFilter = styled.div`
     }
     button {
       border: none;
-      width: 43px;
-      height: 35px;
+      width: 2.688rem;
+      height: 2.188rem;
       margin-left: -4px;
       background-size: cover;
       background-repeat: no-repeat;
@@ -559,6 +556,29 @@ const StyledFilter = styled.div`
 `;
 
 const StyledGridContainer = styled(motion.div)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  #heroes_no_heroes_warning {
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 1rem 0;
+    font-weight: 300;
+    color: ${secondary};
+    font-size: 5rem;
+    @media screen and (max-width: 1000px) {
+      font-size: 4rem;
+    }
+    @media screen and (max-width: 799px) {
+      font-size: 3rem;
+    }
+    @media screen and (max-width: 525px) {
+      font-size: 1.5rem;
+    }
+  }
   .heroes-grid {
     width: 85%;
     margin: 0 auto;
@@ -575,32 +595,12 @@ const StyledGridContainer = styled(motion.div)`
       width: 100%;
     }
 
-    #heroes_no_heroes_warning {
-      display: flex;
-
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      margin: 1rem 0;
-      font-weight: 300;
-      color: ${secondary};
-      font-size: 5rem;
-      @media screen and (max-width: 1000px) {
-        font-size: 4rem;
-      }
-      @media screen and (max-width: 799px) {
-        font-size: 3rem;
-      }
-      @media screen and (max-width: 525px) {
-        font-size: 1.5rem;
-      }
-    }
     a {
       text-decoration: none;
     }
     .heroPortrait {
-      width: 225px;
-      height: 127px;
+      width: 14.063rem;
+      height: 7.938rem;
       cursor: pointer;
       transition: 0.25s all ease-in;
       display: flex;
@@ -610,12 +610,13 @@ const StyledGridContainer = styled(motion.div)`
       background-repeat: no-repeat;
       background-size: cover;
       box-shadow: 1px 1px 4px #000;
-
+      vertical-align: middle;
       filter: saturate(0.8);
       overflow: hidden;
       .attributeFade {
         width: 100%;
         position: absolute;
+        vertical-align: middle;
         /* opacity: 0; */
         transition: 0.25s all ease-in-out;
         bottom: -4rem;
@@ -627,7 +628,7 @@ const StyledGridContainer = styled(motion.div)`
         display: flex;
         justify-content: flex-start;
         align-items: center;
-
+        vertical-align: middle;
         padding: 1.5rem 0.5rem 0.5rem 0.1rem;
         position: relative;
 
@@ -661,6 +662,7 @@ const StyledGridContainer = styled(motion.div)`
     .heroPortrait:hover {
       transform: scale(1.2);
       z-index: 15;
+      vertical-align: middle;
       @media screen and (max-width: 750px) {
         transform: scale(1.1);
       }
@@ -668,33 +670,35 @@ const StyledGridContainer = styled(motion.div)`
     .heroPortrait:hover .attributeFade {
       bottom: 0;
       opacity: 1;
+      vertical-align: middle;
     }
 
     .hero-card {
-      width: 225px;
+      width: 14.063;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       color: white;
+      vertical-align: middle;
     }
 
     @media screen and (max-width: 750px) {
       .heroPortrait {
-        width: 205px;
-        height: 107px;
+        width: 12.813rem;
+        height: 6.688rem;
       }
       .hero-card {
-        width: 205px;
+        width: 12.813rem;
       }
     }
     @media screen and (max-width: 482px) {
       .heroPortrait {
-        width: 125px;
-        height: 67px;
+        width: 7.813rem;
+        height: 4.188rem;
       }
       .hero-card {
-        width: 125px;
+        width: 7.813rem;
       }
     }
     .attrImg {

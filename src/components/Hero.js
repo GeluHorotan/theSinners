@@ -6,6 +6,13 @@ import { motion } from 'framer-motion';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
+
+// Functions
+import { processHeroName } from '../Functions/for Hero Component/processHeroName';
+
+import DisplayAbilityInfo from './DisplayAbilityInfo';
+import HeroPagination from './HeroPagination';
+import Tooltip from './Tooltip';
 const Hero = () => {
   const location = useLocation();
   const [heroProps, setHeroProps] = useState();
@@ -17,30 +24,48 @@ const Hero = () => {
     getProps();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const [isUpgrade, setIsUpgrade] = useState(false);
+  const [activeUpgrade, setActiveUpgrade] = useState();
+  const [activeAbility, setActiveAbility] = useState();
+  const [upgradeAbilities, setUpgradeAbilities] = useState();
   const [abilities, setAbilities] = useState();
   const [roleLevels, setRoleLevels] = useState();
   const [talents, setTalents] = useState();
   const [heroData, setHeroData] = useState();
+
   const getHeroData = async () => {
-    const res = await fetch(`/.netlify/functions/hero/?id=${location.state}`);
+    const res = await fetch(
+      `/.netlify/functions/hero/?id=${location.state.currentHero}`
+    );
     const json = await res.json();
+
     setTalents(json.result.data.heroes[0].talents);
     setRoleLevels(json.result.data.heroes[0].role_levels);
-    setAbilities(json.result.data.heroes[0].abilities);
+    setAbilities(
+      json.result.data.heroes[0].abilities.filter(
+        (upgrade) =>
+          upgrade.ability_is_granted_by_shard !== true &&
+          upgrade.ability_is_granted_by_scepter !== true
+      )
+    );
     setHeroData(json.result.data.heroes[0]);
+    setUpgradeAbilities(
+      json.result.data.heroes[0].abilities.filter(
+        (upgrade) =>
+          upgrade.ability_is_granted_by_scepter ||
+          upgrade.ability_has_scepter ||
+          upgrade.ability_is_granted_by_shard ||
+          upgrade.ability_has_shard
+      )
+    );
+    setActiveAbility(json.result.data.heroes[0].abilities[0]);
   };
-  console.log(heroData);
+
   useEffect(() => {
     getHeroData();
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  // icon: 'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//heroes/stats/icon_damage.png',
-  // value: `${heroData.damage_max} - ${heroData.damage_min}`,
-
-  // icon: 'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//heroes/stats/icon_attack_time.png',
-  // value: `${heroData.attack_time}`,
 
   // Setting images in variables
 
@@ -65,11 +90,6 @@ const Hero = () => {
       alt=''
     />
   );
-
-  const replaceText = (text) => {
-    const replaced = text.replace('<br>', 'TEST ');
-    return replaced;
-  };
 
   const getAttrIcon = (element) => {
     switch (element) {
@@ -132,11 +152,6 @@ const Hero = () => {
     }
   };
 
-  const processHeroName = (name) => {
-    const heroName = name.replace('npc_dota_hero_', '');
-    return heroName;
-  };
-
   const processNumberUp = (number) => {
     const fixedNumber = Math.ceil(number * 10) / 10;
     return fixedNumber;
@@ -165,7 +180,7 @@ const Hero = () => {
     ];
     return rolesArray.map((role, index) => {
       return (
-        <div className='roles_single_role'>
+        <div className='roles_single_role' key={index}>
           <p>{role}</p>
           <div className='roles_bar_container'>
             <div className='roles_bar_background'></div>
@@ -237,7 +252,7 @@ const Hero = () => {
         <h6 className='stats_stat_title'>{title}</h6>
         {object.map((stat, index) => {
           return (
-            <div className='stats_values_section'>
+            <div className='stats_values_section' key={index}>
               <img src={`${stat.icon}`} alt='' />
               <p>{stat.value}</p>
             </div>
@@ -247,7 +262,146 @@ const Hero = () => {
     );
   };
 
-  if (heroData)
+  const abilityAgsChecker = (upgrade) => {
+    if (upgrade.ability_has_shard || upgrade.ability_is_granted_by_shard) {
+      return (
+        <div
+          className='ability_upgrade'
+          style={{
+            background: `url(https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/stats/aghs_shard.png)`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center center',
+            backgroundRepeat: 'no-repeat',
+          }}
+        ></div>
+      );
+    }
+
+    if (upgrade.ability_has_scepter || upgrade.ability_is_granted_by_scepter) {
+      return (
+        <div
+          className='ability_upgrade'
+          style={{
+            background: `url(https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/stats/aghs_scepter.png)`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center center',
+            backgroundRepeat: 'no-repeat',
+          }}
+        ></div>
+      );
+    }
+  };
+
+  const processAbility = (spell) => {
+    if (spell) {
+      return <h1>{spell.name}</h1>;
+    }
+  };
+
+  const processAbilityUpgrade = (element) => {
+    switch (true) {
+      case element.name == 'morphling_adaptive_strike_str':
+        return null;
+      case element.shard_loc.length > 0:
+        return (
+          <div
+            className={`ability_details_ability_square ${
+              activeUpgrade && activeUpgrade.name === element.name
+                ? 'ability_details_active_ability'
+                : 'ability_details_inactive_ability'
+            }`}
+            style={{
+              background: `url(https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/${element.name}.png)`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center center',
+              backgroundRepeat: 'no-repeat',
+            }}
+            onClick={() => {
+              setIsUpgrade(true);
+              setActiveUpgrade(element);
+              setActiveAbility();
+            }}
+          >
+            {abilityAgsChecker(element)}
+          </div>
+        );
+
+      case element.ability_is_granted_by_shard:
+        return (
+          <div
+            className={`ability_details_ability_square ${
+              activeUpgrade && activeUpgrade.name === element.name
+                ? 'ability_details_active_ability'
+                : 'ability_details_inactive_ability'
+            }`}
+            style={{
+              background: `url(https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/${element.name}.png)`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center center',
+              backgroundRepeat: 'no-repeat',
+            }}
+            onClick={() => {
+              setIsUpgrade(true);
+              setActiveUpgrade(element);
+              setActiveAbility();
+            }}
+          >
+            {abilityAgsChecker(element)}
+          </div>
+        );
+      case element.scepter_loc.length > 0:
+        return (
+          <div
+            className={`ability_details_ability_square ${
+              activeUpgrade && activeUpgrade.name === element.name
+                ? 'ability_details_active_ability'
+                : 'ability_details_inactive_ability'
+            }`}
+            style={{
+              background: `url(https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/${element.name}.png)`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center center',
+              backgroundRepeat: 'no-repeat',
+            }}
+            onClick={() => {
+              setIsUpgrade(true);
+              setActiveUpgrade(element);
+              setActiveAbility();
+            }}
+          >
+            {abilityAgsChecker(element)}
+          </div>
+        );
+      case element.ability_is_granted_by_scepter:
+        return (
+          <div
+            className={`ability_details_ability_square ${
+              activeUpgrade && activeUpgrade.name === element.name
+                ? 'ability_details_active_ability'
+                : 'ability_details_inactive_ability'
+            }`}
+            style={{
+              background: `url(https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/${element.name}.png)`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center center',
+              backgroundRepeat: 'no-repeat',
+            }}
+            onClick={() => {
+              setIsUpgrade(true);
+              setActiveUpgrade(element);
+              setActiveAbility();
+            }}
+          >
+            {abilityAgsChecker(element)}
+          </div>
+        );
+
+      default:
+        return null;
+    }
+  };
+
+  if ((heroData && activeAbility) || (heroData && activeUpgrade))
     return (
       <HeroContainer>
         <TopStyles
@@ -286,10 +440,78 @@ const Hero = () => {
                 type='video/mp4'
               />
             </video>
+            <div className='upper_section_ability_container'>
+              <h5>ABILITIES</h5>
+              <div className='upper_section_all_squares'>
+                <div className='uppper_section_ability_square'>
+                  <img
+                    className='ability_talent_tree'
+                    src='https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/talents.svg'
+                    alt=''
+                  />
+                </div>
+
+                {abilities &&
+                  abilities.map((ability, index) => {
+                    return (
+                      <div className='upper_single_container' key={index}>
+                        <Tooltip trigger='ability_single_container'>
+                          <div className='tooltip_video'>
+                            <video
+                              preload='auto'
+                              playsInline
+                              autoPlay
+                              loop
+                              muted
+                              key={`https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/abilities/${processHeroName(
+                                heroData.name
+                              )}/${ability.name}.webm`}
+                            >
+                              <source
+                                type='video/webm'
+                                src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/abilities/${processHeroName(
+                                  heroData.name
+                                )}/${ability.name}.webm`}
+                              />
+                              <source
+                                type='video/mp4'
+                                source={`https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/abilities/${processHeroName(
+                                  heroData.name
+                                )}/${ability.name}.mp4`}
+                              ></source>
+                            </video>
+                          </div>
+                          <div className='tooltip_description'>
+                            <div className='tooltip_title'>
+                              {ability.name_loc}
+                            </div>
+                            <div className='tooltip_text'>
+                              <p> {ability.desc_loc}</p>
+                            </div>
+                          </div>
+                        </Tooltip>
+                        <img
+                          src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/${ability.name}.png`}
+                          className='upper_section_ability_img'
+                          onClick={() => {
+                            setIsUpgrade(false);
+                            setActiveAbility(ability);
+                            setActiveUpgrade(null);
+                          }}
+                          alt={ability.name}
+                        ></img>
+                      </div>
+                    );
+                  })}
+              </div>
+            </div>
             <div className='pillar_bar'></div>
             <div className='fade_container'>
               <div className='fade_fade'></div>
             </div>
+          </div>
+          <div className='fade-bottom'>
+            <div className='fade-b'></div>
           </div>
         </TopStyles>
         <DetailsBarStyles>
@@ -359,14 +581,146 @@ const Hero = () => {
             <h5 className='header'>STATS</h5>
           </div>
         </DetailsBarStyles>
+        <MiddleSectionStyles>
+          <h4>ABILITY DETAILS:</h4>
+          <div className='middle_ability_details_container'>
+            <div className='ability_details_left_container'>
+              <motion.video
+                initial={{ y: 0 }}
+                animate={{
+                  // y: [0, -100, 0],
+                  rotate: [0, 360],
+                  scale: [0, 1],
+                }}
+                transition={{
+                  duration: 0.5,
+
+                  ease: 'easeInOut',
+                }}
+                className='videoTag'
+                preload='auto'
+                playsInline
+                autoPlay
+                loop
+                muted
+                key={`https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/abilities/${processHeroName(
+                  heroData.name
+                )}/${
+                  activeAbility
+                    ? activeAbility.name
+                    : activeUpgrade.ability_has_shard ||
+                      activeUpgrade.ability_is_granted_by_shard
+                    ? `${processHeroName(heroData.name)}_aghanims_shard`
+                    : activeUpgrade.ability_has_scepter ||
+                      activeUpgrade.ability_is_granted_by_scepter
+                    ? `${processHeroName(heroData.name)}_aghanims_scepter`
+                    : ''
+                }.webm`}
+              >
+                <source
+                  type='video/webm'
+                  src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/abilities/${processHeroName(
+                    heroData.name
+                  )}/${
+                    activeAbility
+                      ? activeAbility.name
+                      : activeUpgrade.ability_has_shard ||
+                        activeUpgrade.ability_is_granted_by_shard
+                      ? `${processHeroName(heroData.name)}_aghanims_shard`
+                      : activeUpgrade.ability_has_scepter ||
+                        activeUpgrade.ability_is_granted_by_scepter
+                      ? `${processHeroName(heroData.name)}_aghanims_scepter`
+                      : ''
+                  }.webm`}
+                />
+                <source
+                  type='video/mp4'
+                  src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/abilities/${processHeroName(
+                    heroData.name
+                  )}/${
+                    activeAbility
+                      ? activeAbility.name
+                      : activeUpgrade.ability_has_shard ||
+                        activeUpgrade.ability_is_granted_by_shard
+                      ? `${processHeroName(heroData.name)}_aghanims_shard`
+                      : activeUpgrade.ability_has_scepter ||
+                        activeUpgrade.ability_is_granted_by_scepter
+                      ? `${processHeroName(heroData.name)}_aghanims_scepter`
+                      : ''
+                  }.mp4`}
+                ></source>
+              </motion.video>
+
+              <div className='ability_details_ability_square_container'>
+                {abilities &&
+                  abilities.map((ability, index) => {
+                    return (
+                      <div key={index}>
+                        <div
+                          className={`ability_details_ability_square ${
+                            activeAbility && activeAbility.name === ability.name
+                              ? 'ability_details_active_ability'
+                              : 'ability_details_inactive_ability'
+                          }`}
+                          style={{
+                            background: `url(https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/${ability.name}.png)`,
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center center',
+                            backgroundRepeat: 'no-repeat',
+                          }}
+                          onClick={() => {
+                            setIsUpgrade(false);
+                            setActiveAbility(ability);
+                            setActiveUpgrade(null);
+                          }}
+                        ></div>
+                      </div>
+                    );
+                  })}
+
+                {upgradeAbilities && upgradeAbilities.length > 2
+                  ? [...upgradeAbilities].reverse().map((upgrade, index) => {
+                      return (
+                        <div key={index}>{processAbilityUpgrade(upgrade)}</div>
+                      );
+                    })
+                  : upgradeAbilities.map((upgrade, index) => {
+                      return (
+                        <div key={index}>{processAbilityUpgrade(upgrade)}</div>
+                      );
+                    })}
+              </div>
+            </div>
+
+            <div className='ability_details_ability_right'>
+              <DisplayAbilityInfo
+                spell={activeAbility ? activeAbility : activeUpgrade}
+                isUpgrade={isUpgrade}
+              ></DisplayAbilityInfo>
+            </div>
+          </div>
+        </MiddleSectionStyles>
+        <HeroPagination
+          heroProps={heroProps}
+          key={HeroPagination}
+        ></HeroPagination>
       </HeroContainer>
     );
 };
 
 const HeroContainer = styled.div`
   width: 100%;
-  min-height: 100vh;
 
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-position-x: -20vw;
+  background-color: #000;
+  gap: 5rem;
+  background-image: url(https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//backgrounds/greyfade.jpg);
+  background-size: 100% auto;
+  background-position: center top;
+  background-repeat: no-repeat;
   margin: 0 auto;
   color: ${secondary};
 `;
@@ -383,6 +737,105 @@ const TopStyles = styled.div`
   height: 75vh;
   position: relative;
   justify-content: center;
+  .fade-bottom {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    pointer-events: none;
+    left: 0;
+    bottom: -4.5rem;
+    z-index: 1;
+    .fade-b {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        rgba(0, 0, 0, 0) 60%,
+        rgba(24, 24, 24, 1) 100%,
+        rgb(24, 24, 24) 100%
+      );
+    }
+  }
+  .upper_section_ability_container {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    right: 10rem;
+    bottom: 1.5rem;
+    z-index: 2;
+    justify-content: center;
+
+    align-items: center;
+    h5 {
+      text-shadow: 0px 0px 20px #000, 0px 0px 20px #000;
+      letter-spacing: 2px;
+    }
+    .upper_section_all_squares {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      .ability_talent_tree {
+        margin-right: 0.8rem;
+      }
+    }
+
+    .upper_single_container {
+      display: flex;
+      position: relative;
+
+      .tooltip_video {
+        width: 100%;
+        height: 169px;
+        display: flex;
+
+        align-items: center;
+        video {
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .tooltip_description {
+        width: 300px;
+        background: linear-gradient(150deg, #68727c, #14171a);
+        padding: 10px 15px;
+        padding-bottom: 35px;
+        min-height: 15rem;
+        .tooltip_title {
+          color: #fff;
+          font-size: 1.25rem;
+          font-weight: bold;
+          text-transform: uppercase;
+          letter-spacing: 2px;
+        }
+        .tooltip_text {
+          color: #ddd;
+          margin-top: 3px;
+
+          letter-spacing: 0px;
+        }
+      }
+    }
+    .upper_single_container:hover .tooltip_body {
+      border: 1px solid white;
+    }
+
+    .upper_section_ability_img {
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      width: 5rem;
+      height: 5rem;
+      position: relative;
+      cursor: pointer;
+      transition: 250ms all ease-out;
+      box-shadow: 0px 0px 20px #000, 0px 0px 20px #000;
+      &:hover {
+        transform: scale(1.1);
+      }
+    }
+  }
+
   .pillar_bar {
     width: 150%;
     height: 650px;
@@ -422,7 +875,7 @@ const TopStyles = styled.div`
     left: 100px;
     width: 100%;
     margin-bottom: 5rem;
-    z-index: 1;
+    z-index: 2;
     .verticalLine {
       height: 2px;
 
@@ -450,13 +903,15 @@ const TopStyles = styled.div`
     .heroLore {
       width: 50%;
       padding: 2rem 0;
+
       span {
         font-weight: 700;
       }
     }
     video {
       width: 70rem;
-      right: 15%;
+      right: 0;
+
       z-index: 1;
       position: absolute;
     }
@@ -634,6 +1089,94 @@ const DetailsBarStyles = styled.div`
           }
         }
       }
+    }
+  }
+`;
+
+const MiddleSectionStyles = styled.section`
+  width: 100%;
+  min-height: 100vh;
+  padding: 5rem 0;
+
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 5rem;
+  .middle_ability_details_container {
+    width: 90%;
+    margin: 0 auto;
+    gap: 1rem;
+    display: flex;
+
+    .ability_details_left_container {
+      width: 55%;
+      box-shadow: 3px 3px 8px #000;
+      min-height: 35rem;
+      position: relative;
+      min-height: 0;
+      height: fit-content;
+      margin: 0;
+
+      video {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        vertical-align: middle;
+      }
+      .ability_details_ability_square_container {
+        display: flex;
+        margin: 0;
+
+        flex-wrap: wrap;
+        width: 100%;
+        padding: 0 5rem;
+        justify-content: center;
+        align-items: center;
+        position: absolute;
+        bottom: -10%;
+        left: 50%;
+        transform: translate(-50%, -10%);
+        gap: 1rem;
+        .ability_details_inactive_ability {
+          filter: saturate(0) brightness(0.6);
+        }
+        .ability_details_active_ability {
+          filter: saturate(1) brightness(1);
+        }
+        .ability_upgrade_square {
+          display: flex;
+          flex-direction: row-reverse;
+          background: red;
+        }
+        .ability_details_ability_square {
+          width: 5rem;
+          height: 5rem;
+          position: relative;
+
+          margin: 0;
+          box-shadow: 0px 0px 10px #000;
+          .ability_upgrade {
+            position: absolute;
+            margin: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1;
+
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+    }
+
+    .ability_details_ability_right {
+      width: 45%;
+      min-height: 0%;
+      height: 100%;
+      flex: 1;
     }
   }
 `;
