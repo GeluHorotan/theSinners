@@ -11,6 +11,7 @@ import { displayPierce } from '../Functions/for Hero Component/displayPierce';
 import { displayDispelType } from '../Functions/for Hero Component/displayDispelType';
 import { conditionalRendering } from '../Functions/for Hero Component/conditionalRendering';
 import { conditionalBottom } from '../Functions/for Hero Component/conditionalBottom';
+import { escapeText } from '../Functions/for Hero Component/escapeText';
 const DisplayAbilityInfo = ({ spell, isUpgrade }) => {
   const [spellBehavior, setSpellBehavior] = useState();
 
@@ -39,12 +40,7 @@ const DisplayAbilityInfo = ({ spell, isUpgrade }) => {
           <h5>{spell.name_loc}</h5>
           {displayUpgrade(spell, isUpgrade)}
 
-          <ReactMarkdown
-            remarkPlugins={[remarkGfm]}
-            rehypePlugins={[rehypeRaw]}
-          >
-            {spell.desc_loc}
-          </ReactMarkdown>
+          {escapeText(spell.desc_loc, spell)}
         </div>
       </div>
       <div className='middle_section'>
@@ -82,6 +78,7 @@ const DisplayAbilityInfo = ({ spell, isUpgrade }) => {
                   {spell.damages.join(' / ')}
                 </div>
               )}
+
               {spell &&
                 spell.special_values.map((value, index) => {
                   if (value.heading_loc.length !== 0) {

@@ -3,22 +3,25 @@ import styled from 'styled-components';
 
 const Tooltip = ({ children }) => {
   return (
-    <TooltipStyles>
+    <TooltipStyles className='tooltip'>
       <div className='tooltip_body'>{children}</div>
     </TooltipStyles>
   );
 };
 
 const TooltipStyles = styled.div`
-  width: 300px;
+  width: fit-content;
   position: absolute;
-  min-height: 20rem;
-  transform: translateY(-80%) translateY(-5.25rem) translateX(-7rem);
-  /* display: none; */
+  min-height: 0;
+  vertical-align: middle;
+
+  transform: translateY(-105%) translateX(-38%);
+  display: none;
   filter: drop-shadow(2px 2px 8px black);
+  transition: 250ms all ease-in-out;
 
   .tooltip_body {
-    width: 300px;
+    width: fit-content;
     background-color: #000;
     clip-path: polygon(
       0px 0px,

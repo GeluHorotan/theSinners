@@ -13,6 +13,8 @@ import { processHeroName } from '../Functions/for Hero Component/processHeroName
 import DisplayAbilityInfo from './DisplayAbilityInfo';
 import HeroPagination from './HeroPagination';
 import Tooltip from './Tooltip';
+import TalentTree from './TalentTree';
+
 const Hero = () => {
   const location = useLocation();
   const [heroProps, setHeroProps] = useState();
@@ -443,9 +445,15 @@ const Hero = () => {
             <div className='upper_section_ability_container'>
               <h5>ABILITIES</h5>
               <div className='upper_section_all_squares'>
-                <div className='uppper_section_ability_square'>
+                <div className='uppper_section_ability_square upper_single_container'>
+                  <Tooltip>
+                    <TalentTree
+                      talents={talents}
+                      abilities={abilities}
+                    ></TalentTree>
+                  </Tooltip>
                   <img
-                    className='ability_talent_tree'
+                    className='ability_talent_tree upper_section_ability_img'
                     src='https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/talents.svg'
                     alt=''
                   />
@@ -777,6 +785,7 @@ const TopStyles = styled.div`
       gap: 1rem;
       .ability_talent_tree {
         margin-right: 0.8rem;
+        box-shadow: none;
       }
     }
 
@@ -784,9 +793,13 @@ const TopStyles = styled.div`
       display: flex;
       position: relative;
 
+      &:hover .tooltip {
+        display: flex;
+      }
+
       .tooltip_video {
         width: 100%;
-        height: 169px;
+        height: 10.563rem;
         display: flex;
 
         align-items: center;
@@ -796,11 +809,11 @@ const TopStyles = styled.div`
         }
       }
       .tooltip_description {
-        width: 300px;
+        width: 18.75rem;
         background: linear-gradient(150deg, #68727c, #14171a);
-        padding: 10px 15px;
-        padding-bottom: 35px;
-        min-height: 15rem;
+        padding: 0.85rem 1rem;
+        padding-bottom: 2rem;
+
         .tooltip_title {
           color: #fff;
           font-size: 1.25rem;
@@ -810,14 +823,11 @@ const TopStyles = styled.div`
         }
         .tooltip_text {
           color: #ddd;
-          margin-top: 3px;
+          margin-top: 0.3rem;
 
           letter-spacing: 0px;
         }
       }
-    }
-    .upper_single_container:hover .tooltip_body {
-      border: 1px solid white;
     }
 
     .upper_section_ability_img {
@@ -838,7 +848,7 @@ const TopStyles = styled.div`
 
   .pillar_bar {
     width: 150%;
-    height: 650px;
+    height: 40.625rem;
     background-color: #00000060;
     position: absolute;
     transform: skewY(-45deg) translateX(-50vw);
@@ -871,13 +881,13 @@ const TopStyles = styled.div`
     transform: rotate(270deg);
     transform-origin: bottom left;
     position: absolute;
-    bottom: 10px;
-    left: 100px;
+    bottom: 0.6rem;
+    left: 6.25rem;
     width: 100%;
     margin-bottom: 5rem;
     z-index: 2;
     .verticalLine {
-      height: 2px;
+      height: 0.125rem;
 
       flex-grow: 1;
       background-color: #555;
