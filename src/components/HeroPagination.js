@@ -46,11 +46,23 @@ const HeroPagination = ({ children, heroProps }) => {
             to={`/hero/${processHeroName(prevHero.name)}`}
             state={{
               currentHero: prevHero.id,
-              prevHero: heroesList[heroProps.currentIndex - 1],
+              prevHero:
+                heroesList[
+                  heroProps.currentIndex - 1 === -1
+                    ? heroesList.length - 1
+                    : heroProps.currentIndex - 1
+                ],
               currentIndex: prevIndex,
-              prevIndex: prevIndex - 1,
-              nextIndex: prevIndex + 1,
-              nextHero: heroesList[heroProps.currentIndex + 1],
+              prevIndex:
+                prevIndex - 1 === -1 ? heroesList.length - 1 : prevIndex - 1,
+              nextIndex:
+                prevIndex + 1 > heroesList.length - 1 ? 0 : prevIndex + 1,
+              nextHero:
+                heroesList[
+                  heroProps.currentIndex + 1 > heroesList.length - 1
+                    ? 0
+                    : heroProps.currentIndex + 1
+                ],
               list: heroesList,
             }}
           >
@@ -93,8 +105,10 @@ const HeroPagination = ({ children, heroProps }) => {
               currentHero: nextHero.id,
               prevHero: heroesList[heroProps.currentIndex - 1],
               currentIndex: nextIndex,
-              prevIndex: nextIndex - 1,
-              nextIndex: nextIndex + 1,
+              prevIndex:
+                nextIndex - 1 === -1 ? heroesList.length - 1 : nextIndex - 1,
+              nextIndex:
+                nextIndex + 1 > heroesList.length - 1 ? 0 : nextIndex + 1,
               nextHero: heroesList[heroProps.currentIndex + 1],
               list: heroesList,
             }}
