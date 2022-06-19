@@ -1024,6 +1024,9 @@ const TopStyles = styled.div`
 
   .heroDetails {
     display: flex;
+    @media screen and (max-width: 550px) {
+      zoom: 0.8;
+    }
 
     .hero_details_mini_title {
       letter-spacing: 2.5px;
@@ -1065,6 +1068,9 @@ const TopStyles = styled.div`
       width: 45%;
       white-space: pre-wrap;
       text-transform: uppercase;
+      @media screen and (max-width: 550px) {
+        font-size: 1rem;
+      }
     }
 
     .heroInfo {
@@ -1090,6 +1096,19 @@ const TopStyles = styled.div`
       overflow-y: auto;
       margin-bottom: 2rem;
 
+      @media screen and (max-width: 1100px) {
+        width: 60%;
+      }
+      @media screen and (max-width: 775px) {
+        width: 50%;
+      }
+      @media screen and (max-width: 650px) {
+        width: 75%;
+      }
+      @media screen and (max-width: 750px) {
+        width: 85%;
+      }
+
       span {
         font-weight: 700;
       }
@@ -1104,6 +1123,11 @@ const TopStyles = styled.div`
       @media screen and (max-width: 1200px) {
         zoom: 0.6;
         right: 25rem;
+        bottom: -20%;
+      }
+      @media screen and (max-width: 650px) {
+        zoom: 0.4;
+        right: 0;
         bottom: -20%;
       }
     }
