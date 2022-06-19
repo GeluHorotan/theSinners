@@ -834,15 +834,6 @@ const HeroContainer = styled.div`
   @media screen and (max-width: 750px) {
     zoom: 0.6;
   }
-  @media screen and (max-width: 650px) {
-    zoom: 0.5;
-  }
-  @media screen and (max-width: 550px) {
-    zoom: 0.4;
-  }
-  @media screen and (max-width: 450px) {
-    zoom: 0.3;
-  }
 `;
 
 const TopStyles = styled.div`
