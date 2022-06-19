@@ -38,9 +38,14 @@ const DisplayAbilityInfo = ({ spell, isUpgrade }) => {
         <div className='ability_image'></div>
         <div className='top_section'>
           <h5>{spell.name_loc}</h5>
-          {displayUpgrade(spell, isUpgrade)}
 
-          {escapeText(spell.desc_loc, spell)}
+          {displayUpgrade(spell, isUpgrade)}
+          <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
+            rehypePlugins={[rehypeRaw]}
+          >
+            {escapeText(spell.desc_loc, spell).props.children[0]}
+          </ReactMarkdown>
         </div>
       </div>
       <div className='middle_section'>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useLocation } from 'react-router';
 import styled from 'styled-components';
 import { secondary, accent } from '../Utility/Colors';
@@ -9,11 +9,14 @@ import rehypeRaw from 'rehype-raw';
 
 // Functions
 import { processHeroName } from '../Functions/for Hero Component/processHeroName';
-
+import { leftSlide, rightSlide } from './animation';
 import DisplayAbilityInfo from './DisplayAbilityInfo';
 import HeroPagination from './HeroPagination';
 import Tooltip from './Tooltip';
 import TalentTree from './TalentTree';
+import { escapeText } from '../Functions/for Hero Component/escapeText';
+import { getAttackType } from '../Functions/for Hero Component/getAttackType';
+import Navigator from './Navigator';
 
 const Hero = () => {
   const location = useLocation();
@@ -26,7 +29,7 @@ const Hero = () => {
     getProps();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
+  const [lore, setLore] = useState(false);
   const [isUpgrade, setIsUpgrade] = useState(false);
   const [activeUpgrade, setActiveUpgrade] = useState();
   const [activeAbility, setActiveAbility] = useState();
@@ -35,7 +38,7 @@ const Hero = () => {
   const [roleLevels, setRoleLevels] = useState();
   const [talents, setTalents] = useState();
   const [heroData, setHeroData] = useState();
-
+  const topSkill = React.useRef(null);
   const getHeroData = async () => {
     const res = await fetch(
       `/.netlify/functions/hero/?id=${location.state.currentHero}`
@@ -70,7 +73,7 @@ const Hero = () => {
   }, []);
 
   // Setting images in variables
-
+  const complexityDiamonds = [1, 2, 3];
   const strength = (
     <img
       className='attrImg'
@@ -413,28 +416,84 @@ const Hero = () => {
         >
           <div className='heroVerticalBar'>
             {getAttrIcon(heroData.primary_attr)}
-            <h5> {heroData.name_loc.toUpperCase()}</h5>
-            <h5>{heroData.id}</h5>
+            <h6 className='vertical_text'>
+              {' '}
+              {heroData.name_loc.toUpperCase()}
+            </h6>
+            <h6 className='vertical_text'>{heroData.id}</h6>
             <span className='verticalLine'></span>
           </div>
-          <div className='heroDetails'>
-            <div className='heroInfo'>
+          <motion.div
+            variants={rightSlide}
+            initial='hidden'
+            animate='show'
+            className='heroDetails'
+          >
+            <motion.div
+              className='heroInfo'
+              variants={leftSlide}
+              initial='hidden'
+              animate='show'
+              transition={{ duration: 0.5, ease: 'easeInOut' }}
+            >
               <div className='attribute'>
                 {getAttrIconText(heroData.primary_attr)}
               </div>
-              <h1>{heroData.name_loc}</h1>
-              <h5>{heroData.npe_desc_loc}</h5>
+              <h1 className='hero_name'>{heroData.name_loc}</h1>
+
+              <h5 className='short_hero_bio'>{heroData.npe_desc_loc}</h5>
+
               <div className='heroLore paragraph'>
                 <ReactMarkdown
                   remarkPlugins={[remarkGfm]}
                   rehypePlugins={[rehypeRaw]}
-                  components={{ b: 'span' }}
+                  components={{ b: 'span', p: 'h6' }}
                 >
-                  {heroData.hype_loc}
+                  {lore ? heroData.bio_loc : heroData.hype_loc}
                 </ReactMarkdown>
+
+                <button
+                  className='history_button'
+                  onClick={() => {
+                    setLore(!lore);
+                  }}
+                >
+                  {lore ? 'Close History' : 'Read Full History'}
+                </button>
               </div>
-            </div>
-            <video autoPlay loop muted>
+              <div className='all_category'>
+                <div className='mini_category'>
+                  <p className='hero_details_mini_title'>ATTACK TYPE</p>
+                  <div className='hero_mini_info'>
+                    {getAttackType(heroData.attack_capability, true)}
+                  </div>
+                </div>
+                <div className='mini_category'>
+                  <p className='hero_details_mini_title'> COMPLEXITY</p>
+                  <div className='hero_mini_info hero_mini_complexity'>
+                    {complexityDiamonds.map((diamond, index) => {
+                      return (
+                        <div
+                          className={`diamond ${
+                            heroData.complexity === index + 1
+                              ? 'filled_diamond'
+                              : ''
+                          }`}
+                          key={index}
+                        ></div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+            <video
+              transition={{ duration: 0.5, ease: 'easeInOut' }}
+              autoPlay
+              loop
+              muted
+              className='hero_portrait_video'
+            >
               <source
                 src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/${processHeroName(
                   heroData.name
@@ -442,6 +501,7 @@ const Hero = () => {
                 type='video/mp4'
               />
             </video>
+            <Navigator heroProps={heroProps} key={Navigator}></Navigator>
             <div className='upper_section_ability_container'>
               <h5>ABILITIES</h5>
               <div className='upper_section_all_squares'>
@@ -458,7 +518,6 @@ const Hero = () => {
                     alt=''
                   />
                 </div>
-
                 {abilities &&
                   abilities.map((ability, index) => {
                     return (
@@ -494,7 +553,15 @@ const Hero = () => {
                               {ability.name_loc}
                             </div>
                             <div className='tooltip_text'>
-                              <p> {ability.desc_loc}</p>
+                              <ReactMarkdown
+                                remarkPlugins={[remarkGfm]}
+                                rehypePlugins={[rehypeRaw]}
+                              >
+                                {
+                                  escapeText(ability.desc_loc, ability).props
+                                    .children[0]
+                                }
+                              </ReactMarkdown>
                             </div>
                           </div>
                         </Tooltip>
@@ -505,6 +572,10 @@ const Hero = () => {
                             setIsUpgrade(false);
                             setActiveAbility(ability);
                             setActiveUpgrade(null);
+                            topSkill.current.scrollIntoView({
+                              behavior: 'smooth',
+                              block: 'start',
+                            });
                           }}
                           alt={ability.name}
                         ></img>
@@ -517,13 +588,18 @@ const Hero = () => {
             <div className='fade_container'>
               <div className='fade_fade'></div>
             </div>
-          </div>
+          </motion.div>
           <div className='fade-bottom'>
             <div className='fade-b'></div>
           </div>
         </TopStyles>
         <DetailsBarStyles>
-          <div className='detailsContainer'>
+          <motion.div
+            variants={leftSlide}
+            initial='hidden'
+            animate='show'
+            className='detailsContainer'
+          >
             <div className='attributes_main_container'>
               <div className='attributesHeroPortrait'>
                 <img
@@ -569,14 +645,19 @@ const Hero = () => {
             </div>
 
             <h5 className='header'>ATTRIBUTES</h5>
-          </div>
+          </motion.div>
           <div className='detailsVerticalSeparator'></div>
           <div className='detailsContainer'>
             <div className='roles_main_container'>{processHeroRoles()}</div>
             <h5 className='header'>ROLES</h5>
           </div>
           <div className='detailsVerticalSeparator'></div>
-          <div className='detailsContainer'>
+          <motion.div
+            variants={rightSlide}
+            initial='hidden'
+            animate='show'
+            className='detailsContainer'
+          >
             <div className='stats_main_container'>
               {' '}
               <div className='stats_all_stats_container'>
@@ -587,12 +668,17 @@ const Hero = () => {
             </div>
 
             <h5 className='header'>STATS</h5>
-          </div>
+          </motion.div>
         </DetailsBarStyles>
         <MiddleSectionStyles>
           <h4>ABILITY DETAILS:</h4>
           <div className='middle_ability_details_container'>
-            <div className='ability_details_left_container'>
+            <motion.div
+              variants={leftSlide}
+              initial='hidden'
+              animate='show'
+              className='ability_details_left_container'
+            >
               <motion.video
                 initial={{ y: 0 }}
                 animate={{
@@ -659,7 +745,10 @@ const Hero = () => {
                 ></source>
               </motion.video>
 
-              <div className='ability_details_ability_square_container'>
+              <div
+                className='ability_details_ability_square_container'
+                ref={topSkill}
+              >
                 {abilities &&
                   abilities.map((ability, index) => {
                     return (
@@ -698,14 +787,19 @@ const Hero = () => {
                       );
                     })}
               </div>
-            </div>
+            </motion.div>
 
-            <div className='ability_details_ability_right'>
+            <motion.div
+              variants={rightSlide}
+              initial='hidden'
+              animate='show'
+              className='ability_details_ability_right'
+            >
               <DisplayAbilityInfo
                 spell={activeAbility ? activeAbility : activeUpgrade}
                 isUpgrade={isUpgrade}
               ></DisplayAbilityInfo>
-            </div>
+            </motion.div>
           </div>
         </MiddleSectionStyles>
         <HeroPagination
@@ -724,13 +818,31 @@ const HeroContainer = styled.div`
   flex-direction: column;
   background-position-x: -20vw;
   background-color: #000;
-  gap: 5rem;
+  /* gap: 5rem; */
   background-image: url(https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//backgrounds/greyfade.jpg);
   background-size: 100% auto;
   background-position: center top;
   background-repeat: no-repeat;
   margin: 0 auto;
   color: ${secondary};
+  @media screen and (max-width: 1200px) {
+    zoom: 0.8;
+  }
+  @media screen and (max-width: 950px) {
+    zoom: 0.7;
+  }
+  @media screen and (max-width: 750px) {
+    zoom: 0.6;
+  }
+  @media screen and (max-width: 650px) {
+    zoom: 0.5;
+  }
+  @media screen and (max-width: 550px) {
+    zoom: 0.4;
+  }
+  @media screen and (max-width: 450px) {
+    zoom: 0.3;
+  }
 `;
 
 const TopStyles = styled.div`
@@ -745,6 +857,18 @@ const TopStyles = styled.div`
   height: 75vh;
   position: relative;
   justify-content: center;
+  @media screen and (max-width: 1200px) {
+    zoom: 0.8;
+  }
+  .history_button {
+    margin-top: 0.5rem;
+    color: #8a8a8a;
+    text-decoration: underline;
+    font-size: 1.1rem;
+    cursor: pointer;
+    background: none;
+    border: none;
+  }
   .fade-bottom {
     width: 100%;
     height: 100%;
@@ -773,6 +897,10 @@ const TopStyles = styled.div`
     z-index: 2;
     justify-content: center;
 
+    @media screen and (max-width: 1200px) {
+      zoom: 0.5;
+    }
+
     align-items: center;
     h5 {
       text-shadow: 0px 0px 20px #000, 0px 0px 20px #000;
@@ -783,6 +911,7 @@ const TopStyles = styled.div`
       justify-content: center;
       align-items: center;
       gap: 1rem;
+
       .ability_talent_tree {
         margin-right: 0.8rem;
         box-shadow: none;
@@ -875,6 +1004,7 @@ const TopStyles = styled.div`
   }
   .heroVerticalBar {
     display: flex;
+
     gap: 1rem;
     align-items: center;
     justify-content: center;
@@ -882,12 +1012,16 @@ const TopStyles = styled.div`
     transform-origin: bottom left;
     position: absolute;
     bottom: 0.6rem;
-    left: 6.25rem;
+    left: 4.25rem;
     width: 100%;
     margin-bottom: 5rem;
     z-index: 2;
+
+    .attrImg {
+      width: 2rem;
+    }
     .verticalLine {
-      height: 0.125rem;
+      height: 0.1rem;
 
       flex-grow: 1;
       background-color: #555;
@@ -897,12 +1031,55 @@ const TopStyles = styled.div`
   .heroDetails {
     display: flex;
 
+    .hero_details_mini_title {
+      letter-spacing: 2.5px;
+    }
+    .all_category {
+      display: flex;
+
+      gap: 5rem;
+      z-index: 2;
+    }
+
+    .hero_mini_info {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      margin-top: 0.5rem;
+      .filled_diamond {
+        background-color: #fff;
+      }
+      .diamond {
+        width: 1rem;
+        height: 1rem;
+        border: 1px solid #fff;
+        transform: rotateZ(45deg);
+      }
+      .attack_type_img {
+        width: 1.7rem;
+      }
+    }
+    .hero_mini_complexity {
+      gap: 1rem;
+    }
+    .hero_name {
+      text-transform: uppercase;
+    }
+    .short_hero_bio {
+      color: #a5e0f3;
+      width: 45%;
+      white-space: pre-wrap;
+      text-transform: uppercase;
+    }
+
     .heroInfo {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       justify-content: center;
-      padding: 0 20rem;
+      padding: 0 20rem 0 10rem;
+      left: 0;
     }
     .attribute {
       display: flex;
@@ -911,26 +1088,37 @@ const TopStyles = styled.div`
     }
 
     .heroLore {
-      width: 50%;
+      width: 45%;
       padding: 2rem 0;
+      z-index: 2;
+      transition: 250ms all ease-in-out;
+      height: 45%;
+      overflow-y: auto;
+      margin-bottom: 2rem;
 
       span {
         font-weight: 700;
       }
     }
-    video {
+    .hero_portrait_video {
       width: 70rem;
       right: 0;
 
       z-index: 1;
       position: absolute;
+
+      @media screen and (max-width: 1200px) {
+        zoom: 0.6;
+        right: 25rem;
+        bottom: -20%;
+      }
     }
   }
 `;
 
 const DetailsBarStyles = styled.div`
   width: 100%;
-  height: 15rem;
+  /* height: 15rem; */
   padding: 1rem 3rem;
 
   position: relative;
@@ -945,14 +1133,24 @@ const DetailsBarStyles = styled.div`
   border-bottom: 2px solid #2c2e2e;
   box-shadow: 0px 0px 8px #000;
 
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    gap: 1rem;
+  }
   .detailsContainer {
     width: 33%;
     height: 100%;
     display: flex;
     flex-direction: column;
+    @media screen and (max-width: 768px) {
+      flex-direction: column-reverse;
+      gap: 1rem;
+    }
     align-items: center;
     justify-content: space-between;
-
+    @media screen and (max-width: 1200px) {
+      zoom: 0.8;
+    }
     .header {
       color: #969696;
 
@@ -1004,6 +1202,7 @@ const DetailsBarStyles = styled.div`
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+
     .attributes_single_attribute {
       display: flex;
       justify-content: center;
@@ -1022,6 +1221,10 @@ const DetailsBarStyles = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
+    @media screen and (max-width: 768px) {
+      width: 100%;
+      height: 1px;
+    }
 
     &::after {
       content: '';
@@ -1035,6 +1238,7 @@ const DetailsBarStyles = styled.div`
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     grid-gap: 1rem;
+
     width: 100%;
     .roles_single_role {
       height: 2rem;
@@ -1078,8 +1282,8 @@ const DetailsBarStyles = styled.div`
 
     .stats_all_stats_container {
       display: flex;
-      gap: 5rem;
-
+      gap: 2.5rem;
+      white-space: nowrap;
       .stats_single_row {
         display: flex;
         flex-direction: column;
@@ -1115,11 +1319,16 @@ const MiddleSectionStyles = styled.section`
   justify-content: flex-start;
   align-items: center;
   gap: 5rem;
+
   .middle_ability_details_container {
     width: 90%;
     margin: 0 auto;
     gap: 1rem;
     display: flex;
+    @media screen and (max-width: 768px) {
+      flex-direction: column;
+      gap: 5rem;
+    }
 
     .ability_details_left_container {
       width: 55%;
@@ -1130,6 +1339,10 @@ const MiddleSectionStyles = styled.section`
       height: fit-content;
       margin: 0;
 
+      @media screen and (max-width: 768px) {
+        width: 100%;
+      }
+
       video {
         width: 100%;
         height: 100%;
@@ -1139,6 +1352,7 @@ const MiddleSectionStyles = styled.section`
       .ability_details_ability_square_container {
         display: flex;
         margin: 0;
+        cursor: pointer;
 
         flex-wrap: wrap;
         width: 100%;
@@ -1150,6 +1364,9 @@ const MiddleSectionStyles = styled.section`
         left: 50%;
         transform: translate(-50%, -10%);
         gap: 1rem;
+        @media screen and (max-width: 1490px) {
+          zoom: 0.8;
+        }
         .ability_details_inactive_ability {
           filter: saturate(0) brightness(0.6);
         }
@@ -1187,6 +1404,9 @@ const MiddleSectionStyles = styled.section`
       min-height: 0%;
       height: 100%;
       flex: 1;
+      @media screen and (max-width: 768px) {
+        width: 100%;
+      }
     }
   }
 `;

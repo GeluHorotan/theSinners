@@ -214,3 +214,24 @@ export const width = {
     width: '100%',
   },
 };
+
+export const leftSlide = {
+  hidden: {
+    x: -50,
+    opacity: 0,
+  },
+  show: {
+    x: 0,
+    opacity: 1,
+  },
+};
+export const rightSlide = {
+  hidden: {
+    x: 50,
+    opacity: 0,
+  },
+  show: {
+    x: 0,
+    opacity: 1,
+  },
+};

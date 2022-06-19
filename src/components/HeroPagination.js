@@ -230,7 +230,7 @@ const PaginationContainer = styled.div`
     transition-duration: 0.2s;
 
     &:hover {
-      filter: brightness(1.4);
+      filter: brightness(1.6);
     }
     &:hover .pagination_hero_portrait {
       bottom: 0;
