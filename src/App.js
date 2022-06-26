@@ -9,6 +9,7 @@ import Heroes from './pages/Heroes';
 import Shop from './pages/Shop';
 import Contact from './pages/Contact';
 import Hero from './components/Hero';
+import Esports from './pages/Esports';
 
 // Router
 import { Routes, Route, useLocation } from 'react-router-dom';
@@ -35,6 +36,7 @@ function App() {
         <Route path='/news' exact element={<News />} />
         <Route path='/team' exact element={<Team />} />
         <Route path='/heroes' exact element={<Heroes />} />
+        <Route path='/esports' exact element={<Esports />} />
         <Route path='/shop' exact element={<Shop />} />
         <Route path='/contact' exact element={<Contact />} />
         <Route path='/hero/:heroID' element={<Hero />} />

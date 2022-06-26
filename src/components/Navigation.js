@@ -58,6 +58,11 @@ const Navigation = () => {
             </Button>
           </li>
           <li>
+            <Button isLink setLink='/esports'>
+              ESPORTS
+            </Button>
+          </li>
+          <li>
             <Button isLink setLink='/shop'>
               SHOP
             </Button>

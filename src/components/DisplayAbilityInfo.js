@@ -56,8 +56,12 @@ const DisplayAbilityInfo = ({ spell, isUpgrade }) => {
                 <div className='middle_column_container'>
                   <div className='ability_value'>
                     <p className='ability_heading_title'>ABILITY:</p>
-                    {Array.isArray(spellBehavior[0].behavior)
+
+                    {spellBehavior.length !== 0 &&
+                    Array.isArray(spellBehavior[0].behavior)
                       ? spellBehavior[0].behavior[0]
+                      : spellBehavior.length === 0
+                      ? ''
                       : spellBehavior[0].behavior}
                   </div>
                   {displayDamageType(spell.damage)}
