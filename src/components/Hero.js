@@ -572,6 +572,10 @@ const Hero = () => {
                             setIsUpgrade(false);
                             setActiveAbility(ability);
                             setActiveUpgrade(null);
+                            topSkill.current.scrollIntoView({
+                              behavior: 'smooth',
+                              block: 'start',
+                            });
                           }}
                           alt={ability.name}
                         ></img>

@@ -11,32 +11,39 @@ import { teamFilter } from '../Functions/for MatchBox Component/teamFilter';
 // Import Components
 import Menubar from '../components/Menubar';
 import Standings from '../components/Standings';
+import Watch from '../components/Watch';
 import { Link } from 'react-router-dom';
 import { grey, obsidian, obsidianShadow, white } from '../Utility/Colors';
 
 const Esports = () => {
-  const [nodeGroups, setNodeGroups] = useState([
-    { name: '', region: '', node: '' },
-  ]);
-  const [matches, setMatches] = useState();
-  const [series, setSeries] = useState();
+  const [activeDivision, setActiveDivision] = useState('Division I');
+  const [activeRegion, setActiveRegion] = useState(1);
+  const [leagueInfo, setLeagueInfo] = useState([]);
+
   const [leagues, setLeagues] = useState();
   const getDotaLeagues = async () => {
     const res = await fetch(`/.netlify/functions/leagues/`);
     const json = await res.json();
 
     setLeagues(json.leagues);
-    // json.leagues.forEach((league) => {
-    //   setNodeGroups((prevState)=> {
-    //     prevState.node
-    //   });
-    // });
-  };
 
-  console.log(nodeGroups);
+    json.leagues.forEach((league) => {
+      setLeagueInfo((prevState) => [
+        ...prevState,
+        {
+          name: league.info.name,
+          region: league.info.region,
+          node: league.node_groups[0].team_standings,
+          division: league.node_groups[0].node_group_type,
+        },
+      ]);
+    });
+  };
+  console.log(leagueInfo);
+
   useEffect(() => {
     getDotaLeagues();
-
+    console.log(leagueInfo, 'after');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -80,13 +87,31 @@ const Esports = () => {
             </Tab>
           </Tab.List>
         </MenuStyles>
+        <button
+          onClick={() => {
+            setActiveRegion(2);
+          }}
+        >
+          SELECT REGION 1
+        </button>
         <ContentStyles>
           {' '}
           <Tab.Panels className='content'>
-            <Tab.Panel>Content 1</Tab.Panel>
+            <Tab.Panel>
+              <Watch leagues={leagues}></Watch>
+            </Tab.Panel>
             <Tab.Panel>Content 2</Tab.Panel>
             <Tab.Panel>
-              <Standings></Standings>
+              <Standings
+                tournaments={
+                  leagues &&
+                  leagues.filter(
+                    (tournament) =>
+                      tournament.info.region === activeRegion &&
+                      tournament.info.name.includes(' I ')
+                  )
+                }
+              ></Standings>
             </Tab.Panel>
             <Tab.Panel>Content 4</Tab.Panel>
           </Tab.Panels>

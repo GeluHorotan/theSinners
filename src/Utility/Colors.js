@@ -20,3 +20,4 @@ export const white = '#fff';
 export const obsH2 = '#5e6976';
 export const obsH = '#36363e';
 export const obsHD = '#27272DBF';
+export const textObs = '#a3a3a3';
