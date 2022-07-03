@@ -19,6 +19,7 @@ import GlobalStyle from './Utility/GlobalStyle';
 
 // Components
 import Navigation from './components/Navigation';
+import Menubar from './components/Menubar';
 
 function App() {
   const location = useLocation();
@@ -29,6 +30,7 @@ function App() {
       <div className={`${location.pathname === '/' && 'hidden'}`}>
         <Navigation />
       </div>
+
       <Routes location={location} key={location.pathname}>
         <Route path='/' exact element={<Starting />} />
         <Route path='/homepage' exact element={<Homepage />} />
@@ -36,7 +38,9 @@ function App() {
         <Route path='/news' exact element={<News />} />
         <Route path='/team' exact element={<Team />} />
         <Route path='/heroes' exact element={<Heroes />} />
+
         <Route path='/esports' exact element={<Esports />} />
+
         <Route path='/shop' exact element={<Shop />} />
         <Route path='/contact' exact element={<Contact />} />
         <Route path='/hero/:heroID' element={<Hero />} />

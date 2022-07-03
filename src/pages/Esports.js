@@ -128,7 +128,6 @@ const WrapperStyles = styled.div`
 const MenuStyles = styled.div`
   width: 100%;
   min-height: 3.5rem;
-
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -138,11 +137,9 @@ const MenuStyles = styled.div`
   position: sticky;
   /* top: 10rem; */
   z-index: 10;
-
   .menubar_list {
     flex-grow: 1;
     height: 100%;
-
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -152,16 +149,13 @@ const MenuStyles = styled.div`
       background: none;
       border: none;
     }
-
     .menubar_label {
       min-height: 3.5rem;
-
       display: flex;
       flex-direction: row;
       justify-content: center;
       align-items: center;
       color: ${grey};
-
       transition-property: color;
       transition-timing-function: ease-in-out;
       transition-duration: 0.15s;
@@ -184,7 +178,6 @@ const MenuStyles = styled.div`
 `;
 
 const ContentStyles = styled.div`
-  min-height: 900px;
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -202,8 +195,6 @@ const ContentStyles = styled.div`
   display: flex;
   flex-direction: column;
 
-  height: 900px;
-  min-height: 900px;
   transition-property: height;
   transition-timing-function: ease-in-out;
   transition-duration: 0.2s;

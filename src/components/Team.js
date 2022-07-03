@@ -1,8 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+
 import styled from 'styled-components';
 
+import { displayTeamRegion } from '../Functions/displayTeamRegion';
+import { formatTimestamp } from '../Functions/formatTimestamp';
+import { teamImage } from '../Functions/teamImage';
+import Tooltip from './Tooltip';
+
 const Team = ({ teamId, teamName, leagues }) => {
+  const [primaryScore, setPrimaryScore] = useState();
+  const [secondaryScore, setSecondaryScore] = useState();
   const [isFollowed, setIsFollowed] = useState(false);
   const [teamRegion, setTeamRegion] = useState();
   const [teamDivision, setTeamDivision] = useState();
@@ -25,7 +33,9 @@ const Team = ({ teamId, teamName, leagues }) => {
         match.teams.forEach((team) => {
           if (
             team.teamId === teamId &&
-            match.winner !== 0 &&
+            (match.winner !== 0 ||
+              match.teams[0].games_won !== 0 ||
+              match.teams[1].games_won !== 0) &&
             match.actualMatchTime !== 0
           ) {
             setLastMatches((prevState) => [...prevState, match]);
@@ -42,6 +52,21 @@ const Team = ({ teamId, teamName, leagues }) => {
     );
   };
   recentMatches.sort((a, b) => a.matchTime - b.matchTime);
+
+  const getLastGameScore = () => {};
+  useEffect(() => {
+    lastMatches.length !== 0 &&
+      recentMatches.length === 0 &&
+      lastMatches[lastMatches.length - 1].teams.forEach((team, index) => {
+        if (team.teamId === teamId) {
+          setPrimaryScore(() => team.games_won);
+        }
+        if (team.teamId !== teamId) {
+          setSecondaryScore(() => team.games_won);
+        }
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lastMatches]);
 
   useEffect(() => {
     leagues &&
@@ -78,19 +103,16 @@ const Team = ({ teamId, teamName, leagues }) => {
             </div>
           </div>
         </div>
+
         <div className='teamlist_team_logo'>
-          <img
-            src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/teams_override/${teamId}.png`}
-            className='team_logo'
-            alt=''
-          />
+          {teamImage(teamId, 'team_logo')}
         </div>
         <div className='teamlist_team_info'>
           <div className='team_info'>
             <div className='team_name'>{teamName}</div>
           </div>
-          <div className='team_region'>WESTERN EUROPE</div>
-          <div className='team_division'>{teamDivision}</div>
+          <div className='team_region'>{displayTeamRegion(teamRegion)}</div>
+          <div className='team_division'>DIVISION {teamDivision}</div>
         </div>
         <div className='teamlist_player_section'>
           {teamPlayers &&
@@ -103,7 +125,7 @@ const Team = ({ teamId, teamName, leagues }) => {
                         src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/players/${player}.png`}
                         alt=''
                         onError={({ currentTarget }) => {
-                          currentTarget.onerror = null; // prevents looping
+                          currentTarget.onerror = null;
                           currentTarget.src =
                             'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/player_unknown.png';
                         }}
@@ -116,44 +138,99 @@ const Team = ({ teamId, teamName, leagues }) => {
         </div>
         <Link to='#' className='teamlist_match_section'>
           <div className='teamlist_top_bar'>
-            {recentMatches.length > 0 ? 'NEXT MATCH' : 'LAST MATCH'}
+            {recentMatches.length > 0
+              ? 'NEXT MATCH '
+              : lastMatches.length !== 0
+              ? 'LAST MATCH'
+              : ''}
+            {recentMatches.length !== 0 &&
+              formatTimestamp(recentMatches[0].matchTime)}
+            {recentMatches.length === 0 && lastMatches.length === 0
+              ? 'No match data recorded'
+              : ''}
+
+            {lastMatches.length !== 0 && recentMatches.length === 0 ? (
+              <>
+                <div
+                  className={
+                    primaryScore > secondaryScore
+                      ? 'won_game'
+                      : primaryScore < secondaryScore
+                      ? 'lost_game'
+                      : primaryScore === secondaryScore
+                      ? 'draw_game'
+                      : ''
+                  }
+                >
+                  {primaryScore > secondaryScore ? (
+                    <>&nbsp;WON&nbsp;</>
+                  ) : primaryScore < secondaryScore ? (
+                    <>&nbsp;LOSS&nbsp;</>
+                  ) : primaryScore === secondaryScore ? (
+                    <>&nbsp;DRAW&nbsp; </>
+                  ) : (
+                    ''
+                  )}
+                  {primaryScore} - {secondaryScore}
+                </div>{' '}
+                &nbsp;VS
+              </>
+            ) : (
+              ''
+            )}
           </div>
+
           <div className='teamlist_bottom_section_wrapper'>
             <div className='teamlist_bottom_section'>
               <div className='focusable'>
-                {recentMatches.length > 0 &&
-                recentMatches[0].teams[1].name === teamName ? (
-                  <img
-                    src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/teamlogos/${recentMatches[0].teams[0].teamId}.png`}
-                    alt=''
-                  />
-                ) : recentMatches.length > 0 &&
-                  recentMatches[0].teams[1].name !== teamName ? (
-                  <img
-                    src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/teamlogos/${recentMatches[0].teams[1].teamId}.png`}
-                    alt=''
-                  />
-                ) : (
-                  ''
-                )}
+                {recentMatches.length !== 0 &&
+                  recentMatches[0].teams.map((team, index) => {
+                    if (team.teamId !== teamId) {
+                      return (
+                        <div className='enemy'>
+                          {' '}
+                          <Tooltip>TEST</Tooltip>{' '}
+                          {teamImage(team.teamId, 'enemy_logo')}
+                        </div>
+                      );
+                    }
+                  })}
+                {recentMatches.length === 0 &&
+                  lastMatches.length !== 0 &&
+                  lastMatches[lastMatches.length - 1].teams.map(
+                    (team, index) => {
+                      if (team.teamId !== teamId) {
+                        return (
+                          <div className='enemy'>
+                            {' '}
+                            <Tooltip>TEST</Tooltip>{' '}
+                            {teamImage(team.teamId, 'enemy_logo')}
+                          </div>
+                        );
+                      }
+                    }
+                  )}
               </div>
               <div className='teamlist_label'>
-                {recentMatches.length > 0 &&
-                recentMatches[0].teams[1].name === teamName ? (
-                  <div className='teamlist_team_name'>
-                    {recentMatches[0].teams[0].name}
-                  </div>
-                ) : recentMatches.length > 0 &&
-                  recentMatches[0].teams[1].name !== teamName ? (
-                  <div className='teamlist_team_name'>
-                    {recentMatches[0].teams[1].name}
-                  </div>
-                ) : (
-                  ''
-                )}
-                {recentMatches.length === 0 && lastMatches.length > 0
-                  ? lastMatches[lastMatches.length - 1].teams[1].name
-                  : ''}
+                {recentMatches.length !== 0 &&
+                  recentMatches[0].teams.map((team, index) => {
+                    if (team.teamId !== teamId) {
+                      return (
+                        <div className='teamlist_team_name'>{team.name}</div>
+                      );
+                    }
+                  })}
+                {recentMatches.length === 0 &&
+                  lastMatches.length !== 0 &&
+                  lastMatches[lastMatches.length - 1].teams.map(
+                    (team, index) => {
+                      if (team.teamId !== teamId) {
+                        return (
+                          <div className='teamlist_team_name'>{team.name}</div>
+                        );
+                      }
+                    }
+                  )}
               </div>
             </div>
           </div>
@@ -163,7 +240,7 @@ const Team = ({ teamId, teamName, leagues }) => {
 };
 
 const TeamEntryStyles = styled.div`
-  width: 100%;
+  width: 75%;
   height: 100px;
   min-height: 100px;
   display: flex;
@@ -172,6 +249,10 @@ const TeamEntryStyles = styled.div`
   background-color: #36363ebf;
   color: #a3a3a3;
   box-shadow: 4px 4px 8px rgb(0 0 0 / 50%);
+  margin-top: 1rem;
+  position: relative;
+  z-index: 1;
+  overflow: visible;
   .teamlist_favorite_section {
     min-width: 70px;
     height: 100%;
@@ -290,20 +371,30 @@ const TeamEntryStyles = styled.div`
     clip-path: polygon(30px 0px, 100% 0px, 100% 100%, 0% 100%);
     text-decoration: none;
     color: #fff;
+
     .teamlist_top_bar {
       width: 100%;
       height: 30px;
+      .won_game {
+        color: green;
+      }
+      .lost_game {
+        color: red;
+      }
+      .draw_game {
+        color: 'blue';
+      }
       background-color: #202023bf;
       display: flex;
       flex-direction: row;
       justify-content: center;
       align-items: center;
-      gap: 5px;
+
       color: #fff;
-      font-size: 11px;
-      font-weight: 700;
+      font-size: 0.7rem;
+      font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 2px;
     }
     .teamlist_bottom_section_wrapper {
       width: 100%;
@@ -322,6 +413,14 @@ const TeamEntryStyles = styled.div`
         align-items: center;
         padding-right: 1.4rem;
 
+        .focusable {
+          position: relative;
+
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
         .teamlist_label {
           flex-grow: 1;
           display: flex;
@@ -338,10 +437,30 @@ const TeamEntryStyles = styled.div`
           }
         }
       }
-      img {
-        margin-right: 10px;
-        width: 50px;
-        height: 50px;
+
+      .enemy {
+        position: relative;
+        overflow: visible;
+        .enemy_logo {
+          margin-right: 10px;
+          width: 50px;
+          height: 50px;
+        }
+        &:hover .tooltip {
+          display: flex;
+          z-index: 100;
+          overflow: visible;
+          top: -100%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+        }
+
+        .tooltip .tooltip_body {
+          color: red;
+          width: 10rem;
+          height: 10rem;
+          overflow: visible;
+        }
       }
     }
   }

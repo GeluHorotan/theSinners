@@ -20,14 +20,9 @@ const Watch = ({ leagues }) => {
       <TeamComponentStyles>
         {teamList &&
           teamList.map((team, index) => {
-            if (index < teamsCounter)
-              return (
-                <Team
-                  leagues={leagues}
-                  teamId={team.id}
-                  teamName={team.name}
-                ></Team>
-              );
+            return (
+              <Team leagues={leagues} teamId={team.id} teamName={team.name} />
+            );
           })}
       </TeamComponentStyles>
       <button onClick={() => setTeamsCounter((prevState) => prevState + 5)}>
@@ -39,22 +34,15 @@ const Watch = ({ leagues }) => {
 
 const WrapperStyles = styled.div`
   width: 100%;
-  height: 100vh;
 `;
 
 const TeamComponentStyles = styled.section`
-  margin-top: 20rem;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
   width: 100%;
-
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
-
-  margin: 0 auto;
 `;
 
 export default Watch;

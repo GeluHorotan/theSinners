@@ -15,7 +15,7 @@ const TooltipStyles = styled.div`
   min-height: 0;
   vertical-align: middle;
 
-  transform: translateY(-105%) translateX(-38%);
+  /* transform: translateY(-105%) translateX(-38%); */
   display: none;
   filter: drop-shadow(2px 2px 8px black);
   transition: 250ms all ease-in-out;
