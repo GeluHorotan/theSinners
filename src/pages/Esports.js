@@ -179,27 +179,29 @@ const MenuStyles = styled.div`
 
 const ContentStyles = styled.div`
   display: flex;
+  overflow: visible;
   flex-direction: column;
   gap: 1rem;
   align-items: center;
   justify-content: center;
-  position: relative;
-  overflow-x: scroll;
+
   color: ${white};
   background: url('https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/backgrounds/bg_granite_texture_sched.jpg');
   background-size: 100% auto;
   background-position: top, center;
   background-repeat: repeat-y;
   justify-content: center;
-  position: relative;
+
   display: flex;
   flex-direction: column;
 
   transition-property: height;
   transition-timing-function: ease-in-out;
   transition-duration: 0.2s;
+
   .content {
     width: 90%;
+    overflow: visible;
     margin: 0 auto;
   }
 `;

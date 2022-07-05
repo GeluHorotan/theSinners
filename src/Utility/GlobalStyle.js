@@ -34,7 +34,7 @@ const GlobalStyle = createGlobalStyle`
 }
 
 body {
-   overflow-x: hidden;
+   overflow: visible ;
    background: ${primary};
 }
 h1 {

@@ -1,4 +1,4 @@
-export const teamImage = (teamId, className) => {
+export const teamImage = (teamId, className, children) => {
   return (
     <img
       src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/teams_override/${teamId}.png`}

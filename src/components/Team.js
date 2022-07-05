@@ -1,14 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 
 import styled from 'styled-components';
+import { displayPlayerRole } from '../Functions/displayPlayerRole';
 
 import { displayTeamRegion } from '../Functions/displayTeamRegion';
 import { formatTimestamp } from '../Functions/formatTimestamp';
+import { playerImage } from '../Functions/playerImage';
 import { teamImage } from '../Functions/teamImage';
-import Tooltip from './Tooltip';
+import { obsHD, obsidian, textObs } from '../Utility/Colors';
 
-const Team = ({ teamId, teamName, leagues }) => {
+import Tooltiper from './Tooltiper';
+
+const Team = ({ teamId, teamName, leagues, className, children }) => {
+  const [enemyTeamId, setEnemyTeamId] = useState();
+  const [enemyTeam, setEnemyTeam] = useState();
   const [primaryScore, setPrimaryScore] = useState();
   const [secondaryScore, setSecondaryScore] = useState();
   const [isFollowed, setIsFollowed] = useState(false);
@@ -17,8 +23,8 @@ const Team = ({ teamId, teamName, leagues }) => {
   const [teamPlayers, setTeamPlayers] = useState();
   const [recentMatches, setRecentMatches] = useState([]);
   const [lastMatches, setLastMatches] = useState([]);
-  const [teamGames, setTeamGames] = useState();
 
+  const focusable = React.useRef(null);
   const getTeamInfo = async () => {
     const res = await fetch(`/.netlify/functions/teamInfo/?id=${teamId}`);
     const json = await res.json();
@@ -51,9 +57,39 @@ const Team = ({ teamId, teamName, leagues }) => {
       )
     );
   };
+
+  const getEnemyTeam = async () => {
+    const res = await fetch(
+      `/.netlify/functions/teamInfo/?id=${enemyTeamId ? enemyTeamId : ''}`
+    );
+    const json = await res.json();
+    setEnemyTeam(json);
+  };
+  useEffect(() => {
+    getEnemyTeam();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [enemyTeamId]);
+
   recentMatches.sort((a, b) => a.matchTime - b.matchTime);
 
-  const getLastGameScore = () => {};
+  useEffect(() => {
+    recentMatches.length !== 0 &&
+      recentMatches[0].teams.map((team, index) => {
+        if (team.teamId !== teamId) {
+          setEnemyTeamId(() => team.teamId);
+        }
+      });
+
+    recentMatches.length === 0 &&
+      lastMatches.length !== 0 &&
+      lastMatches[lastMatches.length - 1].teams.map((team, index) => {
+        if (team.teamId !== teamId) {
+          setEnemyTeamId(() => team.teamId);
+        }
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lastMatches, recentMatches]);
+
   useEffect(() => {
     lastMatches.length !== 0 &&
       recentMatches.length === 0 &&
@@ -90,7 +126,7 @@ const Team = ({ teamId, teamName, leagues }) => {
 
   if (teamPlayers && teamPlayers.length === 5)
     return (
-      <TeamEntryStyles>
+      <TeamEntryStyles className={className}>
         <div className='teamlist_favorite_section'>
           <div className='teamlist_following_line'>
             <div className='focusable'>
@@ -136,7 +172,8 @@ const Team = ({ teamId, teamName, leagues }) => {
               }
             })}
         </div>
-        <Link to='#' className='teamlist_match_section'>
+
+        <div className='teamlist_match_section'>
           <div className='teamlist_top_bar'>
             {recentMatches.length > 0
               ? 'NEXT MATCH '
@@ -182,17 +219,54 @@ const Team = ({ teamId, teamName, leagues }) => {
 
           <div className='teamlist_bottom_section_wrapper'>
             <div className='teamlist_bottom_section'>
-              <div className='focusable'>
+              {enemyTeam && (
+                <Tooltiper
+                  interactive={false}
+                  reference={focusable}
+                  default={false}
+                  TooltipStyles={TooltipStyles}
+                >
+                  <>
+                    <div className='enemy_top_container'>
+                      <div className='enemy_team_logo'>
+                        {teamImage(enemyTeam.team_id, 'enemy_logo')}
+                      </div>
+                      <div className='enemy_team_name'>
+                        {enemyTeam.name.toUpperCase()}&nbsp; [
+                        {enemyTeam.tag.toUpperCase()}]
+                      </div>
+                    </div>
+                    <div className='enemy_bottom_container'>
+                      {enemyTeam.members.map((player, index) => {
+                        return (
+                          player.role > 0 && (
+                            <div className='enemy_player_container'>
+                              <div className='enemy_player_role'>
+                                {displayPlayerRole(player.role)}
+                              </div>
+                              {playerImage(player.account_id, 'enemy_player')}
+
+                              <div className='enemy_player_info'>
+                                <div className='pro_name'>
+                                  {player.pro_name.toUpperCase()}
+                                </div>
+                                <div className='real_name'>
+                                  {player.real_name}
+                                </div>
+                              </div>
+                            </div>
+                          )
+                        );
+                      })}
+                    </div>
+                  </>
+                </Tooltiper>
+              )}
+              <div ref={focusable} className='focusable'>
                 {recentMatches.length !== 0 &&
                   recentMatches[0].teams.map((team, index) => {
                     if (team.teamId !== teamId) {
-                      return (
-                        <div className='enemy'>
-                          {' '}
-                          <Tooltip>TEST</Tooltip>{' '}
-                          {teamImage(team.teamId, 'enemy_logo')}
-                        </div>
-                      );
+                      return teamImage(team.teamId, 'enemy_logo');
                     }
                   })}
                 {recentMatches.length === 0 &&
@@ -200,17 +274,12 @@ const Team = ({ teamId, teamName, leagues }) => {
                   lastMatches[lastMatches.length - 1].teams.map(
                     (team, index) => {
                       if (team.teamId !== teamId) {
-                        return (
-                          <div className='enemy'>
-                            {' '}
-                            <Tooltip>TEST</Tooltip>{' '}
-                            {teamImage(team.teamId, 'enemy_logo')}
-                          </div>
-                        );
+                        return teamImage(team.teamId, 'enemy_logo');
                       }
                     }
                   )}
               </div>
+
               <div className='teamlist_label'>
                 {recentMatches.length !== 0 &&
                   recentMatches[0].teams.map((team, index) => {
@@ -234,7 +303,7 @@ const Team = ({ teamId, teamName, leagues }) => {
               </div>
             </div>
           </div>
-        </Link>
+        </div>
       </TeamEntryStyles>
     );
 };
@@ -252,7 +321,6 @@ const TeamEntryStyles = styled.div`
   margin-top: 1rem;
   position: relative;
   z-index: 1;
-  overflow: visible;
   .teamlist_favorite_section {
     min-width: 70px;
     height: 100%;
@@ -263,6 +331,7 @@ const TeamEntryStyles = styled.div`
     background-color: #6e6e7766;
     .teamlist_following_line {
       cursor: pointer;
+
       .focusable {
         .star_sign {
           background-image: url('https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/star_black.png');
@@ -338,10 +407,12 @@ const TeamEntryStyles = styled.div`
     flex-direction: row;
     align-items: center;
     margin-right: -14px;
+
     .teamlist_player_image_container {
       height: 100%;
       width: 5.625rem;
       margin: 0px -14px;
+
       background-image: linear-gradient(
         280deg,
         rgba(0, 0, 0, 0.3),
@@ -352,6 +423,7 @@ const TeamEntryStyles = styled.div`
       .teamlist_player_gradient {
         width: 100%;
         height: 100%;
+
         mask-image: linear-gradient(#fff, #fff 76%, transparent 80%);
         -webkit-mask-image: linear-gradient(#fff, #fff 80%, transparent 95%);
         img {
@@ -375,6 +447,17 @@ const TeamEntryStyles = styled.div`
     .teamlist_top_bar {
       width: 100%;
       height: 30px;
+
+      background-color: #202023bf;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 2px;
       .won_game {
         color: green;
       }
@@ -384,17 +467,6 @@ const TeamEntryStyles = styled.div`
       .draw_game {
         color: 'blue';
       }
-      background-color: #202023bf;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-
-      color: #fff;
-      font-size: 0.7rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 2px;
     }
     .teamlist_bottom_section_wrapper {
       width: 100%;
@@ -403,6 +475,7 @@ const TeamEntryStyles = styled.div`
       display: flex;
       flex-direction: row;
       justify-content: flex-end;
+
       padding-right: 1rem;
       .teamlist_bottom_section {
         width: 75%;
@@ -412,10 +485,12 @@ const TeamEntryStyles = styled.div`
         justify-content: center;
         align-items: center;
         padding-right: 1.4rem;
+        .tester {
+          border: 1px solid white !important;
+        }
 
         .focusable {
           position: relative;
-
           display: flex;
           justify-content: center;
           align-items: center;
@@ -430,7 +505,6 @@ const TeamEntryStyles = styled.div`
 
           .teamlist_team_name {
             color: #fff;
-
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -438,28 +512,94 @@ const TeamEntryStyles = styled.div`
         }
       }
 
-      .enemy {
-        position: relative;
-        overflow: visible;
-        .enemy_logo {
-          margin-right: 10px;
-          width: 50px;
-          height: 50px;
-        }
-        &:hover .tooltip {
-          display: flex;
-          z-index: 100;
-          overflow: visible;
-          top: -100%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-        }
+      .enemy_logo {
+        margin-right: 10px;
+        width: 50px;
+        height: 50px;
+      }
+    }
+  }
+`;
 
-        .tooltip .tooltip_body {
-          color: red;
-          width: 10rem;
+const TooltipStyles = styled.div`
+  background: ${obsidian};
+  box-shadow: 0px 0px 4px black;
+  .tooltip_container {
+    color: white;
+    width: 45rem;
+    height: 25rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    .enemy_top_container {
+      background-image: linear-gradient(to right, #333333 0%, black 100%);
+      width: 100%;
+      padding: 1rem;
+      min-height: 3rem;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      font-size: 1.5rem;
+      .enemy_logo {
+        width: 64px;
+        height: 64px;
+        min-width: 64px;
+        min-height: 64px;
+        opacity: 1;
+      }
+    }
+
+    .enemy_bottom_container {
+      width: 100%;
+      padding: 0.8rem;
+      height: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .enemy_player_container {
+        width: 8rem;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        justify-content: flex-start;
+        align-items: center;
+        height: 100%;
+        background: #535353;
+
+        .enemy_player {
+          min-width: 10rem;
           height: 10rem;
-          overflow: visible;
+          margin-top: 0.5rem;
+        }
+        .enemy_player_role {
+          background: ${obsidian};
+          width: 100%;
+          min-height: 2rem;
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+          font-size: 0.8rem;
+          letter-spacing: 1px;
+        }
+        .enemy_player_info {
+          height: 100%;
+          background: ${obsHD};
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-start;
+          padding: 1rem 0.5rem;
+
+          .real_name {
+            color: ${textObs};
+            font-size: 0.8rem;
+          }
+          .pro_name {
+            letter-spacing: 1px;
+          }
         }
       }
     }
