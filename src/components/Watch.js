@@ -1,4 +1,4 @@
-import React, { useState, useEffect, CSSProperties } from 'react';
+import React, { useState, useEffect } from 'react';
 import Team from './Team';
 import styled from 'styled-components';
 
@@ -11,11 +11,11 @@ import { obsHD, textObs } from '../Utility/Colors';
 import { displayTeamRegion } from '../Functions/displayTeamRegion';
 import { HashLoader } from 'react-spinners';
 
-const override = (CSSProperties = {
+const override = {
   display: 'block',
   margin: '0 auto',
   borderColor: 'red',
-});
+};
 
 const Watch = ({ leagues }) => {
   let [loading, setLoading] = useState(true);

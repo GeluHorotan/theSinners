@@ -1,4 +1,4 @@
-import React, { useState, useEffect, CSSProperties } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import styled from 'styled-components';
 import { displayPlayerRole } from '../Functions/displayPlayerRole';
@@ -12,11 +12,11 @@ import { obsHD, obsidian, textObs } from '../Utility/Colors';
 import Tooltiper from './Tooltiper';
 import { HashLoader } from 'react-spinners';
 
-const override = (CSSProperties = {
+const override = {
   display: 'block',
   margin: '0 auto',
   borderColor: 'red',
-});
+};
 
 const Team = ({ teamId, teamName, leagues, className, children }) => {
   let [loading, setLoading] = useState(true);
