@@ -2,10 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { obsH } from '../Utility/Colors';
 
-const Tabel = ({ children, className, headers }) => {
+const Tabel = ({ children, className, headers, eliminationMode }) => {
   return (
     <div>
-      <TableStyles className={className}>
+      <TabelStyles className={className}>
         <thead>
           <tr>
             {headers &&
@@ -16,15 +16,19 @@ const Tabel = ({ children, className, headers }) => {
               })}
           </tr>
         </thead>
-        <tbody>{children}</tbody>
-      </TableStyles>
+        <tbody>
+          {children}
+          {eliminationMode && <tr className='elimination_overlay'></tr>}
+        </tbody>
+      </TabelStyles>
     </div>
   );
 };
 
-const TableStyles = styled.table`
+const TabelStyles = styled.table`
   border-collapse: collapse;
   width: 100%;
+  position: relative;
 
   th {
     background: ${obsH};
@@ -34,6 +38,19 @@ const TableStyles = styled.table`
   th {
     text-align: center;
     padding: 1rem 0.5rem;
+  }
+
+  .elimination_overlay {
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    position: absolute;
+    height: 140px;
+    border-top: 1px solid rgb(146, 40, 32);
+    background: linear-gradient(
+      rgba(146, 40, 32, 0.2),
+      rgba(146, 40, 32, 0.06)
+    );
   }
 
   .striped:nth-child(even) {

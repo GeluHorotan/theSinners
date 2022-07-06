@@ -3,8 +3,6 @@ import styled from 'styled-components';
 
 // Tooltip Engine
 import { createPopper } from '@popperjs/core/lib/popper-lite.js';
-import preventOverflow from '@popperjs/core/lib/modifiers/preventOverflow.js';
-import flip from '@popperjs/core/lib/modifiers/flip.js';
 
 const Tooltip = ({ children, triggerElement }) => {
   const tooltip = document.querySelector('.tooltip');

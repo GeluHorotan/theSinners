@@ -32,7 +32,8 @@ const Standings = ({ children, tournaments }) => {
                   <td className='table_team_cell'>
                     <img
                       src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/teamlogos/${team.team_id}.png`}
-                      alt=''
+                      alt={team.name}
+                      className='team_logo'
                     />
                     {team.team_name}
                   </td>
@@ -54,7 +55,8 @@ const Standings = ({ children, tournaments }) => {
                 <tr>
                   <img
                     src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/teamlogos/${team.team_id}.png`}
-                    alt=''
+                    alt={team.name}
+                    className='team_logo'
                   />
                 </tr>
               </>
@@ -106,7 +108,7 @@ const StandingsStyles = styled.div`
       padding-right: 5rem;
     }
   }
-  img {
+  .team_logo {
     width: 2.5em;
     height: 2.5rem;
     margin-right: 1rem;

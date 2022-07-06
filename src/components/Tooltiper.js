@@ -1,5 +1,5 @@
-import React, { useState, forwardRef } from 'react';
-import Tippy, { followCursor, arrow } from '@tippyjs/react/headless';
+import React from 'react';
+import Tippy from '@tippyjs/react/headless';
 import { useSpring, motion } from 'framer-motion';
 
 import styled from 'styled-components';
@@ -17,7 +17,7 @@ const Tooltiper = ({
   const scale = useSpring(initialScale, springConfig);
 
   function onMount() {
-    scale.set(1);
+    scale.set(2);
     opacity.set(1);
   }
 
@@ -39,6 +39,9 @@ const Tooltiper = ({
       arrow={true}
       interactive={interactive}
       followCursor={true}
+      animation={true}
+      onMount={onMount}
+      onHide={onHide}
       render={(attrs) => (
         <TooltipStyles
           className='box'
@@ -49,9 +52,6 @@ const Tooltiper = ({
           <div className='tooltip_container'>{children}</div>
         </TooltipStyles>
       )}
-      animation={true}
-      onMount={onMount}
-      onHide={onHide}
     ></Tippy>
   );
 };

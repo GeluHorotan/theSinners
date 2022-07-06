@@ -1,12 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 import MatchBox from '../components/MatchBox';
 
 // Import Functions
 import { Tab } from '@headlessui/react';
-
-import { teamFilter } from '../Functions/for MatchBox Component/teamFilter';
 
 // Import Components
 import Menubar from '../components/Menubar';
@@ -200,7 +198,7 @@ const ContentStyles = styled.div`
   transition-duration: 0.2s;
 
   .content {
-    width: 90%;
+    width: 100%;
     overflow: visible;
     margin: 0 auto;
   }

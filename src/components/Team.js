@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect, CSSProperties } from 'react';
 
 import styled from 'styled-components';
 import { displayPlayerRole } from '../Functions/displayPlayerRole';
@@ -11,9 +10,18 @@ import { teamImage } from '../Functions/teamImage';
 import { obsHD, obsidian, textObs } from '../Utility/Colors';
 
 import Tooltiper from './Tooltiper';
+import { HashLoader } from 'react-spinners';
+
+const override = (CSSProperties = {
+  display: 'block',
+  margin: '0 auto',
+  borderColor: 'red',
+});
 
 const Team = ({ teamId, teamName, leagues, className, children }) => {
-  const [enemyTeamId, setEnemyTeamId] = useState();
+  let [loading, setLoading] = useState(true);
+  let [color, setColor] = useState('#ffffff');
+  const [enemyId, setEnemyId] = useState();
   const [enemyTeam, setEnemyTeam] = useState();
   const [primaryScore, setPrimaryScore] = useState();
   const [secondaryScore, setSecondaryScore] = useState();
@@ -57,40 +65,7 @@ const Team = ({ teamId, teamName, leagues, className, children }) => {
       )
     );
   };
-
-  const getEnemyTeam = async () => {
-    const res = await fetch(
-      `/.netlify/functions/teamInfo/?id=${enemyTeamId ? enemyTeamId : ''}`
-    );
-    const json = await res.json();
-    setEnemyTeam(json);
-  };
-  useEffect(() => {
-    getEnemyTeam();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [enemyTeamId]);
-
-  recentMatches.sort((a, b) => a.matchTime - b.matchTime);
-
-  useEffect(() => {
-    recentMatches.length !== 0 &&
-      recentMatches[0].teams.map((team, index) => {
-        if (team.teamId !== teamId) {
-          setEnemyTeamId(() => team.teamId);
-        }
-      });
-
-    recentMatches.length === 0 &&
-      lastMatches.length !== 0 &&
-      lastMatches[lastMatches.length - 1].teams.map((team, index) => {
-        if (team.teamId !== teamId) {
-          setEnemyTeamId(() => team.teamId);
-        }
-      });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lastMatches, recentMatches]);
-
-  useEffect(() => {
+  const lastPlayedMatches = () => {
     lastMatches.length !== 0 &&
       recentMatches.length === 0 &&
       lastMatches[lastMatches.length - 1].teams.forEach((team, index) => {
@@ -101,6 +76,41 @@ const Team = ({ teamId, teamName, leagues, className, children }) => {
           setSecondaryScore(() => team.games_won);
         }
       });
+  };
+
+  const getEnemyId = () => {
+    recentMatches.length !== 0 &&
+      recentMatches[0].teams.forEach((team, index) => {
+        if (team.teamId !== teamId) {
+          setEnemyId((prevState) => team.teamId);
+        }
+      });
+
+    recentMatches.length === 0 &&
+      lastMatches.length !== 0 &&
+      lastMatches[lastMatches.length - 1].teams.forEach((team, index) => {
+        if (team.teamId !== teamId) {
+          setEnemyId((prevState) => team.teamId);
+        }
+      });
+  };
+
+  const getEnemyTeam = async () => {
+    if (enemyId) {
+      const res = await fetch(`/.netlify/functions/enemyTeam/?id=${enemyId}`);
+      const json = await res.json();
+      setEnemyTeam(json);
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getEnemyId();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lastMatches, recentMatches]);
+
+  useEffect(() => {
+    lastPlayedMatches();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lastMatches]);
 
@@ -117,12 +127,16 @@ const Team = ({ teamId, teamName, leagues, className, children }) => {
           }
         });
       });
-
+    recentMatches.sort((a, b) => a.matchTime - b.matchTime);
     getTeamInfo();
     getRecentMatches();
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [teamId]);
+
+  useEffect(() => {
+    getEnemyTeam();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [enemyId]);
 
   if (teamPlayers && teamPlayers.length === 5)
     return (
@@ -219,49 +233,64 @@ const Team = ({ teamId, teamName, leagues, className, children }) => {
 
           <div className='teamlist_bottom_section_wrapper'>
             <div className='teamlist_bottom_section'>
-              {enemyTeam && (
-                <Tooltiper
-                  interactive={false}
-                  reference={focusable}
-                  default={false}
-                  TooltipStyles={TooltipStyles}
-                >
+              <Tooltiper
+                interactive={false}
+                reference={focusable}
+                default={false}
+                TooltipStyles={TooltipStyles}
+              >
+                <HashLoader
+                  color={color}
+                  loading={loading}
+                  cssOverride={override}
+                  size={150}
+                  speed={10}
+                />
+                {!loading && (
                   <>
                     <div className='enemy_top_container'>
                       <div className='enemy_team_logo'>
-                        {teamImage(enemyTeam.team_id, 'enemy_logo')}
+                        {teamImage(
+                          enemyTeam && enemyTeam.team_id,
+                          'enemy_logo'
+                        )}
                       </div>
                       <div className='enemy_team_name'>
-                        {enemyTeam.name.toUpperCase()}&nbsp; [
-                        {enemyTeam.tag.toUpperCase()}]
+                        <div>
+                          {' '}
+                          {enemyTeam && enemyTeam.name.toUpperCase()}&nbsp;{' '}
+                        </div>
+                        <div> {enemyTeam && enemyTeam.tag.toUpperCase()}</div>
                       </div>
                     </div>
                     <div className='enemy_bottom_container'>
-                      {enemyTeam.members.map((player, index) => {
-                        return (
-                          player.role > 0 && (
-                            <div className='enemy_player_container'>
-                              <div className='enemy_player_role'>
-                                {displayPlayerRole(player.role)}
-                              </div>
-                              {playerImage(player.account_id, 'enemy_player')}
+                      {enemyTeam &&
+                        enemyTeam.members.map((player, index) => {
+                          return (
+                            player.role > 0 && (
+                              <div className='enemy_player_container'>
+                                <div className='enemy_player_role'>
+                                  {displayPlayerRole(player.role)}
+                                </div>
+                                {playerImage(player.account_id, 'enemy_player')}
 
-                              <div className='enemy_player_info'>
-                                <div className='pro_name'>
-                                  {player.pro_name.toUpperCase()}
-                                </div>
-                                <div className='real_name'>
-                                  {player.real_name}
+                                <div className='enemy_player_info'>
+                                  <div className='pro_name'>
+                                    {player.pro_name.toUpperCase()}
+                                  </div>
+                                  <div className='real_name'>
+                                    {player.real_name}
+                                  </div>
                                 </div>
                               </div>
-                            </div>
-                          )
-                        );
-                      })}
+                            )
+                          );
+                        })}
                     </div>
                   </>
-                </Tooltiper>
-              )}
+                )}
+              </Tooltiper>
+
               <div ref={focusable} className='focusable'>
                 {recentMatches.length !== 0 &&
                   recentMatches[0].teams.map((team, index) => {
@@ -524,6 +553,7 @@ const TeamEntryStyles = styled.div`
 const TooltipStyles = styled.div`
   background: ${obsidian};
   box-shadow: 0px 0px 4px black;
+
   .tooltip_container {
     color: white;
     width: 45rem;
@@ -534,12 +564,13 @@ const TooltipStyles = styled.div`
     flex-direction: column;
 
     .enemy_top_container {
-      background-image: linear-gradient(to right, #333333 0%, black 100%);
       width: 100%;
-      padding: 1rem;
+
+      padding: 0.8rem;
       min-height: 3rem;
       display: flex;
-      justify-content: flex-start;
+      background: #192d2e;
+      justify-content: center;
       align-items: center;
       font-size: 1.5rem;
       .enemy_logo {
@@ -548,6 +579,12 @@ const TooltipStyles = styled.div`
         min-width: 64px;
         min-height: 64px;
         opacity: 1;
+      }
+      .enemy_team_name {
+        display: flex;
+        margin-left: 0.5rem;
+        width: 100%;
+        justify-content: space-between;
       }
     }
 
@@ -567,7 +604,8 @@ const TooltipStyles = styled.div`
         justify-content: flex-start;
         align-items: center;
         height: 100%;
-        background: #535353;
+        background: #192d2e;
+        box-shadow: -1px 1px 1px #2c5052;
 
         .enemy_player {
           min-width: 10rem;
