@@ -1,5 +1,5 @@
 import React from 'react';
-import Tippy, { followCursor } from '@tippyjs/react/headless';
+import Tippy from '@tippyjs/react/headless';
 import { useSpring, motion } from 'framer-motion';
 
 import styled from 'styled-components';
@@ -38,7 +38,6 @@ const Tooltiper = ({
       reference={reference}
       arrow={true}
       interactive={interactive}
-      followCursor={true}
       animation={true}
       onMount={onMount}
       onHide={onHide}
