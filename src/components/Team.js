@@ -90,12 +90,10 @@ const Team = ({ teamId, teamName, leagues, className, children }) => {
   };
 
   const getEnemyTeam = async () => {
-    if (enemyId) {
-      const res = await fetch(`/.netlify/functions/enemyTeam/?id=${enemyId}`);
-      const json = await res.json();
-      setEnemyTeam(json);
-      setLoading(false);
-    }
+    const res = await fetch(`/.netlify/functions/enemyTeam/?id=${enemyId}`);
+    const json = await res.json();
+    setEnemyTeam(json);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -228,7 +226,7 @@ const Team = ({ teamId, teamName, leagues, className, children }) => {
           <div className='teamlist_bottom_section_wrapper'>
             <div className='teamlist_bottom_section'>
               <div ref={focusable} className='focusable'>
-                <Tippy
+                {/* <Tippy
                   render={(attrs) => (
                     <div className='box' tabIndex='-1' {...attrs}>
                       My tippy box
@@ -236,7 +234,7 @@ const Team = ({ teamId, teamName, leagues, className, children }) => {
                   )}
                 >
                   <button>My button</button>
-                </Tippy>
+                </Tippy> */}
                 <Tooltiper interactive={false} reference={focusable}>
                   <HashLoader
                     color={color}
