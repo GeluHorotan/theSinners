@@ -224,7 +224,39 @@ const Team = ({ teamId, teamName, leagues, className, children }) => {
               ''
             )}
           </div>
+          <>
+            <div className='enemy_top_container'>
+              <div className='enemy_team_logo'>
+                {teamImage(enemyTeam && enemyTeam.team_id, 'enemy_logo')}
+              </div>
+              <div className='enemy_team_name'>
+                <div> {enemyTeam && enemyTeam.name.toUpperCase()}&nbsp; </div>
+                <div> {enemyTeam && enemyTeam.tag.toUpperCase()}</div>
+              </div>
+            </div>
+            <div className='enemy_bottom_container'>
+              {enemyTeam &&
+                enemyTeam.members.map((player, index) => {
+                  return (
+                    player.role > 0 && (
+                      <div className='enemy_player_container'>
+                        <div className='enemy_player_role'>
+                          {displayPlayerRole(player.role)}
+                        </div>
+                        {playerImage(player.account_id, 'enemy_player')}
 
+                        <div className='enemy_player_info'>
+                          <div className='pro_name'>
+                            {player.pro_name.toUpperCase()}
+                          </div>
+                          <div className='real_name'>{player.real_name}</div>
+                        </div>
+                      </div>
+                    )
+                  );
+                })}
+            </div>
+          </>
           <div className='teamlist_bottom_section_wrapper'>
             <div className='teamlist_bottom_section'>
               <Tooltiper
@@ -233,52 +265,55 @@ const Team = ({ teamId, teamName, leagues, className, children }) => {
                 default={false}
                 TooltipStyles={TooltipStyles}
               >
-                {/* <HashLoader
+                <HashLoader
                   color={color}
                   loading={loading}
                   size={150}
                   speed={10}
-                /> */}
-
-                <>
-                  TEST
-                  <div className='enemy_top_container'>
-                    <div className='enemy_team_logo'>
-                      {teamImage(enemyTeam && enemyTeam.team_id, 'enemy_logo')}
-                    </div>
-                    <div className='enemy_team_name'>
-                      <div>
-                        {' '}
-                        {enemyTeam && enemyTeam.name.toUpperCase()}&nbsp;{' '}
+                />
+                {!loading && (
+                  <>
+                    <div className='enemy_top_container'>
+                      <div className='enemy_team_logo'>
+                        {teamImage(
+                          enemyTeam && enemyTeam.team_id,
+                          'enemy_logo'
+                        )}
                       </div>
-                      <div> {enemyTeam && enemyTeam.tag.toUpperCase()}</div>
+                      <div className='enemy_team_name'>
+                        <div>
+                          {' '}
+                          {enemyTeam && enemyTeam.name.toUpperCase()}&nbsp;{' '}
+                        </div>
+                        <div> {enemyTeam && enemyTeam.tag.toUpperCase()}</div>
+                      </div>
                     </div>
-                  </div>
-                  <div className='enemy_bottom_container'>
-                    {enemyTeam &&
-                      enemyTeam.members.map((player, index) => {
-                        return (
-                          player.role > 0 && (
-                            <div className='enemy_player_container'>
-                              <div className='enemy_player_role'>
-                                {displayPlayerRole(player.role)}
-                              </div>
-                              {playerImage(player.account_id, 'enemy_player')}
+                    <div className='enemy_bottom_container'>
+                      {enemyTeam &&
+                        enemyTeam.members.map((player, index) => {
+                          return (
+                            player.role > 0 && (
+                              <div className='enemy_player_container'>
+                                <div className='enemy_player_role'>
+                                  {displayPlayerRole(player.role)}
+                                </div>
+                                {playerImage(player.account_id, 'enemy_player')}
 
-                              <div className='enemy_player_info'>
-                                <div className='pro_name'>
-                                  {player.pro_name.toUpperCase()}
-                                </div>
-                                <div className='real_name'>
-                                  {player.real_name}
+                                <div className='enemy_player_info'>
+                                  <div className='pro_name'>
+                                    {player.pro_name.toUpperCase()}
+                                  </div>
+                                  <div className='real_name'>
+                                    {player.real_name}
+                                  </div>
                                 </div>
                               </div>
-                            </div>
-                          )
-                        );
-                      })}
-                  </div>
-                </>
+                            )
+                          );
+                        })}
+                    </div>
+                  </>
+                )}
               </Tooltiper>
 
               <div ref={focusable} className='focusable'>
