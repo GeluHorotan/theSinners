@@ -12,12 +12,6 @@ import { obsHD, obsidian, textObs } from '../Utility/Colors';
 import Tooltiper from './Tooltiper';
 import { HashLoader } from 'react-spinners';
 
-const override = {
-  display: 'block',
-  margin: '0 auto',
-  borderColor: 'red',
-};
-
 const Team = ({ teamId, teamName, leagues, className, children }) => {
   let [loading, setLoading] = useState(true);
   let [color, setColor] = useState('#ffffff');
@@ -239,56 +233,52 @@ const Team = ({ teamId, teamName, leagues, className, children }) => {
                 default={false}
                 TooltipStyles={TooltipStyles}
               >
-                <HashLoader
+                {/* <HashLoader
                   color={color}
                   loading={loading}
-                  cssOverride={override}
                   size={150}
                   speed={10}
-                />
-                {!loading && (
-                  <>
-                    <div className='enemy_top_container'>
-                      <div className='enemy_team_logo'>
-                        {teamImage(
-                          enemyTeam && enemyTeam.team_id,
-                          'enemy_logo'
-                        )}
-                      </div>
-                      <div className='enemy_team_name'>
-                        <div>
-                          {' '}
-                          {enemyTeam && enemyTeam.name.toUpperCase()}&nbsp;{' '}
-                        </div>
-                        <div> {enemyTeam && enemyTeam.tag.toUpperCase()}</div>
-                      </div>
-                    </div>
-                    <div className='enemy_bottom_container'>
-                      {enemyTeam &&
-                        enemyTeam.members.map((player, index) => {
-                          return (
-                            player.role > 0 && (
-                              <div className='enemy_player_container'>
-                                <div className='enemy_player_role'>
-                                  {displayPlayerRole(player.role)}
-                                </div>
-                                {playerImage(player.account_id, 'enemy_player')}
+                /> */}
 
-                                <div className='enemy_player_info'>
-                                  <div className='pro_name'>
-                                    {player.pro_name.toUpperCase()}
-                                  </div>
-                                  <div className='real_name'>
-                                    {player.real_name}
-                                  </div>
+                <>
+                  TEST
+                  <div className='enemy_top_container'>
+                    <div className='enemy_team_logo'>
+                      {teamImage(enemyTeam && enemyTeam.team_id, 'enemy_logo')}
+                    </div>
+                    <div className='enemy_team_name'>
+                      <div>
+                        {' '}
+                        {enemyTeam && enemyTeam.name.toUpperCase()}&nbsp;{' '}
+                      </div>
+                      <div> {enemyTeam && enemyTeam.tag.toUpperCase()}</div>
+                    </div>
+                  </div>
+                  <div className='enemy_bottom_container'>
+                    {enemyTeam &&
+                      enemyTeam.members.map((player, index) => {
+                        return (
+                          player.role > 0 && (
+                            <div className='enemy_player_container'>
+                              <div className='enemy_player_role'>
+                                {displayPlayerRole(player.role)}
+                              </div>
+                              {playerImage(player.account_id, 'enemy_player')}
+
+                              <div className='enemy_player_info'>
+                                <div className='pro_name'>
+                                  {player.pro_name.toUpperCase()}
+                                </div>
+                                <div className='real_name'>
+                                  {player.real_name}
                                 </div>
                               </div>
-                            )
-                          );
-                        })}
-                    </div>
-                  </>
-                )}
+                            </div>
+                          )
+                        );
+                      })}
+                  </div>
+                </>
               </Tooltiper>
 
               <div ref={focusable} className='focusable'>
