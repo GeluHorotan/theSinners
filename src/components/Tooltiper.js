@@ -8,15 +8,9 @@ const Tooltiper = ({ children, element, interactive, reference }) => {
   return (
     <Tippy
       reference={reference}
-      arrow={true}
       interactive={interactive}
       render={(attrs) => (
-        <TooltipStyles
-          className='box'
-          tabIndex='-1'
-          animation={true}
-          {...attrs}
-        >
+        <TooltipStyles className='box' tabIndex='-1' {...attrs}>
           <div className='tooltip_container'>{children}</div>
         </TooltipStyles>
       )}
