@@ -224,7 +224,7 @@ const Team = ({ teamId, teamName, leagues, className, children }) => {
           <div className='teamlist_bottom_section_wrapper'>
             <div className='teamlist_bottom_section'>
               <div ref={focusable} className='focusable'>
-                <Tooltiper interactive={false} reference={focusable}>
+                <Tooltiper interactive={false} reference={focusable.current}>
                   <>
                     <div className='enemy_top_container'>
                       <div className='enemy_team_logo'>
