@@ -9,17 +9,8 @@ import { ordinal_suffix_of } from '../Functions/ordinal_suffix_of';
 import Tabel from './Tabel';
 import { obsHD, textObs } from '../Utility/Colors';
 import { displayTeamRegion } from '../Functions/displayTeamRegion';
-import { HashLoader } from 'react-spinners';
-
-const override = {
-  display: 'block',
-  margin: '0 auto',
-  borderColor: 'red',
-};
 
 const Watch = ({ leagues }) => {
-  let [loading, setLoading] = useState(true);
-  let [color, setColor] = useState('#ffffff');
   const [teamList, setTeamList] = useState();
   const [teamsCounter, setTeamsCounter] = useState(8);
   const [divisionOne, setDivisionOne] = useState();
@@ -30,7 +21,6 @@ const Watch = ({ leagues }) => {
         leagues &&
         leagues.filter((league) => league.info.name.split(' ').includes('I'))
     );
-    setLoading(false);
   };
 
   const getTeamList = async () => {
@@ -51,59 +41,50 @@ const Watch = ({ leagues }) => {
   return (
     <WrapperStyles>
       <TeamComponentStyles>
-        <HashLoader
-          color={color}
-          loading={loading}
-          cssOverride={override}
-          size={150}
-          speed={10}
-        />
-        {!loading && (
-          <TabelsGridStyles>
-            {divisionOne &&
-              divisionOne.map((league, index) => {
-                return (
-                  <div className='tabel_container'>
-                    <div className='tabel_region'>
-                      {displayTeamRegion(league.info.region)}
-                    </div>
-                    <Tabel
-                      eliminationMode={true}
-                      className='tabel_in_grid'
-                      headers={[
-                        { name: 'Rank', class: 'team_rank_header' },
-                        { name: 'Team', class: 'team_team_header' },
-                        { name: 'Record', class: 'team_record_header' },
-                      ]}
-                    >
-                      {league.node_groups[0].node_groups[0].team_standings.map(
-                        (team, index) => {
-                          return (
-                            <tr>
-                              <td className='tabel_rank_cell'>
-                                {ordinal_suffix_of(team.standing)}
-                              </td>
-                              <td className='tabel_team_cell'>
-                                <img
-                                  src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/teamlogos/${team.team_id}.png`}
-                                  alt={team.name}
-                                  className='team_logo'
-                                />
-                                {team.team_name}
-                              </td>
-                              <td className='tabel_record_cell'>
-                                {team.wins} - {team.losses}
-                              </td>
-                            </tr>
-                          );
-                        }
-                      )}
-                    </Tabel>
+        <TabelsGridStyles>
+          {divisionOne &&
+            divisionOne.map((league, index) => {
+              return (
+                <div className='tabel_container'>
+                  <div className='tabel_region'>
+                    {displayTeamRegion(league.info.region)}
                   </div>
-                );
-              })}
-          </TabelsGridStyles>
-        )}
+                  <Tabel
+                    eliminationMode={true}
+                    className='tabel_in_grid'
+                    headers={[
+                      { name: 'Rank', class: 'team_rank_header' },
+                      { name: 'Team', class: 'team_team_header' },
+                      { name: 'Record', class: 'team_record_header' },
+                    ]}
+                  >
+                    {league.node_groups[0].node_groups[0].team_standings.map(
+                      (team, index) => {
+                        return (
+                          <tr>
+                            <td className='tabel_rank_cell'>
+                              {ordinal_suffix_of(team.standing)}
+                            </td>
+                            <td className='tabel_team_cell'>
+                              <img
+                                src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/teamlogos/${team.team_id}.png`}
+                                alt={team.name}
+                                className='team_logo'
+                              />
+                              {team.team_name}
+                            </td>
+                            <td className='tabel_record_cell'>
+                              {team.wins} - {team.losses}
+                            </td>
+                          </tr>
+                        );
+                      }
+                    )}
+                  </Tabel>
+                </div>
+              );
+            })}
+        </TabelsGridStyles>
 
         {teamList &&
           teamList.map((team, index) => {
