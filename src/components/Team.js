@@ -128,7 +128,7 @@ const Team = ({ teamId, teamName, leagues, className, children }) => {
   useEffect(() => {
     getEnemyTeam();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [enemyId]);
+  }, []);
 
   if (teamPlayers && teamPlayers.length === 5)
     return (
