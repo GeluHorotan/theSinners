@@ -30,6 +30,10 @@ const UpcomingMatch = ({ leagues }) => {
 
   useEffect(() => {
     getMostRecentMatches();
+    setInterval(() => {
+      console.log('DATA FETCHED BY SECOND');
+      getMostRecentMatches();
+    }, 3600000);
   }, []);
   console.log(recentMatches);
   if (recentMatches.length !== 0) {
