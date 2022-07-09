@@ -59,8 +59,6 @@ const UpcomingMatch = ({ leagues }) => {
           <div className='teams'>
             <div className='team_wrapper'>
               <div>
-                {recentMatches[0].teams[0].name}
-
                 <Image
                   isTeam
                   className='team_logo'
@@ -68,7 +66,7 @@ const UpcomingMatch = ({ leagues }) => {
                 ></Image>
               </div>
             </div>
-            <div className='versus'>VS</div>
+
             <div className='team_wrapper'>
               <div>
                 <Image
@@ -88,7 +86,7 @@ const UpcomingMatch = ({ leagues }) => {
 
 const UpcomingMatchStyles = styled.section`
   width: 100%;
-  margin-top: 15rem;
+
   background: ${obsHD};
   padding: 0 5rem;
 
@@ -108,7 +106,7 @@ const UpcomingMatchStyles = styled.section`
     position: relative;
 
     .left_labels {
-      width: 500px;
+      width: 30rem;
       display: flex;
       flex-direction: column;
       color: #fff;
@@ -135,9 +133,11 @@ const UpcomingMatchStyles = styled.section`
         display: flex;
 
         font-size: 2.5rem;
-        justify-content: space-between;
+
+        justify-content: space-around;
         align-items: center;
         margin-bottom: 1rem;
+
         .team_name {
           color: #fff;
           font-size: 1.5rem;

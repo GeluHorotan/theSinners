@@ -16,6 +16,7 @@ import Button from './Button';
 import { Menu, Transition } from '@headlessui/react';
 import UpcomingMatch from './UpcomingMatch';
 import Image from './Image';
+import SeriesDetails from './SeriesDetails';
 
 const Watch = ({ leagues }) => {
   const [activeDivision, setActiveDivision] = useState('I');
@@ -53,6 +54,7 @@ const Watch = ({ leagues }) => {
   }, []);
   return (
     <WrapperStyles>
+      <SeriesDetails></SeriesDetails>
       <UpcomingMatch leagues={leagues}></UpcomingMatch>
 
       <TeamComponentStyles>
