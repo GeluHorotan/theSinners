@@ -1,6 +1,6 @@
 import React from 'react';
 import Tippy from '@tippyjs/react/headless';
-
+import { useSpring } from 'framer-motion';
 import styled from 'styled-components';
 
 const Tooltiper = ({
@@ -10,15 +10,44 @@ const Tooltiper = ({
   reference,
   TooltipStyles,
 }) => {
+  const springConfig = { damping: 15, stiffness: 300 };
+  const initialScale = 0.5;
+  const opacity = useSpring(0, springConfig);
+  const scale = useSpring(initialScale, springConfig);
+
+  function onMount() {
+    scale.set(1);
+    opacity.set(1);
+  }
+
+  function onHide({ unmount }) {
+    const cleanup = scale.onChange((value) => {
+      if (value <= initialScale) {
+        cleanup();
+        unmount();
+      }
+    });
+
+    scale.set(initialScale);
+    opacity.set(0);
+  }
+
   return (
     <Tippy
       reference={reference}
       interactive={interactive}
       render={(attrs) => (
-        <TooltipStyles className='box' tabIndex='-1' {...attrs}>
+        <TooltipStyles
+          className='box'
+          tabIndex='-1'
+          style={{ scale, opacity }}
+          {...attrs}
+        >
           <div className='tooltip_container'>{children}</div>
         </TooltipStyles>
       )}
+      onMount={onMount}
+      onHide={onHide}
     ></Tippy>
   );
 };

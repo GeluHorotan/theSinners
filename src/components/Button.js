@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 // Animation
 import { motion } from 'framer-motion';
@@ -6,6 +6,20 @@ import { motion } from 'framer-motion';
 // Global Style
 import { secondary } from '../Utility/Colors';
 import { Link } from 'react-router-dom';
+
+const rippleEffect = (e) => {
+  e.preventDefault();
+  let ripple = document.createElement('span');
+  ripple.classList.add('ripple');
+  let x = e.clientX - e.target.offsetX;
+  let y = e.clientY - e.target.offsetY;
+  ripple.style.left = x + 'px';
+  ripple.style.top = y + 'px';
+  e.target.appendChild(ripple);
+  setTimeout(() => {
+    ripple.remove();
+  }, 500);
+};
 
 const Button = ({
   setClassName,
@@ -18,22 +32,29 @@ const Button = ({
   setLink,
   setIcon,
   setId,
-  onClick,
+  action,
+  bRadius,
+  background,
+  isRipple,
 }) => {
   return (
     <ButtonStyle
+      bRadius={bRadius}
+      background={background}
       className={setClassName}
       variants={setVariants}
       initial={setInitial}
       animate={setAnimate}
       id={setId}
-      onClick={onClick}
+      onClick={(e) => {
+        if (isRipple) {
+          rippleEffect(e);
+        }
+        if (action) {
+          return action();
+        }
+      }}
     >
-      <SpanStyle id='top'></SpanStyle>
-      <SpanStyle id='bottom'></SpanStyle>
-      <SpanStyle id='right'></SpanStyle>
-      <SpanStyle id='left'></SpanStyle>
-
       {isLink === true ? (
         <Link to={setLink}>
           {' '}
@@ -52,18 +73,36 @@ const ButtonStyle = styled(motion.button)`
   font-family: futura-pt, sans-serif;
   font-weight: 700;
   font-style: normal;
-  font-size: 1rem;
+
   padding: 0.6rem 1.25rem;
   cursor: pointer;
-
   position: relative;
   display: inline-block;
   letter-spacing: 4px;
   text-decoration: none;
-  background: none;
+  background: ${(props) => (!props.background ? 'none' : props.background)};
+  border-radius: ${(props) => props.bRadius};
   border: none;
   color: ${secondary};
+  overflow: hidden;
+  transition: filter 250ms ease-in-out;
 
+  &:hover {
+    filter: brightness(1.4);
+  }
+
+  span.ripple {
+    position: absolute;
+    height: 400px;
+    width: 400px;
+    background: #fff;
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    opacity: 0.5;
+    animation: blink 0.5s linear infinite;
+  }
   a {
     text-decoration: none;
     color: ${secondary};
@@ -71,68 +110,18 @@ const ButtonStyle = styled(motion.button)`
     justify-content: center;
     align-items: center;
   }
-`;
 
-const SpanStyle = styled.span`
-  position: absolute;
-  display: block;
-  background: linear-gradient(rgb(246, 81, 102), rgb(105, 35, 54));
-
-  transition: transform ease-in-out 0.2s;
-
-  &#top {
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    transform: scaleX(0);
-    transform-origin: right;
-    transition-delay: 0s;
-  }
-  ${ButtonStyle}:hover &#top {
-    transform: scaleX(1);
-    transform-origin: left;
-  }
-
-  &#bottom {
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition-delay: 0.4s;
-  }
-  ${ButtonStyle}:hover &#bottom {
-    transform: scaleX(1);
-    transform-origin: right;
-  }
-
-  &#right {
-    top: 0;
-    right: 0;
-    width: 2px;
-    height: 100%;
-    transform: scaleY(0);
-    transform-origin: bottom;
-    transition-delay: 0.2s;
-  }
-  ${ButtonStyle}:hover &#right {
-    transform: scaleY(1);
-    transform-origin: top;
-  }
-  &#left {
-    top: 0;
-    left: 0;
-    width: 2px;
-    height: 100%;
-    transform: scaleY(0);
-    transform-origin: top;
-    transition-delay: 0.6s;
-  }
-  ${ButtonStyle}:hover &#left {
-    transform: scaleY(1);
-    transform-origin: bottom;
+  @keyframes blink {
+    0% {
+      width: 0px;
+      height: 0px;
+      opacity: 0.5;
+    }
+    100% {
+      height: 400px;
+      width: 400px;
+      opacity: 0;
+    }
   }
 `;
 

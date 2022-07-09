@@ -4,6 +4,7 @@ import Tabel from './Tabel';
 import styled from 'styled-components';
 import { obsH, obsHD, textObs } from '../Utility/Colors';
 import { ordinal_suffix_of } from '../Functions/ordinal_suffix_of';
+import Image from './Image';
 
 const Standings = ({ children, tournaments }) => {
   const sortedTeams = [
@@ -30,11 +31,13 @@ const Standings = ({ children, tournaments }) => {
                     {ordinal_suffix_of(team.standing)}
                   </td>
                   <td className='table_team_cell'>
-                    <img
-                      src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/teamlogos/${team.team_id}.png`}
+                    <Image
+                      isTeam
+                      className={'team_logo'}
+                      id={team.team_id}
                       alt={team.name}
-                      className='team_logo'
-                    />
+                    ></Image>
+
                     {team.team_name}
                   </td>
                   <td>{team.wins}</td>

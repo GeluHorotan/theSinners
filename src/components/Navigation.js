@@ -43,7 +43,7 @@ const Navigation = () => {
             </Button>
           </li>
           <li>
-            <Button isLink setLink='/news'>
+            <Button isRipple isLink setLink='/news'>
               NEWS
             </Button>
           </li>
@@ -68,7 +68,7 @@ const Navigation = () => {
             </Button>
           </li>
           <li>
-            <Button isLink setLink='/contact'>
+            <Button bRadius={'1rem'} isLink setLink='/contact'>
               CONTACT
             </Button>
           </li>
@@ -106,6 +106,7 @@ const Navigation = () => {
                   isLink
                   setLink='/news'
                   setIcon={<FaIcons.FaNewspaper />}
+                  form={'3rem'}
                 >
                   <h6>News</h6>
                 </Button>
@@ -178,15 +179,7 @@ const NavigationStyle = styled.nav`
   @media screen and (min-width: 768px) {
     display: flex;
   }
-  #top,
-  #right,
-  #left {
-    background: none;
-  }
-  #bottom {
-    height: 3px;
-    background: ${desaturatedRed};
-  }
+
   a {
     color: ${secondary};
     text-decoration: none;

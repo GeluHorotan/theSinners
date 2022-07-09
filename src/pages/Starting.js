@@ -60,7 +60,12 @@ const Starting = () => {
         >
           <h1>"You came too close to the secrets."</h1>
           <div className='btn-ref' ref={skipBtn}>
-            <Button className='skip-button' onClick={skipHandler}>
+            <Button
+              className='skip-button'
+              action={() => {
+                skipHandler();
+              }}
+            >
               <h5>SKIP AHEAD</h5>
             </Button>
           </div>

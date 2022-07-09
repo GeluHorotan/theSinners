@@ -5,12 +5,12 @@ import { displayPlayerRole } from '../Functions/displayPlayerRole';
 
 import { displayTeamRegion } from '../Functions/displayTeamRegion';
 import { formatTimestamp } from '../Functions/formatTimestamp';
-import { playerImage } from '../Functions/playerImage';
-import { teamImage } from '../Functions/teamImage';
+
 import { obsHD, obsidian, textObs } from '../Utility/Colors';
 import Tooltiper from './Tooltiper';
 import HashLoader from 'react-spinners/HashLoader';
-
+import { motion } from 'framer-motion';
+import Image from './Image';
 const Team = ({ teamId, teamName, leagues, className, children }) => {
   const [loading, setLoading] = useState(true);
   const [enemyId, setEnemyId] = useState();
@@ -147,7 +147,12 @@ const Team = ({ teamId, teamName, leagues, className, children }) => {
         </div>
 
         <div className='teamlist_team_logo'>
-          {teamImage(teamId, 'team_logo')}
+          <Image
+            isTeam
+            className='team_logo'
+            id={teamId}
+            alt={teamName}
+          ></Image>
         </div>
         <div className='teamlist_team_info'>
           <div className='team_info'>
@@ -163,15 +168,7 @@ const Team = ({ teamId, teamName, leagues, className, children }) => {
                 return (
                   <div className='teamlist_player_image_container'>
                     <div className='teamlist_player_gradient'>
-                      <img
-                        src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/players/${player}.png`}
-                        alt=''
-                        onError={({ currentTarget }) => {
-                          currentTarget.onerror = null;
-                          currentTarget.src =
-                            'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/player_unknown.png';
-                        }}
-                      />
+                      <Image isPlayer className={'player'} id={player}></Image>
                     </div>
                   </div>
                 );
@@ -241,10 +238,12 @@ const Team = ({ teamId, teamName, leagues, className, children }) => {
                     <>
                       <div className='enemy_top_container'>
                         <div className='enemy_team_logo'>
-                          {teamImage(
-                            enemyTeam && enemyTeam.team_id,
-                            'enemy_logo'
-                          )}
+                          <Image
+                            isTeam
+                            className='enemy_logo'
+                            id={enemyTeam && enemyTeam.team_id}
+                            alt={enemyTeam && enemyTeam.name}
+                          ></Image>
                         </div>
                         <div className='enemy_team_name'>
                           <div>
@@ -264,10 +263,11 @@ const Team = ({ teamId, teamName, leagues, className, children }) => {
                                   <div className='enemy_player_role'>
                                     {displayPlayerRole(player.role)}
                                   </div>
-                                  {playerImage(
-                                    player.account_id,
-                                    'enemy_player'
-                                  )}
+                                  <Image
+                                    isPlayer
+                                    className={'enemy_player'}
+                                    id={player.account_id}
+                                  ></Image>
 
                                   <div className='enemy_player_info'>
                                     <div className='pro_name'>
@@ -288,7 +288,14 @@ const Team = ({ teamId, teamName, leagues, className, children }) => {
                 {recentMatches.length !== 0 &&
                   recentMatches[0].teams.map((team, index) => {
                     if (team.teamId !== teamId) {
-                      return teamImage(team.teamId, 'enemy_logo');
+                      return (
+                        <Image
+                          isTeam
+                          className='enemy_logo'
+                          id={team.teamId}
+                          alt={team.name}
+                        ></Image>
+                      );
                     }
                   })}
                 {recentMatches.length === 0 &&
@@ -296,7 +303,14 @@ const Team = ({ teamId, teamName, leagues, className, children }) => {
                   lastMatches[lastMatches.length - 1].teams.map(
                     (team, index) => {
                       if (team.teamId !== teamId) {
-                        return teamImage(team.teamId, 'enemy_logo');
+                        return (
+                          <Image
+                            isTeam
+                            className='enemy_logo'
+                            id={team.teamId}
+                            alt={team.name}
+                          ></Image>
+                        );
                       }
                     }
                   )}
@@ -543,7 +557,7 @@ const TeamEntryStyles = styled.div`
   }
 `;
 
-const TooltipStyles = styled.div`
+const TooltipStyles = styled(motion.div)`
   background: ${obsidian};
   box-shadow: 0px 0px 4px black;
 
