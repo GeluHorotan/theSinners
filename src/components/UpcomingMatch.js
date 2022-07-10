@@ -25,7 +25,7 @@ const UpcomingMatch = ({ leagues }) => {
       });
     });
   };
-
+  console.log(recentMatches);
   useEffect(() => {
     if (recentMatches.length !== 0) {
       setMatchTime((prevState) =>
@@ -46,18 +46,17 @@ const UpcomingMatch = ({ leagues }) => {
       }, 60 * 1000);
       return () => {};
     }
+
+    setInterval(() => {
+      getMostRecentMatches();
+      recentMatches.sort((a, b) => a.matchTime - b.matchTime);
+    }, 60 * 100000);
   }, []);
 
   useEffect(() => {
     getMostRecentMatches();
     recentMatches.sort((a, b) => a.matchTime - b.matchTime);
-    setInterval(() => {
-      getMostRecentMatches();
-      recentMatches.sort((a, b) => a.matchTime - b.matchTime);
-
-      clearInterval();
-    }, 60 * 60 * 1000);
-  }, []);
+  }, [recentMatches]);
   if (recentMatches.length !== 0) {
     return (
       <UpcomingMatchStyles>

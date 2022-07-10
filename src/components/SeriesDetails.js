@@ -48,37 +48,37 @@ const SeriesDetails = () => {
     getGamesByCategory();
     // getActiveGame();
   }, []);
-  if (activeGame)
-    return (
-      <Wrapper>
-        <div className='bg_container'>
-          <SeriesDetailsStyles>
-            <div className='series_details_header'>
-              <div className='header_team team_left'>
-                {/* <Image isTeam id={activeGame.team_id_1}></Image> */}
-              </div>
-              <div className='header_center_details'></div>
-              <div className='header_team team_right'>
-                {/* <Image isTeam id={activeGame.team_id_2}></Image> */}
-              </div>
+  // if (activeGame)
+  return (
+    <Wrapper>
+      <div className='bg_container'>
+        <SeriesDetailsStyles>
+          <div className='series_details_header'>
+            <div className='header_team team_left'>
+              {/* <Image isTeam id={activeGame.team_id_1}></Image> */}
             </div>
-            <div className='series_details_game_selector'>
-              <div className='game_option selected'></div>
-              <div className='game_option'></div>
+            <div className='header_center_details'></div>
+            <div className='header_team team_right'>
+              {/* <Image isTeam id={activeGame.team_id_2}></Image> */}
             </div>
-            <div className='series_details_details_body'>
-              <div className='game_details_container'>
-                <div className='game_details_body'></div>
-              </div>
+          </div>
+          <div className='series_details_game_selector'>
+            <div className='game_option selected'></div>
+            <div className='game_option'></div>
+          </div>
+          <div className='series_details_details_body'>
+            <div className='game_details_container'>
+              <div className='game_details_body'></div>
             </div>
-            <div className='series_details_footer'></div>
-          </SeriesDetailsStyles>
-        </div>
-        <div className='fade_container'>
-          <div className='fade_overlay_bottom'></div>
-        </div>
-      </Wrapper>
-    );
+          </div>
+          <div className='series_details_footer'></div>
+        </SeriesDetailsStyles>
+      </div>
+      <div className='fade_container'>
+        <div className='fade_overlay_bottom'></div>
+      </div>
+    </Wrapper>
+  );
 };
 
 const Wrapper = styled.section`
