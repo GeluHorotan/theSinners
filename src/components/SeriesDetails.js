@@ -1,33 +1,84 @@
-import React from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 
+import { LeagueContext } from '../pages/Esports';
+import Image from './Image';
+
 const SeriesDetails = () => {
-  return (
-    <Wrapper>
-      <div className='bg_container'>
-        <SeriesDetailsStyles>
-          <div className='series_details_header'>
-            <div className='header_team team_left'></div>
-            <div className='header_center_details'></div>
-            <div className='header_team team_right'></div>
-          </div>
-          <div className='series_details_game_selector'>
-            <div className='game_option selected'></div>
-            <div className='game_option'></div>
-          </div>
-          <div className='series_details_details_body'>
-            <div className='game_details_container'>
-              <div className='game_details_body'></div>
+  const [activeGame, setActiveGame] = useState();
+  const [liveGames, setLiveGames] = useState([]);
+  const [lastGames, setLastGames] = useState([]);
+  const leagues = React.useContext(LeagueContext);
+
+  const getGamesByCategory = () => {
+    leagues &&
+      leagues.forEach((tournament, index) => {
+        tournament.node_groups[0].node_groups[0].nodes.forEach((node) => {
+          if (node.has_started && !node.is_completed) {
+            setLiveGames((prevState) => [...prevState, node]);
+          }
+          //  else if (node.has_started && node.is_completed) {
+          //   setLastGames((prevState) => [...prevState, node]);
+          // }
+        });
+      });
+  };
+
+  // const getActiveGame = () => {
+  //   if (liveGames.length !== 0) {
+  //     setActiveGame(
+  //       liveGames.reduce((previousValue, currentValue, index) => {
+  //         return previousValue.actual_time < currentValue.actual_time
+  //           ? previousValue
+  //           : currentValue;
+  //       })
+  //     );
+  // } else if (liveGames.length === 0 && lastGames.length !== 0) {
+  //   setActiveGame(
+  //     lastGames.reduce((previousValue, currentValue, index) => {
+  //       return previousValue.actual_time < currentValue.actual_time
+  //         ? previousValue
+  //         : currentValue;
+  //     })
+  //   );
+  //   }
+  // };
+
+  useEffect(() => {
+    getGamesByCategory();
+    // getActiveGame();
+  }, []);
+  if (activeGame)
+    return (
+      <Wrapper>
+        <div className='bg_container'>
+          <SeriesDetailsStyles>
+            <div className='series_details_header'>
+              <div className='header_team team_left'>
+                {/* <Image isTeam id={activeGame.team_id_1}></Image> */}
+              </div>
+              <div className='header_center_details'></div>
+              <div className='header_team team_right'>
+                {/* <Image isTeam id={activeGame.team_id_2}></Image> */}
+              </div>
             </div>
-          </div>
-          <div className='series_details_footer'></div>
-        </SeriesDetailsStyles>
-      </div>
-      <div className='fade_container'>
-        <div className='fade_overlay_bottom'></div>
-      </div>
-    </Wrapper>
-  );
+            <div className='series_details_game_selector'>
+              <div className='game_option selected'></div>
+              <div className='game_option'></div>
+            </div>
+            <div className='series_details_details_body'>
+              <div className='game_details_container'>
+                <div className='game_details_body'></div>
+              </div>
+            </div>
+            <div className='series_details_footer'></div>
+          </SeriesDetailsStyles>
+        </div>
+        <div className='fade_container'>
+          <div className='fade_overlay_bottom'></div>
+        </div>
+      </Wrapper>
+    );
 };
 
 const Wrapper = styled.section`
@@ -95,6 +146,10 @@ const SeriesDetailsStyles = styled.div`
     align-items: center;
     justify-content: space-between;
     position: relative;
+    img {
+      width: 5rem;
+      height: 5rem;
+    }
     margin-bottom: 4px;
     .team_right {
       clip-path: polygon(40px 0px, 100% 0px, 100% 110px, 0px 110px);

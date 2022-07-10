@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createContext } from 'react';
 import styled from 'styled-components';
 
 import MatchBox from '../components/MatchBox';
@@ -12,6 +12,8 @@ import Standings from '../components/Standings';
 import Watch from '../components/Watch';
 import { Link } from 'react-router-dom';
 import { grey, obsidian, obsidianShadow, white } from '../Utility/Colors';
+
+export const LeagueContext = React.createContext();
 
 const Esports = () => {
   const [activeDivision, setActiveDivision] = useState('Division I');
@@ -40,7 +42,7 @@ const Esports = () => {
 
   useEffect(() => {
     getDotaLeagues();
-    console.log(leagueInfo, 'after');
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -75,7 +77,9 @@ const Esports = () => {
           {' '}
           <Tab.Panels className='content'>
             <Tab.Panel>
-              <Watch leagues={leagues}></Watch>
+              <LeagueContext.Provider value={leagues}>
+                <Watch leagues={leagues}></Watch>
+              </LeagueContext.Provider>
             </Tab.Panel>
 
             <Tab.Panel>Content 2</Tab.Panel>

@@ -9,6 +9,8 @@ import Image from './Image';
 const UpcomingMatch = ({ leagues }) => {
   const [recentMatches, setRecentMatches] = useState([]);
   const currentTimestamp = Math.floor(Date.now() / 1000);
+  const [matchTime, setMatchTime] = useState('');
+  const [timeFrom, setTimeFrom] = useState('');
 
   const getMostRecentMatches = async () => {
     const res = await fetch(`/.netlify/functions/recentMatches`);
@@ -25,17 +27,37 @@ const UpcomingMatch = ({ leagues }) => {
   };
 
   useEffect(() => {
-    recentMatches && recentMatches.sort((a, b) => a.matchTime - b.matchTime);
-  }, [recentMatches]);
+    if (recentMatches.length !== 0) {
+      setMatchTime((prevState) =>
+        formatTimestamp(recentMatches[0].matchTime, 'classic')
+      );
+      setTimeFrom((prevState) =>
+        formatTimestamp(recentMatches[0].matchTime, 'fromNow')
+      );
+      const timer = setInterval(() => {
+        getMostRecentMatches();
+
+        setMatchTime((prevState) =>
+          formatTimestamp(recentMatches[0].matchTime, 'classic')
+        );
+        setTimeFrom((prevState) =>
+          formatTimestamp(recentMatches[0].matchTime, 'fromNow')
+        );
+      }, 60 * 1000);
+      return () => {};
+    }
+  }, []);
 
   useEffect(() => {
     getMostRecentMatches();
+    recentMatches.sort((a, b) => a.matchTime - b.matchTime);
     setInterval(() => {
-      console.log('DATA FETCHED BY SECOND');
       getMostRecentMatches();
-    }, 3600000);
+      recentMatches.sort((a, b) => a.matchTime - b.matchTime);
+
+      clearInterval();
+    }, 60 * 60 * 1000);
   }, []);
-  console.log(recentMatches);
   if (recentMatches.length !== 0) {
     return (
       <UpcomingMatchStyles>
@@ -50,9 +72,13 @@ const UpcomingMatch = ({ leagues }) => {
             <div className='watch_live'>Watch Live</div>
 
             <div className='timestamp'>
-              {formatTimestamp(recentMatches[0].matchTime, 'classic')}
+              {matchTime.length !== 0
+                ? matchTime
+                : formatTimestamp(recentMatches[0].matchTime, 'classic')}
               <div className='fromNow_timestamp'>
-                {formatTimestamp(recentMatches[0].matchTime, 'fromNow')}
+                {timeFrom.length !== 0
+                  ? timeFrom
+                  : formatTimestamp(recentMatches[0].matchTime, 'fromNow')}
               </div>
             </div>
           </div>
