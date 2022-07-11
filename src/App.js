@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 // Pages
 import Starting from './pages/Starting';
 import Homepage from './pages/Homepage';
@@ -30,6 +31,7 @@ function App() {
       <div className={`${location.pathname === '/' && 'hidden'}`}>
         <Navigation />
       </div>
+
       <Routes location={location} key={location.pathname}>
         <Route path='/' exact element={<Starting />} />
         <Route path='/homepage' exact element={<Homepage />} />

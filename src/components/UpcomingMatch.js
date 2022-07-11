@@ -49,6 +49,7 @@ const UpcomingMatch = ({ leagues }) => {
   if (recentMatches.length !== 0) {
     return (
       <UpcomingMatchStyles>
+        <div data-netlify-identity-menu></div>
         <div className='container'>
           <div className='left_labels'>
             <div className='coming_up_next'>COMING UP NEXT</div>
