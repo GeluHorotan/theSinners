@@ -1,84 +1,245 @@
 import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
+import { formatTimestamp } from '../Functions/formatTimestamp';
 
 import { LeagueContext } from '../pages/Esports';
 import Image from './Image';
 
+import { Tab } from '@headlessui/react';
+import Button from './Button';
+import { useLayoutEffect } from 'react';
+import { displayTeamRegion } from '../Functions/displayTeamRegion';
+
 const SeriesDetails = () => {
-  const [activeGame, setActiveGame] = useState();
+  const [activeGame, setActiveGame] = useState([]);
   const [liveGames, setLiveGames] = useState([]);
   const [lastGames, setLastGames] = useState([]);
+  const [teamInfos, setTeamInfos] = useState();
+  const [currentTimestamp, setCurrentTimestamp] = useState(
+    Math.round(new Date().getTime() / 1000) - 1 * 3600
+  );
+  const [lastDayTimestamp, setLastDayTimestamp] = useState(
+    Math.round(new Date().getTime() / 1000) - 24 * 3600
+  );
   const leagues = React.useContext(LeagueContext);
 
+  const getTeamInfos = () => {
+    leagues.forEach((league, index) => {
+      league.node_groups[0].node_groups[0].team_standings.filter((team) => {
+        if (
+          activeGame.length !== 0 &&
+          team.team_id === activeGame.game.team_id_1
+        ) {
+          setTeamInfos((prevState) => ({
+            ...prevState,
+            primaryTeam: team,
+
+            region: league.info.region,
+            name: league.info.name,
+          }));
+        } else if (
+          activeGame.length !== 0 &&
+          team.team_id === activeGame.game.team_id_2
+        ) {
+          setTeamInfos((prevState) => ({
+            ...prevState,
+            secondaryTeam: team,
+          }));
+        }
+      });
+    });
+  };
+  console.log('object');
   const getGamesByCategory = () => {
     leagues &&
+      currentTimestamp &&
       leagues.forEach((tournament, index) => {
         tournament.node_groups[0].node_groups[0].nodes.forEach((node) => {
-          if (node.has_started && !node.is_completed) {
-            setLiveGames((prevState) => [...prevState, node]);
+          if (
+            node.has_started &&
+            !node.is_completed &&
+            lastDayTimestamp - node.actual_time < 0
+          ) {
+            setLiveGames((prevState) => [
+              ...prevState,
+              {
+                game: node,
+                league: tournament.info.league_id,
+              },
+            ]);
+          } else if (
+            node.has_started &&
+            node.is_completed &&
+            lastDayTimestamp - node.actual_time < 0
+          ) {
+            setLastGames((prevState) => [
+              ...prevState,
+              {
+                game: node,
+                league: tournament.info.league_id,
+              },
+            ]);
           }
-          //  else if (node.has_started && node.is_completed) {
-          //   setLastGames((prevState) => [...prevState, node]);
-          // }
         });
       });
   };
 
-  // const getActiveGame = () => {
-  //   if (liveGames.length !== 0) {
-  //     setActiveGame(
-  //       liveGames.reduce((previousValue, currentValue, index) => {
-  //         return previousValue.actual_time < currentValue.actual_time
-  //           ? previousValue
-  //           : currentValue;
-  //       })
-  //     );
-  // } else if (liveGames.length === 0 && lastGames.length !== 0) {
-  //   setActiveGame(
-  //     lastGames.reduce((previousValue, currentValue, index) => {
-  //       return previousValue.actual_time < currentValue.actual_time
-  //         ? previousValue
-  //         : currentValue;
-  //     })
-  //   );
-  //   }
-  // };
+  const getActiveGame = () => {
+    if (liveGames.length !== 0) {
+      setActiveGame((prevState) =>
+        liveGames.reduce((previousValue, currentValue, index) => {
+          return previousValue.game.actual_time < currentValue.game.actual_time
+            ? { game: previousValue.game, league: previousValue.league }
+            : { game: previousValue.game, league: previousValue.league };
+        })
+      );
+    } else if (liveGames.length === 0 && lastGames.length !== 0) {
+      setActiveGame((prevsState) =>
+        lastGames.reduce((previousValue, currentValue, index) => {
+          return previousValue.game.actual_time < currentValue.game.actual_time
+            ? { game: previousValue.game, league: previousValue.league }
+            : { game: previousValue.game, league: previousValue.league };
+        })
+      );
+    }
+  };
 
   useEffect(() => {
+    if (liveGames.length !== 0 || lastGames.length !== 0) {
+      getActiveGame();
+    }
+    if (activeGame.length !== 0) {
+      getTeamInfos();
+    }
+  }, [liveGames, lastGames]);
+  useLayoutEffect(() => {
     getGamesByCategory();
-    // getActiveGame();
-  }, []);
-  // if (activeGame)
-  return (
-    <Wrapper>
-      <div className='bg_container'>
-        <SeriesDetailsStyles>
-          <div className='series_details_header'>
-            <div className='header_team team_left'>
-              {/* <Image isTeam id={activeGame.team_id_1}></Image> */}
-            </div>
-            <div className='header_center_details'></div>
-            <div className='header_team team_right'>
-              {/* <Image isTeam id={activeGame.team_id_2}></Image> */}
-            </div>
+  }, [leagues]);
+  if (activeGame.length !== 0 && teamInfos && teamInfos.secondaryTeam) {
+    return (
+      <Tab.Group>
+        <Wrapper>
+          <div className='bg_container'>
+            <SeriesDetailsStyles>
+              <div className='series_details_header'>
+                <div className='header_team team_left'>
+                  <div className='header_top_section'>
+                    <div className='header_series_label'>
+                      <div className='header_team_name'>
+                        {' '}
+                        {teamInfos.primaryTeam.team_name}
+                      </div>
+                      <div className='header_record'>
+                        {teamInfos.primaryTeam.wins} -{' '}
+                        {teamInfos.primaryTeam.losses}
+                      </div>
+                    </div>
+                    <div className='header_focusable'>
+                      <Image
+                        isTeam
+                        className={'team_logo'}
+                        id={activeGame.game.team_id_1}
+                      ></Image>
+                    </div>
+                    <div className='header_live_score'>
+                      <div className='pips pip_active'></div>
+                      <div className='pips'></div>
+                      <div className='pips'></div>
+                    </div>
+                  </div>
+                </div>
+                <div className='header_center_details'>
+                  <div className='game_region'>
+                    {' '}
+                    {displayTeamRegion(teamInfos.region)}
+                  </div>
+                  <div className='game_division'>
+                    {' '}
+                    DIVISION&nbsp;
+                    {teamInfos.name
+                      .split(' ')
+                      .filter((name) => name === 'I' || name === 'II')}
+                  </div>
+                  <div className='game_isLive'>
+                    Live
+                    <div className='live_dot'></div>
+                  </div>
+                </div>
+                <div className='header_team team_right'>
+                  <div
+                    className='header_top_section'
+                    style={{
+                      flexDirection: 'row-reverse',
+                      justifyContent: 'flex-end',
+                    }}
+                  >
+                    <div className='header_series_label'>
+                      <div className='header_team_name'>
+                        {teamInfos.secondaryTeam.team_name}
+                      </div>
+                      <div className='header_record'>
+                        {' '}
+                        {teamInfos.secondaryTeam.wins} -{' '}
+                        {teamInfos.secondaryTeam.losses}
+                      </div>
+                    </div>
+                    <div className='header_focusable'>
+                      <Image
+                        isTeam
+                        className={'team_logo'}
+                        id={activeGame.game.team_id_2}
+                      ></Image>
+                    </div>
+                    <div
+                      className='header_live_score'
+                      style={{ transform: 'skewX(-21deg)' }}
+                    >
+                      <div className='pips pip_active'></div>
+                      <div className='pips'></div>
+                      <div className='pips'></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className='series_details_game_selector'>
+                <Tab.List className='game_tab_list'>
+                  {activeGame.game.matches.map((match, index) => {
+                    return (
+                      <Tab className='game_option' key={index}>
+                        GAME {index + 1}
+                      </Tab>
+                    );
+                  })}
+                </Tab.List>
+              </div>
+              <div className='series_details_details_body'>
+                <div className='game_details_container'>
+                  <div className='game_details_body'>
+                    <Tab.Panels>
+                      {activeGame.game.matches.map((match, index) => {
+                        return (
+                          <Tab.Panel key={index}>{match.match_id}</Tab.Panel>
+                        );
+                      })}
+                      <Tab.Panel>STREAM</Tab.Panel>
+                    </Tab.Panels>
+                  </div>
+                </div>
+              </div>
+              <div className='series_details_footer'>
+                <Tab.List>
+                  <Tab>STREAM</Tab>
+                </Tab.List>
+              </div>
+            </SeriesDetailsStyles>
           </div>
-          <div className='series_details_game_selector'>
-            <div className='game_option selected'></div>
-            <div className='game_option'></div>
+          <div className='fade_container'>
+            <div className='fade_overlay_bottom'></div>
           </div>
-          <div className='series_details_details_body'>
-            <div className='game_details_container'>
-              <div className='game_details_body'></div>
-            </div>
-          </div>
-          <div className='series_details_footer'></div>
-        </SeriesDetailsStyles>
-      </div>
-      <div className='fade_container'>
-        <div className='fade_overlay_bottom'></div>
-      </div>
-    </Wrapper>
-  );
+        </Wrapper>
+      </Tab.Group>
+    );
+  }
 };
 
 const Wrapper = styled.section`
@@ -169,6 +330,43 @@ const SeriesDetailsStyles = styled.div`
       right: 0;
       margin: 0 auto;
       clip-path: polygon(0px 0px, 300px 0px, 260px 110px, 40px 110px);
+      .game_region {
+        color: #fff;
+        max-width: 230px;
+        font-size: 16px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 3px;
+      }
+      .game_division {
+        color: #a3a3a3;
+        max-width: 230px;
+        font-size: 14px;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+      }
+      .game_isLive {
+        background-color: #00ab30;
+        color: #fff;
+        padding: 4px 8px;
+        font-size: 10px;
+        border-radius: 2px;
+        align-items: center;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        display: flex;
+        flex-direction: row;
+        .live_dot {
+          width: 8px;
+          height: 8px;
+          margin-left: 6px;
+          border-radius: 4px;
+          background-color: #fff;
+        }
+      }
     }
     .team_left {
       clip-path: polygon(0px 0px, calc(100% - 40px) 0px, 100% 110px, 0px 110px);
@@ -184,6 +382,61 @@ const SeriesDetailsStyles = styled.div`
       transition-property: width;
       transition-timing-function: ease-in-out;
       transition-duration: 0.2s;
+      .header_top_section {
+        padding: 0 2rem;
+        width: 100%;
+        height: 100%;
+        display: flex;
+
+        align-items: center;
+        justify-content: flex-start;
+        gap: 12px;
+        .header_series_label {
+          min-height: 0px;
+          display: flex;
+          flex-direction: column;
+          text-align: left;
+          .header_team_name {
+            width: 100%;
+            color: #fff;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+          }
+          .header_record {
+            width: 100%;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+          }
+        }
+        .header_focusable {
+          .team_logo {
+            width: 64px;
+            height: 64px;
+          }
+        }
+        .header_live_score {
+          height: 30px;
+          display: flex;
+          flex-direction: row;
+          margin: 0px 10px;
+          transform: skewX(21deg);
+          margin-left: 0px;
+          .pips {
+            width: 10px;
+            height: 100%;
+            margin-right: 10px;
+
+            background-color: #2f2f30;
+          }
+          .pip_active {
+            background-color: #fff;
+            box-shadow: 0px 0px 10px #06f;
+          }
+        }
+      }
     }
   }
   .series_details_game_selector {
@@ -193,24 +446,34 @@ const SeriesDetailsStyles = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
+    .game_tab_list {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      border: none;
+    }
     .selected {
       background: linear-gradient(145deg, #161618 0%, #222739 0%, #2a314a 100%);
     }
     .game_option {
       flex-grow: 1;
-    flex-basis: 0;
-    height: 30px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    background-color: #0b0b0c;
-    transition-property: background-color,color;
-    transition-timing-function: ease-in-out;
-    transition-duration: .1s;
-}
+      font-weight: 600;
+      cursor: pointer;
+      flex-basis: 0;
+      height: 30px;
+      display: flex;
+      flex-direction: row;
+      color: #fff;
+      justify-content: center;
+      align-items: center;
+      background-color: #0b0b0c;
+      transition-property: background-color, color;
+      transition-timing-function: ease-in-out;
+      transition-duration: 0.1s;
+      border: none;
     }
   }
+
   .series_details_details_body {
     width: 100%;
     height: 540px;
@@ -223,30 +486,29 @@ const SeriesDetailsStyles = styled.div`
     transition-property: height;
     transition-timing-function: ease-in-out;
     transition-duration: 0.2s;
-    
+
     .game_details_container {
       background-image: url(https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/backgrounds/gameblur01.jpg);
       width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-blend-mode: multiply;
-    background-color: rgba(0,0,0,.5);
-    padding: 30px;
-    .game_details_body {
-      width: 100%;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    position: relative;
-    background: cyan;
-    }
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-blend-mode: multiply;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 30px;
+      .game_details_body {
+        width: 100%;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        position: relative;
+      }
     }
   }
   .series_details_footer {

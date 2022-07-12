@@ -68,7 +68,7 @@ const Navigation = () => {
             </Button>
           </li>
           <li>
-            <Button bRadius={'1rem'} isLink setLink='/contact'>
+            <Button bradius={'1rem'} isLink setLink='/contact'>
               CONTACT
             </Button>
           </li>

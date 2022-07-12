@@ -168,7 +168,7 @@ const Watch = ({ leagues }) => {
       <Button
         setClassName='load_more_button'
         background={obsH}
-        bRadius={'0.5rem'}
+        bradius={'0.5rem'}
         isRipple
         action={() => {
           setTeamsCounter((prevState) => prevState + 5);

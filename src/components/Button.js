@@ -33,13 +33,13 @@ const Button = ({
   setIcon,
   setId,
   action,
-  bRadius,
+  bradius,
   background,
   isRipple,
 }) => {
   return (
     <ButtonStyle
-      bRadius={bRadius}
+      bradius={bradius}
       background={background}
       className={setClassName}
       variants={setVariants}
@@ -81,7 +81,7 @@ const ButtonStyle = styled(motion.button)`
   letter-spacing: 4px;
   text-decoration: none;
   background: ${(props) => (!props.background ? 'none' : props.background)};
-  border-radius: ${(props) => props.bRadius};
+  border-radius: ${(props) => props.bradius};
   border: none;
   color: ${secondary};
   overflow: hidden;
