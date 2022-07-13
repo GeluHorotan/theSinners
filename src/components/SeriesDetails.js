@@ -114,7 +114,7 @@ const SeriesDetails = () => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [liveGames, lastGames]);
+  }, [activeGame]);
   useLayoutEffect(() => {
     getGamesByCategory();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -152,12 +152,12 @@ const SeriesDetails = () => {
                       className='header_live_score'
                       style={{ flexDirection: 'row-reverse' }}
                     >
-                      {/* {getPips(
+                      {getPips(
                         activeGame.game.team_id_1 ===
                           teamInfos.primaryTeam.team_id
                           ? activeGame.game.team_1_wins
                           : ''
-                      )} */}
+                      )}
                     </div>
                   </div>
                 </div>
@@ -212,12 +212,12 @@ const SeriesDetails = () => {
                       className='header_live_score'
                       style={{ transform: 'skewX(-21deg)' }}
                     >
-                      {/* {getPips(
+                      {getPips(
                         activeGame.game.team_id_2 ===
                           teamInfos.primaryTeam.team_id
                           ? activeGame.game.team_2_wins
                           : ''
-                      )} */}
+                      )}
                     </div>
                   </div>
                 </div>
