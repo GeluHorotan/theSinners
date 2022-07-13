@@ -5,7 +5,7 @@ export const getPips = (win) => {
   return numbers.map((number, index) => {
     return (
       <div
-        key={{ index }}
+        key={index + number}
         className={`pips ${win > index ? 'pip_active' : ''}`}
       ></div>
     );
