@@ -117,7 +117,7 @@ const SeriesDetails = () => {
     getGamesByCategory();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [leagues]);
-  if (activeGame.length !== 0 && teamInfos && teamInfos.secondaryTeam) {
+  if (activeGame.length !== 0 && teamInfos && teamInfos.secondaryTeam)
     return (
       <Tab.Group>
         <Wrapper>
@@ -241,7 +241,6 @@ const SeriesDetails = () => {
         </Wrapper>
       </Tab.Group>
     );
-  }
 };
 
 const Wrapper = styled.section`
