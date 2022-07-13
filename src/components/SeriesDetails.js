@@ -113,7 +113,7 @@ const SeriesDetails = () => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [liveGames, activeGame]);
+  }, [liveGames, activeGame, lastGames]);
   useLayoutEffect(() => {
     getGamesByCategory();
     // eslint-disable-next-line react-hooks/exhaustive-deps
