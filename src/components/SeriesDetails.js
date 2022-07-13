@@ -111,8 +111,9 @@ const SeriesDetails = () => {
     if (activeGame.length !== 0) {
       getTeamInfos();
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [liveGames, lastGames]);
+  }, [liveGames, activeGame]);
   useLayoutEffect(() => {
     getGamesByCategory();
     // eslint-disable-next-line react-hooks/exhaustive-deps
