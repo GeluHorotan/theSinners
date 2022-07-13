@@ -9,6 +9,7 @@ import { Tab } from '@headlessui/react';
 import Button from './Button';
 import { useLayoutEffect } from 'react';
 import { displayTeamRegion } from '../Functions/displayTeamRegion';
+import { getPips } from '../Functions/getPips';
 
 const SeriesDetails = () => {
   const [activeGame, setActiveGame] = useState([]);
@@ -113,11 +114,13 @@ const SeriesDetails = () => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [liveGames, activeGame, lastGames]);
+  }, [liveGames, lastGames]);
   useLayoutEffect(() => {
     getGamesByCategory();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [leagues]);
+  console.log(activeGame);
+
   if (activeGame.length !== 0 && teamInfos && teamInfos.secondaryTeam)
     return (
       <Tab.Group>
@@ -144,10 +147,12 @@ const SeriesDetails = () => {
                         id={activeGame.game.team_id_1}
                       ></Image>
                     </div>
-                    <div className='header_live_score'>
-                      <div className='pips pip_active'></div>
-                      <div className='pips'></div>
-                      <div className='pips'></div>
+
+                    <div
+                      className='header_live_score'
+                      style={{ flexDirection: 'row-reverse' }}
+                    >
+                      {getPips(activeGame.game.team_1_wins)}
                     </div>
                   </div>
                 </div>
@@ -163,10 +168,14 @@ const SeriesDetails = () => {
                       .split(' ')
                       .filter((name) => name === 'I' || name === 'II')}
                   </div>
-                  <div className='game_isLive'>
-                    Live
-                    <div className='live_dot'></div>
-                  </div>
+                  {liveGames.length !== 0 ? (
+                    <div className='game_isLive'>
+                      Live
+                      <div className='live_dot'></div>
+                    </div>
+                  ) : (
+                    formatTimestamp(activeGame.game.actual_time, 'classic')
+                  )}
                 </div>
                 <div className='header_team team_right'>
                   <div
@@ -193,13 +202,12 @@ const SeriesDetails = () => {
                         id={activeGame.game.team_id_2}
                       ></Image>
                     </div>
+
                     <div
                       className='header_live_score'
                       style={{ transform: 'skewX(-21deg)' }}
                     >
-                      <div className='pips pip_active'></div>
-                      <div className='pips'></div>
-                      <div className='pips'></div>
+                      {getPips(activeGame.game.team_2_wins)}
                     </div>
                   </div>
                 </div>
@@ -310,8 +318,8 @@ const SeriesDetailsStyles = styled.div`
     justify-content: space-between;
     position: relative;
     img {
-      width: 5rem;
-      height: 5rem;
+      width: 1rem;
+      height: 1rem;
     }
     margin-bottom: 4px;
     .team_right {
@@ -391,7 +399,7 @@ const SeriesDetailsStyles = styled.div`
         display: flex;
 
         align-items: center;
-        justify-content: flex-start;
+        justify-content: flex-end;
         gap: 12px;
         .header_series_label {
           min-height: 0px;
@@ -415,8 +423,8 @@ const SeriesDetailsStyles = styled.div`
         }
         .header_focusable {
           .team_logo {
-            width: 64px;
-            height: 64px;
+            width: 3rem;
+            height: 3rem;
           }
         }
         .header_live_score {
@@ -430,7 +438,6 @@ const SeriesDetailsStyles = styled.div`
             width: 10px;
             height: 100%;
             margin-right: 10px;
-
             background-color: #2f2f30;
           }
           .pip_active {
