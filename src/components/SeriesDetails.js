@@ -49,7 +49,7 @@ const SeriesDetails = () => {
       });
     });
   };
-  console.log('object');
+
   const getGamesByCategory = () => {
     leagues &&
       currentTimestamp &&
@@ -111,9 +111,11 @@ const SeriesDetails = () => {
     if (activeGame.length !== 0) {
       getTeamInfos();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [liveGames, lastGames]);
   useLayoutEffect(() => {
     getGamesByCategory();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [leagues]);
   if (activeGame.length !== 0 && teamInfos && teamInfos.secondaryTeam) {
     return (
