@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { getName } from '../Functions/getName';
+import { ItemsContext } from '../pages/Esports';
 
-const Image = ({ className, id, isTeam, isPlayer, alt }) => {
+const Image = ({ className, id, isTeam, isPlayer, isItem, alt, elementId }) => {
   const [imgError, setImgError] = useState(false);
+
+  const dotaItems = React.useContext(ItemsContext);
 
   const teamObject = {
     src: `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/teams_override/${id}.png`,
@@ -15,10 +19,26 @@ const Image = ({ className, id, isTeam, isPlayer, alt }) => {
       'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/player_unknown.png',
   };
 
-  if (!imgError && teamObject && playerObject)
+  const itemObject = {
+    src: `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/items/${
+      isItem && id ? getName(dotaItems, id, 'item') : ''
+    }.png`,
+    default:
+      'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/teams_override/8360138.png',
+  };
+
+  if (!imgError && teamObject && playerObject && itemObject)
     return (
       <img
-        src={isTeam ? teamObject.src : isPlayer ? playerObject.src : ''}
+        src={
+          isTeam
+            ? teamObject.src
+            : isPlayer
+            ? playerObject.src
+            : isItem
+            ? itemObject.src
+            : ''
+        }
         className={className}
         alt={alt}
         onError={() => {
@@ -29,7 +49,15 @@ const Image = ({ className, id, isTeam, isPlayer, alt }) => {
   if (imgError && teamObject && playerObject)
     return (
       <img
-        src={isTeam ? teamObject.error : isPlayer ? playerObject.default : ''}
+        src={
+          isTeam
+            ? teamObject.error
+            : isPlayer
+            ? playerObject.default
+            : isItem
+            ? itemObject.default
+            : ''
+        }
         className={className}
         alt={alt}
         onError={(e) => {

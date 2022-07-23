@@ -11,12 +11,18 @@ import { useLayoutEffect } from 'react';
 import { displayTeamRegion } from '../Functions/displayTeamRegion';
 import { getPips } from '../Functions/getPips';
 import { displayPlayerRole } from '../Functions/displayPlayerRole';
+import MatchResult from './MatchResult';
+import TeamLineup from './TeamLineup';
+import { grey } from '../Utility/Colors';
 
 const SeriesDetails = () => {
   const [activeGame, setActiveGame] = useState([]);
+  const [seriesMatches, setSeriesMatches] = useState([]);
+  const [isLineup, setIsLineup] = useState(false);
   const [liveGames, setLiveGames] = useState([]);
   const [lastGames, setLastGames] = useState([]);
   const [teamInfos, setTeamInfos] = useState();
+  const [gameLineup, setGameLineup] = useState();
   const [currentTimestamp, setCurrentTimestamp] = useState(
     Math.round(new Date().getTime() / 1000) - 1 * 3600
   );
@@ -60,11 +66,7 @@ const SeriesDetails = () => {
       currentTimestamp &&
       leagues.forEach((tournament, index) => {
         tournament.node_groups[0].node_groups[0].nodes.forEach((node) => {
-          if (
-            node.has_started &&
-            !node.is_completed &&
-            lastDayTimestamp - node.actual_time < 0
-          ) {
+          if (node.has_started && !node.is_completed) {
             setLiveGames((prevState) => [
               ...prevState,
               {
@@ -72,11 +74,7 @@ const SeriesDetails = () => {
                 league: tournament.info.league_id,
               },
             ]);
-          } else if (
-            node.has_started &&
-            node.is_completed &&
-            lastDayTimestamp - node.actual_time < 0
-          ) {
+          } else if (node.has_started && node.is_completed) {
             setLastGames((prevState) => [
               ...prevState,
               {
@@ -97,16 +95,16 @@ const SeriesDetails = () => {
             return previousValue.game.actual_time <
               currentValue.game.actual_time
               ? { game: previousValue.game, league: previousValue.league }
-              : { game: currentValue.game, league: previousValue.league };
+              : { game: currentValue.game, league: currentValue.league };
           })
         );
       } else if (liveGames.length === 0 && lastGames.length !== 0) {
         setActiveGame((prevsState) =>
           lastGames.reduce((previousValue, currentValue, index) => {
-            return previousValue.game.actual_time >
+            return previousValue.game.actual_time <
               currentValue.game.actual_time
               ? { game: previousValue.game, league: previousValue.league }
-              : { game: currentValue.game, league: previousValue.league };
+              : { game: currentValue.game, league: currentValue.league };
           })
         );
       }
@@ -137,31 +135,70 @@ const SeriesDetails = () => {
     }
   };
 
+  const getSeriesMatches = async () => {
+    let i = 0;
+    if (activeGame.game.matches.length !== 0) {
+      for (i; i < activeGame.game.matches.length; i++) {
+        const res = await fetch(
+          `/.netlify/functions/singleMatch/?league_id=${activeGame.league}&match_id=${activeGame.game.matches[i].match_id}`
+        );
+        const json = await res.json();
+
+        setSeriesMatches((prevState) => [...prevState, json]);
+      }
+    }
+  };
+
+  useEffect(() => {
+    getSeriesMatches();
+  }, []);
+
   useEffect(() => {
     getTeamInfos();
     getTeamMembers();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeGame]);
-  console.log(activeGame);
+
   useEffect(() => {
     getActiveGame();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [liveGames, lastGames]);
   useLayoutEffect(() => {
     getGamesByCategory();
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [leagues]);
 
   if (activeGame.length !== 0 && teamInfos && teamInfos.secondaryTeam)
     return (
-      <Tab.Group>
+      <Tab.Group defaultIndex={6}>
         <Wrapper>
           <div className='bg_container'>
             <SeriesDetailsStyles>
               <div className='series_details_header'>
                 <div className='header_team team_left'>
-                  <div className='header_top_section'>
-                    <div className='header_series_label'>
+                  <div
+                    className='header_top_section'
+                    style={{
+                      textShadow: `${
+                        activeGame.game.team_1_wins >
+                        activeGame.game.team_2_wins
+                          ? '0px 0px 10px #06f'
+                          : ''
+                      }`,
+                    }}
+                  >
+                    <div
+                      className='header_series_label'
+                      style={{
+                        filter: `${
+                          activeGame.game.team_1_wins >
+                          activeGame.game.team_2_wins
+                            ? 'drop-shadow(0px 0px 30px blue) drop-shadow(0px 0px 30px rgba(0, 0, 255, 0.5))'
+                            : ''
+                        }`,
+                      }}
+                    >
                       <div className='header_team_name'>
                         {' '}
                         {teamInfos.primaryTeam.team_name}
@@ -182,7 +219,15 @@ const SeriesDetails = () => {
                     <div className='header_live_score'>
                       <div
                         className='pip_container'
-                        style={{ flexDirection: 'row-reverse' }}
+                        style={{
+                          flexDirection: 'row-reverse',
+                          filter: `${
+                            activeGame.game.team_1_wins >
+                            activeGame.game.team_2_wins
+                              ? 'drop-shadow(0px 0px 30px blue) drop-shadow(0px 0px 30px rgba(0, 0, 255, 0.5))'
+                              : ''
+                          }`,
+                        }}
                       >
                         {getPips(
                           activeGame.game.team_id_1 ===
@@ -221,9 +266,26 @@ const SeriesDetails = () => {
                     style={{
                       flexDirection: 'row-reverse',
                       justifyContent: 'flex-end',
+
+                      textShadow: `${
+                        activeGame.game.team_2_wins >
+                        activeGame.game.team_1_wins
+                          ? '0px 0px 10px #06f'
+                          : ''
+                      }`,
                     }}
                   >
-                    <div className='header_series_label'>
+                    <div
+                      className='header_series_label'
+                      style={{
+                        filter: `${
+                          activeGame.game.team_2_wins >
+                          activeGame.game.team_1_wins
+                            ? 'drop-shadow(0px 0px 30px blue) drop-shadow(0px 0px 30px rgba(0, 0, 255, 0.5))'
+                            : ''
+                        }`,
+                      }}
+                    >
                       <div className='header_team_name'>
                         {teamInfos.secondaryTeam.team_name}
                       </div>
@@ -245,7 +307,17 @@ const SeriesDetails = () => {
                       className='header_live_score'
                       style={{ transform: 'skewX(-21deg)' }}
                     >
-                      <div className='pip_container'>
+                      <div
+                        className='pip_container'
+                        style={{
+                          filter: `${
+                            activeGame.game.team_2_wins >
+                            activeGame.game.team_1_wins
+                              ? 'drop-shadow(0px 0px 30px blue) drop-shadow(0px 0px 30px rgba(0, 0, 255, 0.5))'
+                              : ''
+                          }`,
+                        }}
+                      >
                         {getPips(
                           activeGame.game.team_id_2 ===
                             teamInfos.secondaryTeam.team_id
@@ -261,109 +333,114 @@ const SeriesDetails = () => {
                 <Tab.List className='game_tab_list'>
                   {activeGame.game.matches.map((match, index) => {
                     return (
-                      <Tab className='game_option' key={index}>
-                        GAME {index + 1}
+                      <Tab
+                        className='game_option'
+                        key={index}
+                        onClick={() => {
+                          setGameLineup((prevState) => index);
+                        }}
+                      >
+                        {({ selected }) => (
+                          <div
+                            className={selected ? 'active_tab game_option' : ''}
+                          >
+                            GAME {index + 1}
+                          </div>
+                        )}
                       </Tab>
                     );
                   })}
                 </Tab.List>
               </div>
+
               <div className='series_details_details_body'>
                 <div className='game_details_container players_showcase'>
-                  <Tab.Panels style={{ width: '100%' }}>
-                    {activeGame.game.matches.map((match, index) => {
-                      return (
-                        <Tab.Panel
-                          key={index}
-                          style={{
-                            flexDirection: 'row',
-                            display: 'flex',
-                            width: '100%',
-                            gap: '0.5rem',
-                          }}
-                        >
-                          <div className='series_match_section_team left'>
-                            <div className='team_heading'>RADIANT</div>
-                            <div className='players_list'>
-                              {teamInfos.primaryTeam.infos &&
-                                teamInfos.primaryTeam.infos.members.map(
-                                  (member, index) => {
-                                    if (member.role !== 0)
-                                      return (
-                                        <div className='player_details'>
-                                          <div className='role'></div>
-                                          <Image
-                                            isPlayer
-                                            className='player_icon'
-                                            id={member.account_id}
-                                          ></Image>
-                                          <div className='player_info'>
-                                            <div className='player_name'>
-                                              {member.pro_name}
-                                            </div>
-                                            <div className='player_role'>
-                                              {displayPlayerRole(member.role)}
-                                            </div>
-                                          </div>
-                                        </div>
-                                      );
-                                  }
-                                )}
-                            </div>
-                          </div>
-                          <div className='series_match_section_team right'>
-                            <div
-                              className='team_heading'
-                              style={{ justifyContent: 'flex-start' }}
-                            >
-                              DIRE
-                            </div>
-                            <div className='players_list'>
-                              {teamInfos.secondaryTeam.infos &&
-                                teamInfos.secondaryTeam.infos.members.map(
-                                  (member, index) => {
-                                    if (member.role !== 0)
-                                      return (
-                                        <div
-                                          className='player_details'
-                                          style={{
-                                            justifyContent: 'flex-end',
-                                          }}
-                                        >
-                                          <div
-                                            className='player_info'
-                                            style={{ textAlign: 'right' }}
-                                          >
-                                            <div className='player_name'>
-                                              {member.pro_name}
-                                            </div>
-                                            <div className='player_role'>
-                                              {displayPlayerRole(member.role)}
-                                            </div>
-                                          </div>
-                                          <Image
-                                            isPlayer
-                                            className='player_icon'
-                                            id={member.account_id}
-                                          ></Image>
-                                        </div>
-                                      );
-                                  }
-                                )}
-                            </div>
-                          </div>
-                        </Tab.Panel>
-                      );
-                    })}
+                  <Tab.Panels>
+                    {lastGames.length !== 0 &&
+                    activeGame.game.matches.length !== 0
+                      ? activeGame.game.matches.map((match, index) => {
+                          return (
+                            <Tab.Panel>
+                              {!isLineup && liveGames.length === 0 && (
+                                <MatchResult
+                                  isResult
+                                  match={match}
+                                  gameNumber={index + 1}
+                                  winnerId={match.winning_team_id}
+                                  teamInfos={teamInfos}
+                                ></MatchResult>
+                              )}
+
+                              {isLineup && teamInfos && (
+                                <TeamLineup
+                                  lineup={seriesMatches[index]}
+                                  teamInfos={teamInfos}
+                                  activeGame={activeGame}
+                                  matchIndex={index}
+                                >
+                                  {index + 1}
+                                </TeamLineup>
+                              )}
+                            </Tab.Panel>
+                          );
+                        })
+                      : ''}
+                    {liveGames.length !== 0 ? <>isLive</> : ''}
+
+                    {liveGames.length !== 0 && <Tab.Panel>ROSTER</Tab.Panel>}
+
+                    <Tab.Panel>
+                      {lastGames.length !== 0 && (
+                        <MatchResult
+                          isFinalOutcome
+                          winnerId={
+                            activeGame.game.team_1_wins >
+                            activeGame.game.team_2_wins
+                              ? activeGame.game.team_id_1
+                              : activeGame.game.team_2_wins >
+                                activeGame.game.team_1_wins
+                              ? activeGame.game.team_id_2
+                              : null
+                          }
+                          score={[
+                            activeGame.game.team_1_wins,
+                            activeGame.game.team_2_wins,
+                          ]}
+                          teamInfos={teamInfos}
+                        ></MatchResult>
+                      )}
+                      {liveGames.length !== 0 && <>IS LIVE</>}
+                    </Tab.Panel>
                   </Tab.Panels>
-                  <Tab.Panel></Tab.Panel>
                 </div>
               </div>
-              <div className='series_details_footer'>
-                <Tab.List>
-                  <Tab>STREAM</Tab>
-                </Tab.List>
-              </div>
+              <Tab.List className='footer_panels'>
+                <div className='series_details_footer'>
+                  <div className='footer_left_tabs'>
+                    <div
+                      className={`view_tab ${
+                        isLineup ? 'view_tab_active' : ''
+                      }`}
+                      onClick={() => {
+                        setIsLineup((prevState) => !isLineup);
+                      }}
+                    >
+                      LINEUP
+                    </div>
+
+                    <Tab>
+                      <div
+                        className='view_tab'
+                        onClick={() => {
+                          setIsLineup((prevState) => false);
+                        }}
+                      >
+                        RESULT
+                      </div>
+                    </Tab>
+                  </div>
+                </div>
+              </Tab.List>
             </SeriesDetailsStyles>
           </div>
           <div className='fade_container'>
@@ -376,18 +453,21 @@ const SeriesDetails = () => {
 
 const Wrapper = styled.section`
   width: 100%;
-  min-height: 900px;
+  height: 100%;
+  min-height: 0;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
-  margin-top: 15rem;
+  z-index: 2;
+
   .bg_container {
     background-image: url(https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/backgrounds/bg_grout_texture.jpg);
-
+  padding: 5rem 0;
     width: 100%;
-    background-size: 100% auto;
+    background-size: 100% 100%;
     background-position: top, center;
     background-repeat: no-repeat;
     display: flex;
@@ -395,13 +475,12 @@ const Wrapper = styled.section`
     align-items: center;
     justify-content: center;
     position: relative;
-    height: 900px;
-    min-height: 900px;
+
     transition-property: height;
     transition-timing-function: ease-in-out;
     transition-duration: 0.2s;
   }
-  .fade_container {
+   .fade_container {
     left: 0px;
     bottom: 0px;
 
@@ -419,18 +498,32 @@ const Wrapper = styled.section`
       position: absolute;
       width: 100%;
       height: 100%;
-    }
-  }
+    } 
+  
 `;
 
 const SeriesDetailsStyles = styled.div`
   width: 100%;
   max-width: 960px;
+  height: 100%;
   z-index: 100;
 
   transition-property: max-width;
   transition-timing-function: ease-in-out;
   transition-duration: 0.2s;
+  button {
+    background: none;
+    border: none;
+    outline: none;
+    color: ${grey};
+  }
+  button:focus {
+    outline: none;
+  }
+  .active_tab {
+    color: #fff;
+    background: linear-gradient(145deg, #161618 0%, #222739 0%, #2a314a 100%);
+  }
   .series_details_header {
     width: 100%;
     height: 110px;
@@ -592,9 +685,7 @@ const SeriesDetailsStyles = styled.div`
       flex-direction: row;
       border: none;
     }
-    .selected {
-      background: linear-gradient(145deg, #161618 0%, #222739 0%, #2a314a 100%);
-    }
+
     .game_option {
       flex-grow: 1;
       font-weight: 600;
@@ -603,14 +694,14 @@ const SeriesDetailsStyles = styled.div`
       height: 30px;
       display: flex;
       flex-direction: row;
-      color: #fff;
       justify-content: center;
       align-items: center;
       background-color: #0b0b0c;
-      transition-property: background-color, color;
-      transition-timing-function: ease-in-out;
-      transition-duration: 0.1s;
+      transition: 150ms background-color ease-in-out;
       border: none;
+      &:hover {
+        background-color: #131315;
+      }
     }
   }
 
@@ -626,111 +717,73 @@ const SeriesDetailsStyles = styled.div`
     transition-property: height;
     transition-timing-function: ease-in-out;
     transition-duration: 0.2s;
+
     .players_showcase {
       background-size: cover;
       background-repeat: no-repeat;
       background-blend-mode: multiply;
       background-color: rgba(0, 0, 0, 0.5);
-      padding: 30px;
+      padding: 1rem;
     }
 
-    .players_body {
-      width: 100%;
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      position: relative;
-    }
-
-   
     .game_details_container {
       background-image: url(https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/backgrounds/gameblur01.jpg);
       width: 100%;
-    
+
       height: 100%;
       display: flex;
       flex-direction: row;
       justify-content: space-between;
       position: absolute;
-
-      
-
-      .series_match_section_team {
-      width: calc(50% - 4px);
-      height: 100%;
-      min-height: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      .team_heading {
-        width: 100%;
-        height: 50px;
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        gap: 18px;
-        padding: 8px 20px;
-        background-color: #2a2a30;
-        color: #a3a3a3;
-      }
-      .players_list {
-        width: 100%;
-        flex-grow: 1;
-        min-height: 0;
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-        align-items: center;
-        .player_details {
-          width: 100%;
-          flex-grow: 1;
-          flex-basis: 1;
-          display: flex;
-          
-          align-items: center;
-          color: #a3a3a3;
-          background-color: #1f2025;
-          cursor: pointer;
-          position: relative;
-          transition-property: color, background-color;
-          transition-timing-function: ease-in-out;
-          transition-duration: 0.1s;
-          border-top: 1px solid transparent;
-          border-bottom: 1px solid transparent;
-          .player_info{
-            display: flex;
-        
-            
-            flex-direction: column;
-            
-            .player_name {
-              color: #fff;
-            }
-          }
-          .player_icon {
-            width: 64px;
-            height: 64px;
-            margin: 0.5rem;
-            border: 1px solid #000;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-          }
-        }
-      }
     }
-
   }
+
   .series_details_footer {
     width: 100%;
     height: 55px;
-    background-color: #0b0b0c;
+    background: #0b0b0c;
     display: flex;
+    margin-top: 0.35rem;
     flex-direction: row;
     align-items: center;
-    justify-content: space-between;
-    margin-top: 4px;
+    justify-content: flex-start;
+
+    .footer_left_tabs {
+      width: 110px;
+      height: 100%;
+      display: flex;
+      flex-direction: row;
+      button {
+        cursor: pointer;
+        background: none;
+        border: none;
+        color: white;
+      }
+      .view_tab {
+        flex-grow: 1;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        border-right: 1px solid #1b1b1f;
+        transition: all 150ms ease-in-out;
+        padding: 1.5rem;
+        background: #0b0b0c;
+        cursor: pointer;
+        &:hover {
+          background-color: #131315;
+        }
+      }
+      .view_tab_active {
+        background: linear-gradient(
+          145deg,
+          #161618 0%,
+          #222739 0%,
+          #2a314a 100%
+        );
+      }
+    }
   }
 `;
 

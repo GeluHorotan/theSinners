@@ -201,7 +201,7 @@ const TeamComponentStyles = styled.section`
   overflow: visible;
   flex-direction: column;
   align-items: center;
-  margin-top: 10rem;
+
   .dropdown_menu {
     width: 75%;
     display: flex;

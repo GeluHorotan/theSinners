@@ -9,9 +9,9 @@ var buttons = document.createElement('div');
 
 netlifyIdentity.init();
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>
+  // </React.StrictMode>
 );

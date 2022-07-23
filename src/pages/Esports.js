@@ -14,11 +14,27 @@ import { Link } from 'react-router-dom';
 import { grey, obsidian, obsidianShadow, white } from '../Utility/Colors';
 
 export const LeagueContext = React.createContext();
+export const ItemsContext = React.createContext();
+export const HeroesContext = React.createContext();
 
 const Esports = () => {
   const [activeDivision, setActiveDivision] = useState('Division I');
   const [activeRegion, setActiveRegion] = useState(1);
   const [leagueInfo, setLeagueInfo] = useState([]);
+  const [dotaItems, setDotaItems] = useState();
+  const [heroesList, setHeroesList] = useState();
+
+  const getDotaItems = async () => {
+    const res = await fetch(`/.netlify/functions/items/`);
+    const json = await res.json();
+    setDotaItems((prevState) => json.result.data.itemabilities);
+  };
+
+  const getHeroes = async () => {
+    const res = await fetch(`/.netlify/functions/helloWorld/`);
+    const json = await res.json();
+    setHeroesList((prevState) => json.result.data.heroes);
+  };
 
   const [leagues, setLeagues] = useState();
   const getDotaLeagues = async () => {
@@ -42,62 +58,64 @@ const Esports = () => {
 
   useEffect(() => {
     getDotaLeagues();
-
+    getDotaItems();
+    getHeroes();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <Tab.Group>
       <WrapperStyles>
-        <MenuStyles>
-          <Tab.List className='menubar_list'>
-            <Tab>
-              <div className='menubar_label'>WATCH</div>
-            </Tab>
-            <Tab>
-              {' '}
-              <div className='menubar_label'>SCHEDULE</div>
-            </Tab>
-            <Tab className={({ selected }) => (selected ? 'tab_active' : '')}>
-              <div className='menubar_label'>STANDINGS</div>
-            </Tab>
-            <Tab>
-              <div className='menubar_label'>ABOUT</div>
-            </Tab>
-          </Tab.List>
-        </MenuStyles>
-        <button
-          onClick={() => {
-            setActiveRegion(2);
-          }}
-        >
-          SELECT REGION 1
-        </button>
-        <ContentStyles>
-          {' '}
-          <Tab.Panels className='content'>
-            <Tab.Panel>
-              <LeagueContext.Provider value={leagues}>
-                <Watch leagues={leagues}></Watch>
-              </LeagueContext.Provider>
-            </Tab.Panel>
+        <ItemsContext.Provider value={dotaItems}>
+          <HeroesContext.Provider value={heroesList}>
+            <HeaderStyles>TEST</HeaderStyles>
+            <MenuStyles>
+              <Tab.List className='menubar_list'>
+                <Tab>
+                  <div className='menubar_label'>WATCH</div>
+                </Tab>
+                <Tab>
+                  {' '}
+                  <div className='menubar_label'>SCHEDULE</div>
+                </Tab>
+                <Tab
+                  className={({ selected }) => (selected ? 'tab_active' : '')}
+                >
+                  <div className='menubar_label'>STANDINGS</div>
+                </Tab>
+                <Tab>
+                  <div className='menubar_label'>ABOUT</div>
+                </Tab>
+              </Tab.List>
+            </MenuStyles>
 
-            <Tab.Panel>Content 2</Tab.Panel>
-            <Tab.Panel>
-              <Standings
-                tournaments={
-                  leagues &&
-                  leagues.filter(
-                    (tournament) =>
-                      tournament.info.region === activeRegion &&
-                      tournament.info.name.includes(' I ')
-                  )
-                }
-              ></Standings>
-            </Tab.Panel>
-            <Tab.Panel>Content 4</Tab.Panel>
-          </Tab.Panels>
-        </ContentStyles>
+            <ContentStyles>
+              {' '}
+              <Tab.Panels className='content'>
+                <Tab.Panel>
+                  <LeagueContext.Provider value={leagues}>
+                    <Watch leagues={leagues}></Watch>
+                  </LeagueContext.Provider>
+                </Tab.Panel>
+
+                <Tab.Panel>Content 2</Tab.Panel>
+                <Tab.Panel>
+                  <Standings
+                    tournaments={
+                      leagues &&
+                      leagues.filter(
+                        (tournament) =>
+                          tournament.info.region === activeRegion &&
+                          tournament.info.name.includes(' I ')
+                      )
+                    }
+                  ></Standings>
+                </Tab.Panel>
+                <Tab.Panel>Content 4</Tab.Panel>
+              </Tab.Panels>
+            </ContentStyles>
+          </HeroesContext.Provider>
+        </ItemsContext.Provider>
       </WrapperStyles>
     </Tab.Group>
   );
@@ -105,6 +123,20 @@ const Esports = () => {
 
 const WrapperStyles = styled.div`
   width: 100%;
+`;
+
+const HeaderStyles = styled.div`
+  height: 400px;
+  background-image: url(https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/backgrounds/dpc_header_event_summer22.jpg),
+    linear-gradient(to right, rgb(192, 49, 125) 49%, rgb(67, 149, 148) 51%);
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-repeat: no-repeat;
+  background-position: top, center;
 `;
 
 const MenuStyles = styled.div`
@@ -117,7 +149,7 @@ const MenuStyles = styled.div`
   background: ${obsidian};
   filter: ${obsidianShadow};
   position: sticky;
-  /* top: 10rem; */
+  top: 0;
   z-index: 10;
   .menubar_list {
     flex-grow: 1;
@@ -130,6 +162,10 @@ const MenuStyles = styled.div`
     button {
       background: none;
       border: none;
+      outline: none;
+    }
+    button:focus {
+      outline: none;
     }
     .menubar_label {
       min-height: 3.5rem;
