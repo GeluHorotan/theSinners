@@ -151,7 +151,7 @@ const SeriesDetails = () => {
 
   useEffect(() => {
     getSeriesMatches();
-  }, []);
+  }, [activeGame]);
 
   useEffect(() => {
     getTeamInfos();
