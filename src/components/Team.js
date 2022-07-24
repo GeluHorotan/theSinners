@@ -457,7 +457,7 @@ const TeamEntryStyles = styled.div`
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 2px;
-      border: 1px solid white;
+
       white-space: pre-wrap;
     }
     .team_division {
@@ -592,15 +592,15 @@ const TooltipStyles = styled(motion.div)`
   background: ${obsidian};
   box-shadow: 0px 0px 4px black;
 
-  /* @media screen and (max-width: 831px) {
+  @media screen and (max-width: 831px) {
     zoom: 0.6;
-  } */
-  /* @media screen and (max-width: 731px) {
+  }
+  @media screen and (max-width: 731px) {
     zoom: 0.6;
   }
   @media screen and (max-width: 697px) {
     zoom: 0.4;
-  }  */
+  }
 
   .tooltip_container {
     color: white;

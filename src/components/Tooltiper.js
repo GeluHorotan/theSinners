@@ -38,6 +38,7 @@ const Tooltiper = ({
       reference={reference}
       interactive={interactive}
       popperOptions={preventOverflow}
+      inlinePositioning={true}
       render={(attrs) => (
         <TooltipStyles
           className='box'

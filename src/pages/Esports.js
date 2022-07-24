@@ -12,6 +12,7 @@ import Standings from '../components/Standings';
 import Watch from '../components/Watch';
 import { Link } from 'react-router-dom';
 import { grey, obsidian, obsidianShadow, white } from '../Utility/Colors';
+import Schedule from '../components/Schedule';
 
 export const LeagueContext = React.createContext();
 export const ItemsContext = React.createContext();
@@ -98,7 +99,9 @@ const Esports = () => {
                   </LeagueContext.Provider>
                 </Tab.Panel>
 
-                <Tab.Panel>Content 2</Tab.Panel>
+                <Tab.Panel>
+                  <Schedule></Schedule>
+                </Tab.Panel>
                 <Tab.Panel>
                   <Standings
                     tournaments={
@@ -153,12 +156,15 @@ const MenuStyles = styled.div`
   z-index: 10;
   @media screen and (max-width: 743px) {
     zoom: 0.9;
+    -webkit-text-size-adjust: none;
   }
   @media screen and (max-width: 500px) {
     zoom: 0.8;
+    -webkit-text-size-adjust: none;
   }
   @media screen and (max-width: 400px) {
     zoom: 0.7;
+    -webkit-text-size-adjust: none;
   }
 
   .menubar_list {
