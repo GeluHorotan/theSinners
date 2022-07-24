@@ -361,28 +361,23 @@ const TeamEntryStyles = styled.div`
     zoom: 0.9;
     width: 85%;
     display: block;
-    text-size-adjust: none;
   }
   @media screen and (max-width: 900px) {
     zoom: 0.8;
     width: 99%;
     display: block;
-    text-size-adjust: none;
   }
   @media screen and (max-width: 695px) {
     zoom: 0.7;
     display: block;
-    text-size-adjust: none;
   }
   @media screen and (max-width: 595px) {
     zoom: 0.6;
     display: block;
-    text-size-adjust: none;
   }
   @media screen and (max-width: 495px) {
     zoom: 0.5;
     display: block;
-    text-size-adjust: none;
   }
 
   .teamlist_favorite_section {
@@ -446,7 +441,6 @@ const TeamEntryStyles = styled.div`
     @media screen and (max-width: 668px) {
       zoom: 0.9;
       display: block;
-      text-size-adjust: none;
     }
 
     .team_info {
@@ -607,17 +601,17 @@ const TooltipStyles = styled(motion.div)`
 
   @media screen and (max-width: 831px) {
     zoom: 0.6;
-    text-size-adjust: none;
+
     display: block;
   }
   @media screen and (max-width: 731px) {
     zoom: 0.6;
-    text-size-adjust: none;
+
     display: block;
   }
   @media screen and (max-width: 697px) {
     zoom: 0.4;
-    text-size-adjust: none;
+
     display: block;
   }
 

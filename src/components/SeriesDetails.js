@@ -515,37 +515,30 @@ const SeriesDetailsStyles = styled.div`
   @media screen and (max-width: 980px) {
     zoom: 0.9;
     display: block;
-    text-size-adjust: none;
   }
   @media screen and (max-width: 895px) {
     zoom: 0.8;
     display: block;
-    text-size-adjust: none;
   }
   @media screen and (max-width: 795px) {
     zoom: 0.7;
     display: block;
-    text-size-adjust: none;
   }
   @media screen and (max-width: 695px) {
     zoom: 0.6;
     display: block;
-    text-size-adjust: none;
   }
   @media screen and (max-width: 595px) {
     zoom: 0.5;
     display: block;
-    text-size-adjust: none;
   }
   @media screen and (max-width: 495px) {
     zoom: 0.4;
     display: block;
-    text-size-adjust: none;
   }
   @media screen and (max-width: 395px) {
     zoom: 0.35;
     display: block;
-    text-size-adjust: none;
   }
   button {
     background: none;
