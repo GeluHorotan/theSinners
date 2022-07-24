@@ -276,13 +276,19 @@ const TabelsGridStyles = styled.section`
     grid-template-rows: repeat(2, minmax(0, 1fr));
     zoom: 0.8;
     width: 100%;
+    display: block;
+    text-size-adjust: none;
   }
   @media screen and (max-width: 1550px) {
     zoom: 0.8;
     width: 85%;
+    display: block;
+    text-size-adjust: none;
   }
   @media screen and (max-width: 1200px) {
     zoom: 0.7;
+    display: block;
+    text-size-adjust: none;
   }
   @media screen and (max-width: 668px) {
     grid-template-columns: repeat(1, minmax(0, 1fr));
@@ -301,6 +307,8 @@ const TabelsGridStyles = styled.section`
     .tabel_in_grid {
       min-width: 30rem;
       zoom: 0.85;
+      display: block;
+      text-size-adjust: none;
       box-shadow: 4px 4px 16px rgb(0 0 0 / 40%);
 
       th {
