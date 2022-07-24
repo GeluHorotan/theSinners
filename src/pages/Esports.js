@@ -156,15 +156,18 @@ const MenuStyles = styled.div`
   z-index: 10;
   @media screen and (max-width: 743px) {
     zoom: 0.9;
-    display: block;
+    text-size-adjust: none;
+    -webkit-text-size-adjust: none;
   }
   @media screen and (max-width: 500px) {
     zoom: 0.8;
-    display: block;
+    text-size-adjust: none;
+    -webkit-text-size-adjust: none;
   }
   @media screen and (max-width: 400px) {
     zoom: 0.7;
-    display: block;
+    text-size-adjust: none;
+    -webkit-text-size-adjust: none;
   }
 
   .menubar_list {
