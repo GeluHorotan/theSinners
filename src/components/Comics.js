@@ -21,7 +21,6 @@ const Comics = () => {
     getComicsData();
   }, []);
 
-  console.log(comicsData);
   return <div>Comics</div>;
 };
 

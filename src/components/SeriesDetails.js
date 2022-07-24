@@ -463,6 +463,7 @@ const Wrapper = styled.section`
   position: relative;
   z-index: 2;
 
+
   .bg_container {
     background-image: url(https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/backgrounds/bg_grout_texture.jpg);
   padding: 5rem 0;
@@ -507,10 +508,31 @@ const SeriesDetailsStyles = styled.div`
   max-width: 960px;
   height: 100%;
   z-index: 100;
-
   transition-property: max-width;
   transition-timing-function: ease-in-out;
   transition-duration: 0.2s;
+
+  @media screen and (max-width: 980px) {
+    zoom: 0.9;
+  }
+  @media screen and (max-width: 895px) {
+    zoom: 0.8;
+  }
+  @media screen and (max-width: 795px) {
+    zoom: 0.7;
+  }
+  @media screen and (max-width: 695px) {
+    zoom: 0.6;
+  }
+  @media screen and (max-width: 595px) {
+    zoom: 0.5;
+  }
+  @media screen and (max-width: 495px) {
+    zoom: 0.4;
+  }
+  @media screen and (max-width: 395px) {
+    zoom: 0.35;
+  }
   button {
     background: none;
     border: none;

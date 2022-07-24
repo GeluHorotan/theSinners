@@ -2,6 +2,7 @@ import React from 'react';
 import Tippy from '@tippyjs/react/headless';
 import { useSpring } from 'framer-motion';
 import styled from 'styled-components';
+import { preventOverflow } from '@popperjs/core';
 
 const Tooltiper = ({
   children,
@@ -36,11 +37,16 @@ const Tooltiper = ({
     <Tippy
       reference={reference}
       interactive={interactive}
+      popperOptions={preventOverflow}
       render={(attrs) => (
         <TooltipStyles
           className='box'
           tabIndex='-1'
-          style={{ scale, opacity }}
+          popperOptions={preventOverflow}
+          style={{
+            scale,
+            opacity,
+          }}
           {...attrs}
         >
           <div className='tooltip_container'>{children}</div>
@@ -57,6 +63,7 @@ const DefaultStyles = styled.div`
   box-shadow: 0px 0px 4px black;
   padding: 1rem;
   border-radius: 0.5rem;
+
   .tooltip_container {
     color: white;
   }

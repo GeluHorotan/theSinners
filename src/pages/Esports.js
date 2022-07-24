@@ -151,13 +151,23 @@ const MenuStyles = styled.div`
   position: sticky;
   top: 0;
   z-index: 10;
+  @media screen and (max-width: 743px) {
+    zoom: 0.9;
+  }
+  @media screen and (max-width: 500px) {
+    zoom: 0.8;
+  }
+  @media screen and (max-width: 400px) {
+    zoom: 0.7;
+  }
+
   .menubar_list {
     flex-grow: 1;
     height: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-around;
     padding: 0 1.2rem;
     button {
       background: none;
@@ -182,6 +192,13 @@ const MenuStyles = styled.div`
       letter-spacing: 4px;
       font-weight: 700;
       font-size: 0.9rem;
+
+      @media screen and (max-width: 743px) {
+        font-size: 0.7rem;
+      }
+      @media screen and (max-width: 500px) {
+        font-size: 0.7rem;
+      }
       margin: 0 1.2rem;
       &:hover {
         color: ${white};

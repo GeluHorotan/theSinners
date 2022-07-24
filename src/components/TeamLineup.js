@@ -53,6 +53,7 @@ const TeamLineup = ({
   }, [matchIndex]);
 
   const dotaItems = React.useContext(ItemsContext);
+
   if (teamInfos && lineup)
     return (
       <LineupStyles>

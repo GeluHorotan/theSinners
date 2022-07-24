@@ -269,6 +269,26 @@ const TabelsGridStyles = styled.section`
   margin: 0 auto;
   grid-row-gap: 8rem;
   grid-column-gap: 5rem;
+  margin-bottom: 5rem;
+
+  @media screen and (max-width: 980px) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    zoom: 0.8;
+    width: 100%;
+  }
+  @media screen and (max-width: 1550px) {
+    zoom: 0.8;
+    width: 85%;
+  }
+  @media screen and (max-width: 1200px) {
+    zoom: 0.7;
+  }
+  @media screen and (max-width: 668px) {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    grid-template-rows: repeat(1, minmax(0, 1fr));
+    width: 100%;
+  }
 
   .tabel_container {
     .tabel_region {

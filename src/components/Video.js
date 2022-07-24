@@ -4,7 +4,7 @@ import { HeroesContext } from '../pages/Esports';
 
 const Video = ({ isHero, id, className }) => {
   const dotaHeroes = React.useContext(HeroesContext);
-  console.log(dotaHeroes);
+
   const heroObject = {
     src: `https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/${
       isHero && id ? getName(dotaHeroes, id, 'hero') : ''

@@ -357,6 +357,24 @@ const TeamEntryStyles = styled.div`
   margin-top: 1rem;
   position: relative;
   z-index: 1;
+  @media screen and (max-width: 1100px) {
+    zoom: 0.9;
+    width: 85%;
+  }
+  @media screen and (max-width: 900px) {
+    zoom: 0.8;
+    width: 99%;
+  }
+  @media screen and (max-width: 695px) {
+    zoom: 0.7;
+  }
+  @media screen and (max-width: 595px) {
+    zoom: 0.6;
+  }
+  @media screen and (max-width: 495px) {
+    zoom: 0.5;
+  }
+
   .teamlist_favorite_section {
     min-width: 70px;
     height: 100%;
@@ -365,6 +383,10 @@ const TeamEntryStyles = styled.div`
     justify-content: center;
     align-items: center;
     background-color: #6e6e7766;
+    @media screen and (max-width: 869px) {
+      min-width: 50px;
+    }
+
     .teamlist_following_line {
       cursor: pointer;
 
@@ -375,7 +397,7 @@ const TeamEntryStyles = styled.div`
           height: 15px;
           background-size: cover;
           background-repeat: no-repeat;
-          transition: all 250ms ease-in-out;
+          transition: filter 250ms ease-in-out;
           filter: brightness(1.3);
         }
         .star_sign_active {
@@ -384,7 +406,7 @@ const TeamEntryStyles = styled.div`
           height: 30px;
           background-size: cover;
           background-repeat: no-repeat;
-          transition: all 250ms ease-in-out;
+          transition: filter 250ms ease-in-out;
           filter: drop-shadow(0px 0px 4px rgba(255, 255, 255, 0.5))
             brightness(1.3);
         }
@@ -399,18 +421,27 @@ const TeamEntryStyles = styled.div`
     opacity: 1;
     margin-left: 18px;
     margin-right: 12px;
+    @media screen and (max-width: 668px) {
+      width: 38px;
+      height: 38px;
+      min-width: 38px;
+      min-height: 38px;
+    }
   }
   .teamlist_team_info {
     flex-grow: 1;
     flex-basis: 0;
     display: flex;
     flex-direction: column;
+    @media screen and (max-width: 668px) {
+      zoom: 0.9;
+    }
 
     .team_info {
       display: flex;
 
       flex-direction: row;
-
+      margin-right: 1rem;
       align-items: center;
       .team_name {
         color: #fff;
@@ -419,7 +450,6 @@ const TeamEntryStyles = styled.div`
 
         text-transform: uppercase;
         letter-spacing: 4px;
-        margin-right: 10px;
       }
     }
     .team_region {
@@ -427,7 +457,8 @@ const TeamEntryStyles = styled.div`
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 2px;
-      white-space: nowrap;
+      border: 1px solid white;
+      white-space: pre-wrap;
     }
     .team_division {
       color: #6b7785;
@@ -470,7 +501,7 @@ const TeamEntryStyles = styled.div`
     }
   }
   .teamlist_match_section {
-    width: 330px;
+    width: 270px;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -561,6 +592,16 @@ const TooltipStyles = styled(motion.div)`
   background: ${obsidian};
   box-shadow: 0px 0px 4px black;
 
+  /* @media screen and (max-width: 831px) {
+    zoom: 0.6;
+  } */
+  /* @media screen and (max-width: 731px) {
+    zoom: 0.6;
+  }
+  @media screen and (max-width: 697px) {
+    zoom: 0.4;
+  }  */
+
   .tooltip_container {
     color: white;
     width: 45rem;
@@ -586,6 +627,12 @@ const TooltipStyles = styled(motion.div)`
         min-width: 64px;
         min-height: 64px;
         opacity: 1;
+        @media screen and (max-width: 831px) {
+          width: 48px;
+          height: 48px;
+          min-width: 48px;
+          min-height: 48px;
+        }
       }
       .enemy_team_name {
         display: flex;
