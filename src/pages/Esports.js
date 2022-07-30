@@ -17,6 +17,7 @@ import Schedule from '../components/Schedule';
 export const LeagueContext = React.createContext();
 export const ItemsContext = React.createContext();
 export const HeroesContext = React.createContext();
+export const TeamsContext = React.createContext();
 
 const Esports = () => {
   const [activeDivision, setActiveDivision] = useState('Division I');
@@ -24,11 +25,18 @@ const Esports = () => {
   const [leagueInfo, setLeagueInfo] = useState([]);
   const [dotaItems, setDotaItems] = useState();
   const [heroesList, setHeroesList] = useState();
+  const [teamList, setTeamList] = useState();
 
   const getDotaItems = async () => {
     const res = await fetch(`/.netlify/functions/items/`);
     const json = await res.json();
     setDotaItems((prevState) => json.result.data.itemabilities);
+  };
+
+  const getTeamList = async () => {
+    const res = await fetch(`/.netlify/functions/teamList/`);
+    const json = await res.json();
+    setTeamList(json.teams);
   };
 
   const getHeroes = async () => {
@@ -61,6 +69,7 @@ const Esports = () => {
     getDotaLeagues();
     getDotaItems();
     getHeroes();
+    getTeamList();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -69,54 +78,58 @@ const Esports = () => {
       <WrapperStyles>
         <ItemsContext.Provider value={dotaItems}>
           <HeroesContext.Provider value={heroesList}>
-            <HeaderStyles>TEST</HeaderStyles>
-            <MenuStyles>
-              <Tab.List className='menubar_list'>
-                <Tab>
-                  <div className='menubar_label'>WATCH</div>
-                </Tab>
-                <Tab>
+            <TeamsContext.Provider value={teamList}>
+              <LeagueContext.Provider value={leagues}>
+                <HeaderStyles>TEST</HeaderStyles>
+                <MenuStyles>
+                  <Tab.List className='menubar_list'>
+                    <Tab>
+                      <div className='menubar_label'>WATCH</div>
+                    </Tab>
+                    <Tab>
+                      {' '}
+                      <div className='menubar_label'>SCHEDULE</div>
+                    </Tab>
+                    <Tab
+                      className={({ selected }) =>
+                        selected ? 'tab_active' : ''
+                      }
+                    >
+                      <div className='menubar_label'>STANDINGS</div>
+                    </Tab>
+                    <Tab>
+                      <div className='menubar_label'>ABOUT</div>
+                    </Tab>
+                  </Tab.List>
+                </MenuStyles>
+
+                <ContentStyles>
                   {' '}
-                  <div className='menubar_label'>SCHEDULE</div>
-                </Tab>
-                <Tab
-                  className={({ selected }) => (selected ? 'tab_active' : '')}
-                >
-                  <div className='menubar_label'>STANDINGS</div>
-                </Tab>
-                <Tab>
-                  <div className='menubar_label'>ABOUT</div>
-                </Tab>
-              </Tab.List>
-            </MenuStyles>
+                  <Tab.Panels className='content'>
+                    <Tab.Panel>
+                      <Watch leagues={leagues}></Watch>
+                    </Tab.Panel>
 
-            <ContentStyles>
-              {' '}
-              <Tab.Panels className='content'>
-                <Tab.Panel>
-                  <LeagueContext.Provider value={leagues}>
-                    <Watch leagues={leagues}></Watch>
-                  </LeagueContext.Provider>
-                </Tab.Panel>
-
-                <Tab.Panel>
-                  <Schedule></Schedule>
-                </Tab.Panel>
-                <Tab.Panel>
-                  <Standings
-                    tournaments={
-                      leagues &&
-                      leagues.filter(
-                        (tournament) =>
-                          tournament.info.region === activeRegion &&
-                          tournament.info.name.includes(' I ')
-                      )
-                    }
-                  ></Standings>
-                </Tab.Panel>
-                <Tab.Panel>Content 4</Tab.Panel>
-              </Tab.Panels>
-            </ContentStyles>
+                    <Tab.Panel>
+                      <Schedule></Schedule>
+                    </Tab.Panel>
+                    <Tab.Panel>
+                      <Standings
+                        tournaments={
+                          leagues &&
+                          leagues.filter(
+                            (tournament) =>
+                              tournament.info.region === activeRegion &&
+                              tournament.info.name.includes(' I ')
+                          )
+                        }
+                      ></Standings>
+                    </Tab.Panel>
+                    <Tab.Panel>Content 4</Tab.Panel>
+                  </Tab.Panels>
+                </ContentStyles>
+              </LeagueContext.Provider>
+            </TeamsContext.Provider>
           </HeroesContext.Provider>
         </ItemsContext.Provider>
       </WrapperStyles>

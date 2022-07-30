@@ -1,5 +1,5 @@
-export const displayTeamRegion = (region) => {
-  switch (region) {
+export const displayTeamRegion = (element, type) => {
+  switch (element) {
     case 1:
       return 'NORTH AMERICA';
     case 2:
