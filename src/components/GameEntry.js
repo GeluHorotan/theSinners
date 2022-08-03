@@ -2,6 +2,7 @@ import { Disclosure } from '@headlessui/react';
 import React from 'react';
 import { useContext, useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { displayTeamRegion } from '../Functions/displayTeamRegion';
 import { formatTimestamp } from '../Functions/formatTimestamp';
 import Button from './Button';
 import Image from './Image';
@@ -17,18 +18,18 @@ const GameEntry = ({
   timestamp,
   cTimestamp,
   pTimestamp,
+  heroes,
 }) => {
   const [seriesMatches, setSeriesMatches] = useState([]);
-  const getSeriesMatches = async () => {
-    if (gamesDetails.matches.length !== 0) {
-      for (let i = 0; i < gamesDetails.matches.length; i++) {
-        const res = await fetch(
-          `/.netlify/functions/singleMatch/?league_id=${league_id}&match_id=${gamesDetails.matches[i].match_id}`
-        );
-        const json = await res.json();
 
-        setSeriesMatches((prevState) => [...prevState, json]);
-      }
+  const getSeriesMatches = async () => {
+    for (let i = 0; i < gamesDetails.matches.length; i++) {
+      const res = await fetch(
+        `/.netlify/functions/singleMatch/?league_id=${league_id}&match_id=${gamesDetails.matches[i].match_id}`
+      );
+      const json = await res.json();
+
+      setSeriesMatches((prevState) => [...prevState, json]);
     }
   };
 
@@ -36,15 +37,7 @@ const GameEntry = ({
     getSeriesMatches();
   }, []);
 
-  console.log(seriesMatches);
-
-  if (
-    leftTeam &&
-    rightTeam &&
-    gamesDetails &&
-    region &&
-    seriesMatches.length !== 0
-  )
+  if (leftTeam && rightTeam && gamesDetails && region)
     return (
       <Disclosure>
         <WrapperStyles>
@@ -52,10 +45,7 @@ const GameEntry = ({
             <div className='schedule_day_section'>
               {cTimestamp !== pTimestamp && (
                 <div className='schedule_day_header'>
-                  <time
-                    datetime='1654462800000'
-                    className='schedule_date_label'
-                  >
+                  <time dateTime={cTimestamp} className='schedule_date_label'>
                     {cTimestamp}
                   </time>
                 </div>
@@ -64,7 +54,9 @@ const GameEntry = ({
                 <div className='dpc_schedule_entry'>
                   <DpcBodyStyles>
                     <div className='dpc_left_section'>
-                      <div className='node_type_upper'>{region}</div>
+                      <div className='node_type_upper'>
+                        {displayTeamRegion(region)}
+                      </div>
                       <div className='node_type_lower'>DIVISION {division}</div>
                       <div className='node_time_label'>
                         {formatTimestamp(gamesDetails.scheduled_time, 'hour')}
@@ -121,21 +113,44 @@ const GameEntry = ({
           <DpcDisclosureStyles>
             <Disclosure.Panel className='disclosure_container'>
               {gamesDetails.matches.length !== 0 &&
+                seriesMatches.length === gamesDetails.matches.length &&
                 gamesDetails.matches.map((match, index) => {
                   return (
                     <div className='disclosure_box'>
                       <div className='disclosure_left_section'>
-                        <div className='disclosure_time'>07:34</div>
+                        <div className='disclosure_time'>
+                          {formatTimestamp(
+                            seriesMatches[index].start_time,
+                            'hour'
+                          )}
+                        </div>
 
                         <div className='disclosure_watched_box'>WATCHED</div>
                       </div>
-                      <div className='disclosure_hero_list left'></div>
+                      <div className='disclosure_hero_list left'>
+                        {' '}
+                        {seriesMatches[index].players.map((player, i) => {
+                          if (
+                            leftTeam[0].team_id ===
+                            seriesMatches[index].dire_team_id
+                              ? player.team_number === 1
+                              : player.team_number === 0
+                          )
+                            return (
+                              <Image
+                                isHero
+                                className={'hero_logo'}
+                                id={player.hero_id}
+                              ></Image>
+                            );
+                        })}
+                      </div>
                       <div className='disclosure_center'>
                         <div className='center_first_line'>
                           <Image
                             className={'team_logo'}
                             isTeam
-                            id={leftTeam[0].team_id}
+                            id={match.winning_team_id}
                           ></Image>
                           <div className='center_game_number'>
                             GAME {index + 1}
@@ -157,10 +172,27 @@ const GameEntry = ({
                           &nbsp;WIN
                         </div>
 
-                        <div className='center_game_duration'>30:22</div>
+                        <div className='center_game_duration'>
+                          {seriesMatches[index].duration}
+                        </div>
                       </div>
+
                       <div className='disclosure_hero_list right'>
-                        {match.match_id}
+                        {seriesMatches[index].players.map((player, i) => {
+                          if (
+                            rightTeam[0].team_id ===
+                            seriesMatches[index].dire_team_id
+                              ? player.team_number === 0
+                              : player.team_number === 1
+                          )
+                            return (
+                              <Image
+                                isHero
+                                className={'hero_logo'}
+                                id={player.hero_id}
+                              ></Image>
+                            );
+                        })}
                       </div>
                       <div className='disclosure_right_section'>
                         <Button isRipple>WATCH VOD</Button>
@@ -440,6 +472,12 @@ const DpcDisclosureStyles = styled.div`
         align-items: center;
         justify-content: space-between;
         margin: 0px 40px;
+        .hero_logo {
+          width: 32px;
+          height: 32px;
+          background-size: cover;
+          background-repeat: no-repeat;
+        }
       }
       .disclosure_center {
         flex-grow: 1;

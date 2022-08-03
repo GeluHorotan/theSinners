@@ -270,41 +270,8 @@ const Heroes = () => {
         <Input
           onChange={searchHero}
           label='Search hero'
-          inputStyles={`background: linear-gradient(
-            to right,
-            rgba(0, 0, 0, 0.5),
-            rgba(0, 0, 0, 0.3) 70%
-          );
-          border: 2px solid ${accent};
-          &:focus {
-           
-            ${
-              filteredHeroes && filteredHeroes.length !== 0
-                ? `border: 2px solid ${lightGreen};
-                transition:1s ease-in-out;`
-                : ` border: 2px solid ${saturatedRed};
-                transition: 1s ease-in-out;`
-            }
-            ${
-              filteredHeroes && filteredHeroes.length === 123
-                ? `border: 2px solid ${secondary};
-                transition: 0.25s ease-in-out;`
-                : ``
-            }
-           
-          
-            
-          }`}
-          placeholderStyles={` top: -1.3rem;
-          font-size: 1rem;
-          left: 0rem;
-          padding: 0 0.25rem;
-      
-          `}
-          colors={{
-            hover: `${saturatedRed}`,
-            focus: `${blue}`,
-          }}
+          colorTrigger={filteredHeroes}
+          topOffset={'-1.2rem'}
         ></Input>
       </StyledFilter>
       <StyledGridContainer>

@@ -1,19 +1,26 @@
 import React from 'react';
 import styled from 'styled-components';
-import { secondary } from '../Utility/Colors';
+import {
+  accent,
+  desaturatedRed,
+  saturatedRed,
+  secondary,
+} from '../Utility/Colors';
 
 const Input = ({
   onChange,
   label,
   colors,
-  inputStyles,
+  topOffset,
+  colorTrigger,
   placeholderStyles,
   testingStyles,
 }) => {
   return (
     <StyledWrapper
+      topOffset={topOffset}
       colors={colors}
-      inputStyles={inputStyles}
+      colorTrigger={colorTrigger}
       placeholderStyles={placeholderStyles}
       id='form-container'
     >
@@ -50,7 +57,27 @@ const StyledWrapper = styled.div`
       left: 0;
       width: 100%;
       height: 100%;
-      ${(props) => props.inputStyles};
+      background: linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0.5),
+        rgba(0, 0, 0, 0.3) 70%
+      );
+      border: 2px solid ${accent};
+
+      &:focus {
+        border: 2px solid
+          ${(props) =>
+            props.colorTrigger.length !== 0
+              ? 'green'
+              : props.colorTrigger.length === 0
+              ? 'red'
+              : `${desaturatedRed}`};
+
+        transition: ${(props) =>
+          props.colorTrigger.length !== 0
+            ? '1ms ease-in-out'
+            : '0.25ms ease-in-out'};
+      }
 
       border-radius: 0.5rem;
 
@@ -64,8 +91,8 @@ const StyledWrapper = styled.div`
       position: absolute;
 
       left: 1rem;
-      font-size: 1.2rem;
-      top: 0.7rem;
+      font-size: 1rem;
+      top: 0.8rem;
       padding: 0 0.5rem;
       color: white;
       cursor: text;
@@ -74,7 +101,10 @@ const StyledWrapper = styled.div`
   }
   .form__input:focus ~ .form__label,
   .form__input:not(:placeholder-shown).form__input:not(:focus) ~ .form__label {
-    ${(props) => props.placeholderStyles};
+    top: ${(props) => props.topOffset};
+    font-size: 0.8rem;
+    left: 0rem;
+    padding: 0 0.25rem;
   }
 `;
 

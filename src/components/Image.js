@@ -1,11 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { getName } from '../Functions/getName';
-import { ItemsContext } from '../pages/Esports';
+import { ItemsContext, HeroesContext } from '../pages/Esports';
 
-const Image = ({ className, id, isTeam, isPlayer, isItem, alt, elementId }) => {
+const Image = ({
+  className,
+  id,
+  isTeam,
+  isPlayer,
+  isItem,
+  isHero,
+  alt,
+  elementId,
+}) => {
   const [imgError, setImgError] = useState(false);
 
   const dotaItems = React.useContext(ItemsContext);
+  const dotaHeroes = React.useContext(HeroesContext);
 
   const teamObject = {
     src: `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/teams_override/${id}.png`,
@@ -27,6 +37,13 @@ const Image = ({ className, id, isTeam, isPlayer, isItem, alt, elementId }) => {
       'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/teams_override/8360138.png',
   };
 
+  const heroObject = {
+    src: `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/${
+      isHero && id ? getName(dotaHeroes, id, 'hero') : ''
+    }.png`,
+    default: ``,
+  };
+
   if (!imgError && teamObject && playerObject && itemObject)
     return (
       <img
@@ -37,6 +54,8 @@ const Image = ({ className, id, isTeam, isPlayer, isItem, alt, elementId }) => {
             ? playerObject.src
             : isItem
             ? itemObject.src
+            : isHero
+            ? heroObject.src
             : ''
         }
         className={className}
