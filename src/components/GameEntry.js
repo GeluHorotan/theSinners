@@ -1,11 +1,14 @@
 import { Disclosure } from '@headlessui/react';
 import React from 'react';
+import { useLayoutEffect } from 'react';
 import { useContext, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { displayTeamRegion } from '../Functions/displayTeamRegion';
 import { formatTimestamp } from '../Functions/formatTimestamp';
+import { obsH } from '../Utility/Colors';
 import Button from './Button';
 import Image from './Image';
+import HashLoader from 'react-spinners/HashLoader';
 
 const GameEntry = ({
   leftTeam,
@@ -33,9 +36,21 @@ const GameEntry = ({
     }
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     getSeriesMatches();
   }, []);
+
+  function secondsToHms(d) {
+    d = Number(d);
+    var h = Math.floor(d / 3600);
+    var m = Math.floor((d % 3600) / 60);
+    var s = Math.floor((d % 3600) % 60);
+
+    var hDisplay = h > 0 ? h + (h == 1 ? ':' : ':') : '';
+    var mDisplay = m > 0 ? m + (m == 1 ? ':' : ':') : ':';
+    var sDisplay = s > 0 ? s + (s == 1 ? '' : '') : '';
+    return <div>{hDisplay + mDisplay + sDisplay}</div>;
+  }
 
   if (leftTeam && rightTeam && gamesDetails && region)
     return (
@@ -101,7 +116,7 @@ const GameEntry = ({
 
                     <div className='dpc_right_section'>
                       <Disclosure.Button className='py-2'>
-                        SCHEDULE DETAILS
+                        SERIES DETAILS
                       </Disclosure.Button>
                     </div>
                   </DpcBodyStyles>
@@ -124,8 +139,6 @@ const GameEntry = ({
                             'hour'
                           )}
                         </div>
-
-                        <div className='disclosure_watched_box'>WATCHED</div>
                       </div>
                       <div className='disclosure_hero_list left'>
                         {' '}
@@ -173,7 +186,7 @@ const GameEntry = ({
                         </div>
 
                         <div className='center_game_duration'>
-                          {seriesMatches[index].duration}
+                          {secondsToHms(seriesMatches[index].duration)}
                         </div>
                       </div>
 

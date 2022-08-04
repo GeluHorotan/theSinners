@@ -18,6 +18,7 @@ import {
   secondary,
 } from '../Utility/Colors';
 import * as FaIcons from 'react-icons/fa';
+import { useLayoutEffect } from 'react';
 
 const Schedule = ({ children }) => {
   const dotaHeroes = React.useContext(HeroesContext);
@@ -31,6 +32,8 @@ const Schedule = ({ children }) => {
   const [activeDivision, setActiveDivision] = useState();
   const inputRef = React.createRef(null);
   const [sorterOption, setSorterOption] = useState('ascending');
+  const [games, setGames] = useState([]);
+  const [fetchedGames, setFetchedGames] = useState([]);
 
   const getAllNodes = () => {
     //  Getting all nodes of the teams presented in tournament
@@ -84,7 +87,6 @@ const Schedule = ({ children }) => {
   };
 
   const searchHandler = (e) => {
-    console.log(e.target.value);
     if (e.target.value.length === 0) {
       setFiltered((prevState) => nodes);
     }
@@ -105,12 +107,33 @@ const Schedule = ({ children }) => {
     }
   };
 
+  const getAllGames = async () => {
+    nodes.forEach((node) => {
+      node.series.matches.forEach((match) => {
+        setGames((prevState) => [
+          ...prevState,
+          { game: match, league_id: node.leagueId },
+        ]);
+      });
+    });
+    for (let i = 0; i < games.length; i++) {
+      const res = await fetch(
+        `/.netlify/functions/singleMatch/?league_id=${games[i].league_id}&match_id=${games[i].game.match_id}`
+      );
+      const json = await res.json();
+      setFetchedGames((prevState) => [...prevState, json]);
+    }
+  };
+
+  useLayoutEffect(() => {
+    getAllGames();
+  }, [filtered]);
+  console.log(fetchedGames);
   useEffect(() => {
     getAllNodes();
   }, [leagues]);
-
+  sorter(nodes, sorterOption);
   sorter(filtered, sorterOption);
-
   useEffect(() => {
     getAllTeams();
   }, []);
@@ -263,7 +286,7 @@ const Schedule = ({ children }) => {
         </FilterStyles>
         {filtered.length !== 0 &&
           filtered.map((node, index) => {
-            if (index < 10)
+            if (index < 5)
               return (
                 <GameEntry
                   leftTeam={standings.filter(
