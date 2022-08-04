@@ -360,7 +360,7 @@ const ScheduleStyles = styled.div`
 
 const FilterStyles = styled.div`
   width: 90%;
-  margin: 0 auto;
+  margin: 1rem auto;
   display: flex;
   justify-content: flex-end;
   align-items: center;

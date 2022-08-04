@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 // Pages
-import Starting from './pages/Starting';
+
 import Homepage from './pages/Homepage';
 import About from './pages/About';
 import News from './pages/News';
@@ -28,13 +28,11 @@ function App() {
   return (
     <div>
       <GlobalStyle />
-      <div className={`${location.pathname === '/' && 'hidden'}`}>
-        <Navigation />
-      </div>
+
+      <Navigation />
 
       <Routes location={location} key={location.pathname}>
-        <Route path='/' exact element={<Starting />} />
-        <Route path='/homepage' exact element={<Homepage />} />
+        <Route path='/' exact element={<Homepage />} />
         <Route path='/about' exact element={<About />} />
         <Route path='/news' exact element={<News />} />
         <Route path='/team' exact element={<Team />} />
