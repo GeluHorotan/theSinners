@@ -158,131 +158,158 @@ const Schedule = ({ children }) => {
     <ScheduleStyles>
       <GamesStyles>
         <FilterStyles>
-          <div className='sort_options'>
-            <div className='ascending'>
-              <FaIcons.FaSortAmountUp
-                onClick={() => {
-                  setSorterOption((prevState) => 'ascending');
-                }}
-              ></FaIcons.FaSortAmountUp>
-            </div>
-            <div className='descending'>
-              <FaIcons.FaSortAmountDownAlt
-                onClick={() => {
-                  setSorterOption((prevState) => 'descending');
-                }}
-              ></FaIcons.FaSortAmountDownAlt>
+          <div className='menu_options'>
+            <div className='dropdown_options'>
+              <div className='dropdown_1'>
+                <DropdownMenu
+                  title={
+                    activeDivision
+                      ? `DIVISION ${activeDivision}`
+                      : 'ALL DIVISIONS'
+                  }
+                  className={'division_filter'}
+                >
+                  {divisions.map((division, index) => {
+                    return (
+                      <Menu.Item>
+                        <div
+                          className='menu_options'
+                          onClick={() => {
+                            if (index !== 0) {
+                              if (activeRegion) {
+                                setActiveDivision((prevState) =>
+                                  index === 1 ? 'I' : index === 2 ? 'II' : ''
+                                );
+                                setFiltered((prevState) =>
+                                  nodes.filter(
+                                    (node) =>
+                                      node.division ===
+                                        `${
+                                          index === 1
+                                            ? 'I'
+                                            : index === 2
+                                            ? 'II'
+                                            : ''
+                                        }` && node.region === activeRegion
+                                  )
+                                );
+                              } else if (!activeRegion) {
+                                setActiveDivision((prevState) =>
+                                  index === 1 ? 'I' : index === 2 ? 'II' : ''
+                                );
+                                setFiltered((prevState) =>
+                                  nodes.filter(
+                                    (node) =>
+                                      node.division ===
+                                      `${
+                                        index === 1
+                                          ? 'I'
+                                          : index === 2
+                                          ? 'II'
+                                          : ''
+                                      }`
+                                  )
+                                );
+                              }
+                            } else if (activeRegion) {
+                              setActiveDivision((prevState) => false);
+                              setFiltered((prevState) =>
+                                nodes.filter(
+                                  (node) => node.region === activeRegion
+                                )
+                              );
+                            } else {
+                              setActiveDivision((prevState) => false);
+                              setFiltered((prevState) => nodes);
+                            }
+                          }}
+                        >
+                          {division.category}
+                        </div>
+                      </Menu.Item>
+                    );
+                  })}
+                </DropdownMenu>
+              </div>
+              <div className='dropdown_1'>
+                <DropdownMenu
+                  title={
+                    activeRegion
+                      ? `${displayTeamRegion(activeRegion)}`
+                      : 'ALL REGIONS'
+                  }
+                  className={'division_filter'}
+                >
+                  {regions.map((region, index) => {
+                    return (
+                      <Menu.Item>
+                        <div
+                          className='menu_options'
+                          onClick={() => {
+                            if (index !== 0) {
+                              if (activeDivision) {
+                                setActiveRegion((prevState) => index);
+                                setFiltered((prevState) =>
+                                  nodes.filter(
+                                    (node) =>
+                                      node.region === index &&
+                                      node.division === activeDivision
+                                  )
+                                );
+                              } else if (!activeDivision) {
+                                setActiveRegion((prevState) => index);
+                                setFiltered((prevState) =>
+                                  nodes.filter((node) => node.region === index)
+                                );
+                              }
+                            } else if (activeDivision) {
+                              setActiveRegion((prevState) => false);
+                              setFiltered((prevState) =>
+                                nodes.filter(
+                                  (node) => node.division == activeDivision
+                                )
+                              );
+                            } else {
+                              setActiveRegion((prevState) => false);
+                              setFiltered((prevState) => nodes);
+                            }
+                          }}
+                        >
+                          {region.category}
+                        </div>
+                      </Menu.Item>
+                    );
+                  })}
+                </DropdownMenu>
+              </div>
             </div>
           </div>
-          <DropdownMenu
-            title={
-              activeDivision ? `DIVISION ${activeDivision}` : 'ALL DIVISIONS'
-            }
-          >
-            {divisions.map((division, index) => {
-              return (
-                <Menu.Item>
-                  <div
-                    className='menu_options'
-                    onClick={() => {
-                      if (index !== 0) {
-                        if (activeRegion) {
-                          setActiveDivision((prevState) =>
-                            index === 1 ? 'I' : index === 2 ? 'II' : ''
-                          );
-                          setFiltered((prevState) =>
-                            nodes.filter(
-                              (node) =>
-                                node.division ===
-                                  `${
-                                    index === 1 ? 'I' : index === 2 ? 'II' : ''
-                                  }` && node.region === activeRegion
-                            )
-                          );
-                        } else if (!activeRegion) {
-                          setActiveDivision((prevState) =>
-                            index === 1 ? 'I' : index === 2 ? 'II' : ''
-                          );
-                          setFiltered((prevState) =>
-                            nodes.filter(
-                              (node) =>
-                                node.division ===
-                                `${index === 1 ? 'I' : index === 2 ? 'II' : ''}`
-                            )
-                          );
-                        }
-                      } else if (activeRegion) {
-                        setActiveDivision((prevState) => false);
-                        setFiltered((prevState) =>
-                          nodes.filter((node) => node.region === activeRegion)
-                        );
-                      } else {
-                        setActiveDivision((prevState) => false);
-                        setFiltered((prevState) => nodes);
-                      }
-                    }}
-                  >
-                    {division.category}
-                  </div>
-                </Menu.Item>
-              );
-            })}
-          </DropdownMenu>
-          <DropdownMenu
-            title={
-              activeRegion
-                ? `${displayTeamRegion(activeRegion)}`
-                : 'ALL REGIONS'
-            }
-          >
-            {regions.map((region, index) => {
-              return (
-                <Menu.Item>
-                  <div
-                    className='menu_options'
-                    onClick={() => {
-                      if (index !== 0) {
-                        if (activeDivision) {
-                          setActiveRegion((prevState) => index);
-                          setFiltered((prevState) =>
-                            nodes.filter(
-                              (node) =>
-                                node.region === index &&
-                                node.division === activeDivision
-                            )
-                          );
-                        } else if (!activeDivision) {
-                          setActiveRegion((prevState) => index);
-                          setFiltered((prevState) =>
-                            nodes.filter((node) => node.region === index)
-                          );
-                        }
-                      } else if (activeDivision) {
-                        setActiveRegion((prevState) => false);
-                        setFiltered((prevState) =>
-                          nodes.filter(
-                            (node) => node.division == activeDivision
-                          )
-                        );
-                      } else {
-                        setActiveRegion((prevState) => false);
-                        setFiltered((prevState) => nodes);
-                      }
-                    }}
-                  >
-                    {region.category}
-                  </div>
-                </Menu.Item>
-              );
-            })}
-          </DropdownMenu>
-          <Input
-            ref={inputRef}
-            onChange={searchHandler}
-            label='Search Match'
-            colorTrigger={filtered}
-            topOffset={'-1.2rem'}
-          ></Input>
+          <div className='search_filter'>
+            <Input
+              className={'search_filter'}
+              ref={inputRef}
+              onChange={searchHandler}
+              label='Search Match'
+              colorTrigger={filtered}
+              topOffset={'-1.2rem'}
+            ></Input>
+            <div className='sort_options'>
+              <div className='ascending'>
+                <FaIcons.FaSortAmountUp
+                  onClick={() => {
+                    setSorterOption((prevState) => 'ascending');
+                  }}
+                ></FaIcons.FaSortAmountUp>
+              </div>
+              <div className='descending'>
+                <FaIcons.FaSortAmountDownAlt
+                  onClick={() => {
+                    setSorterOption((prevState) => 'descending');
+                  }}
+                ></FaIcons.FaSortAmountDownAlt>
+              </div>
+            </div>
+          </div>
         </FilterStyles>
         {filtered.length !== 0 &&
           filtered.map((node, index) => {
@@ -332,24 +359,72 @@ const ScheduleStyles = styled.div`
 `;
 
 const FilterStyles = styled.div`
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
   display: flex;
   justify-content: flex-end;
   align-items: center;
 
+  @media screen and (max-width: 1000px) {
+    width: 100%;
+  }
+  @media screen and (max-width: 900px) {
+    flex-direction: column;
+  }
+  .search_filter {
+    width: 20rem;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .menu_options {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    @media screen and (max-width: 900px) {
+      justify-content: center;
+    }
+    @media screen and (max-width: 580px) {
+      flex-direction: column;
+    }
+
+    .dropdown_options {
+      display: flex;
+
+      .dropdown_1 {
+        width: 15rem;
+        @media screen and (max-width: 580px) {
+          width: 11rem;
+        }
+        @media screen and (max-width: 580px) {
+          width: 11rem;
+        }
+        @media screen and (max-width: 350px) {
+          width: 10rem;
+        }
+      }
+    }
+  }
+
   .sort_options {
     display: flex;
-    flex-grow: 1;
-    padding: 0.5rem 2rem;
     font-size: 1.3rem;
     align-items: center;
     justify-content: flex-start;
     cursor: pointer;
 
+    @media screen and (max-width: 768px) {
+      font-size: 1rem;
+    }
+
     .descending,
     .ascending {
-      margin-left: 1rem;
+      margin-right: 1rem;
       transition: 200ms all ease-in-out;
       &:hover {
         color: ${desaturatedRed};
@@ -363,7 +438,6 @@ const GamesStyles = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
 `;
 
 export default Schedule;

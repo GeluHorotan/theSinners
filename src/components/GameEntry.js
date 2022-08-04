@@ -9,6 +9,7 @@ import { obsH } from '../Utility/Colors';
 import Button from './Button';
 import Image from './Image';
 import HashLoader from 'react-spinners/HashLoader';
+import * as MdIcons from 'react-icons/md';
 
 const GameEntry = ({
   leftTeam,
@@ -83,37 +84,48 @@ const GameEntry = ({
                     </div>
                     <div className='dpc_center_section'>
                       <div className='dpc_team_section left_team'>
-                        <div className='dpc_team_name'>
-                          {leftTeam[0].team_name}
+                        <div className='team_infos'>
+                          <div className='dpc_team_name'>
+                            {leftTeam[0].team_name}
+                          </div>
+                          <div className='dpc_team_record'>
+                            {' '}
+                            {leftTeam[0].wins}&nbsp;-&nbsp;
+                            {leftTeam[0].losses}
+                          </div>
                         </div>
-                        <div className='dpc_team_record'>
-                          {leftTeam[0].wins}&nbsp;-&nbsp;{leftTeam[0].losses}
+                        <div className='team_logo'>
+                          <Image
+                            className={'team_logo'}
+                            id={leftTeam[0].team_id}
+                            isTeam
+                          ></Image>
                         </div>
                       </div>
-
-                      <Image
-                        className={'team_logo'}
-                        id={leftTeam[0].team_id}
-                        isTeam
-                      ></Image>
                       <div className='dpc_center_container'>
                         <div className='dpc_score'>
                           {gamesDetails.team_1_wins}&nbsp;-&nbsp;
                           {gamesDetails.team_2_wins}
                         </div>
                       </div>
-                      <Image
-                        className={'team_logo'}
-                        id={rightTeam[0].team_id}
-                        isTeam
-                      ></Image>
+
                       <div className='dpc_team_section right_team'>
-                        <div className='dpc_team_name'>
-                          {rightTeam[0].team_name}
+                        <div className='team_logo'>
+                          <Image
+                            className={'team_logo'}
+                            id={rightTeam[0].team_id}
+                            isTeam
+                          ></Image>
                         </div>
-                        <div className='dpc_team_record'>
-                          {' '}
-                          {rightTeam[0].wins}&nbsp;-&nbsp;{rightTeam[0].losses}
+                        <div className='team_infos'>
+                          <div className='dpc_team_name'>
+                            {rightTeam[0].team_name}
+                          </div>
+                          <div className='dpc_team_record'>
+                            {' '}
+                            {rightTeam[0].wins}&nbsp;-&nbsp;
+                            {rightTeam[0].losses}
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -125,8 +137,21 @@ const GameEntry = ({
                           setIsActive((prevState) => !isActive);
                           getSeriesMatches();
                         }}
+                        style={{
+                          background: 'none',
+                          border: 'none',
+                          color: 'white',
+                          flexGrow: '1',
+                        }}
                       >
-                        SERIES DETAILS
+                        <MdIcons.MdArrowBackIosNew
+                          style={{
+                            transform: !isActive
+                              ? 'rotate(-90deg)'
+                              : 'rotate(90deg)',
+                            fontSize: '1.25rem',
+                          }}
+                        ></MdIcons.MdArrowBackIosNew>{' '}
                       </Disclosure.Button>
                     </div>
                   </DpcBodyStyles>
@@ -224,9 +249,7 @@ const GameEntry = ({
                             );
                         })}
                       </div>
-                      <div className='disclosure_right_section'>
-                        <Button isRipple>WATCH VOD</Button>
-                      </div>
+                      <div className='disclosure_right_section'></div>
                     </div>
                   );
                 })}
@@ -284,7 +307,6 @@ const DpcListStyles = styled.div`
 
     .schedule_day_header {
       width: 90%;
-
       height: 40px;
       margin: 0px 0px;
       background-color: #28282e;
@@ -296,6 +318,9 @@ const DpcListStyles = styled.div`
       top: 0;
       z-index: 2;
       box-shadow: 0px 0px 16px rgb(0 0 0 / 40%);
+      @media screen and (max-width: 1000px) {
+        width: 100%;
+      }
       .schedule_date_label {
         color: #fff;
         font-size: 12px;
@@ -308,7 +333,6 @@ const DpcListStyles = styled.div`
     .schedule_node_list {
       width: 100%;
       min-width: 100%;
-
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -322,8 +346,11 @@ const DpcListStyles = styled.div`
         display: flex;
         flex-direction: column;
         margin-bottom: 2px;
-
         transition: all 200ms ease-in-out;
+        @media screen and (max-width: 1000px) {
+          width: 100%;
+          display: inline-block;
+        }
       }
     }
   }
@@ -341,80 +368,132 @@ const DpcBodyStyles = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+
   .dpc_left_section {
-    width: 250px;
-    min-width: 250px;
-    max-width: 250px;
+    width: 25%;
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-left: 40px;
+    padding-left: 2.5rem;
+    @media screen and (max-width: 900px) {
+      padding-left: 1rem;
+      align-items: flex-start;
+    }
+
     .node_type_upper {
-      font-size: 15px;
+      font-size: 0.9rem;
       font-weight: 700;
       letter-spacing: 3px;
       color: #fff;
       margin-bottom: 2px;
+
+      @media screen and (max-width: 900px) {
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 2px;
+      }
     }
     .node_type_lower {
-      font-size: 12px;
+      font-size: 0.75rem;
       letter-spacing: 1px;
       color: #a3a3a3;
-      font-size: 12px;
       font-weight: 700;
       text-transform: uppercase;
       text-align: center;
       margin-bottom: 8px;
+      @media screen and (max-width: 900px) {
+        font-size: 0.55rem;
+        font-weight: 500;
+      }
     }
     .node_time_label {
       color: #6b7785;
-      font-size: 12px;
+      font-size: 0.8rem;
       font-weight: 700;
       letter-spacing: 2px;
       text-align: center;
       display: flex;
       flex-direction: row;
-      gap: 8px;
+
+      @media screen and (max-width: 900px) {
+        font-size: 0.55rem;
+        font-weight: 500;
+        letter-spacing: 1px;
+      }
     }
   }
   .dpc_center_section {
     flex-grow: 1;
+
+    width: 50%;
     height: 100%;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
+
     color: #a3a3a3;
+    @media screen and (max-width: 900px) {
+      font-size: 0.75rem;
+    }
     .team_logo {
-      width: 48px;
-      height: 48px;
-      min-width: 48px;
-      min-height: 48px;
+      width: 3rem;
+      height: 3rem;
+      min-width: 3rem;
+      min-height: 3rem;
+
+      @media screen and (max-width: 900px) {
+        width: 2rem;
+        height: 2rem;
+        min-width: 2rem;
+        min-height: 2rem;
+      }
     }
 
     .dpc_team_section {
       flex-grow: 1;
       flex-basis: 0;
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
+      gap: 0.2rem;
+      align-items: center;
+      justify-content: center;
 
       .dpc_team_name {
-        font-size: 16px;
+        font-size: 1rem;
         font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 2px;
+
+        @media screen and (max-width: 900px) {
+          font-size: 0.75rem;
+          font-weight: 600;
+          letter-spacing: 1px;
+        }
+        @media screen and (max-width: 670px) {
+          font-size: 0.55rem;
+        }
       }
       .dpc_team_record {
-        font-size: 13px;
+        font-size: 0.8rem;
         font-weight: 700;
         color: #6b7785;
+        @media screen and (max-width: 900px) {
+          font-size: 0.75rem;
+          font-weight: 600;
+        }
+        @media screen and (max-width: 670px) {
+          font-size: 0.55rem;
+          font-weight: 500;
+        }
       }
     }
     .left_team {
       text-align: right;
-      margin-right: 14px;
+      margin-right: 0.9rem;
+      justify-content: flex-end;
     }
     .dpc_center_container {
       width: 100px;
@@ -423,25 +502,32 @@ const DpcBodyStyles = styled.div`
       justify-content: center;
       align-items: center;
       gap: 4px;
+
       .dpc_score {
-        width: 100px;
         text-align: center;
       }
     }
     .right_team {
       text-align: left;
-      margin-left: 14px;
+      margin-left: 0.9rem;
+      justify-content: flex-start;
     }
   }
   .dpc_right_section {
-    width: 250px;
-    max-width: 250px;
-    min-width: 250px;
+    width: 25%;
+
     height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    @media screen and (max-width: 900px) {
+      padding-right: 1rem;
+      align-items: flex-end;
+    }
+    @media screen and (max-width: 500px) {
+      width: 15%;
+    }
   }
 `;
 
@@ -463,10 +549,14 @@ const DpcDisclosureStyles = styled.div`
     flex-direction: column;
     gap: 1rem;
     align-items: center;
-    padding: 1rem;
+    padding: 1rem 0;
+    @media screen and (max-width: 1000px) {
+      width: 100%;
+      display: inline-block;
+    }
     .disclosure_box {
       width: 100%;
-      padding: 0.5rem;
+      padding: 0.5rem 0;
       flex-grow: 1;
       flex-basis: 0px;
       display: flex;
@@ -474,20 +564,31 @@ const DpcDisclosureStyles = styled.div`
       align-items: center;
       position: relative;
       .disclosure_left_section {
-        width: 250px;
-        padding-left: 40px;
+        width: 25%;
+        padding-left: 2.5rem;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        gap: 8px;
+
+        @media screen and (max-width: 900px) {
+          padding-left: 1rem;
+          align-items: flex-start;
+        }
+
         .disclosure_time {
           color: #6b7785;
-          font-size: 13px;
+          font-size: 0.8rem;
           font-weight: 700;
           text-transform: uppercase;
           letter-spacing: 3px;
           text-align: center;
+          @media screen and (max-width: 900px) {
+            font-size: 0.65rem;
+          }
+          @media screen and (max-width: 500px) {
+            font-size: 0.55rem;
+          }
         }
         .disclosure_watched_box {
           padding: 4px 8px;
@@ -501,17 +602,31 @@ const DpcDisclosureStyles = styled.div`
         }
       }
       .disclosure_hero_list {
-        width: 170px;
+        width: 10.625rem;
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
-        margin: 0px 40px;
+        margin: 0 2.5rem;
+
+        @media screen and (max-width: 900px) {
+          flex-wrap: wrap;
+          gap: 0.5rem;
+        }
+
         .hero_logo {
-          width: 32px;
-          height: 32px;
+          width: 2rem;
+          height: 2rem;
           background-size: cover;
           background-repeat: no-repeat;
+          @media screen and (max-width: 900px) {
+            width: 1.5rem;
+            height: 1.5rem;
+          }
+          @media screen and (max-width: 500px) {
+            width: 1rem;
+            height: 1rem;
+          }
         }
       }
       .disclosure_center {
@@ -524,8 +639,9 @@ const DpcDisclosureStyles = styled.div`
           display: flex;
           flex-direction: row;
           align-items: center;
-          gap: 10px;
-          margin-bottom: 8px;
+
+          margin-bottom: 0.5rem;
+
           .team_logo {
             width: 32px;
             height: 32px;
@@ -534,24 +650,30 @@ const DpcDisclosureStyles = styled.div`
             opacity: 1;
           }
           .center_game_number {
-            font-size: 16px;
-            font-weight: 700;
+            font-size: 0.8rem;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 2px;
             color: #fff;
+            margin-left: 0.5rem;
+            white-space: nowrap;
           }
         }
         .center_winning_team {
-          font-size: 14px;
+          font-size: 0.9rem;
           font-weight: 600;
           text-transform: uppercase;
           letter-spacing: 2px;
           color: #a3a3a3;
           text-align: center;
-          margin-bottom: 8px;
+          margin-bottom: 0.8rem;
+          @media screen and (max-width: 500px) {
+            font-size: 0.6rem;
+          }
         }
         .center_game_duration {
-          font-size: 14px;
+          font-size: 0.8rem;
+          font-weight: 700;
           text-transform: uppercase;
           letter-spacing: 2px;
           color: #6b7785;
@@ -563,6 +685,10 @@ const DpcDisclosureStyles = styled.div`
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        @media screen and (max-width: 900px) {
+          padding-right: 1rem;
+          align-items: flex-end;
+        }
       }
       &::after {
         width: calc(100% - 48px);

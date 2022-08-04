@@ -4,10 +4,10 @@ import styled from 'styled-components';
 import { obsH2 } from './Utility/Colors';
 import * as BsIcons from 'react-icons/bs';
 
-const DropdownMenu = ({ children, title }) => {
+const DropdownMenu = ({ children, title, className }) => {
   const [isActive, setIsActive] = useState(false);
   return (
-    <DropdownStyles>
+    <DropdownStyles className={className}>
       <Menu>
         <Menu.Button
           className={'menu_button'}
@@ -49,26 +49,29 @@ const DropdownMenu = ({ children, title }) => {
 };
 
 const DropdownStyles = styled.div`
-  width: 17%;
   display: flex;
+  width: 100%;
   justify-content: flex-end;
-  padding: 1rem;
+  padding: 0.5rem;
   z-index: 10;
   .menu_button {
     position: relative;
     width: 100%;
-    height: 30px;
+    height: 2rem;
     background: ${obsH2};
     color: white;
     letter-spacing: 1px;
     background: none;
-
     border: none;
     white-space: nowrap;
     justify-content: flex-start;
     align-self: flex-start;
     z-index: 1;
     box-shadow: 4px 4px 8px rgb(0 0 0 / 30%);
+
+    @media screen and (max-width: 768px) {
+      height: 1.5rem;
+    }
 
     cursor: pointer;
     .dropdown_selector {
@@ -77,6 +80,7 @@ const DropdownStyles = styled.div`
       align-items: center;
       border-radius: 3px;
       padding-left: 0.5rem;
+
       transition: 150ms all ease-in-out;
       clip-path: polygon(
         0px 0px,
@@ -91,7 +95,11 @@ const DropdownStyles = styled.div`
       background-color: #5e6976;
       color: #fff;
       width: 100%;
+
       height: 100%;
+      @media screen and (max-width: 768px) {
+        font-size: 0.7rem;
+      }
       .icon {
         background: linear-gradient(
           108deg,
@@ -131,7 +139,7 @@ const DropdownStyles = styled.div`
     left: 0;
 
     margin-top: 1rem;
-    z-index: 15;
+    z-index: 10;
     border-radius: 3px;
     align-items: flex-end;
     justify-content: space-evenly;
@@ -142,16 +150,19 @@ const DropdownStyles = styled.div`
 
       height: 100%;
       text-transform: uppercase;
-      padding: 12px;
+      padding: 0.8rem;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
-
       align-items: flex-start;
       cursor: pointer;
       user-select: none;
       filter: brightness(0.8);
       transition: background-color, filter 150ms ease-in-out;
+
+      @media screen and (max-width: 768px) {
+        font-size: 0.6rem;
+      }
       &:hover {
         background-color: #41474e;
         filter: brightness(1);

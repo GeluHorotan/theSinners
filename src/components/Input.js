@@ -15,6 +15,7 @@ const Input = ({
   colorTrigger,
   placeholderStyles,
   testingStyles,
+  className,
 }) => {
   return (
     <StyledWrapper
@@ -23,6 +24,7 @@ const Input = ({
       colorTrigger={colorTrigger}
       placeholderStyles={placeholderStyles}
       id='form-container'
+      className={className}
     >
       <div className='form'>
         <input
@@ -48,7 +50,7 @@ const StyledWrapper = styled.div`
 
   .form {
     position: relative;
-    width: 20rem;
+    width: 100%;
     height: 3rem;
 
     &__input {
