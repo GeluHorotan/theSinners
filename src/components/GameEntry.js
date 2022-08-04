@@ -24,6 +24,9 @@ const GameEntry = ({
   heroes,
 }) => {
   const [seriesMatches, setSeriesMatches] = useState([]);
+  const [isShown, setIsShown] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isActive, setIsActive] = useState(false);
 
   const getSeriesMatches = async () => {
     for (let i = 0; i < gamesDetails.matches.length; i++) {
@@ -34,11 +37,8 @@ const GameEntry = ({
 
       setSeriesMatches((prevState) => [...prevState, json]);
     }
+    setIsLoading((prevState) => false);
   };
-
-  useLayoutEffect(() => {
-    getSeriesMatches();
-  }, []);
 
   function secondsToHms(d) {
     d = Number(d);
@@ -52,7 +52,7 @@ const GameEntry = ({
     return <div>{hDisplay + mDisplay + sDisplay}</div>;
   }
 
-  if (leftTeam && rightTeam && gamesDetails && region)
+  if (leftTeam && rightTeam && gamesDetails.matches.length !== 0 && region)
     return (
       <Disclosure>
         <WrapperStyles>
@@ -65,8 +65,12 @@ const GameEntry = ({
                   </time>
                 </div>
               )}
-              <div className='schedule_node_list'>
-                <div className='dpc_schedule_entry'>
+              <div className='schedule_node_list '>
+                <div
+                  className={`dpc_schedule_entry ${
+                    isActive ? 'schedule_active' : ''
+                  }`}
+                >
                   <DpcBodyStyles>
                     <div className='dpc_left_section'>
                       <div className='node_type_upper'>
@@ -115,7 +119,13 @@ const GameEntry = ({
                     </div>
 
                     <div className='dpc_right_section'>
-                      <Disclosure.Button className='py-2'>
+                      <Disclosure.Button
+                        className='py-2'
+                        onClick={() => {
+                          setIsActive((prevState) => !isActive);
+                          getSeriesMatches();
+                        }}
+                      >
                         SERIES DETAILS
                       </Disclosure.Button>
                     </div>
@@ -126,8 +136,15 @@ const GameEntry = ({
           </DpcListStyles>
 
           <DpcDisclosureStyles>
-            <Disclosure.Panel className='disclosure_container'>
-              {gamesDetails.matches.length !== 0 &&
+            <Disclosure.Panel className='disclosure_container disclosure_active '>
+              <HashLoader
+                loading={isLoading}
+                color='white'
+                size={35}
+                speed={2}
+              />
+              {!isLoading &&
+                gamesDetails.matches.length !== 0 &&
                 seriesMatches.length === gamesDetails.matches.length &&
                 gamesDetails.matches.map((match, index) => {
                   return (
@@ -232,7 +249,7 @@ const WrapperStyles = styled.div`
 const DpcHeaderStyles = styled.div`
   width: 100%;
   height: 100px;
-  max-width: 1200px;
+
   display: flex;
   flex-direction: row;
   justify-content: right;
@@ -252,7 +269,7 @@ const DpcHeaderStyles = styled.div`
 
 const DpcListStyles = styled.div`
   width: 100%;
-  max-width: 1200px;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -266,8 +283,8 @@ const DpcListStyles = styled.div`
     align-items: center;
 
     .schedule_day_header {
-      width: calc(100% - 40px);
-      max-width: 1200px;
+      width: 90%;
+
       height: 40px;
       margin: 0px 0px;
       background-color: #28282e;
@@ -290,30 +307,30 @@ const DpcListStyles = styled.div`
 
     .schedule_node_list {
       width: 100%;
-      max-width: 1240px;
-      padding: 0px 20px;
+      min-width: 100%;
+
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 3px;
       .dpc_schedule_entry {
-        width: 100%;
-        max-width: 1200px;
-        
+        width: 90%;
+
         background-color: #27272dbf;
+
         box-shadow: 4px 4px 8px rgba (0, 0, 0, 0.2);
         display: flex;
         flex-direction: column;
         margin-bottom: 2px;
-        border: 1px solid transparent;
-        transition-property: border, background-color;
-        transition-timing-function: ease-in-out;
-        transition-duration: 0.2s;
-    
-     
-        }
+
+        transition: all 200ms ease-in-out;
       }
     }
+  }
+  .schedule_active {
+    border: 1px solid #2c3b63;
+    border-bottom: none;
+    background-color: #1c2031 !important;
   }
 `;
 
@@ -429,10 +446,14 @@ const DpcBodyStyles = styled.div`
 `;
 
 const DpcDisclosureStyles = styled.div`
-  width: 1168px;
-
+  width: 100%;
+  .disclosure_active {
+    border: 1px solid #2c3b63;
+    border-top: none;
+  }
   .disclosure_container {
-    width: 100%;
+    width: 90%;
+    margin: 0 auto;
     overflow: hidden;
     background-color: #15171e;
     transition-property: height, min-height, padding-top, padding-bottom;
@@ -442,6 +463,7 @@ const DpcDisclosureStyles = styled.div`
     flex-direction: column;
     gap: 1rem;
     align-items: center;
+    padding: 1rem;
     .disclosure_box {
       width: 100%;
       padding: 0.5rem;

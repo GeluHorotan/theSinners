@@ -126,9 +126,9 @@ const Schedule = ({ children }) => {
   };
 
   useLayoutEffect(() => {
-    getAllGames();
-  }, [filtered]);
-  console.log(fetchedGames);
+    // getAllGames();
+  }, []);
+
   useEffect(() => {
     getAllNodes();
   }, [leagues]);
