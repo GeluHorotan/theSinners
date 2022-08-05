@@ -513,37 +513,37 @@ const SeriesDetailsStyles = styled.div`
   transition-duration: 0.2s;
 
   @media screen and (max-width: 980px) {
-    zoom: 0.9;
+    transform: scale(0.9);
     text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
   }
   @media screen and (max-width: 895px) {
-    zoom: 0.8;
+    transform: scale(0.8);
     text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
   }
   @media screen and (max-width: 795px) {
-    zoom: 0.7;
+    transform: scale(0.7);
     text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
   }
   @media screen and (max-width: 695px) {
-    zoom: 0.6;
+    transform: scale(0.6);
     text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
   }
   @media screen and (max-width: 595px) {
-    zoom: 0.5;
+    transform: scale(0.5);
     text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
   }
   @media screen and (max-width: 495px) {
-    zoom: 0.4;
+    transform: scale(0.4);
     text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
   }
   @media screen and (max-width: 395px) {
-    zoom: 0.35;
+    transform: scale(0.35);
     text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
   }
