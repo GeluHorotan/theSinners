@@ -10,6 +10,7 @@ export const formatTimestamp = (timestamp, format) => {
   let fromNow = moment(t).endOf(t).fromNow();
   let dayFormat = moment(t).format(`dddd, MMMM Do`);
   let hour = moment(t).format(` h:mm A`);
+  let news = moment(t).format(`DD MMMM Y`);
 
   if (format === 'classic') {
     return formatted;
@@ -22,5 +23,8 @@ export const formatTimestamp = (timestamp, format) => {
   }
   if (format === 'hour') {
     return hour;
+  }
+  if (format === 'news') {
+    return news;
   }
 };

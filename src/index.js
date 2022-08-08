@@ -4,14 +4,19 @@ import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
 import registerServiceWorker from './registerServiceWorker';
 import netlifyIdentity from 'netlify-identity-widget';
+import { QueryClient, QueryClientProvider } from 'react-query';
+
 const root = createRoot(document.getElementById('root'));
-var buttons = document.createElement('div');
 
 netlifyIdentity.init();
+
+const queryClient = new QueryClient();
 root.render(
   // <React.StrictMode>
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
+  <QueryClientProvider client={queryClient}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </QueryClientProvider>
   // </React.StrictMode>
 );

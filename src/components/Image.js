@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getName } from '../Functions/getName';
-import { ItemsContext, HeroesContext } from '../pages/Esports';
+import { HeroesContext } from '../pages/Esports';
+import { ItemsContext } from '../App';
 
 const Image = ({
   className,

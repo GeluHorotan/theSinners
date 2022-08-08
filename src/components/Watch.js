@@ -276,19 +276,19 @@ const TabelsGridStyles = styled.section`
     grid-template-rows: repeat(2, minmax(0, 1fr));
     zoom: 0.8;
     width: 100%;
-    text-size-adjust: none;
-    -webkit-text-size-adjust: none;
+    text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
   }
   @media screen and (max-width: 1550px) {
     zoom: 0.8;
     width: 85%;
-    text-size-adjust: none;
-    -webkit-text-size-adjust: none;
+    text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
   }
   @media screen and (max-width: 1200px) {
     zoom: 0.7;
-    text-size-adjust: none;
-    -webkit-text-size-adjust: none;
+    text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
   }
   @media screen and (max-width: 668px) {
     grid-template-columns: repeat(1, minmax(0, 1fr));
@@ -307,8 +307,8 @@ const TabelsGridStyles = styled.section`
     .tabel_in_grid {
       min-width: 30rem;
       zoom: 0.85;
-      text-size-adjust: none;
-      -webkit-text-size-adjust: none;
+      text-size-adjust: 100%;
+      -webkit-text-size-adjust: 100%;
       box-shadow: 4px 4px 16px rgb(0 0 0 / 40%);
 
       th {

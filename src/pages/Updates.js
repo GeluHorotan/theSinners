@@ -11,7 +11,7 @@ const fetchUsers = async ({ pageParam = 1 }) => {
   return res.json();
 };
 
-const News = () => {
+const Updates = () => {
   const [view, setView] = useState('pagination');
 
   return (
@@ -45,7 +45,11 @@ const News = () => {
           Infinite Scroll
         </button>
         <div className='sub_entries'>
-          {view === 'pagination' ? <Pagination /> : <InfiniteScroll />}
+          {view === 'pagination' ? (
+            <Pagination isUpdate />
+          ) : (
+            <InfiniteScroll isUpdate />
+          )}
         </div>
       </BottomSectionStyles>
     </Wrapper>
@@ -240,4 +244,4 @@ const BottomSectionStyles = styled.section`
   }
 `;
 
-export default News;
+export default Updates;

@@ -48,6 +48,11 @@ const Navigation = () => {
             </Button>
           </li>
           <li>
+            <Button isRipple isLink setLink='/patches'>
+              PATCHES
+            </Button>
+          </li>
+          <li>
             <Button isLink setLink='/team'>
               TEAM
             </Button>
