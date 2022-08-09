@@ -4,11 +4,11 @@ import { sorter } from '../Functions/sorter';
 import { useQuery } from 'react-query';
 import Image from '../components/Image';
 import { getName } from '../Functions/getName';
-import { ItemsContext, HeroesContext } from '../App';
+import { ItemsContext, HeroesContext, AbilityContext } from '../App';
 import { Link } from 'react-router-dom';
 
 const fetchSelectedPatch = async (id) => {
-  const res = await fetch(`/.netlify/functions/lastPatch/?lastPatchId=${id}`);
+  const res = await fetch(`/.netlify/functions/lastPatch/?lastPatchId=7.31c`);
   return res.json();
 };
 
@@ -17,6 +17,7 @@ const Patches = () => {
   const [lastPatch, setLastPatch] = useState();
   const dotaItems = React.useContext(ItemsContext);
   const dotaHeroes = React.useContext(HeroesContext);
+  const dotaAbilities = React.useContext(AbilityContext);
 
   const getPatchList = async () => {
     const res = await fetch('/.netlify/functions/patchList/');
@@ -60,7 +61,7 @@ const Patches = () => {
     return <h2>{error.message}</h2>;
   }
 
-  if (patchList && data && dotaItems)
+  if (patchList && data && dotaItems && dotaAbilities)
     return (
       <Wrapper>
         <div className='header'>
@@ -68,116 +69,165 @@ const Patches = () => {
           <div className='notes_title'>{patchList[0].patch_number}</div>
         </div>
         <BodyStyles>
-          <div className='update_section'>
-            <div className='patch_notes_label'>GENERAL UPDATES</div>
-            <GeneralStyles>
-              {data.generic.map((generalNote, index) => {
-                return <div className='note_info'>{generalNote.note}</div>;
-              })}
-            </GeneralStyles>
-          </div>
-          <div className='update_section'>
-            <div className='patch_notes_label'>ITEM UPDATES</div>
-            <ItemStyles>
-              {data.items.map((item, index) => {
-                return (
-                  <div className='patch_note_item'>
-                    <div className='item_header'>
-                      <Image
-                        isItem
-                        className={'item_logo'}
-                        id={item.ability_id}
-                      ></Image>
-                      <div className='item_right_section'>
-                        <div className='item_name'>
-                          {getName(dotaItems, item.ability_id, 'item').replace(
+          {data.neutral_creeps && (
+            <div className='update_section'>
+              <div className='patch_notes_label'>NEUTRAL CREEP UPDATES</div>
+              <GeneralStyles>
+                {data.neutral_creeps.map((creep, index) => {
+                  return (
+                    <div className='note_info'>{creep.localized_name}</div>
+                  );
+                })}
+              </GeneralStyles>
+            </div>
+          )}
+
+          {data.generic && (
+            <div className='update_section'>
+              <div className='patch_notes_label'>GENERAL UPDATES</div>
+              <GeneralStyles>
+                {data.generic.map((generalNote, index) => {
+                  return <div className='note_info'>{generalNote.note}</div>;
+                })}
+              </GeneralStyles>
+            </div>
+          )}
+          {data.items && (
+            <div className='update_section'>
+              <div className='patch_notes_label'>ITEM UPDATES</div>
+              <ItemStyles>
+                {data.items.map((item, index) => {
+                  return (
+                    <div className='patch_note_item'>
+                      <div className='item_header'>
+                        <Image
+                          isItem
+                          className={'item_logo'}
+                          id={item.ability_id}
+                        ></Image>
+                        <div className='item_right_section'>
+                          <div className='item_name'>
+                            {getName(
+                              dotaItems,
+                              item.ability_id,
+                              'item'
+                            ).replace('_', ' ')}
+                          </div>
+                        </div>
+                      </div>
+                      {item.ability_notes.map((note, index) => {
+                        return (
+                          <div className='item_notes'>
+                            <div className='dot'></div>
+                            <div className='note'>{note.note}</div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  );
+                })}
+              </ItemStyles>
+            </div>
+          )}
+          {data.heroes && (
+            <div className='update_section'>
+              <div className='patch_notes_label'>HERO UPDATES</div>
+              <HeroStyles>
+                {data.heroes.map((hero, index) => {
+                  return (
+                    <div className='patch_note_hero'>
+                      <Link to='#'>
+                        <Image
+                          isHero
+                          isPortrait
+                          className={'hero_image'}
+                          id={hero.hero_id}
+                        ></Image>
+                        <div className='right_section'>
+                          {getName(dotaHeroes, hero.hero_id, 'hero').replace(
                             '_',
                             ' '
                           )}
                         </div>
-                      </div>
-                    </div>
-                    {item.ability_notes.map((note, index) => {
-                      return (
-                        <div className='item_notes'>
-                          <div className='dot'></div>
-                          <div className='note'>{note.note}</div>
-                        </div>
-                      );
-                    })}
-                  </div>
-                );
-              })}
-            </ItemStyles>
-          </div>
-          <div className='update_section'>
-            <div className='patch_notes_label'>HERO UPDATES</div>
-            <HeroStyles>
-              {data.heroes.map((hero, index) => {
-                return (
-                  <div className='patch_note_hero'>
-                    <Link to='#'>
-                      <Image
-                        isHero
-                        isPortrait
-                        className={'hero_image'}
-                        id={hero.hero_id}
-                      ></Image>
-                      <div className='right_section'>{hero.hero_id}</div>
-                    </Link>
-                    <div className='patch_notes_hero'>
-                      {hero.hero_notes &&
-                        hero.hero_notes.map((note, index) => {
-                          return (
-                            <div className='hero_note'>
-                              <div className='note_element'>
-                                <div className='dot'></div>
-                                <div className='note'>{note.note}</div>
+                      </Link>
+                      <div className='patch_notes_hero'>
+                        {hero.hero_notes &&
+                          hero.hero_notes.map((note, index) => {
+                            return (
+                              <div className='hero_note'>
+                                <div className='note_element'>
+                                  <div className='dot'></div>
+                                  <div className='note'>{note.note}</div>
+                                </div>
                               </div>
-                            </div>
-                          );
-                        })}
-                      {hero.abilities &&
-                        hero.abilities.map((ability, index) => {
-                          console.log(ability);
+                            );
+                          })}
+                        {hero.abilities &&
+                          hero.abilities.map((ability, index) => {
+                            return (
+                              <div className='hero_note'>
+                                <div className='ability_note'>
+                                  <Image
+                                    isSpell
+                                    className='ability_icon'
+                                    id={ability.ability_id}
+                                  ></Image>
 
-                          return ability.ability_notes.map(
-                            (abilityNote, index) => {
-                              return (
-                                <div className='hero_note'>
-                                  <div className='ability_note'>
-                                    <div className='ability_icon'>
-                                      {ability.ability_id}
+                                  <div className='ability_right_section'>
+                                    <div className='ability_name'>
+                                      {getName(
+                                        dotaAbilities,
+                                        ability.ability_id,
+                                        'spell'
+                                      )}
                                     </div>
-                                    <div className='right_section'>
-                                      <div className='ability_name'>
-                                        {ability.ability_id}
-                                      </div>
-                                      <div className='note_element'>
-                                        <div
-                                          style={{
-                                            width: '20px',
-                                            minWidth: '20px',
-                                          }}
-                                        ></div>
-                                        <div className='dot'></div>
-                                        <div className='note'>
-                                          {abilityNote.note}
-                                        </div>
-                                      </div>
-                                    </div>
+                                    {ability.ability_notes.map(
+                                      (abilityNote, index) => {
+                                        return (
+                                          <div className='note_element'>
+                                            <div
+                                              style={{
+                                                width: '20px',
+                                                minWidth: '20px',
+                                              }}
+                                            ></div>
+                                            <div className='dot'></div>
+                                            <div className='note'>
+                                              {abilityNote.note}
+                                            </div>
+                                          </div>
+                                        );
+                                      }
+                                    )}
                                   </div>
                                 </div>
-                              );
-                            }
-                          );
-                        })}
+                              </div>
+                            );
+                          })}
+
+                        {hero.talent_notes && (
+                          <div className='talent_notes'>
+                            <div className='talent_header'>TALENTS</div>
+                            <div className='talent_container'>
+                              {hero.talent_notes &&
+                                hero.talent_notes.map((talent, index) => {
+                                  return (
+                                    <div className='note_element'>
+                                      <div className='dot'></div>
+                                      <div className='note'>{talent.note}</div>
+                                    </div>
+                                  );
+                                })}
+                            </div>
+                          </div>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
-            </HeroStyles>
-          </div>
+                  );
+                })}
+              </HeroStyles>
+            </div>
+          )}
         </BodyStyles>
       </Wrapper>
     );
@@ -287,7 +337,7 @@ const HeroStyles = styled.section`
   display: flex;
   padding: 20px 0px;
   flex-direction: column;
-  line-height: 2.5rem;
+
   .patch_note_hero {
     width: 100%;
     min-height: 0;
@@ -309,6 +359,9 @@ const HeroStyles = styled.section`
       display: flex;
       flex-direction: row;
       align-items: center;
+      text-decoration: none;
+      color: #fff;
+      text-transform: uppercase;
       margin-bottom: 24px;
       .hero_image {
         width: 128px;
@@ -326,8 +379,153 @@ const HeroStyles = styled.section`
       }
     }
 
-    .hero_note {
+    .patch_notes_hero {
       width: 100%;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 1.5rem;
+      .hero_note {
+        width: 100%;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 24px;
+        .note_element {
+          display: flex;
+          flex-direction: row;
+          align-items: flex-start;
+          .dot {
+            width: 3px;
+            height: 3px;
+            min-width: 5px;
+            min-height: 5px;
+            border-radius: 3px;
+            background-color: #999;
+            margin-right: 10px;
+            margin-top: 12px;
+          }
+          .note {
+            font-size: 20px;
+            color: #bbbbbbee;
+            line-height: 30px;
+            font-weight: 200;
+          }
+        }
+      }
+
+      .right_section {
+        flex-grow: 1;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .ability_note {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        .ability_icon {
+          width: 55px;
+          height: 55px;
+          min-width: 55px;
+          background-size: cover;
+          background-repeat: no-repeat;
+        }
+
+        .right_section {
+          flex-grow: 1;
+          min-height: 0;
+          display: flex;
+          flex-direction: column;
+          .ability_name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #fff;
+            font-family: 'Reaver', serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 4px;
+            margin-left: 20px;
+          }
+          .note_element {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+          }
+        }
+      }
+    }
+    .ability_note {
+      padding-bottom: 20px;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+
+      justify-content: center;
+      align-items: center;
+      .ability_icon {
+        width: 55px;
+        height: 55px;
+        min-width: 55px;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+      .ability_right_section {
+        flex-grow: 1;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+
+        .ability_name {
+          font-size: 16px;
+          font-weight: 600;
+          color: #fff;
+
+          text-transform: uppercase;
+          letter-spacing: 2px;
+          margin-bottom: 4px;
+          margin-left: 20px;
+        }
+        .note_element {
+          display: flex;
+          flex-direction: row;
+          align-items: flex-start;
+          .dot {
+            width: 3px;
+            height: 3px;
+            min-width: 5px;
+            min-height: 5px;
+            border-radius: 3px;
+            background-color: #999;
+            margin-right: 10px;
+            margin-top: 12px;
+          }
+          .note {
+            font-size: 20px;
+            color: #bbbbbbee;
+            line-height: 30px;
+            font-weight: 300;
+          }
+        }
+      }
+    }
+  }
+
+  .talent_notes {
+    width: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    .talent_header {
+      font-size: 22px;
+      font-weight: bold;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+    }
+    .talent_container {
+      idth: 100%;
       min-height: 0;
       display: flex;
       flex-direction: column;
@@ -351,19 +549,6 @@ const HeroStyles = styled.section`
           color: #bbbbbbee;
           line-height: 30px;
           font-weight: 200;
-        }
-
-        .ability_note {
-          width: 100%;
-          display: flex;
-          flex-direction: row;
-          .ability_icon {
-            width: 55px;
-            height: 55px;
-            min-width: 55px;
-            background-size: cover;
-            background-repeat: no-repeat;
-          }
         }
       }
     }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getName } from '../Functions/getName';
 
-import { ItemsContext, HeroesContext } from '../App';
+import { ItemsContext, HeroesContext, AbilityContext } from '../App';
 
 const Image = ({
   className,
@@ -11,6 +11,7 @@ const Image = ({
   isItem,
   isHero,
   isPortrait,
+  isSpell,
   alt,
   elementId,
 }) => {
@@ -18,6 +19,7 @@ const Image = ({
 
   const dotaItems = React.useContext(ItemsContext);
   const dotaHeroes = React.useContext(HeroesContext);
+  const dotaAbilities = React.useContext(AbilityContext);
 
   const teamObject = {
     src: `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/teams_override/${id}.png`,
@@ -49,6 +51,12 @@ const Image = ({
     default: ``,
   };
 
+  const spellObject = {
+    src: `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/${
+      isSpell && id ? getName(dotaAbilities, id, 'spellIMG') : ''
+    }.png`,
+  };
+
   if (!imgError && teamObject && playerObject && itemObject)
     return (
       <img
@@ -63,6 +71,8 @@ const Image = ({
             ? heroObject.src
             : isHero && isPortrait
             ? heroObject.portrait
+            : isSpell
+            ? spellObject.src
             : ''
         }
         className={className}
