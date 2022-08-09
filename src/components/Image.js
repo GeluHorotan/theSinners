@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getName } from '../Functions/getName';
-import { HeroesContext } from '../pages/Esports';
-import { ItemsContext } from '../App';
+
+import { ItemsContext, HeroesContext } from '../App';
 
 const Image = ({
   className,
@@ -10,6 +10,7 @@ const Image = ({
   isPlayer,
   isItem,
   isHero,
+  isPortrait,
   alt,
   elementId,
 }) => {
@@ -42,6 +43,9 @@ const Image = ({
     src: `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/icons/${
       isHero && id ? getName(dotaHeroes, id, 'hero') : ''
     }.png`,
+    portrait: `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/${
+      isHero && id ? getName(dotaHeroes, id, 'hero') : ''
+    }.png`,
     default: ``,
   };
 
@@ -55,8 +59,10 @@ const Image = ({
             ? playerObject.src
             : isItem
             ? itemObject.src
-            : isHero
+            : isHero && !isPortrait
             ? heroObject.src
+            : isHero && isPortrait
+            ? heroObject.portrait
             : ''
         }
         className={className}

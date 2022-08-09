@@ -26,10 +26,12 @@ import Updates from './pages/Updates';
 import Patches from './pages/Patches';
 
 export const ItemsContext = React.createContext();
+export const HeroesContext = React.createContext();
 
 function App() {
   const location = useLocation();
   const [dotaItems, setDotaItems] = useState();
+  const [dotaHeroes, setDotaHeroes] = useState();
 
   const getDotaItems = async () => {
     const res = await fetch(`/.netlify/functions/items/`);
@@ -37,8 +39,15 @@ function App() {
     setDotaItems((prevState) => json.result.data.itemabilities);
   };
 
+  const getHeroes = async () => {
+    const res = await fetch(`/.netlify/functions/helloWorld/`);
+    const json = await res.json();
+    setDotaHeroes((prevState) => json.result.data.heroes);
+  };
+
   useEffect(() => {
     getDotaItems();
+    getHeroes();
   }, []);
 
   return (
@@ -46,22 +55,24 @@ function App() {
       <GlobalStyle />
 
       <Navigation />
-      <ItemsContext.Provider value={dotaItems}>
-        <Routes location={location} key={location.pathname}>
-          <Route path='/' exact element={<Homepage />} />
-          <Route path='/about' exact element={<About />} />
-          <Route path='/news' exact element={<News />} />
-          <Route path='/news/updates' exact element={<Updates />} />
-          <Route path='/newsentry/:gid' element={<NewsEntry />} />
-          <Route path='/patches' element={<Patches />} />
-          <Route path='/team' exact element={<Team />} />
-          <Route path='/heroes' exact element={<Heroes />} />
-          <Route path='/esports' exact element={<Esports />} />
-          <Route path='/shop' exact element={<Shop />} />
-          <Route path='/contact' exact element={<Contact />} />
-          <Route path='/hero/:heroID' element={<Hero />} />
-        </Routes>
-      </ItemsContext.Provider>
+      <HeroesContext.Provider value={dotaHeroes}>
+        <ItemsContext.Provider value={dotaItems}>
+          <Routes location={location} key={location.pathname}>
+            <Route path='/' exact element={<Homepage />} />
+            <Route path='/about' exact element={<About />} />
+            <Route path='/news' exact element={<News />} />
+            <Route path='/news/updates' exact element={<Updates />} />
+            <Route path='/newsentry/:gid' element={<NewsEntry />} />
+            <Route path='/patches' element={<Patches />} />
+            <Route path='/team' exact element={<Team />} />
+            <Route path='/heroes' exact element={<Heroes />} />
+            <Route path='/esports' exact element={<Esports />} />
+            <Route path='/shop' exact element={<Shop />} />
+            <Route path='/contact' exact element={<Contact />} />
+            <Route path='/hero/:heroID' element={<Hero />} />
+          </Routes>
+        </ItemsContext.Provider>
+      </HeroesContext.Provider>
     </div>
   );
 }

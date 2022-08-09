@@ -4,7 +4,7 @@ import { sorter } from '../Functions/sorter';
 import { useQuery } from 'react-query';
 import Image from '../components/Image';
 import { getName } from '../Functions/getName';
-import { ItemsContext } from '../App';
+import { ItemsContext, HeroesContext } from '../App';
 import { Link } from 'react-router-dom';
 
 const fetchSelectedPatch = async (id) => {
@@ -16,6 +16,8 @@ const Patches = () => {
   const [patchList, setPatchList] = useState();
   const [lastPatch, setLastPatch] = useState();
   const dotaItems = React.useContext(ItemsContext);
+  const dotaHeroes = React.useContext(HeroesContext);
+
   const getPatchList = async () => {
     const res = await fetch('/.netlify/functions/patchList/');
     const json = await res.json();
@@ -42,6 +44,14 @@ const Patches = () => {
     { keepPreviousData: true }
   );
 
+  if (dotaHeroes && data) {
+    data.heroes.sort((a, b) =>
+      getName(dotaHeroes, a.hero_id, 'hero').localeCompare(
+        getName(dotaHeroes, b.hero_id, 'hero')
+      )
+    );
+  }
+
   if (isLoading) {
     return <h2>Loading...</h2>;
   }
@@ -50,7 +60,7 @@ const Patches = () => {
     return <h2>{error.message}</h2>;
   }
 
-  if (patchList && data)
+  if (patchList && data && dotaItems)
     return (
       <Wrapper>
         <div className='header'>
@@ -80,11 +90,10 @@ const Patches = () => {
                       ></Image>
                       <div className='item_right_section'>
                         <div className='item_name'>
-                          {dotaItems &&
-                            getName(dotaItems, item.ability_id, 'item').replace(
-                              '_',
-                              ' '
-                            )}
+                          {getName(dotaItems, item.ability_id, 'item').replace(
+                            '_',
+                            ' '
+                          )}
                         </div>
                       </div>
                     </div>
@@ -108,7 +117,12 @@ const Patches = () => {
                 return (
                   <div className='patch_note_hero'>
                     <Link to='#'>
-                      <div className='hero_image'>IMG</div>
+                      <Image
+                        isHero
+                        isPortrait
+                        className={'hero_image'}
+                        id={hero.hero_id}
+                      ></Image>
                       <div className='right_section'>{hero.hero_id}</div>
                     </Link>
                     <div className='patch_notes_hero'>
@@ -125,17 +139,19 @@ const Patches = () => {
                         })}
                       {hero.abilities &&
                         hero.abilities.map((ability, index) => {
+                          console.log(ability);
+
                           return ability.ability_notes.map(
                             (abilityNote, index) => {
                               return (
                                 <div className='hero_note'>
                                   <div className='ability_note'>
                                     <div className='ability_icon'>
-                                      {ability.id}
+                                      {ability.ability_id}
                                     </div>
                                     <div className='right_section'>
                                       <div className='ability_name'>
-                                        {ability.id}
+                                        {ability.ability_id}
                                       </div>
                                       <div className='note_element'>
                                         <div
