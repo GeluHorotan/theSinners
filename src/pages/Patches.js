@@ -8,7 +8,7 @@ import { ItemsContext, HeroesContext, AbilityContext } from '../App';
 import { Link } from 'react-router-dom';
 
 const fetchSelectedPatch = async (id) => {
-  const res = await fetch(`/.netlify/functions/lastPatch/?lastPatchId=7.31c`);
+  const res = await fetch(`/.netlify/functions/lastPatch/?lastPatchId=7.31b`);
   return res.json();
 };
 
@@ -72,13 +72,39 @@ const Patches = () => {
           {data.neutral_creeps && (
             <div className='update_section'>
               <div className='patch_notes_label'>NEUTRAL CREEP UPDATES</div>
-              <GeneralStyles>
+              <NeutralStyles>
                 {data.neutral_creeps.map((creep, index) => {
                   return (
-                    <div className='note_info'>{creep.localized_name}</div>
+                    <div className='neutral_creep'>
+                      <div className='neutral_creep_header'>
+                        <Image
+                          className='neutral_creep_icon'
+                          id={creep.name}
+                          isNeutral
+                          alt={creep.localized_name}
+                        />
+
+                        <div className='neutral_right_section'>
+                          <div className='neutral_name'>
+                            {' '}
+                            {creep.localized_name}
+                          </div>
+                        </div>
+                      </div>
+                      <div className='neutral_notes'>
+                        {creep.neutral_creep_notes.map((note, index) => {
+                          return (
+                            <div className='note_element'>
+                              <div className='dot'></div>
+                              <div className='note'>{note.note}</div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
                   );
                 })}
-              </GeneralStyles>
+              </NeutralStyles>
             </div>
           )}
 
@@ -320,6 +346,82 @@ const GeneralStyles = styled.section`
     letter-spacing: 2px;
     color: #fff;
     z-index: 5;
+  }
+`;
+
+const NeutralStyles = styled.section`
+  width: 100%;
+  border-left: 2px solid #ffffff10;
+  margin-bottom: 30px;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.38) 3.07%,
+    rgba(6, 37, 65, 0.3) 88.06%
+  );
+  box-shadow: 0px 0px 50px #000;
+  min-height: 0;
+  display: flex;
+  padding: 20px 0px;
+  flex-direction: column;
+  .neutral_creep {
+    width: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 0px 40px;
+    padding-bottom: 0px;
+    margin-bottom: 20px;
+    .neutral_creep_header {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      .neutral_creep_icon {
+        width: 72px;
+        height: 52px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        box-shadow: 0px 0px 20px #000;
+        margin-right: 16px;
+        margin-bottom: 10px;
+      }
+      .neutral_right_section {
+        flex-grow: 1;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        .neutral_name {
+          font-size: 20px;
+          font-weight: 600;
+          color: #fff;
+          text-transform: uppercase;
+          letter-spacing: 2px;
+        }
+      }
+    }
+    .neutral_notes {
+      .note_element {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        .dot {
+          width: 3px;
+          height: 3px;
+          min-width: 5px;
+          min-height: 5px;
+          border-radius: 3px;
+          background-color: #999;
+          margin-right: 10px;
+          margin-top: 12px;
+        }
+        .note {
+          font-size: 20px;
+          color: #bbbbbbee;
+          line-height: 30px;
+          font-weight: 200;
+        }
+      }
+    }
   }
 `;
 

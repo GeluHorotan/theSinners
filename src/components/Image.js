@@ -12,6 +12,7 @@ const Image = ({
   isHero,
   isPortrait,
   isSpell,
+  isNeutral,
   alt,
   elementId,
 }) => {
@@ -57,6 +58,10 @@ const Image = ({
     }.png`,
   };
 
+  const neutralObject = {
+    src: `https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/units/${id}.png`,
+  };
+
   if (!imgError && teamObject && playerObject && itemObject)
     return (
       <img
@@ -73,6 +78,8 @@ const Image = ({
             ? heroObject.portrait
             : isSpell
             ? spellObject.src
+            : isNeutral
+            ? neutralObject.src
             : ''
         }
         className={className}
