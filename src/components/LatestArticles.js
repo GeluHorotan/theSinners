@@ -8,7 +8,7 @@ const fetchUsers = async (countParam) => {
   return res.json();
 };
 
-const LatestArticles = ({ currentGid }) => {
+const LatestArticles = ({ currentGid, padding }) => {
   const { isLoading, isError, error, data, isFetching } = useQuery(
     ['events', 11],
     () => fetchUsers(11),
@@ -24,7 +24,7 @@ const LatestArticles = ({ currentGid }) => {
   }
 
   return (
-    <Wrapper>
+    <Wrapper padding={padding}>
       <div className='header'>
         LATEST NEWS
         {currentGid}
@@ -36,8 +36,9 @@ const LatestArticles = ({ currentGid }) => {
               !article.announcement_body.tags[0].includes('patchnotes') &&
               article.announcement_body.gid !== currentGid
           )
-          .map((article) => {
-            return <BlogCapsule key={article.clan_steamid} blog={article} />;
+          .map((article, index) => {
+            if (index < 3)
+              return <BlogCapsule key={article.clan_steamid} blog={article} />;
           })}
       </div>
     </Wrapper>
@@ -46,7 +47,7 @@ const LatestArticles = ({ currentGid }) => {
 
 const Wrapper = styled.section`
   width: 100%;
-  padding: 100px 14vw;
+  padding: ${(props) => (props.padding ? 'none' : '100px 14vw')};
   margin: auto;
   .header {
     font-size: 20px;

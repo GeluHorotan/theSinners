@@ -35,7 +35,7 @@ const GlobalStyle = createGlobalStyle`
 
 body {
    overflow: visible ;
-   background: ${primary};
+   background: #000;
 }
 h1 {
   font-size: 3.75rem;

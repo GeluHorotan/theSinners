@@ -20,7 +20,7 @@ const BlogCapsule = ({ blog }) => {
     );
 
   return (
-    <LinkStyles>
+    <LinkStyles className='capsule_container'>
       <Link
         to={`/newsentry/${blog.announcement_body.gid}`}
         state={{
