@@ -52,27 +52,112 @@ const Homepage = () => {
         <div className='bottom_fade'></div>
       </HeaderStyles>
       <NewsStyles>
-        <div className='news_top'>
-          <div className='latest_news'>Latest News</div>
-          <Link className='view_all' to='/news'>
-            VIEW ALL
-            <div className='right_arrow'></div>
-          </Link>
-        </div>
         <div className='news_capsules'>
           {' '}
-          <LatestArticles padding={'none'}></LatestArticles>
+          <LatestArticles padding={'none'} allNews={true}></LatestArticles>
         </div>
       </NewsStyles>
+      <BattleStyles>
+        <div className='battle_bg'>
+          <img
+            src='https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//home/radiant_dire5.jpg'
+            alt='Radiant Background'
+            className='background_img desktop_background'
+          />
+          <img
+            src='https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//home/battle_mobile.jpg'
+            alt='Radiant Background'
+            className='background_img mobile_background'
+          />
+        </div>
+        <div className='battle_left_half'>
+          <div className='header_text'>
+            <span className='Minor'>Join THE</span>
+            <br />
+            Battle of the Ancients
+          </div>
+          <div className='horizontal_bar'></div>
+          <div className='body_text'>
+            Every day, millions of players worldwide enter the battle as one of
+            over a hundred Dota Heroes in a 5v5 team clash. Dota is the deepest
+            multi-player action RTS game ever made and there's always a new
+            strategy or tactic to discover. It's completely free to play and
+            always will be – start defending your ancient now.
+            <Button setClassName={'call_to_action'} isLink setLink={'/news'}>
+              {' '}
+              SEE WHAT'S NEW
+            </Button>
+          </div>
+        </div>
+      </BattleStyles>
+      <ChooseStyles>
+        <div className='fade_container fade_top'>
+          <div className='fade top'></div>
+        </div>
+        <div className='fade_container fade_bottom'>
+          <div className='fade bottom'></div>
+        </div>
+        <div className='header_text'>
+          <span className='Minor'>Who Will You</span>
+          <br />
+          Choose ?
+        </div>
+        <div className='horizontal_bar'></div>
+        <div className='body_text'>
+          From magical tacticians to fierce brutes and cunning rogues, Dota 2's
+          hero pool is massive and limitlessly diverse. Unleash incredible
+          abilities and devastating ultimates on your way to victory.
+          <Button isLink setClassName={'call_to_action'} setLink={'/heroes'}>
+            {' '}
+            VIEW ALL HEROES
+          </Button>
+        </div>
+        <div className='heroes_grid'></div>
+      </ChooseStyles>
+      <DPCStyles>
+        <div className='dpc_images'>
+          <img
+            src='https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//home/dpc_ti9_1.jpg'
+            alt=''
+            className='dpc_image left'
+          />
+          <img
+            src='https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//home/dpc_ti9_2.jpg'
+            alt=''
+            className='dpc_image right'
+          />
+        </div>
+        <div className='dpc_icon'></div>
+        <div className='header_text'>
+          <span className='Minor'>The</span>
+          <br />
+          Dota Pro Circuit
+        </div>
+        <div className='horizontal_bar'></div>
+        <div className='body_text'>
+          When not climbing the ranks, you'll be able to learn from the best.
+          The Dota Pro Circuit features ultra-high-level Dota 2 competition
+          streaming regularly in the game client, on Twitch and Steam.TV.
+          Culminating in the largest e-sports championship in the world, The
+          International, professional Dota 2 is an event not to be missed.
+          <Button isLink setClassName={'call_to_action'} setLink={'/esports'}>
+            {' '}
+            WATCH DPC
+          </Button>
+        </div>
+      </DPCStyles>
     </StyledPage>
   );
 };
 
 const StyledPage = styled.div`
   width: 100%;
-  background-color: ${primary};
-  display: flex;
-  flex-direction: column;
+  color: #fff;
+  .call_to_action {
+    margin-top: 1.5rem;
+    border: 1px solid #fff;
+    border-radius: 1rem;
+  }
 `;
 
 const HeaderStyles = styled.section`
@@ -82,7 +167,6 @@ const HeaderStyles = styled.section`
   overflow: hidden;
   display: block;
   position: relative;
-  z-index: 1;
 
   .background_video {
     position: absolute;
@@ -208,52 +292,295 @@ const NewsStyles = styled.section`
   max-width: 100%;
   margin: 0px auto;
   position: relative;
-  height: 25vh;
+  min-height: 308px;
   margin-bottom: -150px;
   z-index: 100;
-  .news_top {
-    margin-bottom: 10px;
-    margin-left: 15px;
-    display: flex;
-    flex-direction: row;
-    .latest_news {
-      text-transform: uppercase;
-      color: #fff;
-      letter-spacing: 3px;
-      font-weight: bold;
-      margin: 2px 0px;
-      margin-right: 20px;
-    }
-    .view_all {
-      text-transform: uppercase;
-      color: #d0d1d3;
-      letter-spacing: 3px;
-      text-decoration: none;
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      cursor: pointer;
-      transition: all 150ms ease-in-out;
-      &:hover {
-        letter-spacing: 4px;
-        transform: scale(1.1);
-      }
-      .right_arrow {
-        background: url('https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//arrow_left.png');
-        width: 20px;
-        height: 20px;
-        margin: 0px 8px;
-        background-size: cover;
-        background-repeat: no-repeat;
-        transform: rotateZ(180deg);
-      }
-    }
-  }
+
   .news_capsule {
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+  }
+`;
+
+const BattleStyles = styled.section`
+  width: 100%;
+  min-height: 764px;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  background-size: cover;
+
+  background-repeat: no-repeat;
+  margin-bottom: 100px;
+  .battle_bg {
+    background-size: cover;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    height: 30vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 200px;
+    .background_img {
+      width: 100%;
+      opacity: 0.6;
+      z-index: -1;
+    }
+    .mobile_background {
+      display: none;
+    }
+    .desktop_background {
+      display: flex;
+    }
+  }
+  .battle_left_half {
+    width: 100%;
+    margin: 0 auto;
+    opacity: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    z-index: 5;
+    .header_text {
+      font-family: Reaver, serif;
+      font-weight: 700;
+      font-size: 100px;
+      color: #e2dace;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      line-height: 105%;
+      text-align: center;
+      margin-bottom: 20px;
+      .Minor {
+        font-size: 70px;
+        color: #e2dace90;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+    }
+    .horizontal_bar {
+      width: 80px;
+      height: 3px;
+      min-height: 3px;
+      background-color: #ff6046;
+      border-radius: 1px;
+    }
+    .body_text {
+      text-align: center;
+      margin-top: 30px;
+      max-width: 1000px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-items: center;
+      color: #e2dace;
+      font-size: 26px;
+      line-height: 115%;
+      font-weight: 100;
+    }
+  }
+`;
+
+const ChooseStyles = styled.section`
+  width: 100%;
+  background: url('https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//home/heroes_full.jpg');
+  max-width: 100%;
+  min-height: 2000px;
+  background-size: 3500px;
+  background-position: center top;
+  background-repeat: no-repeat;
+  margin-bottom: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+
+  .fade_container {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    pointer-events: none;
+    .fade {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+    .top {
+      background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0) 60%,
+        rgba(0, 0, 0, 0.733) 90%,
+        rgb(0, 0, 0) 100%
+      );
+    }
+    .bottom {
+      background: linear-gradient(
+        rgba(0, 0, 0, 0) 60%,
+        rgba(0, 0, 0, 0.733) 90%,
+        rgb(0, 0, 0) 100%
+      );
+    }
+  }
+  .fade_top {
+    left: 0px;
+    top: 0px;
+    right: 0px;
+  }
+  .fade_bottom {
+    left: 0px;
+    bottom: 0px;
+    right: 0px;
+  }
+  .header_text {
+    margin-top: 900px;
+    text-align: center;
+    padding-bottom: 20px;
+    z-index: 40;
+    position: relative;
+    width: 80%;
+    font-family: Reaver, serif;
+    font-weight: 700;
+    font-size: 100px;
+    color: #e2dace;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    line-height: 105%;
+    .Minor {
+      font-size: 50px;
+      color: #e2dace90;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+  }
+  .horizontal_bar {
+    width: 80px;
+    height: 3px;
+    min-height: 3px;
+    background-color: #ff6046;
+    border-radius: 1px;
+  }
+  .body_text {
+    text-align: center;
+    z-index: 40;
+    width: 100%;
+    padding-bottom: 40px;
+    margin-top: 30px;
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    color: #e2dace;
+    font-size: 26px;
+    text-align: justify;
+  }
+  .heroes_grid {
+    width: 80%;
+    z-index: 3;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 20%,
+      black 80%,
+      transparent 100%
+    );
+  }
+`;
+
+const DPCStyles = styled.section`
+  background: url('https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//home/dpc.jpg');
+  width: 100%;
+  min-height: 1150px;
+  margin: 40px auto;
+  padding-bottom: 100px;
+  background-position: top;
+  background-size: 2000px;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .dpc_images {
+    width: 100%;
+    height: calc(100% - 50px);
+    position: absolute;
+    overflow: hidden;
+    .dpc_image {
+      position: absolute;
+      z-index: 100;
+      box-shadow: 0px 0px 30px #000;
+    }
+    .left {
+      max-width: 20%;
+      left: 100px;
+      top: 50px;
+    }
+    .right {
+      top: 200px;
+      right: -50px;
+      max-width: 30%;
+    }
+  }
+  .dpc_icon {
+    background: url('https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//icons/dpc.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    min-width: 96px;
+    min-height: 96px;
+    margin-top: 550px;
+  }
+
+  .header_text {
+    text-align: center;
+    padding-bottom: 20px;
+    z-index: 40;
+    position: relative;
+    width: 80%;
+    font-family: Reaver, serif;
+    font-weight: 700;
+    font-size: 100px;
+    color: #e2dace;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    line-height: 105%;
+    .Minor {
+      font-size: 50px;
+      color: #e2dace90;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+  }
+  .horizontal_bar {
+    width: 80px;
+    height: 3px;
+    min-height: 3px;
+    background-color: #ff6046;
+    border-radius: 1px;
+  }
+  .body_text {
+    text-align: center;
+    z-index: 40;
+    width: 100%;
+    padding-bottom: 40px;
+    margin-top: 30px;
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    color: #e2dace;
+    font-size: 26px;
+    text-align: justify;
   }
 `;
 
