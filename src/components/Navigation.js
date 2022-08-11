@@ -7,7 +7,13 @@ import Button from '../components/Button';
 // Images
 import Logo from '../img/logo.png';
 // Global Style
-import { accent, desaturatedRed, brown, secondary } from '../Utility/Colors';
+import {
+  accent,
+  desaturatedRed,
+  brown,
+  secondary,
+  obsH2,
+} from '../Utility/Colors';
 // Icons
 import * as FaIcons from 'react-icons/fa';
 import * as AiIcons from 'react-icons/ai';
@@ -16,6 +22,8 @@ import { IconContext } from 'react-icons';
 // Animation
 import { motion } from 'framer-motion';
 import { navUl, navLogo, comingTop } from './animation';
+import DropdownMenu from '../DropdownMenu';
+import { Menu } from '@headlessui/react';
 
 const Navigation = () => {
   const [sidebar, setSidebar] = useState(false);
@@ -25,7 +33,7 @@ const Navigation = () => {
   return (
     <>
       <NavigationStyle>
-        <Link to='/homepage'>
+        <Link to='/'>
           <motion.img
             variants={navLogo}
             initial='hidden'
@@ -38,42 +46,32 @@ const Navigation = () => {
 
         <motion.ul variants={navUl} initial='hidden' animate='show'>
           <li>
-            <Button isLink setLink='/about'>
-              ABOUT
+            <Button isRipple isLink setLink='/news'>
+              ABOUT{' '}
             </Button>
           </li>
           <li>
             <Button isRipple isLink setLink='/news'>
-              NEWS
-            </Button>
-          </li>
-          <li>
-            <Button isRipple isLink setLink='/patches'>
-              PATCHES
-            </Button>
-          </li>
-          <li>
-            <Button isLink setLink='/team'>
-              TEAM
-            </Button>
-          </li>
-          <li>
-            <Button isLink setLink='/heroes'>
               HEROES
             </Button>
           </li>
           <li>
-            <Button isLink setLink='/esports'>
+            <Button isRipple isLink setLink='/patches'>
+              NEWS
+            </Button>
+          </li>
+          <li>
+            <Button isLink setLink='/team'>
               ESPORTS
             </Button>
           </li>
           <li>
-            <Button isLink setLink='/shop'>
+            <Button isLink setLink='/heroes'>
               SHOP
             </Button>
           </li>
           <li>
-            <Button bradius={'1rem'} isLink setLink='/contact'>
+            <Button isLink setLink='/esports'>
               CONTACT
             </Button>
           </li>
@@ -169,15 +167,14 @@ const Navigation = () => {
 const NavigationStyle = styled.nav`
   min-height: 10vh;
   margin: auto;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   padding: 0.5rem 4rem;
-  background: ${accent};
-  position: sticky;
+  background: transparent;
+  position: absolute;
   overflow: hidden;
   top: 0;
   z-index: 10;
-
   overflow-x: hidden;
   display: none;
 
@@ -239,6 +236,9 @@ const UlStyle = styled(motion.ul)`
   align-items: start;
   padding: 1rem;
   margin-top: 2rem;
+  .dropdown_selector {
+    background-color: none !important;
+  }
   button {
     padding: 0.6rem 0.5rem;
     width: 100%;
