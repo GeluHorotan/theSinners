@@ -14,6 +14,7 @@ import styled from 'styled-components';
 import { primary, saturatedRed } from '../Utility/Colors';
 import { Link } from 'react-router-dom';
 import LatestArticles from '../components/LatestArticles';
+import JoinBattle from '../components/JoinBattle';
 
 const Homepage = () => {
   return (
@@ -146,6 +147,9 @@ const Homepage = () => {
           </Button>
         </div>
       </DPCStyles>
+      <JoinBattleStyles>
+        <JoinBattle></JoinBattle>
+      </JoinBattleStyles>
     </StyledPage>
   );
 };
@@ -542,6 +546,54 @@ const DPCStyles = styled.section`
 
   .header_text {
     text-align: center;
+    padding-bottom: 20px;
+    z-index: 40;
+    position: relative;
+    width: 80%;
+    font-family: Reaver, serif;
+    font-weight: 700;
+    font-size: 100px;
+    color: #e2dace;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    line-height: 105%;
+    .Minor {
+      font-size: 50px;
+      color: #e2dace90;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+  }
+  .horizontal_bar {
+    width: 80px;
+    height: 3px;
+    min-height: 3px;
+    background-color: #ff6046;
+    border-radius: 1px;
+  }
+  .body_text {
+    text-align: center;
+    z-index: 40;
+    width: 100%;
+    padding-bottom: 40px;
+    margin-top: 30px;
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    color: #e2dace;
+    font-size: 26px;
+    text-align: justify;
+  }
+`;
+
+const JoinBattleStyles = styled.section`
+  button {
+    width: 35%;
+  }
+  .header_text {
+    text-align: start;
     padding-bottom: 20px;
     z-index: 40;
     position: relative;
