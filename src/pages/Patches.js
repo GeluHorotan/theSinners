@@ -6,9 +6,14 @@ import Image from '../components/Image';
 import { getName } from '../Functions/getName';
 import { ItemsContext, HeroesContext, AbilityContext } from '../App';
 import { Link } from 'react-router-dom';
+import rehypeRaw from 'rehype-raw';
+import remarkGfm from 'remark-gfm';
+import ReactMarkdown from 'react-markdown';
+import DropdownMenu from '../DropdownMenu';
+import { Menu } from '@headlessui/react';
 
 const fetchSelectedPatch = async (id) => {
-  const res = await fetch(`/.netlify/functions/lastPatch/?lastPatchId=7.31b`);
+  const res = await fetch(`/.netlify/functions/lastPatch/?lastPatchId=${id}`);
   return res.json();
 };
 
@@ -61,14 +66,57 @@ const Patches = () => {
     return <h2>{error.message}</h2>;
   }
 
-  if (patchList && data && dotaItems && dotaAbilities)
+  if (patchList && data && dotaItems && dotaAbilities && lastPatch)
     return (
       <Wrapper>
         <div className='header'>
-          <div className='label'>Gameplay Update</div>
-          <div className='notes_title'>{patchList[0].patch_number}</div>
+          <div className='left_part'>
+            <div className='label'>Gameplay Update</div>
+            <div className='notes_title'>{lastPatch.patch_number}</div>
+          </div>
+          <div className='dropdown_container'>
+            <DropdownMenu
+              title={lastPatch.patch_number}
+              className={'patch_dropdown'}
+            >
+              {patchList.map((patch, index) => {
+                return (
+                  <Menu.Item>
+                    <div
+                      className='menu_options'
+                      onClick={() => {
+                        setLastPatch((prevState) => patch);
+                      }}
+                    >
+                      {patch.patch_number}
+                    </div>
+                  </Menu.Item>
+                );
+              })}
+            </DropdownMenu>
+          </div>
         </div>
         <BodyStyles>
+          {data.generic && (
+            <div className='update_section'>
+              <div className='patch_notes_label'>GENERAL UPDATES</div>
+              <GeneralStyles>
+                {data.generic.map((generalNote, index) => {
+                  return (
+                    <div className='note_info'>
+                      <ReactMarkdown
+                        remarkPlugins={[remarkGfm]}
+                        rehypePlugins={[rehypeRaw]}
+                      >
+                        {generalNote.note}
+                      </ReactMarkdown>
+                    </div>
+                  );
+                })}
+              </GeneralStyles>
+            </div>
+          )}
+
           {data.neutral_creeps && (
             <div className='update_section'>
               <div className='patch_notes_label'>NEUTRAL CREEP UPDATES</div>
@@ -89,6 +137,14 @@ const Patches = () => {
                             {' '}
                             {creep.localized_name}
                           </div>
+                          {creep.title && (
+                            <ReactMarkdown
+                              remarkPlugins={[remarkGfm]}
+                              rehypePlugins={[rehypeRaw]}
+                            >
+                              {creep.title}
+                            </ReactMarkdown>
+                          )}
                         </div>
                       </div>
                       <div className='neutral_notes'>
@@ -108,16 +164,6 @@ const Patches = () => {
             </div>
           )}
 
-          {data.generic && (
-            <div className='update_section'>
-              <div className='patch_notes_label'>GENERAL UPDATES</div>
-              <GeneralStyles>
-                {data.generic.map((generalNote, index) => {
-                  return <div className='note_info'>{generalNote.note}</div>;
-                })}
-              </GeneralStyles>
-            </div>
-          )}
           {data.items && (
             <div className='update_section'>
               <div className='patch_notes_label'>ITEM UPDATES</div>
@@ -139,6 +185,14 @@ const Patches = () => {
                               'item'
                             ).replace('_', ' ')}
                           </div>
+                          {item.title && (
+                            <ReactMarkdown
+                              remarkPlugins={[remarkGfm]}
+                              rehypePlugins={[rehypeRaw]}
+                            >
+                              {item.title}
+                            </ReactMarkdown>
+                          )}
                         </div>
                       </div>
                       {item.ability_notes.map((note, index) => {
@@ -155,6 +209,50 @@ const Patches = () => {
               </ItemStyles>
             </div>
           )}
+
+          {data.neutral_items && (
+            <div className='update_section'>
+              <div className='patch_notes_label'>NEUTRAL ITEM UPDATES</div>
+              <NeutralItemStyles>
+                {data.neutral_items.map((neutralItem, index) => {
+                  return (
+                    <div className='neutral_creep'>
+                      <div className='neutral_creep_header'>
+                        <Image
+                          className='neutral_creep_icon'
+                          id={neutralItem.ability_id}
+                          isItem
+                          alt={getName(
+                            dotaItems,
+                            neutralItem.ability_id,
+                            'item'
+                          )}
+                        />
+
+                        <div className='neutral_right_section'>
+                          <div className='neutral_name'>
+                            {' '}
+                            {getName(dotaItems, neutralItem.ability_id, 'item')}
+                          </div>
+                        </div>
+                      </div>
+                      <div className='neutral_notes'>
+                        {neutralItem.ability_notes.map((note, index) => {
+                          return (
+                            <div className='note_element'>
+                              <div className='dot'></div>
+                              <div className='note'>{note.note}</div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                })}
+              </NeutralItemStyles>
+            </div>
+          )}
+
           {data.heroes && (
             <div className='update_section'>
               <div className='patch_notes_label'>HERO UPDATES</div>
@@ -269,6 +367,7 @@ const Wrapper = styled.section`
   background-repeat: repeat-y;
   background-color: #151618;
   background-position: center;
+
   clear: both;
   .header {
     width: 100%;
@@ -277,9 +376,11 @@ const Wrapper = styled.section`
     padding: 30px 0px;
     min-height: 0;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
+    justify-content: space-evenly;
     position: relative;
+
     .label {
       width: 900px;
       color: #ed3b1c;
@@ -292,6 +393,9 @@ const Wrapper = styled.section`
       font-size: 72px;
       font-weight: bold;
       letter-spacing: 8px;
+    }
+    .dropdown_container {
+      width: 15%;
     }
   }
 `;
@@ -340,12 +444,21 @@ const GeneralStyles = styled.section`
   .note_info {
     width: 100%;
     min-height: 0;
+
     display: flex;
     flex-direction: column;
     padding: 0px 18px;
     letter-spacing: 2px;
     color: #fff;
     z-index: 5;
+
+    p::before {
+      content: '• ';
+    }
+    p {
+      font-weight: 300;
+      line-height: 1.5rem;
+    }
   }
 `;
 
@@ -363,6 +476,12 @@ const NeutralStyles = styled.section`
   display: flex;
   padding: 20px 0px;
   flex-direction: column;
+  .New {
+    color: #36a15e;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-weight: 300;
+  }
   .neutral_creep {
     width: 100%;
     min-height: 0;
@@ -671,6 +790,18 @@ const ItemStyles = styled.section`
   display: flex;
   padding: 20px 0px;
   flex-direction: column;
+  .New {
+    color: #36a15e;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-weight: 400;
+  }
+  .Reworked {
+    color: #d05307;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-weight: 400;
+  }
   .patch_note_item {
     width: 100%;
     min-height: 0;
@@ -678,7 +809,8 @@ const ItemStyles = styled.section`
     flex-direction: column;
     padding: 0px 40px;
     padding-bottom: 0px;
-    margin-bottom: 20px;
+    margin-bottom: 5rem;
+
     .item_header {
       width: 100%;
       display: flex;
@@ -727,6 +859,88 @@ const ItemStyles = styled.section`
         color: #bbbbbbee;
         line-height: 30px;
         font-weight: 200;
+      }
+    }
+  }
+`;
+
+const NeutralItemStyles = styled.section`
+  width: 100%;
+  border-left: 2px solid #ffffff10;
+  margin-bottom: 30px;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.38) 3.07%,
+    rgba(6, 37, 65, 0.3) 88.06%
+  );
+  box-shadow: 0px 0px 50px #000;
+  min-height: 0;
+  display: flex;
+  padding: 20px 0px;
+  flex-direction: column;
+  .New {
+    color: #36a15e;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-weight: 300;
+  }
+  .neutral_creep {
+    width: 100%;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    padding: 0px 40px;
+    padding-bottom: 0px;
+    margin-bottom: 5rem;
+    .neutral_creep_header {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      .neutral_creep_icon {
+        width: 72px;
+        height: 52px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        box-shadow: 0px 0px 20px #000;
+        margin-right: 16px;
+        margin-bottom: 10px;
+      }
+      .neutral_right_section {
+        flex-grow: 1;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        .neutral_name {
+          font-size: 20px;
+          font-weight: 600;
+          color: #fff;
+          text-transform: uppercase;
+          letter-spacing: 2px;
+        }
+      }
+    }
+    .neutral_notes {
+      .note_element {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        .dot {
+          width: 3px;
+          height: 3px;
+          min-width: 5px;
+          min-height: 5px;
+          border-radius: 3px;
+          background-color: #999;
+          margin-right: 10px;
+          margin-top: 12px;
+        }
+        .note {
+          font-size: 20px;
+          color: #bbbbbbee;
+          line-height: 30px;
+          font-weight: 200;
+        }
       }
     }
   }

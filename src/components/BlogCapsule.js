@@ -2,9 +2,10 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
+import ReactMarkdown from 'react-markdown';
 import styled from 'styled-components';
 import { formatTimestamp } from '../Functions/formatTimestamp';
-import ReactMarkdown from 'react-markdown';
+
 import { convertBBC } from '../Functions/convertBBC';
 import { desaturatedRed } from '../Utility/Colors';
 
@@ -46,11 +47,7 @@ const BlogCapsule = ({ blog }) => {
           </div>
           <div className='blog_capsule_desc'>
             <ReactMarkdown
-              remarkPlugins={[
-                remarkGfm,
-                { singleTilde: true },
-                { className: 'TEST' },
-              ]}
+              remarkPlugins={[remarkGfm]}
               rehypePlugins={[rehypeRaw]}
             >
               {convertBBC(blog.announcement_body.body)}
