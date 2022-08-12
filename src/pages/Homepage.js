@@ -198,7 +198,10 @@ const HeaderStyles = styled.section`
     align-content: flex-end;
     pointer-events: auto;
     .quote_text {
-      font-size: 60px;
+      @media screen and (max-width: 900px) {
+        font-size: 2rem;
+      }
+      font-size: 4rem;
       line-height: 113%;
       font-family: 'Reaver', serif;
       letter-spacing: 5px;
@@ -208,7 +211,10 @@ const HeaderStyles = styled.section`
       text-shadow: 0px 0px 20px #000;
     }
     .quote_credit {
-      font-size: 20px;
+      @media screen and (max-width: 900px) {
+        font-size: 0.8rem;
+      }
+      font-size: 1.25rem;
       font-family: 'Radiance', sans-serif;
       letter-spacing: 2px;
       color: #ffffff90;
@@ -228,10 +234,9 @@ const HeaderStyles = styled.section`
       text-decoration: none;
       color: inherit;
       .play_button {
-        min-width: 288px;
-        height: 78px;
+        padding: 0.5rem;
         border-radius: 6px;
-        border: 3px solid #ffffff90;
+        border: 2px solid #ffffff90;
         box-shadow: 0px 0px 5px #000;
         display: inline-flex;
         flex-direction: row;
@@ -256,7 +261,13 @@ const HeaderStyles = styled.section`
           flex-direction: column;
           margin-right: 12px;
           .play_for_free {
-            font-size: 22px;
+            @media screen and (max-width: 900px) {
+              font-size: 1rem;
+            }
+            @media screen and (max-width: 768px) {
+              font-size: 0.7rem;
+            }
+            font-size: 1.35rem;
             text-transform: uppercase;
             letter-spacing: 2px;
             color: #fff;
@@ -265,7 +276,13 @@ const HeaderStyles = styled.section`
             font-weight: 600;
           }
           .download {
-            font-size: 15px;
+            font-size: 1rem;
+            @media screen and (max-width: 900px) {
+              font-size: 0.8;
+            }
+            @media screen and (max-width: 768px) {
+              font-size: 0.6rem;
+            }
             color: #858585;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -292,7 +309,6 @@ const HeaderStyles = styled.section`
 `;
 
 const NewsStyles = styled.section`
-  /* min-width: 1200px; */
   max-width: 100%;
   margin: 0px auto;
   position: relative;
