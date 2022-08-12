@@ -113,6 +113,15 @@ font-style: normal;
 #sidebar-active {
    transform: translateX(0%);
   }
+
+  #overlay-active {
+     transform: scale(1);
+  opacity: 1;
+  display: block;
+  }
+
+
+
  
  #magenta {
    background: magenta;
