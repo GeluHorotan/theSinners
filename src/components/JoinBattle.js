@@ -32,6 +32,15 @@ const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
   padding: 50px 150px;
+
+  @media screen and (max-width: 900px) {
+    padding: 3rem 5rem;
+    align-items: center;
+    justify-content: center;
+  }
+  @media screen and (max-width: 768px) {
+    padding: 3rem 5rem;
+  }
 `;
 
 export default JoinBattle;

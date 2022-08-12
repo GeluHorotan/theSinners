@@ -2,13 +2,10 @@ import React from 'react';
 import App from './App';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter } from 'react-router-dom';
-import registerServiceWorker from './registerServiceWorker';
-import netlifyIdentity from 'netlify-identity-widget';
+
 import { QueryClient, QueryClientProvider } from 'react-query';
 
 const root = createRoot(document.getElementById('root'));
-
-netlifyIdentity.init();
 
 const queryClient = new QueryClient();
 root.render(

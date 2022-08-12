@@ -59,18 +59,28 @@ const Wrapper = styled.section`
   margin: auto;
   @media screen and (max-width: 1300px) {
     zoom: 0.8;
+    text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
   }
   @media screen and (max-width: 1033px) {
     zoom: 0.6;
+    text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
   }
   @media screen and (max-width: 779px) {
     zoom: 0.4;
+    text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
   }
   @media screen and (max-width: 519px) {
     zoom: 0.3;
+    text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
   }
   @media screen and (max-width: 385px) {
     zoom: 0.2;
+    text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
   }
 
   .news_top {

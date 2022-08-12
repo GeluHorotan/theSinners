@@ -345,8 +345,13 @@ const BattleStyles = styled.section`
     flex-direction: column;
     align-items: center;
     margin-bottom: 200px;
+
+    @media screen and (max-width: 900px) {
+      margin-bottom: -50px;
+    }
     .background_img {
       width: 100%;
+
       opacity: 0.6;
       z-index: -1;
     }
@@ -369,7 +374,10 @@ const BattleStyles = styled.section`
     .header_text {
       font-family: Reaver, serif;
       font-weight: 700;
-      font-size: 100px;
+      font-size: 5rem;
+      @media screen and (max-width: 900px) {
+        font-size: 3rem;
+      }
       color: #e2dace;
       text-transform: uppercase;
       letter-spacing: 2px;
@@ -377,7 +385,11 @@ const BattleStyles = styled.section`
       text-align: center;
       margin-bottom: 20px;
       .Minor {
-        font-size: 70px;
+        font-size: 4rem;
+
+        @media screen and (max-width: 900px) {
+          font-size: 2rem;
+        }
         color: #e2dace90;
         text-transform: uppercase;
         letter-spacing: 2px;
@@ -410,7 +422,7 @@ const ChooseStyles = styled.section`
   width: 100%;
   background: url('https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//home/heroes_full.jpg');
   max-width: 100%;
-  min-height: 2000px;
+  min-height: 1500px;
   background-size: 3500px;
   background-position: center top;
   background-repeat: no-repeat;
@@ -465,7 +477,10 @@ const ChooseStyles = styled.section`
     width: 80%;
     font-family: Reaver, serif;
     font-weight: 700;
-    font-size: 100px;
+    font-size: 5rem;
+    @media screen and (max-width: 900px) {
+      font-size: 3rem;
+    }
     color: #e2dace;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -486,9 +501,6 @@ const ChooseStyles = styled.section`
   }
   .body_text {
     text-align: center;
-    z-index: 5;
-    width: 100%;
-    padding-bottom: 40px;
     margin-top: 30px;
     max-width: 1000px;
     display: flex;
@@ -497,7 +509,8 @@ const ChooseStyles = styled.section`
     justify-items: center;
     color: #e2dace;
     font-size: 26px;
-    text-align: justify;
+    line-height: 115%;
+    font-weight: 100;
   }
   .heroes_grid {
     width: 80%;
@@ -547,7 +560,7 @@ const DPCStyles = styled.section`
     }
     .right {
       top: 200px;
-      right: -50px;
+      right: 0;
       max-width: 30%;
     }
   }
@@ -568,7 +581,12 @@ const DPCStyles = styled.section`
     width: 80%;
     font-family: Reaver, serif;
     font-weight: 700;
-    font-size: 100px;
+    font-size: 5rem;
+    @media screen and (max-width: 900px) {
+      font-size: 3rem;
+      margin-top: 1rem;
+    }
+
     color: #e2dace;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -589,9 +607,6 @@ const DPCStyles = styled.section`
   }
   .body_text {
     text-align: center;
-    z-index: 5;
-    width: 100%;
-    padding-bottom: 40px;
     margin-top: 30px;
     max-width: 1000px;
     display: flex;
@@ -600,15 +615,25 @@ const DPCStyles = styled.section`
     justify-items: center;
     color: #e2dace;
     font-size: 26px;
-    text-align: justify;
+    line-height: 115%;
+    font-weight: 100;
   }
 `;
 
 const JoinBattleStyles = styled.section`
   button {
     width: 35%;
+    @media screen and (max-width: 900px) {
+      width: 50%;
+    }
+    @media screen and (max-width: 550px) {
+      width: 100%;
+    }
   }
   .header_text {
+    @media screen and (max-width: 900px) {
+      text-align: center;
+    }
     text-align: start;
     padding-bottom: 20px;
     z-index: 5;
@@ -616,7 +641,13 @@ const JoinBattleStyles = styled.section`
     width: 80%;
     font-family: Reaver, serif;
     font-weight: 700;
-    font-size: 100px;
+    font-size: 5rem;
+    @media screen and (max-width: 900px) {
+      font-size: 3rem;
+    }
+    @media screen and (max-width: 768px) {
+      font-size: 2rem;
+    }
     color: #e2dace;
     text-transform: uppercase;
     letter-spacing: 2px;
