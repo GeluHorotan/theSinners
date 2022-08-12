@@ -292,13 +292,13 @@ const HeaderStyles = styled.section`
 `;
 
 const NewsStyles = styled.section`
-  min-width: 1200px;
+  /* min-width: 1200px; */
   max-width: 100%;
   margin: 0px auto;
   position: relative;
   min-height: 308px;
   margin-bottom: -150px;
-  z-index: 100;
+  z-index: 6;
 
   .news_capsule {
     width: 100%;
@@ -444,7 +444,7 @@ const ChooseStyles = styled.section`
     margin-top: 900px;
     text-align: center;
     padding-bottom: 20px;
-    z-index: 40;
+    z-index: 5;
     position: relative;
     width: 80%;
     font-family: Reaver, serif;
@@ -470,7 +470,7 @@ const ChooseStyles = styled.section`
   }
   .body_text {
     text-align: center;
-    z-index: 40;
+    z-index: 5;
     width: 100%;
     padding-bottom: 40px;
     margin-top: 30px;
@@ -521,7 +521,7 @@ const DPCStyles = styled.section`
     overflow: hidden;
     .dpc_image {
       position: absolute;
-      z-index: 100;
+      z-index: 5;
       box-shadow: 0px 0px 30px #000;
     }
     .left {
@@ -547,7 +547,7 @@ const DPCStyles = styled.section`
   .header_text {
     text-align: center;
     padding-bottom: 20px;
-    z-index: 40;
+    z-index: 5;
     position: relative;
     width: 80%;
     font-family: Reaver, serif;
@@ -573,7 +573,7 @@ const DPCStyles = styled.section`
   }
   .body_text {
     text-align: center;
-    z-index: 40;
+    z-index: 5;
     width: 100%;
     padding-bottom: 40px;
     margin-top: 30px;
@@ -595,7 +595,7 @@ const JoinBattleStyles = styled.section`
   .header_text {
     text-align: start;
     padding-bottom: 20px;
-    z-index: 40;
+    z-index: 5;
     position: relative;
     width: 80%;
     font-family: Reaver, serif;
@@ -621,7 +621,7 @@ const JoinBattleStyles = styled.section`
   }
   .body_text {
     text-align: center;
-    z-index: 40;
+    z-index: 5;
     width: 100%;
     padding-bottom: 40px;
     margin-top: 30px;

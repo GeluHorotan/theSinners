@@ -70,12 +70,12 @@ const BlogCapsule = ({ blog }) => {
 const LinkStyles = styled.div`
   width: 400px;
   height: 245px;
-
   margin: 15px;
   justify-items: center;
   position: relative;
   flex-wrap: wrap;
   text-decoration: none;
+
   a {
     text-decoration: none;
   }
@@ -111,6 +111,7 @@ const LinkStyles = styled.div`
     width: 100%;
     height: 100%;
     overflow: hidden;
+
     background-color: #333;
     position: relative;
 
@@ -129,6 +130,7 @@ const LinkStyles = styled.div`
       width: 100%;
       height: 100%;
       position: absolute;
+
       pointer-events: none;
       .fade {
         position: absolute;
@@ -143,6 +145,7 @@ const LinkStyles = styled.div`
     }
     .blog_capsule_desc {
       font-size: 18px;
+
       color: rgba(255, 255, 255, 0.7);
       z-index: 2;
       margin-left: 20px;

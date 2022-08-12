@@ -57,8 +57,25 @@ const Wrapper = styled.section`
   width: 100%;
   padding: ${(props) => (props.padding ? 'none' : '100px 14vw')};
   margin: auto;
+  @media screen and (max-width: 1300px) {
+    zoom: 0.8;
+  }
+  @media screen and (max-width: 1033px) {
+    zoom: 0.6;
+  }
+  @media screen and (max-width: 779px) {
+    zoom: 0.4;
+  }
+  @media screen and (max-width: 519px) {
+    zoom: 0.3;
+  }
+  @media screen and (max-width: 385px) {
+    zoom: 0.2;
+  }
+
   .news_top {
     margin-bottom: 10px;
+
     margin-left: 15px;
     display: ${(props) => (props.allNews ? 'flex' : 'none')};
     flex-direction: row;
@@ -106,6 +123,7 @@ const Wrapper = styled.section`
   }
   .container {
     width: 100%;
+
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

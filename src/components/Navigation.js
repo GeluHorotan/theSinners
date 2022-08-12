@@ -57,7 +57,7 @@ const Navigation = () => {
               <Menu.Item>
                 <div
                   className='menu_options'
-                  onCdivck={() => {
+                  onClick={() => {
                     navigate('/heroes');
                   }}
                 >
@@ -92,8 +92,22 @@ const Navigation = () => {
           </div>
           <div className='nav_btn'>ABOUT</div>
 
-          <div className='nav_btn'>NEWS</div>
-          <div className='nav_btn'>ESPORTS</div>
+          <div
+            className='nav_btn'
+            onClick={() => {
+              navigate('/news');
+            }}
+          >
+            NEWS
+          </div>
+          <div
+            className='nav_btn'
+            onClick={() => {
+              navigate('/esports');
+            }}
+          >
+            ESPORTS
+          </div>
 
           <div className='nav_btn'>CONTACT</div>
         </motion.div>
@@ -120,7 +134,20 @@ const Navigation = () => {
                 setSidebar((prevState) => false);
               }}
             ></div>
+
             <div className='sidebar_half' id={sidebar ? 'sidebar-active' : ''}>
+              <motion.img
+                variants={navLogo}
+                initial='hidden'
+                animate='show'
+                className='logo'
+                src={Logo}
+                alt=''
+                onClick={() => {
+                  navigate('/');
+                  setSidebar((prevState) => false);
+                }}
+              />
               <Menu>
                 {({ open }) => (
                   <>
@@ -278,6 +305,7 @@ const NavigationStyle = styled.nav`
     justify-content: flex-start;
     margin-left: 1rem;
     .nav_btn {
+      cursor: pointer;
       margin-right: 1rem;
       font-size: 1rem;
       font-weight: 700;
@@ -348,6 +376,16 @@ const SidebarStyles = styled.div`
   z-index: 9;
   opacity: 0;
   transform: scale(0);
+
+  .logo {
+    width: 3rem;
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    z-index: 15;
+
+    cursor: pointer;
+  }
   .overlay {
     width: 100%;
     height: 100vh;
@@ -440,6 +478,7 @@ const SidebarStyles = styled.div`
 
   .side_bar_btn {
     margin: 1rem 2rem;
+    cursor: pointer;
     transition: all 250ms ease-in-out;
     &:hover {
       padding-left: 0.5rem;
