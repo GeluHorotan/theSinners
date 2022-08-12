@@ -90,12 +90,12 @@ const Navigation = () => {
               </Menu.Item>
             </DropdownMenu>
           </div>
-          <div>ABOUT</div>
+          <div className='nav_btn'>ABOUT</div>
 
-          <div>NEWS</div>
-          <div>ESPORTS</div>
+          <div className='nav_btn'>NEWS</div>
+          <div className='nav_btn'>ESPORTS</div>
 
-          <div>CONTACT</div>
+          <div className='nav_btn'>CONTACT</div>
         </motion.div>
       </NavigationStyle>
 
@@ -270,11 +270,19 @@ const NavigationStyle = styled.nav`
   /* overflow-x: hidden; */
   overflow: visible;
   display: none;
+  width: 100%;
   .header_container {
-    background: red;
+    width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    margin-left: 1rem;
+    .nav_btn {
+      margin-right: 1rem;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+    }
   }
   .dropdown_container {
     width: 7rem;
@@ -296,10 +304,12 @@ const NavigationStyle = styled.nav`
   }
   .menu_button {
     box-shadow: none;
+
     .dropdown_selector {
       background: none !important;
       clip-path: none;
       font-size: 1rem;
+
       font-weight: 700;
       letter-spacing: 3px;
       .icon {
@@ -318,16 +328,7 @@ const NavigationStyle = styled.nav`
     text-decoration: none;
     font-size: 1rem;
   }
-  ul {
-    padding-left: 2rem;
-    display: flex;
-    list-style: none;
-    justify-content: center;
-    align-items: center;
-  }
-  li {
-    position: relative;
-  }
+
   #logo {
     width: 3rem;
   }
@@ -357,7 +358,9 @@ const SidebarStyles = styled.div`
   .selector {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    .arrow {
+      margin-left: 0.5rem;
+    }
     &:hover {
       padding: 0 !important;
     }
