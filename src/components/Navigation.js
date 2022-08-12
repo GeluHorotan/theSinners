@@ -45,16 +45,29 @@ const Navigation = () => {
         </Link>
 
         <motion.ul variants={navUl} initial='hidden' animate='show'>
+          <div className='dropdown_container'>
+            <DropdownMenu title={'GAME'} className={'game_dropdown'}>
+              <Menu.Item>
+                <li className='menu_options'>HEROES </li>
+              </Menu.Item>
+              <Menu.Item>
+                <li className='menu_options'>PATCHES </li>
+              </Menu.Item>
+
+              <Menu.Item>
+                <li className='menu_options'>GAMEPLAY UPDATES </li>
+              </Menu.Item>
+              <Menu.Item>
+                <li className='menu_options'>STORE </li>
+              </Menu.Item>
+            </DropdownMenu>
+          </div>
           <li>
             <Button isRipple isLink setLink='/news'>
               ABOUT{' '}
             </Button>
           </li>
-          <li>
-            <Button isRipple isLink setLink='/news'>
-              HEROES
-            </Button>
-          </li>
+
           <li>
             <Button isRipple isLink setLink='/patches'>
               NEWS
@@ -65,11 +78,7 @@ const Navigation = () => {
               ESPORTS
             </Button>
           </li>
-          <li>
-            <Button isLink setLink='/heroes'>
-              SHOP
-            </Button>
-          </li>
+
           <li>
             <Button isLink setLink='/esports'>
               CONTACT
@@ -173,10 +182,44 @@ const NavigationStyle = styled.nav`
   background: transparent;
   position: absolute;
   overflow: hidden;
+
   top: 0;
   z-index: 10;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
+  overflow: visible;
   display: none;
+  .dropdown_container {
+    width: 7rem;
+    .grid_tabels_dropdown_menu {
+      width: fit-content;
+      background-color: rgba(244, 244, 244, 0.3);
+      backdrop-filter: blur(10px);
+      .menu_options {
+        color: #fff;
+        font-weight: 600;
+        letter-spacing: 2px;
+        filter: brightness(1);
+        &:hover {
+          padding-left: 1rem;
+          background: none;
+        }
+      }
+    }
+  }
+  .menu_button {
+    box-shadow: none;
+    .dropdown_selector {
+      background: none !important;
+      clip-path: none;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      .icon {
+        background: none;
+        clip-path: none;
+      }
+    }
+  }
 
   @media screen and (min-width: 768px) {
     display: flex;
@@ -188,11 +231,13 @@ const NavigationStyle = styled.nav`
     font-size: 1rem;
   }
   ul {
+    padding-left: 2rem;
     display: flex;
     list-style: none;
+    justify-content: center;
+    align-items: center;
   }
   li {
-    padding-left: 1rem;
     position: relative;
   }
   #logo {

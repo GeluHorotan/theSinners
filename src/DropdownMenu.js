@@ -9,40 +9,42 @@ const DropdownMenu = ({ children, title, className }) => {
   return (
     <DropdownStyles className={className}>
       <Menu>
-        <Menu.Button
-          className={'menu_button'}
-          onClick={() => {
-            setIsActive((prevState) => !isActive);
-          }}
-        >
-          <div className='dropdown_selector'>
-            {title}{' '}
-            {!isActive ? (
-              <div className='icon'>
-                {' '}
-                <BsIcons.BsCaretDownFill></BsIcons.BsCaretDownFill>{' '}
-              </div>
-            ) : (
-              <div className='icon'>
-                {' '}
-                <BsIcons.BsCaretUpFill></BsIcons.BsCaretUpFill>{' '}
-              </div>
-            )}
-          </div>
-
-          <Transition
-            enter='transition duration-100 ease-out'
-            enterFrom='transform scale-95 opacity-0'
-            enterTo='transform scale-100 opacity-100'
-            leave='transition duration-75 ease-out'
-            leaveFrom='transform scale-100 opacity-100'
-            leaveTo='transform scale-95 opacity-0'
+        {({ open }) => (
+          <Menu.Button
+            className={'menu_button '}
+            onClick={() => {
+              setIsActive((prevState) => !isActive);
+            }}
           >
-            <Menu.Items className={'grid_tabels_dropdown_menu'}>
-              {children}
-            </Menu.Items>
-          </Transition>
-        </Menu.Button>
+            <div className='dropdown_selector'>
+              {title}{' '}
+              {!open ? (
+                <div className='icon'>
+                  {' '}
+                  <BsIcons.BsCaretDownFill></BsIcons.BsCaretDownFill>{' '}
+                </div>
+              ) : (
+                <div className='icon'>
+                  {' '}
+                  <BsIcons.BsCaretUpFill></BsIcons.BsCaretUpFill>{' '}
+                </div>
+              )}
+            </div>
+
+            <Transition
+              enter='transition duration-100 ease-out'
+              enterFrom='transform scale-95 opacity-0'
+              enterTo='transform scale-100 opacity-100'
+              leave='transition duration-75 ease-out'
+              leaveFrom='transform scale-100 opacity-100'
+              leaveTo='transform scale-95 opacity-0'
+            >
+              <Menu.Items className={'grid_tabels_dropdown_menu'}>
+                {children}
+              </Menu.Items>
+            </Transition>
+          </Menu.Button>
+        )}
       </Menu>
     </DropdownStyles>
   );
@@ -54,6 +56,7 @@ const DropdownStyles = styled.div`
   justify-content: flex-end;
   padding: 0.5rem;
   z-index: 10;
+
   .menu_button {
     position: relative;
     width: 100%;
@@ -72,8 +75,8 @@ const DropdownStyles = styled.div`
     @media screen and (max-width: 768px) {
       height: 1.5rem;
     }
-
     cursor: pointer;
+
     .dropdown_selector {
       display: flex;
       justify-content: space-between;
@@ -155,10 +158,11 @@ const DropdownStyles = styled.div`
       flex-direction: column;
       justify-content: flex-start;
       align-items: flex-start;
+
       cursor: pointer;
       user-select: none;
       filter: brightness(0.8);
-      transition: background-color, filter 150ms ease-in-out;
+      transition: all 150ms ease-in-out;
 
       @media screen and (max-width: 768px) {
         font-size: 0.6rem;
