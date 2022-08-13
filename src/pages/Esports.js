@@ -169,18 +169,12 @@ const MenuStyles = styled.div`
   z-index: 10;
   @media screen and (max-width: 743px) {
     zoom: 0.9;
-    text-size-adjust: 100%;
-    -webkit-text-size-adjust: 100%;
   }
   @media screen and (max-width: 500px) {
     zoom: 0.8;
-    text-size-adjust: 100%;
-    -webkit-text-size-adjust: 100%;
   }
   @media screen and (max-width: 400px) {
     zoom: 0.7;
-    text-size-adjust: 100%;
-    -webkit-text-size-adjust: 100%;
   }
 
   .menubar_list {

@@ -36,6 +36,8 @@ const GlobalStyle = createGlobalStyle`
 body {
    overflow: visible;
    background: #000;
+    text-size-adjust:auto;
+    -webkit-text-size-adjust:auto;
 }
 h1 {
   font-size: 3.75rem;
