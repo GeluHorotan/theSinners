@@ -34,7 +34,7 @@ const GlobalStyle = createGlobalStyle`
 }
 
 body {
-   overflow: visible ;
+   overflow: visible;
    background: #000;
 }
 h1 {
@@ -121,7 +121,9 @@ font-style: normal;
   }
 
 
-
+  .bg_nav {
+    background: ${primary} !important;
+  }
  
  #magenta {
    background: magenta;

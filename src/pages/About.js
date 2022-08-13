@@ -13,26 +13,14 @@ const fetchUsers = async ({ pageParam = 1 }) => {
 const About = () => {
   const [view, setView] = useState('pagination');
 
-  return (
-    <div>
-      <h1>Welcome to Random Users</h1>
-
-      <nav className='nav'>
-        <button onClick={() => setView('pagination')}>Pagination</button>
-        <button onClick={() => setView('infiniteScroll')}>
-          Infinite Scroll
-        </button>
-      </nav>
-
-      {view === 'pagination' ? <Pagination /> : <InfiniteScroll />}
-    </div>
-  );
+  return <Styles>TEST</Styles>;
 };
 
 const Styles = styled.div`
   color: blue;
   display: flex;
   background: white;
+  width: 100%;
   height: 100vh;
   justify-content: center;
   align-items: center;

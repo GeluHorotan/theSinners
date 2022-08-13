@@ -1,3 +1,6 @@
 {
-  "recommendations": ["xabikos.JavaScriptSnippets"]
+  "recommendations": [
+    "xabikos.javascriptsnippets",
+    "ionic-preview.ionic-preview"
+  ]
 }

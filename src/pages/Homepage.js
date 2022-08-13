@@ -157,6 +157,7 @@ const Homepage = () => {
 const StyledPage = styled.div`
   width: 100%;
   color: #fff;
+
   .call_to_action {
     margin-top: 1.5rem;
     border: 1px solid #fff;

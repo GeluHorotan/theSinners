@@ -24,6 +24,7 @@ import Menubar from './components/Menubar';
 import NewsEntry from './components/NewsEntry';
 import Updates from './pages/Updates';
 import Patches from './pages/Patches';
+import PageNotFound from './pages/PageNotFound';
 
 export const ItemsContext = React.createContext();
 export const HeroesContext = React.createContext();
@@ -69,6 +70,7 @@ function App() {
           <ItemsContext.Provider value={dotaItems}>
             <Routes location={location} key={location.pathname}>
               <Route path='/' exact element={<Homepage />} />
+              <Route path='*' exact element={<PageNotFound />} />
               <Route path='/about' exact element={<About />} />
               <Route path='/news' exact element={<News />} />
               <Route path='/news/updates' exact element={<Updates />} />

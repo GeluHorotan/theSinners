@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import * as BsIcons from 'react-icons/bs';
-import { useNavigate } from 'react-router';
+import { useNavigate, useLocation } from 'react-router';
 // Components
 import Button from '../components/Button';
 // Images
@@ -14,6 +14,7 @@ import {
   brown,
   secondary,
   obsH2,
+  primary,
 } from '../Utility/Colors';
 // Icons
 import * as FaIcons from 'react-icons/fa';
@@ -29,12 +30,12 @@ import { Menu, Transition } from '@headlessui/react';
 const Navigation = () => {
   const [sidebar, setSidebar] = useState(false);
   const navigate = useNavigate();
-
+  const location = useLocation();
   const showSidebar = () => setSidebar(!sidebar);
 
   return (
     <>
-      <NavigationStyle>
+      <NavigationStyle className={location.pathname === '*' ? 'bg_nav' : ''}>
         <Link to='/'>
           <motion.img
             variants={navLogo}
@@ -289,6 +290,7 @@ const NavigationStyle = styled.nav`
   align-items: center;
   padding: 0.5rem 4rem;
   background: transparent;
+
   position: absolute;
   overflow: hidden;
   color: #fff;
