@@ -55,6 +55,7 @@ const LatestArticles = ({ currentGid, padding, allNews }) => {
 
 const Wrapper = styled.section`
   width: 100%;
+
   padding: ${(props) => (props.padding ? 'none' : '100px 14vw')};
   margin: auto;
   @media screen and (max-width: 1300px) {
@@ -63,26 +64,35 @@ const Wrapper = styled.section`
   @media screen and (max-width: 1033px) {
     zoom: 0.6;
   }
-  @media screen and (max-width: 779px) {
-    zoom: 0.4;
+  @media screen and (max-width: 636px) {
+    zoom: 0.5;
   }
-  @media screen and (max-width: 519px) {
-    zoom: 0.3;
-  }
-  @media screen and (max-width: 385px) {
-    zoom: 0.2;
+
+  .capsule_container {
+    @media screen and (max-width: 800px) {
+      zoom: 0.8;
+    }
+    @media screen and (max-width: 519px) {
+      zoom: 0.6;
+    }
+    @media screen and (max-width: 400px) {
+      /* zoom: 0.5; */
+      width: 27%;
+    }
   }
 
   .news_top {
-    margin-bottom: 10px;
-
-    margin-left: 15px;
     display: ${(props) => (props.allNews ? 'flex' : 'none')};
     flex-direction: row;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     .latest_news {
       text-transform: uppercase;
       color: #fff;
       letter-spacing: 3px;
+      font-size: 1.3rem;
       font-weight: bold;
       margin: 2px 0px;
       margin-right: 20px;
@@ -127,7 +137,10 @@ const Wrapper = styled.section`
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-evenly;
+    @media screen and (max-width: 717px) {
+      justify-content: space-evenly;
+    }
   }
 `;
 

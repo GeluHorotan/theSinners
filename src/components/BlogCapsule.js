@@ -75,6 +75,7 @@ const LinkStyles = styled.div`
   position: relative;
   flex-wrap: wrap;
   text-decoration: none;
+  cursor: pointer;
 
   a {
     text-decoration: none;
@@ -144,10 +145,10 @@ const LinkStyles = styled.div`
       }
     }
     .blog_capsule_desc {
-      font-size: 18px;
-
+      font-size: 1rem;
       color: rgba(255, 255, 255, 0.7);
       z-index: 2;
+
       margin-left: 20px;
       margin-bottom: 0px;
       opacity: 0;
@@ -169,7 +170,7 @@ const LinkStyles = styled.div`
         display: none;
       }
       p {
-        line-height: 28px;
+        line-height: 20px;
         font-weight: 400;
       }
       em {
@@ -186,14 +187,15 @@ const LinkStyles = styled.div`
       font-weight: bold;
       text-transform: none;
       letter-spacing: 0px;
-      font-size: 24px;
+      font-size: 1.2rem;
       line-height: 115%;
       color: #fff;
       z-index: 2;
     }
     .blog_capsule_date {
-      color: rgba(255, 255, 255, 0.7);
-      font-size: 16px;
+      color: rgba(255, 255, 255, 0.85);
+      text-shadow: 1px 0px 10px #000;
+      font-size: 1rem;
       text-transform: uppercase;
       letter-spacing: 2px;
       margin-left: 20px;
