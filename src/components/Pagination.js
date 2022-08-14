@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { useQuery } from 'react-query';
 import BlogCapsule from './BlogCapsule';
+import Button from './Button';
 import UpdateCapsule from './UpdateCapsule';
+import styled from 'styled-components';
 
 const fetchUsers = async (countParam) => {
   const res = await fetch(`/.netlify/functions/news/?count=${countParam}`);
@@ -24,6 +26,17 @@ const Pagination = ({ isUpdate }) => {
   if (isError) {
     return <h2>{error.message}</h2>;
   }
+
+  const setPageUp = () => {
+    setPage((prevState) => prevState + 15);
+  };
+  const setPageDown = () => {
+    setPage((prevState) =>
+      prevState === 15
+        ? Math.max(prevState - 0, 0)
+        : Math.max(prevState - 15, 0)
+    );
+  };
 
   return (
     <>
@@ -52,20 +65,28 @@ const Pagination = ({ isUpdate }) => {
               />
             );
           })}
-      <div>{isFetching ? 'Fetching...' : null}</div>
+      <FetchingLoader>{isFetching ? 'Fetching...' : null}</FetchingLoader>
+      <ButtonStyles className='buttons_container'>
+        <Button isRipple action={setPageDown}>
+          PREV
+        </Button>
 
-      <button
-        onClick={() => setPage((prevState) => Math.max(prevState - 1, 0))}
-        disabled={page === 1}
-      >
-        Prev Page
-      </button>
-
-      <button onClick={() => setPage((prevState) => prevState + 15)}>
-        Next Page
-      </button>
+        <Button isRipple action={setPageUp}>
+          NEXT
+        </Button>
+      </ButtonStyles>
     </>
   );
 };
+
+const ButtonStyles = styled.div`
+  width: 100%;
+  padding: 5vh 0;
+`;
+
+const FetchingLoader = styled.div`
+  width: 100%;
+  color: #fff;
+`;
 
 export default Pagination;

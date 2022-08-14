@@ -1,73 +1,56 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
 import styled from 'styled-components';
-import Pagination from '../components/Pagination';
-import InfiniteScroll from '../components/InfiniteScroll';
-import * as RiIcons from 'react-icons/ri';
-import * as IoIcons from 'react-icons/io5';
-import { obsH2 } from '../Utility/Colors';
-import ViewMode from '../components/ViewMode';
+import { Link } from 'react-router-dom';
+import { formatTimestamp } from '../Functions/formatTimestamp';
 
-const Updates = () => {
-  const [view, setView] = useState('pagination');
-  const setViewPageHandler = () => {
-    setView('pagination');
+const LargeEntry = ({ content }) => {
+  const getImage = () => {
+    const bodyDesc = content.announcement_body.body.split('[/img]');
+
+    return bodyDesc[0]
+      .replace('[img]{STEAM_CLAN_IMAGE}', '')
+      .replace('[url=http://www.dota2.com/filmcontest]', '')
+      .replace(
+        '[url=https://www.dota2.com/labyrinth]/3703047/0e0799b188b3b8a9b231bb612b29f9fea9b33953.jpg',
+        ''
+      );
   };
-  const setViewScrollHandler = () => {
-    setView('infiniteScroll');
-  };
-  return (
-    <Wrapper>
+
+  if (content)
+    return (
       <LargeEntryStyles>
-        <div className='heading_image'></div>
+        <div
+          className='heading_image'
+          style={{
+            background: `url(
+            'https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/clans${getImage()}'
+          )`,
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'cover',
+            backgroundPosition: 'top',
+          }}
+        ></div>
         <div className='fade_container'>
           <div className='fade_overlay'></div>
         </div>
         <div className='bottom_fade'></div>
         <div className='featured_content'>
           <div className='post_tag'>Featured Post</div>
-          <div className='post_date'>4 August 2022</div>
+          {content && (
+            <div className='post_date'>
+              {formatTimestamp(content.announcement_body.posttime, 'news')}
+            </div>
+          )}
           <div className='post_title'>
-            The Arlington Major & The Road to the International
+            {content && content.announcement_body.headline}
           </div>
           <Link className='post_link' to='#'>
             READ MORE
           </Link>
         </div>
       </LargeEntryStyles>
-      <TabGroupStyles>
-        <div className='tabs_group'>
-          <Link to='/news'>NEWS</Link>
-          <Link to='/news/updates' className='tab_active'>
-            UPDATES
-          </Link>
-        </div>
-      </TabGroupStyles>
-      <BottomSectionStyles>
-        <ViewMode
-          pageFunction={setViewPageHandler}
-          scrollFunction={setViewScrollHandler}
-          viewMode={view}
-        />
-        <div className='sub_entries'>
-          {view === 'pagination' ? (
-            <Pagination isUpdate />
-          ) : (
-            <InfiniteScroll isUpdate />
-          )}
-        </div>
-      </BottomSectionStyles>
-    </Wrapper>
-  );
+    );
 };
-
-const Wrapper = styled.section`
-  width: 100%;
-  height: 2220px;
-  margin: 0px auto;
-  text-align: center;
-  min-height: 50vw;
-`;
 
 const LargeEntryStyles = styled.section`
   width: 100%;
@@ -79,7 +62,6 @@ const LargeEntryStyles = styled.section`
   transition: 250ms all ease-in-out;
   overflow: hidden;
   .heading_image {
-    background-image: url('https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/clans/3703047/ff274a64dd35731d2fc678f8e2884aa8bd0035ef.jpg');
     width: 100%;
     height: 600px;
     position: absolute;
@@ -89,6 +71,7 @@ const LargeEntryStyles = styled.section`
     background-repeat: no-repeat;
     transition-duration: 0.5s;
     opacity: 0.8;
+    vertical-align: middle;
   }
   &:hover {
     .heading_image {
@@ -196,56 +179,4 @@ const LargeEntryStyles = styled.section`
   }
 `;
 
-const TabGroupStyles = styled.section`
-  width: 100%;
-  height: 100px;
-  padding: 0px 14vw;
-  padding-top: 40px;
-  background: black;
-  border-bottom: 3px solid #313131;
-  .tabs_group {
-    width: 400px;
-    height: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    button {
-      background: none;
-      border: none;
-    }
-    a {
-      width: 48%;
-      height: 100%;
-      padding-top: 20px;
-      text-transform: uppercase;
-      letter-spacing: 4px;
-      font-weight: bold;
-      font-size: 17px;
-      color: #828282;
-      background-color: #222;
-      text-decoration: none;
-    }
-    .tab_active {
-      color: #fff;
-      background-color: #313131;
-      border-top: 2px solid #646566;
-    }
-  }
-`;
-
-const BottomSectionStyles = styled.section`
-  background: url('https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//blog/bg_repeater.jpg');
-  width: 100%;
-
-  .sub_entries {
-    width: 100%;
-    padding: 0px 14vw;
-    display: flex;
-    flex-wrap: wrap;
-
-    align-items: center;
-    justify-content: center;
-  }
-`;
-
-export default Updates;
+export default LargeEntry;

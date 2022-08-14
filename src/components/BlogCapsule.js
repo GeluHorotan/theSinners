@@ -35,8 +35,8 @@ const BlogCapsule = ({ blog }) => {
           className='blog_capsule_entry'
           style={{
             background: `url(
-            'https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/clans${image}'
-          )`,
+          'https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/clans${image}'
+        )`,
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
             backgroundPosition: 'top',
@@ -61,6 +61,7 @@ const BlogCapsule = ({ blog }) => {
               {formatTimestamp(blog.announcement_body.posttime, 'news')}
             </div>
           </div>
+          <div className='overlay'></div>
         </div>
       </Link>
     </LinkStyles>
@@ -76,35 +77,32 @@ const LinkStyles = styled.div`
   flex-wrap: wrap;
   text-decoration: none;
   cursor: pointer;
-
+  z-index: 2;
+  vertical-align: middle;
+  .overlay {
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    opacity: 0;
+    transition: all 200ms ease-in-out;
+  }
   a {
     text-decoration: none;
   }
   &:hover .blog_capsule_entry {
     box-shadow: 0px 0px 30px #000;
     border-bottom: 4px solid #ff6046;
+    transform: scale(1.1);
 
     .blog_capsule_desc {
       height: 120px;
       opacity: 1;
-      transform: translateY(0px);
+      transform: translateY(-5px);
     }
   }
 
-  &::after {
-    transition-property: opacity;
-    transition-duration: 0.2s;
-    transition-timing-function: ease-in-out;
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    background: rgba(0, 0, 0, 0.7);
-    opacity: 0;
-  }
-  &:hover::after {
+  &:hover .overlay {
     opacity: 1;
   }
 
@@ -115,8 +113,7 @@ const LinkStyles = styled.div`
 
     background-color: #333;
     position: relative;
-
-    border-bottom: 2px solid #555;
+    vertical-align: middle;
     background-repeat: no-repeat;
     display: flex;
     flex-direction: column-reverse;
@@ -135,11 +132,12 @@ const LinkStyles = styled.div`
       pointer-events: none;
       .fade {
         position: absolute;
+
         width: 100%;
         height: 100%;
         background: linear-gradient(
           rgba(19, 23, 28, 0) 60%,
-          rgba(19, 23, 28, 0.733) 70%,
+          rgba(19, 23, 28, 0.833) 70%,
           rgb(19, 23, 28) 90%
         );
       }
@@ -147,7 +145,7 @@ const LinkStyles = styled.div`
     .blog_capsule_desc {
       font-size: 1rem;
       color: rgba(255, 255, 255, 0.7);
-      z-index: 2;
+      z-index: 3;
 
       margin-left: 20px;
       margin-bottom: 0px;
@@ -187,10 +185,11 @@ const LinkStyles = styled.div`
       font-weight: bold;
       text-transform: none;
       letter-spacing: 0px;
+      z-index: 4;
       font-size: 1.2rem;
       line-height: 115%;
       color: #fff;
-      z-index: 2;
+      z-index: 3;
     }
     .blog_capsule_date {
       color: rgba(255, 255, 255, 0.85);
@@ -200,7 +199,7 @@ const LinkStyles = styled.div`
       letter-spacing: 2px;
       margin-left: 20px;
       margin-bottom: 8px;
-      z-index: 2;
+      z-index: 4;
     }
   }
 `;

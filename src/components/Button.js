@@ -51,7 +51,7 @@ const Button = ({
           rippleEffect(e);
         }
         if (action) {
-          return action();
+          action();
         }
       }}
     >

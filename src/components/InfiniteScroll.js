@@ -2,6 +2,9 @@ import { useInfiniteQuery, useQuery } from 'react-query';
 import BlogCapsule from './BlogCapsule';
 import { useInView } from 'react-intersection-observer';
 import { React, useEffect, useState } from 'react';
+import UpdateCapsule from './UpdateCapsule';
+import Button from './Button';
+import styled from 'styled-components';
 
 const fetchUsers = async (countParam) => {
   const res = await fetch(`/.netlify/functions/news/?count=${countParam}`);
@@ -11,7 +14,7 @@ const fetchUsers = async (countParam) => {
 const InfiniteScroll = ({ isUpdate }) => {
   const { ref, inView } = useInView();
   const [count, setCount] = useState(15);
-  console.log(count);
+
   const { isLoading, isError, error, data, isFetching } = useQuery(
     ['users', count],
     () => fetchUsers(count),
@@ -42,17 +45,41 @@ const InfiniteScroll = ({ isUpdate }) => {
 
   return (
     <>
-      <h2>Infinite Scroll View</h2>
-      <div className='card'>
-        {data?.events?.map((article) => {
-          return <BlogCapsule blog={article} />;
-        })}
-      </div>
-      <div className='btn-container'>
-        <button ref={ref}>Load More</button>
-      </div>
+      {!isUpdate &&
+        data.events
+          .filter(
+            (article) =>
+              !article.announcement_body.tags[0].includes('patchnotes')
+          )
+          .map((article, index) => {
+            return <BlogCapsule key={index} blog={article} />;
+          })}
+
+      {isUpdate &&
+        data.events
+          .filter((update) =>
+            update.announcement_body.tags[0].includes('patchnotes')
+          )
+          .map((update, index) => {
+            return (
+              <UpdateCapsule
+                key={index}
+                headline={update.announcement_body.headline}
+                timestamp={update.announcement_body.posttime}
+                body={update.announcement_body.body}
+              />
+            );
+          })}
+      <ButtonStyles ref={ref} className='btn-container'>
+        <Button>LOAD MORE</Button>
+      </ButtonStyles>
     </>
   );
 };
+
+const ButtonStyles = styled.div`
+  width: 100%;
+  padding: 5vh 0;
+`;
 
 export default InfiniteScroll;

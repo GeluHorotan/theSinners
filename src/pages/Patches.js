@@ -11,6 +11,9 @@ import remarkGfm from 'remark-gfm';
 import ReactMarkdown from 'react-markdown';
 import DropdownMenu from '../DropdownMenu';
 import { Menu } from '@headlessui/react';
+import Error404 from '../components/Error404';
+import ErrorHandler from '../components/ErrorHandler';
+import { obsH2, primary } from '../Utility/Colors';
 
 const fetchSelectedPatch = async (id) => {
   const res = await fetch(`/.netlify/functions/lastPatch/?lastPatchId=${id}`);
@@ -50,7 +53,7 @@ const Patches = () => {
     { keepPreviousData: true }
   );
 
-  if (dotaHeroes && data) {
+  if (dotaHeroes && data.heroes) {
     data.heroes.sort((a, b) =>
       getName(dotaHeroes, a.hero_id, 'hero').localeCompare(
         getName(dotaHeroes, b.hero_id, 'hero')
@@ -97,6 +100,20 @@ const Patches = () => {
           </div>
         </div>
         <BodyStyles>
+          <NoPatchStyles>
+            {' '}
+            <ErrorHandler>
+              {' '}
+              Ups, it looks like we couldn't find any gameplay changes in the
+              API. <br></br>
+              Try searching for another patch version.
+            </ErrorHandler>
+          </NoPatchStyles>
+          {data.generic &&
+            data.neutral_creeps &&
+            data.items &&
+            data.neutral_items &&
+            data.heroes && <NoPatchStyles> {data.patch_number}</NoPatchStyles>}
           {data.generic && (
             <div className='update_section'>
               <div className='patch_notes_label'>GENERAL UPDATES</div>
@@ -370,26 +387,34 @@ const Wrapper = styled.section`
 
   clear: both;
   .header {
-    width: 100%;
-    background-color: #000;
+    width: 900px;
+    background: linear-gradient(
+      90deg,
+      rgba(66, 66, 66, 0.38) 3.07%,
+      rgba(18, 83, 139, 0.3) 88.06%
+    );
     margin-top: 140px;
-    padding: 30px 0px;
+    padding: 2rem 1rem;
     min-height: 0;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
     position: relative;
+    .left_part {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
 
     .label {
-      width: 900px;
-      color: #ed3b1c;
+      color: ${obsH2};
       font-size: 32px;
       letter-spacing: 4px;
     }
     .notes_title {
-      width: 900px;
-      color: #ed3b1c;
+      color: ${obsH2};
       font-size: 72px;
       font-weight: bold;
       letter-spacing: 8px;
@@ -944,6 +969,24 @@ const NeutralItemStyles = styled.section`
       }
     }
   }
+`;
+
+const NoPatchStyles = styled.section`
+  width: 100%;
+
+  color: #fff;
+  border-left: 2px solid #ffffff10;
+  margin-bottom: 30px;
+  background: linear-gradient(
+    90deg,
+    rgba(66, 66, 66, 0.38) 3.07%,
+    rgba(18, 83, 139, 0.3) 88.06%
+  );
+  box-shadow: 0px 0px 50px #000;
+  min-height: 0;
+  display: flex;
+  padding: 20px 0px;
+  flex-direction: column;
 `;
 
 export default Patches;
