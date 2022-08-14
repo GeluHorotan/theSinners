@@ -17,7 +17,7 @@ const LatestArticles = ({ currentGid, padding, allNews }) => {
   );
 
   if (isLoading) {
-    return <h2>Loading...</h2>;
+    return <div className='middle_align'>Loading...</div>;
   }
 
   if (isError) {

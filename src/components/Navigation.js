@@ -35,7 +35,7 @@ const Navigation = () => {
 
   return (
     <>
-      <NavigationStyle className={location.pathname === '*' ? 'bg_nav' : ''}>
+      <NavigationStyle className='nav'>
         <Link to='/'>
           <motion.img
             variants={navLogo}

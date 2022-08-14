@@ -57,24 +57,13 @@ const Error404 = () => {
           />
         </defs>
         <g id='TEST' transform='translate(0 0.002)'>
-          <motion.path
+          <path
             id='Background'
             d='M365.49,414.947c71.333-6.811,80.417-231.455,174.428-254.027,52.179-12.528,75.613,53.793,117.123,53.793,51.87,0,80.327-210.876,215.714-214.671s100.351,239.9,179.953,243.565c68.62,3.159,75.688-43.928,125.448-39.778,71.1,5.931,65.157,145.85,158.325,211.115H365.49Z'
             transform='translate(-252.289)'
             fill='#d8dffc'
           />
-          <motion.g
-            // initial={{ y: 73.924, x: 320.169, opacity: 0.5 }}
-            // animate={{ y: 100.924, x: 320.169, opacity: 1 }}
-            // transition={{
-            //   duration: 1,
-
-            //   repeat: Infinity,
-            //   repeatType: 'mirror',
-            // }}
-            id='_404'
-            transform='translate(320.169 73.924)'
-          >
+          <g id='_404' transform='translate(320.169 73.924)'>
             <path
               id='Path_1'
               data-name='Path 1'
@@ -96,19 +85,8 @@ const Error404 = () => {
               transform='translate(-1961.146 -257.973)'
               fill='#16005c'
             />
-          </motion.g>
-          <motion.g
-            initial={{ y: 17.362, x: 176.768, opacity: 0.5, scale: 1 }}
-            animate={{ y: 11.362, x: 176.768, opacity: 1, scale: 1.01 }}
-            transition={{
-              duration: 4,
-
-              repeat: Infinity,
-              repeatType: 'mirror',
-            }}
-            id='Leafes'
-            transform='translate(176.768 17.362)'
-          >
+          </g>
+          <g id='Leafes' transform='translate(176.768 17.362)'>
             <path
               id='Path_4'
               data-name='Path 4'
@@ -130,7 +108,7 @@ const Error404 = () => {
               transform='translate(-721.16 -56.059)'
               fill='url(#linear-gradient-3)'
             />
-          </motion.g>
+          </g>
           <path
             id='Path_7'
             data-name='Path 7'
@@ -138,15 +116,7 @@ const Error404 = () => {
             transform='translate(-433.769 -719.606)'
             fill='#fff'
           />
-          <motion.g
-            initial={{ y: 28.08, x: 51.772, opacity: 0.5, scale: 1 }}
-            animate={{ y: 1.08, x: 51.772, opacity: 1, scale: 1.05 }}
-            transition={{
-              duration: 5,
-
-              repeat: Infinity,
-              repeatType: 'mirror',
-            }}
+          <g
             id='Group_1'
             data-name='Group 1'
             transform='translate(51.772 28.08)'
@@ -195,7 +165,7 @@ const Error404 = () => {
               transform='translate(-505.307 -163.814)'
               fill='#e6f0fc'
             />
-          </motion.g>
+          </g>
           <path
             id='Path_9'
             data-name='Path 9'

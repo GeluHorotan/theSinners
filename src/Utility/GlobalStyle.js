@@ -112,6 +112,13 @@ font-style: normal;
   display: flex;
 }
 
+.middle_align {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
 #sidebar-active {
    transform: translateX(0%);
   }
