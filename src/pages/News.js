@@ -74,9 +74,15 @@ const TabGroupStyles = styled.section`
   width: 100%;
   height: 100px;
   padding: 0px 14vw;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
   padding-top: 40px;
   background: black;
   border-bottom: 3px solid #313131;
+  @media screen and (max-width: 768px) {
+    justify-content: center;
+  }
   .tabs_group {
     width: 400px;
     height: 100%;

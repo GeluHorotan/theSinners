@@ -150,7 +150,7 @@ const LargeEntryStyles = styled.section`
       font-weight: 600;
     }
     .post_title {
-      font-size: 60px;
+      font-size: 3.5rem;
       font-weight: 700;
       margin-bottom: 20px;
       text-shadow: 0px 0px 10px #000;
@@ -158,6 +158,9 @@ const LargeEntryStyles = styled.section`
       line-height: 110%;
       color: #e5ded9;
       text-align: left;
+      @media screen and (max-width: 768px) {
+        font-size: 2rem;
+      }
     }
     .post_link {
       position: relative;
