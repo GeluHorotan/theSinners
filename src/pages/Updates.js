@@ -7,9 +7,22 @@ import * as RiIcons from 'react-icons/ri';
 import * as IoIcons from 'react-icons/io5';
 import { obsH2 } from '../Utility/Colors';
 import ViewMode from '../components/ViewMode';
+import LargeEntry from '../components/LargeEntry';
+
+import { useQuery } from 'react-query';
+const fetchUsers = async (countParam) => {
+  const res = await fetch(`/.netlify/functions/news/?count=${countParam}`);
+  return res.json();
+};
 
 const Updates = () => {
   const [view, setView] = useState('pagination');
+  const [page, setPage] = useState(15);
+  const { isLoading, isError, error, data, isFetching } = useQuery(
+    ['events', page],
+    () => fetchUsers(page),
+    { keepPreviousData: true }
+  );
   const setViewPageHandler = () => {
     setView('pagination');
   };
@@ -18,23 +31,14 @@ const Updates = () => {
   };
   return (
     <Wrapper>
-      <LargeEntryStyles>
-        <div className='heading_image'></div>
-        <div className='fade_container'>
-          <div className='fade_overlay'></div>
-        </div>
-        <div className='bottom_fade'></div>
-        <div className='featured_content'>
-          <div className='post_tag'>Featured Post</div>
-          <div className='post_date'>4 August 2022</div>
-          <div className='post_title'>
-            The Arlington Major & The Road to the International
-          </div>
-          <Link className='post_link' to='#'>
-            READ MORE
-          </Link>
-        </div>
-      </LargeEntryStyles>
+      <LargeEntry
+        content={
+          data &&
+          data.events.filter(
+            (data) => !data.announcement_body.tags[0].includes('patchnotes')
+          )[0]
+        }
+      ></LargeEntry>
       <TabGroupStyles>
         <div className='tabs_group'>
           <Link to='/news'>NEWS</Link>
@@ -200,9 +204,15 @@ const TabGroupStyles = styled.section`
   width: 100%;
   height: 100px;
   padding: 0px 14vw;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
   padding-top: 40px;
   background: black;
   border-bottom: 3px solid #313131;
+  @media screen and (max-width: 768px) {
+    justify-content: center;
+  }
   .tabs_group {
     width: 400px;
     height: 100%;
