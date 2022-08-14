@@ -432,9 +432,12 @@ const Wrapper = styled.section`
     }
     .dropdown_container {
       display: flex;
-      width: 25%;
+      width: 15%;
 
       @media screen and (max-width: 768px) {
+        width: 25%;
+      }
+      @media screen and (max-width: 400px) {
         width: 35%;
       }
     }
