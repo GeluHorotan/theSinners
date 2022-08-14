@@ -39,7 +39,11 @@ const Homepage = () => {
             </div>
             <div className='quote_credit'>- Destructoid</div>
             <div className='quote_bar'></div>
-            <Link to='#'>
+            <a
+              href='https://store.steampowered.com/app/570/Dota_2/'
+              target={'_blank'}
+              rel='noreferrer'
+            >
               <div className='play_button'>
                 <div className='steam_logo'></div>
                 <div className='right_side'>
@@ -47,7 +51,7 @@ const Homepage = () => {
                   <div className='download'>Download on Steam</div>
                 </div>
               </div>
-            </Link>
+            </a>
           </div>
         </div>
         <div className='bottom_fade'></div>
@@ -233,7 +237,7 @@ const HeaderStyles = styled.section`
     }
     a {
       text-decoration: none;
-      color: inherit;
+
       .play_button {
         padding: 0.5rem;
         border-radius: 6px;
@@ -248,12 +252,21 @@ const HeaderStyles = styled.section`
         transition-timing-function: ease-in-out;
         transition-duration: 0.1s;
         .steam_logo {
-          width: 48px;
-          height: 48px;
+          background: url('https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//icons/steam.svg');
+          width: 3rem;
+          height: 3rem;
           margin: 0px 8px;
           background-size: contain;
           background-repeat: no-repeat;
-          background: url('https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//icons/steam.svg');
+
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          @media screen and (max-width: 450px) {
+            width: 2rem;
+            height: 2rem;
+          }
         }
         .right_side {
           flex-grow: 1;

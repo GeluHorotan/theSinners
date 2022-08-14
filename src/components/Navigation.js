@@ -295,7 +295,7 @@ const NavigationStyle = styled.nav`
   overflow: hidden;
   color: #fff;
   top: 0;
-  z-index: 10;
+  z-index: 20;
   /* overflow-x: hidden; */
   overflow: visible;
   display: none;
