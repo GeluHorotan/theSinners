@@ -100,20 +100,21 @@ const Patches = () => {
           </div>
         </div>
         <BodyStyles>
-          <NoPatchStyles>
-            {' '}
-            <ErrorHandler>
-              {' '}
-              Ups, it looks like we couldn't find any gameplay changes in the
-              API. <br></br>
-              Try searching for another patch version.
-            </ErrorHandler>
-          </NoPatchStyles>
-          {data.generic &&
-            data.neutral_creeps &&
-            data.items &&
-            data.neutral_items &&
-            data.heroes && <NoPatchStyles> {data.patch_number}</NoPatchStyles>}
+          {!data.generic &&
+            !data.neutral_creeps &&
+            !data.items &&
+            !data.neutral_items &&
+            !data.heroes && (
+              <NoPatchStyles>
+                {' '}
+                <ErrorHandler>
+                  {' '}
+                  Ups, it looks like we couldn't find any gameplay changes in
+                  the API. <br></br>
+                  Try searching for another patch version.
+                </ErrorHandler>
+              </NoPatchStyles>
+            )}
           {data.generic && (
             <div className='update_section'>
               <div className='patch_notes_label'>GENERAL UPDATES</div>
@@ -387,7 +388,7 @@ const Wrapper = styled.section`
 
   clear: both;
   .header {
-    width: 900px;
+    width: 100%;
     background: linear-gradient(
       90deg,
       rgba(66, 66, 66, 0.38) 3.07%,
@@ -397,10 +398,14 @@ const Wrapper = styled.section`
     padding: 2rem 1rem;
     min-height: 0;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
     position: relative;
+    z-index: 10;
+    @media screen and (max-width: 768px) {
+      justify-content: space-between;
+    }
     .left_part {
       display: flex;
       flex-direction: column;
@@ -410,17 +415,28 @@ const Wrapper = styled.section`
 
     .label {
       color: ${obsH2};
-      font-size: 32px;
+      font-size: 2rem;
       letter-spacing: 4px;
+      @media screen and (max-width: 768px) {
+        font-size: 1rem;
+      }
     }
     .notes_title {
       color: ${obsH2};
-      font-size: 72px;
+      font-size: 4.5rem;
       font-weight: bold;
       letter-spacing: 8px;
+      @media screen and (max-width: 768px) {
+        font-size: 2.25rem;
+      }
     }
     .dropdown_container {
-      width: 15%;
+      display: flex;
+      width: 25%;
+
+      @media screen and (max-width: 768px) {
+        width: 35%;
+      }
     }
   }
 `;
