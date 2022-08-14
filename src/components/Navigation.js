@@ -23,7 +23,7 @@ import { IconContext } from 'react-icons';
 
 // Animation
 import { motion } from 'framer-motion';
-import { navUl, navLogo, comingTop } from './animation';
+import { navUl, navLogo, comingTop, fadeLeft } from './animation';
 import DropdownMenu from '../DropdownMenu';
 import { Menu, Transition } from '@headlessui/react';
 
@@ -38,8 +38,8 @@ const Navigation = () => {
       <NavigationStyle className='nav'>
         <Link to='/'>
           <motion.img
-            variants={navLogo}
-            initial='hidden'
+            variants={fadeLeft}
+            initial={'hidden'}
             animate='show'
             id='logo'
             src={Logo}
@@ -49,8 +49,8 @@ const Navigation = () => {
 
         <motion.div
           className='header_container'
-          variants={navUl}
-          initial='hidden'
+          variants={fadeLeft}
+          initial={'hidden'}
           animate='show'
         >
           <div className='dropdown_container'>
@@ -138,8 +138,8 @@ const Navigation = () => {
 
             <div className='sidebar_half' id={sidebar ? 'sidebar-active' : ''}>
               <motion.img
-                variants={navLogo}
-                initial='hidden'
+                variants={fadeLeft}
+                initial={'hidden'}
                 animate='show'
                 className='logo'
                 src={Logo}

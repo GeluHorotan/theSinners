@@ -235,3 +235,47 @@ export const rightSlide = {
     opacity: 1,
   },
 };
+
+export const fadeDown = {
+  hidden: {
+    y: 100,
+    opacity: 0,
+  },
+  show: {
+    y: 0,
+    opacity: 1,
+    transition: { ease: 'easeInOut', duration: 1 },
+  },
+};
+export const fadeLeft = {
+  hidden: {
+    x: '-10%',
+    opacity: 0,
+  },
+  show: {
+    x: 0,
+    opacity: 1,
+
+    transition: { delay: 2, ease: 'easeInOut', duration: 1 },
+  },
+};
+
+export const widthGrow = {
+  hidden: {
+    width: '0%',
+  },
+  show: {
+    width: '20%',
+    transition: { delay: 3, ease: 'easeInOut', duration: 0.5 },
+  },
+};
+
+export const widthNoDelay = {
+  hidden: {
+    width: '0%',
+  },
+  show: {
+    width: '20%',
+    transition: { ease: 'easeInOut', duration: 1 },
+  },
+};

@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 // Page Components
 import Slider from '../components/Slider';
 import Button from '../components/Button';
-
+import { motion, useAnimation } from 'framer-motion';
+import {
+  fadeDown,
+  fadeLeft,
+  widthGrow,
+  widthNoDelay,
+} from '../components/animation';
 // Datas
 import { SliderData } from '../Data/SliderData';
-
+import { useInView } from 'react-intersection-observer';
 // Style
 import styled from 'styled-components';
 
@@ -17,6 +23,46 @@ import LatestArticles from '../components/LatestArticles';
 import JoinBattle from '../components/JoinBattle';
 
 const Homepage = () => {
+  const [ref, InView] = useInView();
+  const controls = useAnimation();
+  const controls2 = useAnimation();
+  const controlsImg = useAnimation();
+  const [ref2, InView2] = useInView();
+  const [refImg, InViewImg] = useInView();
+
+  const controlsDPC = useAnimation();
+  const [refDPC, InViewDPC] = useInView();
+
+  useEffect(() => {
+    if (InView) {
+      controls.start('show');
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [InView]);
+
+  useEffect(() => {
+    if (InView2) {
+      controls2.start('show');
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [InView2]);
+  useEffect(() => {
+    if (InViewImg) {
+      controlsImg.start('show');
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [InViewImg]);
+  useEffect(() => {
+    if (InViewDPC) {
+      controlsDPC.start('show');
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [InViewDPC]);
+
   return (
     <StyledPage>
       <HeaderStyles>
@@ -32,13 +78,23 @@ const Homepage = () => {
             />
           </video>
         </div>
-        <div className='quote_container'>
+        <motion.div
+          variants={fadeLeft}
+          initial={'hidden'}
+          animate='show'
+          className='quote_container'
+        >
           <div>
             <div className='quote_text'>
               "A modern Multiplayer Masterpiece."
             </div>
             <div className='quote_credit'>- Destructoid</div>
-            <div className='quote_bar'></div>
+            <motion.div
+              variants={widthGrow}
+              initial={'hidden'}
+              animate='show'
+              className='quote_bar'
+            ></motion.div>
             <a
               href='https://store.steampowered.com/app/570/Dota_2/'
               target={'_blank'}
@@ -53,14 +109,19 @@ const Homepage = () => {
               </div>
             </a>
           </div>
-        </div>
+        </motion.div>
         <div className='bottom_fade'></div>
       </HeaderStyles>
       <NewsStyles>
-        <div className='news_capsules'>
+        <motion.div
+          variants={fadeDown}
+          initial={'hidden'}
+          animate='show'
+          className='news_capsules'
+        >
           {' '}
           <LatestArticles padding={'none'} allNews={true}></LatestArticles>
-        </div>
+        </motion.div>
       </NewsStyles>
       <BattleStyles>
         <div className='battle_bg'>
@@ -76,12 +137,24 @@ const Homepage = () => {
           />
         </div>
         <div className='battle_left_half'>
-          <div className='header_text'>
+          <motion.div
+            ref={ref}
+            variants={fadeDown}
+            initial={'hidden'}
+            animate={controls}
+            className='header_text'
+          >
             <span className='Minor'>Join THE</span>
             <br />
             Battle of the Ancients
-          </div>
-          <div className='horizontal_bar'></div>
+          </motion.div>
+          <motion.div
+            ref={ref}
+            variants={widthNoDelay}
+            initial={'hidden'}
+            animate={controls}
+            className='horizontal_bar'
+          ></motion.div>
           <div className='body_text'>
             Every day, millions of players worldwide enter the battle as one of
             over a hundred Dota Heroes in a 5v5 team clash. Dota is the deepest
@@ -102,12 +175,24 @@ const Homepage = () => {
         <div className='fade_container fade_bottom'>
           <div className='fade bottom'></div>
         </div>
-        <div className='header_text'>
+        <motion.div
+          ref={ref2}
+          variants={fadeDown}
+          initial={'hidden'}
+          animate={controls2}
+          className='header_text'
+        >
           <span className='Minor'>Who Will You</span>
           <br />
           Choose ?
-        </div>
-        <div className='horizontal_bar'></div>
+        </motion.div>
+        <motion.div
+          ref={ref2}
+          variants={widthNoDelay}
+          initial={'hidden'}
+          animate={controls2}
+          className='horizontal_bar'
+        ></motion.div>
         <div className='body_text'>
           From magical tacticians to fierce brutes and cunning rogues, Dota 2's
           hero pool is massive and limitlessly diverse. Unleash incredible
@@ -120,7 +205,13 @@ const Homepage = () => {
         <div className='heroes_grid'></div>
       </ChooseStyles>
       <DPCStyles>
-        <div className='dpc_images'>
+        <motion.div
+          ref={refImg}
+          variants={fadeDown}
+          initial={'hidden'}
+          animate={controlsImg}
+          className='dpc_images'
+        >
           <img
             src='https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//home/dpc_ti9_1.jpg'
             alt=''
@@ -131,14 +222,26 @@ const Homepage = () => {
             alt=''
             className='dpc_image right'
           />
-        </div>
+        </motion.div>
         <div className='dpc_icon'></div>
-        <div className='header_text'>
+        <motion.div
+          ref={refDPC}
+          variants={fadeDown}
+          initial={'hidden'}
+          animate={controlsDPC}
+          className='header_text'
+        >
           <span className='Minor'>The</span>
           <br />
           Dota Pro Circuit
-        </div>
-        <div className='horizontal_bar'></div>
+        </motion.div>
+        <motion.div
+          ref={refDPC}
+          variants={widthNoDelay}
+          initial={'hidden'}
+          animate={controlsDPC}
+          className='horizontal_bar'
+        ></motion.div>
         <div className='body_text'>
           When not climbing the ranks, you'll be able to learn from the best.
           The Dota Pro Circuit features ultra-high-level Dota 2 competition
@@ -229,7 +332,7 @@ const HeaderStyles = styled.section`
       text-transform: uppercase;
     }
     .quote_bar {
-      width: 80px;
+      width: 20%;
       height: 3px;
       min-height: 3px;
       background-color: #ff6046;
