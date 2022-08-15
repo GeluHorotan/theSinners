@@ -53,7 +53,7 @@ const Patches = () => {
     { keepPreviousData: true }
   );
 
-  if (dotaHeroes && data.heroes) {
+  if (data && dotaHeroes && data.heroes) {
     data.heroes.sort((a, b) =>
       getName(dotaHeroes, a.hero_id, 'hero').localeCompare(
         getName(dotaHeroes, b.hero_id, 'hero')
