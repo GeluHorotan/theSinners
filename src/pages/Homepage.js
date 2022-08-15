@@ -47,7 +47,7 @@ const Homepage = () => {
   ];
   const [ref2, InView2] = useInView();
   const [refImg, InViewImg] = useInView();
-
+  const dotaHeroes = React.useContext(HeroesContext);
   const controlsDPC = useAnimation();
   const [refDPC, InViewDPC] = useInView();
 
@@ -82,12 +82,12 @@ const Homepage = () => {
   }, [InViewDPC]);
 
   useEffect(() => {
-    controlRows.forEach((control, index) => {
-      control.start('show');
-    });
-  }, []);
-
-  const dotaHeroes = React.useContext(HeroesContext);
+    controlGrid1.start('show');
+    controlGrid2.start('show');
+    controlGrid3.start('show');
+    controlGrid4.start('show');
+    controlGrid5.start('show');
+  }, [controlRows]);
 
   const sliceHeroes = () => {
     if (dotaHeroes) {
@@ -100,7 +100,6 @@ const Homepage = () => {
 
       setHeroesGrid((prevState) => [grid1, grid2, grid3, grid4, grid5]);
     }
-    console.log(heroesGrid);
   };
   useEffect(() => {
     sliceHeroes();
