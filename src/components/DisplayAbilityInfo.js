@@ -79,7 +79,7 @@ const DisplayAbilityInfo = ({ spell, isUpgrade }) => {
                     Object.keys(spell).map((key, index) => {
                       if (key === 'damages')
                         return (
-                          <div className='ability_heading_title'>
+                          <div key={index} className='ability_heading_title'>
                             {key.toUpperCase()}:
                           </div>
                         );
@@ -92,7 +92,7 @@ const DisplayAbilityInfo = ({ spell, isUpgrade }) => {
                 spell.special_values.map((value, index) => {
                   if (value.heading_loc.length !== 0) {
                     return (
-                      <div className='ability_value'>
+                      <div key={index} className='ability_value'>
                         <ReactMarkdown
                           remarkPlugins={[remarkGfm]}
                           rehypePlugins={[rehypeRaw]}
@@ -129,7 +129,7 @@ const DisplayAbilityInfo = ({ spell, isUpgrade }) => {
                   (value.name === 'AbilityManaCost' && value.values_float != 0)
                 )
                   return (
-                    <div className='bottom_values_container'>
+                    <div key={index} className='bottom_values_container'>
                       <div className='bottom_values'>
                         <div
                           className={`${

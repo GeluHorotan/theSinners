@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 // Page Components
 import Slider from '../components/Slider';
@@ -15,14 +15,17 @@ import { SliderData } from '../Data/SliderData';
 import { useInView } from 'react-intersection-observer';
 // Style
 import styled from 'styled-components';
+import { HeroesContext } from '../App';
 
 // Logos
 import { primary, saturatedRed } from '../Utility/Colors';
 import { Link } from 'react-router-dom';
 import LatestArticles from '../components/LatestArticles';
 import JoinBattle from '../components/JoinBattle';
+import { getAttrImg } from '../Functions/getAttrImg';
 
 const Homepage = () => {
+  const [heroesGrid, setHeroesGrid] = useState();
   const [ref, InView] = useInView();
   const controls = useAnimation();
   const controls2 = useAnimation();
@@ -62,6 +65,25 @@ const Homepage = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [InViewDPC]);
+
+  const dotaHeroes = React.useContext(HeroesContext);
+
+  const sliceHeroes = () => {
+    if (dotaHeroes) {
+      const gridLength = dotaHeroes.length / 5;
+      const grid1 = dotaHeroes.slice(0, gridLength);
+      const grid2 = dotaHeroes.slice(gridLength, gridLength * 2 - 1);
+      const grid3 = dotaHeroes.slice(gridLength * 2 - 1, gridLength * 3 - 1);
+      const grid4 = dotaHeroes.slice(gridLength * 3 - 1, gridLength * 4 - 1);
+      const grid5 = dotaHeroes.slice(gridLength * 4 - 1, gridLength * 5 - 1);
+
+      setHeroesGrid((prevState) => [grid1, grid2, grid3, grid4, grid5]);
+    }
+    console.log(heroesGrid);
+  };
+  useEffect(() => {
+    sliceHeroes();
+  }, [dotaHeroes]);
 
   return (
     <StyledPage>
@@ -202,7 +224,64 @@ const Homepage = () => {
             VIEW ALL HEROES
           </Button>
         </div>
-        <div className='heroes_grid'></div>
+        {heroesGrid && (
+          <div className='heroes_grid'>
+            {heroesGrid.map((grid, index) => {
+              return (
+                <div className='hero_grid_row'>
+                  {grid.map((hero, index) => {
+                    const localizedName = hero.name.replace(
+                      'npc_dota_hero_',
+                      ''
+                    );
+                    return (
+                      <Link
+                        className='hero_box'
+                        to={`/hero/${hero.name_loc.toLowerCase()}`}
+                        state={{
+                          currentHero: hero.id,
+                          currentIndex: index,
+
+                          prevIndex:
+                            index - 1 === -1
+                              ? dotaHeroes.length - 1
+                              : index - 1,
+
+                          nextIndex:
+                            index + 1 > dotaHeroes.length - 1 ? 0 : index + 1,
+                          list: dotaHeroes,
+                        }}
+                      >
+                        <div className='hero-card'>
+                          <div
+                            className='heroPortrait'
+                            style={{
+                              backgroundImage: `url(https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/${localizedName}.png)`,
+                            }}
+                          >
+                            {' '}
+                            <div
+                              className='attributeFade'
+                              style={{
+                                background:
+                                  'linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.733) 40%, rgb(0, 0, 0) 100%)',
+                              }}
+                            >
+                              <div className='heroPortraitDetails'>
+                                {getAttrImg(hero.primary_attr)}
+                                <h5>{hero.name_loc.toUpperCase()}</h5>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </Link>
+                    );
+                  })}
+                </div>
+              );
+            })}
+          </div>
+        )}
       </ChooseStyles>
       <DPCStyles>
         <motion.div
@@ -548,7 +627,7 @@ const ChooseStyles = styled.section`
   flex-direction: column;
   align-items: center;
   position: relative;
-
+  margin-bottom: 25rem;
   .fade_container {
     width: 100%;
     height: 100%;
@@ -631,6 +710,7 @@ const ChooseStyles = styled.section`
   }
   .heroes_grid {
     width: 80%;
+    margin-top: 15rem;
     z-index: 3;
     min-height: 0;
     display: flex;
@@ -644,6 +724,125 @@ const ChooseStyles = styled.section`
       black 80%,
       transparent 100%
     );
+    .hero_grid_row {
+      width: 13260px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      height: 138px;
+      gap: 1rem;
+
+      a {
+        text-decoration: none;
+      }
+      .heroPortrait {
+        width: 14.063rem;
+        height: 7.938rem;
+        cursor: pointer;
+        transition: 0.25s all ease-in;
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        box-shadow: 1px 1px 4px #000;
+        vertical-align: middle;
+        filter: saturate(0.8);
+        overflow: hidden;
+        .attributeFade {
+          width: 100%;
+          position: absolute;
+          vertical-align: middle;
+          /* opacity: 0; */
+          transition: 0.25s all ease-in-out;
+          bottom: -4rem;
+          display: block;
+        }
+
+        .heroPortraitDetails {
+          width: 100%;
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+          vertical-align: middle;
+          padding: 1.5rem 0.5rem 0.5rem 0.1rem;
+          position: relative;
+
+          h5 {
+            line-height: 1.5rem;
+            @media screen and (max-width: 750px) {
+              font-size: 1.5rem;
+            }
+            @media screen and (max-width: 482px) {
+              font-size: 0.8rem;
+            }
+          }
+
+          .attrImg {
+            width: 2.625rem;
+            height: 2.625rem;
+            padding: 0.25rem;
+            @media screen and (max-width: 750px) {
+              width: 2.325rem;
+              height: 2.325rem;
+              padding: 0.25rem;
+            }
+            @media screen and (max-width: 482px) {
+              width: 1.825rem;
+              height: 1.825rem;
+              padding: 0.25rem;
+            }
+          }
+        }
+      }
+      .heroPortrait:hover {
+        transform: scale(1.2);
+        z-index: 15;
+        vertical-align: middle;
+        @media screen and (max-width: 750px) {
+          transform: scale(1.1);
+        }
+      }
+      .heroPortrait:hover .attributeFade {
+        bottom: 0;
+        opacity: 1;
+        vertical-align: middle;
+      }
+
+      .hero-card {
+        width: 14.063;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        vertical-align: middle;
+      }
+
+      @media screen and (max-width: 750px) {
+        .heroPortrait {
+          width: 12.813rem;
+          height: 6.688rem;
+        }
+        .hero-card {
+          width: 12.813rem;
+        }
+      }
+      @media screen and (max-width: 482px) {
+        .heroPortrait {
+          width: 7.813rem;
+          height: 4.188rem;
+        }
+        .hero-card {
+          width: 7.813rem;
+        }
+      }
+      .attrImg {
+        width: 3rem;
+        height: 3rem;
+      }
+    }
   }
 `;
 

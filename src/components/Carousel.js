@@ -26,7 +26,7 @@ const Carousel = ({ slides }) => {
     <SectionStyle className='slider'>
       {SliderData.map((slide, index) => {
         return (
-          <div className={index === current ? ' active' : ''} key={index}>
+          <div key={index} className={index === current ? ' active' : ''}>
             {index === current && (
               <ImageStyle src={slide.image} alt='carousel' />
             )}

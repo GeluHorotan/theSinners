@@ -46,7 +46,12 @@ const LatestArticles = ({ currentGid, padding, allNews }) => {
           )
           .map((article, index) => {
             if (index < 3)
-              return <BlogCapsule key={article.clan_steamid} blog={article} />;
+              return (
+                <BlogCapsule
+                  key={article.announcement_body.gid}
+                  blog={article}
+                />
+              );
           })}
       </div>
     </Wrapper>
