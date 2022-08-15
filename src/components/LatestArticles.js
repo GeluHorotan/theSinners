@@ -3,6 +3,9 @@ import styled from 'styled-components';
 import { useQuery } from 'react-query';
 import BlogCapsule from './BlogCapsule';
 import { Link } from 'react-router-dom';
+import PropagateLoader from 'react-spinners/PropagateLoader';
+import FetchingLoading from './FetchingLoading';
+import FetchErrorMessage from '../FetchErrorMessage';
 
 const fetchUsers = async (countParam) => {
   const res = await fetch(`/.netlify/functions/news/?count=${countParam}`);
@@ -17,11 +20,11 @@ const LatestArticles = ({ currentGid, padding, allNews }) => {
   );
 
   if (isLoading) {
-    return <div className='middle_align'>Loading...</div>;
+    return <FetchingLoading></FetchingLoading>;
   }
 
   if (isError) {
-    return <h2>{error.message}</h2>;
+    return <FetchErrorMessage></FetchErrorMessage>;
   }
 
   return (

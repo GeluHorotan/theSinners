@@ -14,6 +14,8 @@ import { Menu } from '@headlessui/react';
 import Error404 from '../components/Error404';
 import ErrorHandler from '../components/ErrorHandler';
 import { obsH2, primary } from '../Utility/Colors';
+import FetchingLoading from '../components/FetchingLoading';
+import FetchErrorMessage from '../FetchErrorMessage';
 
 const fetchSelectedPatch = async (id) => {
   const res = await fetch(`/.netlify/functions/lastPatch/?lastPatchId=${id}`);
@@ -62,11 +64,11 @@ const Patches = () => {
   }
 
   if (isLoading) {
-    return <h2>Loading...</h2>;
+    return <FetchingLoading></FetchingLoading>;
   }
 
   if (isError) {
-    return <h2>{error.message}</h2>;
+    return <FetchErrorMessage></FetchErrorMessage>;
   }
 
   if (patchList && data && dotaItems && dotaAbilities && lastPatch)

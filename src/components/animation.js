@@ -292,7 +292,7 @@ export const slidingRight = {
       repeat: Infinity,
       repeatType: 'mirror',
 
-      duration: 25,
+      duration: 115,
     },
   },
 };
@@ -308,7 +308,7 @@ export const slidingLeft = {
       repeat: Infinity,
       repeatType: 'mirror',
 
-      duration: 35,
+      duration: 125,
     },
   },
 };

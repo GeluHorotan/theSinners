@@ -4,6 +4,7 @@ import BlogCapsule from './BlogCapsule';
 import Button from './Button';
 import UpdateCapsule from './UpdateCapsule';
 import styled from 'styled-components';
+import FetchingLoading from './FetchingLoading';
 
 const fetchUsers = async (countParam) => {
   const res = await fetch(`/.netlify/functions/news/?count=${countParam}`);
@@ -20,7 +21,7 @@ const Pagination = ({ isUpdate }) => {
   );
 
   if (isLoading) {
-    return <h2>Loading...</h2>;
+    return <FetchingLoading></FetchingLoading>;
   }
 
   if (isError) {
@@ -65,7 +66,9 @@ const Pagination = ({ isUpdate }) => {
               />
             );
           })}
-      <FetchingLoader>{isFetching ? 'Fetching...' : null}</FetchingLoader>
+      <FetchingLoader>
+        {isFetching ? <FetchingLoading></FetchingLoading> : null}
+      </FetchingLoader>
       <ButtonStyles className='buttons_container'>
         <Button isRipple action={setPageDown}>
           PREV

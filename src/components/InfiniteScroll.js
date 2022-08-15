@@ -5,6 +5,9 @@ import { React, useEffect, useState } from 'react';
 import UpdateCapsule from './UpdateCapsule';
 import Button from './Button';
 import styled from 'styled-components';
+import { PropagateLoader } from 'react-spinners';
+import FetchErrorMessage from '../FetchErrorMessage';
+import FetchingLoading from './FetchingLoading';
 
 const fetchUsers = async (countParam) => {
   const res = await fetch(`/.netlify/functions/news/?count=${countParam}`);
@@ -28,19 +31,23 @@ const InfiniteScroll = ({ isUpdate }) => {
   }, [inView]);
 
   if (isLoading) {
-    return <h2>Loading...</h2>;
+    return <FetchingLoading></FetchingLoading>;
   }
 
   if (isError) {
-    return <h2>{error.message}</h2>;
+    return <FetchErrorMessage></FetchErrorMessage>;
   }
 
   if (isLoading) {
-    return <h2>Loading...</h2>;
+    return (
+      <div className='middle_align'>
+        <PropagateLoader color='#fff' />
+      </div>
+    );
   }
 
   if (isError) {
-    return <h2>{error.message}</h2>;
+    return <FetchErrorMessage></FetchErrorMessage>;
   }
 
   return (

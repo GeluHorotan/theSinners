@@ -85,7 +85,7 @@ const Homepage = () => {
     controlRows.forEach((control, index) => {
       control.start('show');
     });
-  }, [controlRows]);
+  }, []);
 
   const dotaHeroes = React.useContext(HeroesContext);
 
