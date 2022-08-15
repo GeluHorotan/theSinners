@@ -614,7 +614,6 @@ const BattleStyles = styled.section`
       margin-bottom: 20px;
       .Minor {
         font-size: 4rem;
-
         @media screen and (max-width: 900px) {
           font-size: 2rem;
         }
@@ -742,7 +741,7 @@ const ChooseStyles = styled.section`
   }
   .heroes_grid {
     width: 80%;
-    margin-top: 15rem;
+    margin-top: 4rem;
     z-index: 3;
     min-height: 0;
     display: flex;
