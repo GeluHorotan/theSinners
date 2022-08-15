@@ -9,6 +9,9 @@ import {
   fadeLeft,
   widthGrow,
   widthNoDelay,
+  sponsorItemRight,
+  slidingRight,
+  slidingLeft,
 } from '../components/animation';
 // Datas
 import { SliderData } from '../Data/SliderData';
@@ -30,6 +33,18 @@ const Homepage = () => {
   const controls = useAnimation();
   const controls2 = useAnimation();
   const controlsImg = useAnimation();
+  const controlGrid1 = useAnimation();
+  const controlGrid2 = useAnimation();
+  const controlGrid3 = useAnimation();
+  const controlGrid4 = useAnimation();
+  const controlGrid5 = useAnimation();
+  const controlRows = [
+    controlGrid1,
+    controlGrid2,
+    controlGrid3,
+    controlGrid4,
+    controlGrid5,
+  ];
   const [ref2, InView2] = useInView();
   const [refImg, InViewImg] = useInView();
 
@@ -65,6 +80,12 @@ const Homepage = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [InViewDPC]);
+
+  useEffect(() => {
+    controlRows.forEach((control, index) => {
+      control.start('show');
+    });
+  }, [controlRows]);
 
   const dotaHeroes = React.useContext(HeroesContext);
 
@@ -228,7 +249,18 @@ const Homepage = () => {
           <div className='heroes_grid'>
             {heroesGrid.map((grid, index) => {
               return (
-                <div className='hero_grid_row'>
+                <motion.div
+                  variants={(index + 1) % 2 !== 0 ? slidingRight : slidingLeft}
+                  initial={'hidden'}
+                  animate={controlRows[index]}
+                  className='hero_grid_row'
+                  onMouseEnter={() => {
+                    controlRows[index].stop('hidden');
+                  }}
+                  onMouseLeave={() => {
+                    controlRows[index].start('show');
+                  }}
+                >
                   {grid.map((hero, index) => {
                     const localizedName = hero.name.replace(
                       'npc_dota_hero_',
@@ -277,7 +309,7 @@ const Homepage = () => {
                       </Link>
                     );
                   })}
-                </div>
+                </motion.div>
               );
             })}
           </div>

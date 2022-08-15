@@ -279,3 +279,36 @@ export const widthNoDelay = {
     transition: { ease: 'easeInOut', duration: 1 },
   },
 };
+
+export const slidingRight = {
+  hidden: {
+    x: '1%',
+  },
+  show: {
+    x: '-35.5%',
+
+    transition: {
+      ease: 'linear',
+      repeat: Infinity,
+      repeatType: 'mirror',
+
+      duration: 25,
+    },
+  },
+};
+export const slidingLeft = {
+  hidden: {
+    x: '-35.5%',
+  },
+  show: {
+    x: '1%',
+
+    transition: {
+      ease: 'linear',
+      repeat: Infinity,
+      repeatType: 'mirror',
+
+      duration: 125,
+    },
+  },
+};
