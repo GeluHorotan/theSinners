@@ -308,7 +308,7 @@ export const slidingLeft = {
       repeat: Infinity,
       repeatType: 'mirror',
 
-      duration: 125,
+      duration: 35,
     },
   },
 };
