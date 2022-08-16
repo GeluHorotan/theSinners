@@ -755,7 +755,7 @@ const ChooseStyles = styled.section`
       transparent 100%
     );
     .hero_grid_row {
-      width: 3260px;
+      width: 1260px;
 
       display: flex;
       flex-direction: row;
