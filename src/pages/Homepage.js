@@ -657,7 +657,7 @@ const ChooseStyles = styled.section`
   flex-direction: column;
   align-items: center;
   position: relative;
-  margin-bottom: 25rem;
+  margin-top: 4rem;
   .fade_container {
     width: 100%;
     height: 100%;

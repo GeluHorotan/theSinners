@@ -285,20 +285,20 @@ export const slidingRight = {
     x: '1%',
   },
   show: {
-    x: '-150%',
+    x: '-400%',
 
     transition: {
       ease: 'linear',
       repeat: Infinity,
       repeatType: 'reverse',
 
-      duration: 145,
+      duration: 115,
     },
   },
 };
 export const slidingLeft = {
   hidden: {
-    x: '-150%',
+    x: '-400%',
   },
   show: {
     x: '1%',
@@ -308,7 +308,7 @@ export const slidingLeft = {
       repeat: Infinity,
       repeatType: 'reverse',
 
-      duration: 125,
+      duration: 95,
     },
   },
 };
