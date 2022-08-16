@@ -174,7 +174,7 @@ const MenuStyles = styled.div`
     zoom: 0.8;
   }
   @media screen and (max-width: 400px) {
-    zoom: 0.7;
+    zoom: 0.6;
   }
 
   .menubar_list {

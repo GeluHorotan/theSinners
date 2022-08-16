@@ -374,6 +374,9 @@ const TeamEntryStyles = styled.div`
   @media screen and (max-width: 495px) {
     zoom: 0.5;
   }
+  @media screen and (max-width: 395px) {
+    zoom: 0.3;
+  }
 
   .teamlist_favorite_section {
     min-width: 70px;
