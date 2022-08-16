@@ -251,14 +251,14 @@ const Homepage = () => {
                 <motion.div
                   variants={(index + 1) % 2 !== 0 ? slidingRight : slidingLeft}
                   initial={'hidden'}
-                  animate={controlRows[index]}
+                  animate={'show'}
                   className='hero_grid_row'
-                  onMouseEnter={() => {
-                    controlRows[index].stop('hidden');
-                  }}
-                  onMouseLeave={() => {
-                    controlRows[index].start('show');
-                  }}
+                  // onMouseEnter={() => {
+                  //   controlRows[index].stop('hidden');
+                  // }}
+                  // onMouseLeave={() => {
+                  //   controlRows[index].start('show');
+                  // }}
                 >
                   {grid.map((hero, index) => {
                     const localizedName = hero.name.replace(
