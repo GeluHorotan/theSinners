@@ -151,6 +151,9 @@ const SeriesResult = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 20px;
+  img {
+    display: none;
+  }
   @media screen and (max-width: 980px) {
     zoom: 0.9;
   }
@@ -201,19 +204,11 @@ const SeriesResult = styled.div`
       min-width: 4rem;
       min-height: 4rem;
       opacity: 1;
-      @media screen and (max-width: 768px) {
-        width: 2rem;
-        height: 2rem;
-        min-width: 2rem;
-        min-height: 2rem;
-      }
     }
   }
   .outcome_result {
     font-size: 36px;
-    @media screen and (max-width: 768px) {
-      font-size: 2rem;
-    }
+
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 2px;

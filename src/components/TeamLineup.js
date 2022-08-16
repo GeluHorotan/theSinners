@@ -338,6 +338,7 @@ const LineupStyles = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
   padding: 1.7rem;
   top: 0;
+
   left: 0;
   @media screen and (max-width: 980px) {
     zoom: 0.9;
@@ -453,6 +454,7 @@ const LineupStyles = styled.div`
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
+            display: none;
           }
           .name_and_stats {
             flex-grow: 1;
