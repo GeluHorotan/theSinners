@@ -251,14 +251,14 @@ const Homepage = () => {
                 <motion.div
                   variants={(index + 1) % 2 !== 0 ? slidingRight : slidingLeft}
                   initial={'hidden'}
-                  animate={'show'}
+                  animate={controlRows[index]}
                   className='hero_grid_row'
-                  // onMouseEnter={() => {
-                  //   controlRows[index].stop('hidden');
-                  // }}
-                  // onMouseLeave={() => {
-                  //   controlRows[index].start('show');
-                  // }}
+                  onMouseEnter={() => {
+                    controlRows[index].stop('hidden');
+                  }}
+                  onMouseLeave={() => {
+                    controlRows[index].start('show');
+                  }}
                 >
                   {grid.map((hero, index) => {
                     const localizedName = hero.name.replace(
@@ -747,15 +747,16 @@ const ChooseStyles = styled.section`
     flex-direction: column;
     position: relative;
     overflow: hidden;
-    -webkit-mask-image: linear-gradient(
+    /* -webkit-mask-image: linear-gradient(
       to right,
       transparent 0%,
       black 20%,
       black 80%,
       transparent 100%
-    );
+    ); */
     .hero_grid_row {
-      width: 13260px;
+      /* width: 13260px; */
+      height: 2000px;
       display: flex;
       flex-direction: row;
       align-items: center;
