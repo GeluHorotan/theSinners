@@ -462,9 +462,7 @@ const Wrapper = styled.section`
   justify-content: center;
   position: relative;
   z-index: 2;
-img {
-  display: none;
-}
+
 
   .bg_container {
     background-image: url(https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/backgrounds/bg_grout_texture.jpg);

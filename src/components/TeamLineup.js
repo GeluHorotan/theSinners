@@ -340,27 +340,7 @@ const LineupStyles = styled.div`
   top: 0;
 
   left: 0;
-  @media screen and (max-width: 980px) {
-    zoom: 0.9;
-  }
-  @media screen and (max-width: 895px) {
-    zoom: 0.8;
-  }
-  @media screen and (max-width: 795px) {
-    zoom: 0.7;
-  }
-  @media screen and (max-width: 695px) {
-    zoom: 0.6;
-  }
-  @media screen and (max-width: 595px) {
-    zoom: 0.5;
-  }
-  @media screen and (max-width: 495px) {
-    zoom: 0.4;
-  }
-  @media screen and (max-width: 395px) {
-    zoom: 0.3;
-  }
+
   .body {
     width: 100%;
     flex-grow: 1;
@@ -454,7 +434,6 @@ const LineupStyles = styled.div`
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            display: none;
           }
           .name_and_stats {
             flex-grow: 1;
@@ -486,7 +465,7 @@ const LineupStyles = styled.div`
           transition-property: opacity;
           transition-timing-function: ease-in-out;
           transition-duration: 0.1s;
-          display: none;
+
           flex-direction: column;
           align-items: center;
           border: 1px solid #314068;
