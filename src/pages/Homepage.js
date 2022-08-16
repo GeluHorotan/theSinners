@@ -747,21 +747,28 @@ const ChooseStyles = styled.section`
     flex-direction: column;
     position: relative;
     overflow: hidden;
-    /* -webkit-mask-image: linear-gradient(
+    -webkit-mask-image: linear-gradient(
       to right,
       transparent 0%,
       black 20%,
       black 80%,
       transparent 100%
-    ); */
+    );
     .hero_grid_row {
-      /* width: 13260px; */
-      height: 2000px;
+      width: 3260px;
+
       display: flex;
       flex-direction: row;
       align-items: center;
       height: 138px;
+
       gap: 1rem;
+      @media screen and (max-width: 752px) {
+        height: 118px;
+      }
+      @media screen and (max-width: 482px) {
+        height: 78px;
+      }
 
       a {
         text-decoration: none;
