@@ -64,7 +64,7 @@ const News = () => {
 
 const Wrapper = styled.section`
   width: 100%;
-  height: 2220px;
+
   margin: 0px auto;
   text-align: center;
   min-height: 50vw;

@@ -94,6 +94,7 @@ const WrapperStyles = styled.div`
   background-image: url('https://cdn.cloudflare.steamstatic.com/apps/dota2/images/outlanders/patch-notes/bg_repeater.jpg');
   background-color: #15171b;
   position: relative;
+
   .title_container {
     width: 100%;
     height: 500px;
@@ -140,15 +141,20 @@ const WrapperStyles = styled.div`
   .title {
     padding: 0px 18vw;
     position: relative;
-    font-size: 60px;
+    font-size: 5rem;
     line-height: 115%;
     text-align: center;
 
     font-weight: 700;
 
     text-shadow: 0px 0px 10px #000, 0px 0px 5px #000;
-    margin-bottom: 20px;
-    margin-top: 20px;
+    margin: 1.2rem 0;
+    @media screen and (max-width: 768px) {
+      font-size: 3rem;
+    }
+    @media screen and (max-width: 391px) {
+      font-size: 2rem;
+    }
   }
   .date {
     font-size: 20px;

@@ -69,9 +69,10 @@ const BlogCapsule = ({ blog }) => {
 };
 
 const LinkStyles = styled.div`
-  width: 400px;
+  max-width: 400px;
+  min-width: 0;
   height: 245px;
-  margin: 15px;
+  margin: 1rem;
   justify-items: center;
   position: relative;
   flex-wrap: wrap;
@@ -99,7 +100,7 @@ const LinkStyles = styled.div`
     width: 100%;
     height: 100%;
     overflow: hidden;
-
+    border-bottom: 4px solid #333;
     background-color: #333;
     position: relative;
     vertical-align: middle;
@@ -107,7 +108,7 @@ const LinkStyles = styled.div`
     display: flex;
     flex-direction: column-reverse;
     box-shadow: 0px 0px 10px #000;
-
+    vertical-align: middle;
     text-align: left;
     cursor: pointer;
     user-select: none;

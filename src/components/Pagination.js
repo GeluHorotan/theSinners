@@ -5,6 +5,7 @@ import Button from './Button';
 import UpdateCapsule from './UpdateCapsule';
 import styled from 'styled-components';
 import FetchingLoading from './FetchingLoading';
+import FetchErrorMessage from '../FetchErrorMessage';
 
 const fetchUsers = async (countParam) => {
   const res = await fetch(`/.netlify/functions/news/?count=${countParam}`);
@@ -25,7 +26,7 @@ const Pagination = ({ isUpdate }) => {
   }
 
   if (isError) {
-    return <h2>{error.message}</h2>;
+    return <FetchErrorMessage></FetchErrorMessage>;
   }
 
   const setPageUp = () => {

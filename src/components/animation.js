@@ -298,7 +298,7 @@ export const slidingRight = {
 };
 export const slidingLeft = {
   hidden: {
-    x: '-400%',
+    x: '-340%',
   },
   show: {
     x: '1%',
@@ -308,7 +308,7 @@ export const slidingLeft = {
       repeat: Infinity,
       repeatType: 'reverse',
 
-      duration: 95,
+      duration: 75,
     },
   },
 };

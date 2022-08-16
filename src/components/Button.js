@@ -35,6 +35,7 @@ const Button = ({
   action,
   bradius,
   background,
+
   isRipple,
 }) => {
   return (

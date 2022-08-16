@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import PropagateLoader from 'react-spinners/PropagateLoader';
 import FetchingLoading from './FetchingLoading';
 import FetchErrorMessage from '../FetchErrorMessage';
+import { obsH2 } from '../Utility/Colors';
 
 const fetchUsers = async (countParam) => {
   const res = await fetch(`/.netlify/functions/news/?count=${countParam}`);
@@ -30,16 +31,20 @@ const LatestArticles = ({ currentGid, padding, allNews }) => {
   return (
     <Wrapper padding={padding} allNews={allNews}>
       <div className='news_top'>
-        <div className='latest_news'>Latest News</div>
-        <Link className='view_all' to='/news'>
-          VIEW ALL
-          <div className='right_arrow'></div>
-        </Link>
+        <div
+          className='latest_news'
+          style={{ color: `${!allNews ? obsH2 : ''}` }}
+        >
+          Latest News
+        </div>
+        {allNews && (
+          <Link className='view_all' to='/news'>
+            VIEW ALL
+            <div className='right_arrow'></div>
+          </Link>
+        )}
       </div>
-      <div className='header'>
-        LATEST NEWS
-        {currentGid}
-      </div>
+
       <div className='container'>
         {data.events
           .filter(
@@ -130,15 +135,7 @@ const Wrapper = styled.section`
       }
     }
   }
-  .header {
-    display: ${(props) => (props.allNews ? 'none' : 'flex')};
-    font-size: 20px;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    text-align: center;
-    color: rgba(255, 255, 255, 0.5);
-    margin-bottom: 10px;
-  }
+
   .container {
     width: 100%;
 
