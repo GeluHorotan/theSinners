@@ -462,33 +462,14 @@ const Wrapper = styled.section`
   justify-content: center;
   position: relative;
   z-index: 2;
- /* @media screen and (max-width: 980px) {
-    zoom: 0.9;
-  }
-  @media screen and (max-width: 895px) {
-    zoom: 0.8;
-  }
-  @media screen and (max-width: 795px) {
-    zoom: 0.7;
-  }
-  @media screen and (max-width: 695px) {
-    zoom: 0.6;
-  }
-  @media screen and (max-width: 595px) {
-    zoom: 0.5;
-  }
-  @media screen and (max-width: 495px) {
-    zoom: 0.4;
-  }
-  @media screen and (max-width: 395px) {
-    zoom: 0.3;
-  } */
+ 
+ 
 
   .bg_container {
     background-image: url(https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/backgrounds/bg_grout_texture.jpg);
   padding: 5rem 0;
     width: 100%;
-    background-size: 100% 100%;
+    background-size: 100% auto;
     background-position: top, center;
     background-repeat: no-repeat;
     display: flex;
@@ -496,7 +477,9 @@ const Wrapper = styled.section`
     align-items: center;
     justify-content: center;
     position: relative;
-
+height: 900px;
+    min-height: 900px;
+   
     transition-property: height;
     transition-timing-function: ease-in-out;
     transition-duration: 0.2s;
@@ -526,12 +509,13 @@ const Wrapper = styled.section`
 const SeriesDetailsStyles = styled.div`
   width: 100%;
   max-width: 960px;
-  height: 100%;
   z-index: 100;
-  transition-property: max-width;
-  transition-timing-function: ease-in-out;
-  transition-duration: 0.2s;
 
+  @media screen and (max-width: 1000px) {
+    max-width: 800px;
+  }
+
+  border: 1px solid red;
   button {
     background: none;
     border: none;
@@ -553,14 +537,11 @@ const SeriesDetailsStyles = styled.div`
     align-items: center;
     justify-content: space-between;
     position: relative;
+    margin-bottom: 4px;
 
     img {
       width: 1rem;
       height: 1rem;
-      @media screen and (max-width: 768px) {
-        width: 0.5rem;
-        height: 0.5rem;
-      }
     }
     margin-bottom: 4px;
     .team_right {
@@ -580,8 +561,8 @@ const SeriesDetailsStyles = styled.div`
       left: 0;
       right: 0;
       margin: 0 auto;
-
       clip-path: polygon(0px 0px, 300px 0px, 260px 110px, 40px 110px);
+
       .game_region {
         color: #fff;
         max-width: 230px;
@@ -626,6 +607,10 @@ const SeriesDetailsStyles = styled.div`
     .header_team {
       width: 365px;
       height: 100%;
+      @media screen and (max-width: 1000px) {
+        width: 284px;
+      }
+
       min-height: 0;
       display: flex;
       flex-direction: column;
@@ -681,6 +666,7 @@ const SeriesDetailsStyles = styled.div`
           .pip_container {
             height: 30px;
             display: flex;
+
             flex-direction: row;
             margin: 0 0.35rem;
           }
@@ -736,15 +722,16 @@ const SeriesDetailsStyles = styled.div`
   .series_details_details_body {
     width: 100%;
     height: 540px;
+    @media screen and (max-width: 1000px) {
+      height: 450px;
+    }
+
     min-height: 0;
     display: flex;
     flex-direction: row;
     background-color: #0b0b0c;
     border: 1px solid #0b0b0c;
     position: relative;
-    transition-property: height;
-    transition-timing-function: ease-in-out;
-    transition-duration: 0.2s;
 
     .players_showcase {
       background-size: cover;
@@ -769,6 +756,10 @@ const SeriesDetailsStyles = styled.div`
   .series_details_footer {
     width: 100%;
     height: 55px;
+    @media screen and (max-width: 1000px) {
+      height: 53px;
+    }
+
     background: #0b0b0c;
     display: flex;
     margin-top: 0.35rem;
@@ -778,9 +769,13 @@ const SeriesDetailsStyles = styled.div`
 
     .footer_left_tabs {
       width: 110px;
+
       height: 100%;
       display: flex;
       flex-direction: row;
+      @media screen and (max-width: 1000px) {
+        width: 150px;
+      }
       button {
         cursor: pointer;
         background: none;
