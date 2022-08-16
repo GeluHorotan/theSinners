@@ -462,7 +462,7 @@ const Wrapper = styled.section`
   justify-content: center;
   position: relative;
   z-index: 2;
- @media screen and (max-width: 980px) {
+ /* @media screen and (max-width: 980px) {
     zoom: 0.9;
   }
   @media screen and (max-width: 895px) {
@@ -482,7 +482,7 @@ const Wrapper = styled.section`
   }
   @media screen and (max-width: 395px) {
     zoom: 0.3;
-  }
+  } */
 
   .bg_container {
     background-image: url(https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/backgrounds/bg_grout_texture.jpg);

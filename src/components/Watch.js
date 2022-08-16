@@ -188,6 +188,27 @@ const WrapperStyles = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  @media screen and (max-width: 980px) {
+    zoom: 0.9;
+  }
+  @media screen and (max-width: 895px) {
+    zoom: 0.8;
+  }
+  @media screen and (max-width: 795px) {
+    zoom: 0.7;
+  }
+  @media screen and (max-width: 695px) {
+    zoom: 0.6;
+  }
+  @media screen and (max-width: 595px) {
+    zoom: 0.5;
+  }
+  @media screen and (max-width: 495px) {
+    zoom: 0.4;
+  }
+  @media screen and (max-width: 395px) {
+    zoom: 0.3;
+  }
   .load_more_button {
     margin: 5rem auto;
   }
