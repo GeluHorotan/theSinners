@@ -87,11 +87,25 @@ const Navigation = () => {
                 </div>
               </Menu.Item>
               <Menu.Item>
-                <div className='menu_options'>STORE </div>
+                <div
+                  className='menu_options'
+                  onClick={() => {
+                    navigate('/store');
+                  }}
+                >
+                  STORE{' '}
+                </div>
               </Menu.Item>
             </DropdownMenu>
           </div>
-          <div className='nav_btn'>ABOUT</div>
+          <div
+            className='nav_btn'
+            onClick={() => {
+              navigate('/about');
+            }}
+          >
+            ABOUT
+          </div>
 
           <div
             className='nav_btn'
@@ -110,7 +124,14 @@ const Navigation = () => {
             ESPORTS
           </div>
 
-          <div className='nav_btn'>CONTACT</div>
+          <div
+            className='nav_btn'
+            onClick={() => {
+              navigate('/contact');
+            }}
+          >
+            CONTACT
+          </div>
         </motion.div>
       </NavigationStyle>
 
@@ -209,7 +230,15 @@ const Navigation = () => {
                           </div>
                         </Menu.Item>
                         <Menu.Item>
-                          <div className='side_bar_btn dropdown_btn'>STORE</div>
+                          <div
+                            className='side_bar_btn dropdown_btn'
+                            onClick={() => {
+                              navigate('/store');
+                              setSidebar((prevState) => false);
+                            }}
+                          >
+                            STORE
+                          </div>
                         </Menu.Item>
                       </Menu.Items>
                     </Transition>
@@ -217,7 +246,15 @@ const Navigation = () => {
                 )}
               </Menu>
 
-              <div className='side_bar_btn'>ABOUT</div>
+              <div
+                className='side_bar_btn'
+                onClick={() => {
+                  navigate('/about');
+                  setSidebar((prevState) => false);
+                }}
+              >
+                ABOUT
+              </div>
               <div
                 className='side_bar_btn'
                 onClick={() => {

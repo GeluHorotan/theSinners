@@ -1,12 +1,27 @@
 import React from 'react';
-import Error404 from './Error404';
 import styled from 'styled-components';
 
-const ErrorHandler = ({ children }) => {
+import ErrorUnderConstruction from './ErrorUnderConstruction';
+import Error404 from './Error404';
+
+const ErrorHandler = ({ children, type }) => {
   return (
     <Wrapper>
-      <Error404></Error404>
-      <div className='error_header'>{children}</div>
+      {type === 'under_construction' && (
+        <>
+          <ErrorUnderConstruction
+            className={'under_construction_svg'}
+          ></ErrorUnderConstruction>
+          <div className='error_header'>{children}</div>
+        </>
+      )}
+      {type === '404' && (
+        <>
+          <Error404 className={'404_svg'}></Error404>
+
+          <div className='error_header'>{children}</div>
+        </>
+      )}
     </Wrapper>
   );
 };
@@ -16,14 +31,21 @@ const Wrapper = styled.section`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  svg {
-    height: 20rem;
+  .404_svg {
+    @media screen and (max-width: 1000px) {
+      height: 35vh;
+    }
+    @media screen and (max-width: 500px) {
+      height: 25vh;
+    }
   }
-  .error_header {
-    width: 100%;
-    color: #fff;
-    font-size: 1.5rem;
-    text-align: center;
+  .under_construction_svg {
+    @media screen and (max-width: 1000px) {
+      height: 35vh;
+    }
+    @media screen and (max-width: 500px) {
+      height: 25vh;
+    }
   }
 `;
 export default ErrorHandler;

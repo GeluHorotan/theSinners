@@ -1,27 +1,21 @@
 import React from 'react';
-import styled from 'styled-components';
-import { primary } from '../Utility/Colors';
-import Error404 from '../components/Error404';
-import { Link } from 'react-router-dom';
-import NavigationDisabler from '../Utility/NavigationDisabler';
-
 import Button from '../components/Button';
 import ErrorHandler from '../components/ErrorHandler';
+import NavigationDisabler from '../Utility/NavigationDisabler';
+import styled from 'styled-components';
+import { primary } from '../Utility/Colors';
 
-const PageNotFound = () => {
+const UnderConstruction = () => {
   return (
     <Wrapper>
       <NavigationDisabler></NavigationDisabler>
-      <ErrorHandler type='404'>
+      <ErrorHandler type='under_construction'>
         {' '}
         <div className='back_to'>
-          <div className='text'>
-            We're sorry, the page you requested could not be found.
-          </div>
           <Button
             isLink
             setLink='/'
-            background='#f24976'
+            background={primary}
             bradius={'5rem'}
             isRipple
           >
@@ -35,24 +29,13 @@ const PageNotFound = () => {
 
 const Wrapper = styled.section`
   width: 100%;
-  height: 100vh;
+
   display: flex;
-  background: #fff;
+  background: #ffe89e;
+  height: 100vh;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-
-  .text {
-    font-weight: 600;
-    font-size: 2rem;
-    letter-spacing: 2px;
-    text-align: center;
-    margin-top: 3rem;
-    color: ${primary};
-    @media screen and (max-width: 677px) {
-      font-size: 1rem;
-    }
-  }
   .back_to {
     display: flex;
     flex-direction: column;
@@ -66,4 +49,4 @@ const Wrapper = styled.section`
   }
 `;
 
-export default PageNotFound;
+export default UnderConstruction;
