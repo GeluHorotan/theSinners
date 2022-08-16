@@ -90,17 +90,6 @@ const LinkStyles = styled.div`
   a {
     text-decoration: none;
   }
-  &:hover .blog_capsule_entry {
-    box-shadow: 0px 0px 30px #000;
-    border-bottom: 4px solid #ff6046;
-    transform: scale(1.1);
-
-    .blog_capsule_desc {
-      height: 120px;
-      opacity: 1;
-      transform: translateY(-5px);
-    }
-  }
 
   &:hover .overlay {
     opacity: 1;
@@ -122,7 +111,7 @@ const LinkStyles = styled.div`
     text-align: left;
     cursor: pointer;
     user-select: none;
-    transition: all 250ms ease-in-out;
+    transition: all 350ms ease-in-out;
 
     .fade_container {
       width: 100%;
@@ -200,6 +189,17 @@ const LinkStyles = styled.div`
       margin-left: 20px;
       margin-bottom: 8px;
       z-index: 4;
+    }
+  }
+  &:hover .blog_capsule_entry {
+    box-shadow: 0px 0px 30px #000;
+    border-bottom: 4px solid #ff6046;
+    transform: scale(1.1);
+
+    .blog_capsule_desc {
+      height: 120px;
+      opacity: 1;
+      transform: translateY(-5px);
     }
   }
 `;
