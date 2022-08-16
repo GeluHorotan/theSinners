@@ -207,6 +207,9 @@ const TeamComponentStyles = styled.section`
     display: flex;
     justify-content: flex-end;
     padding: 1rem;
+    @media screen and (max-width: 768px) {
+      justify-content: center;
+    }
     .menu_button {
       position: relative;
       width: 8rem;
@@ -268,7 +271,7 @@ const TabelsGridStyles = styled.section`
   justify-items: center;
   margin: 0 auto;
   grid-row-gap: 8rem;
-  grid-column-gap: 5rem;
+  grid-column-gap: 2rem;
   margin-bottom: 5rem;
 
   @media screen and (max-width: 980px) {
@@ -282,18 +285,17 @@ const TabelsGridStyles = styled.section`
   @media screen and (max-width: 1550px) {
     zoom: 0.8;
     width: 85%;
-    text-size-adjust: auto;
-    -webkit-text-size-adjust: auto;
   }
   @media screen and (max-width: 1200px) {
     zoom: 0.7;
-    text-size-adjust: auto;
-    -webkit-text-size-adjust: auto;
   }
   @media screen and (max-width: 668px) {
-    grid-template-columns: repeat(1, minmax(0, 1fr));
-    grid-template-rows: repeat(1, minmax(0, 1fr));
+    width: 75%;
+    zoom: 0.55;
+  }
+  @media screen and (max-width: 568px) {
     width: 100%;
+    zoom: 0.35;
   }
 
   .tabel_container {
