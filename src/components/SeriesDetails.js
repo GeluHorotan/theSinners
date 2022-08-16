@@ -558,6 +558,10 @@ const SeriesDetailsStyles = styled.div`
     img {
       width: 1rem;
       height: 1rem;
+      @media screen and (max-width: 768px) {
+        width: 0.5rem;
+        height: 0.5rem;
+      }
     }
     margin-bottom: 4px;
     .team_right {

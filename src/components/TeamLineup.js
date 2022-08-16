@@ -339,6 +339,27 @@ const LineupStyles = styled.div`
   padding: 1.7rem;
   top: 0;
   left: 0;
+  @media screen and (max-width: 980px) {
+    zoom: 0.9;
+  }
+  @media screen and (max-width: 895px) {
+    zoom: 0.8;
+  }
+  @media screen and (max-width: 795px) {
+    zoom: 0.7;
+  }
+  @media screen and (max-width: 695px) {
+    zoom: 0.6;
+  }
+  @media screen and (max-width: 595px) {
+    zoom: 0.5;
+  }
+  @media screen and (max-width: 495px) {
+    zoom: 0.4;
+  }
+  @media screen and (max-width: 395px) {
+    zoom: 0.3;
+  }
   .body {
     width: 100%;
     flex-grow: 1;

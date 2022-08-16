@@ -114,6 +114,27 @@ const OutcomeStyles = styled.div`
   position: absolute;
   top: 0;
   left: 0;
+  @media screen and (max-width: 980px) {
+    zoom: 0.9;
+  }
+  @media screen and (max-width: 895px) {
+    zoom: 0.8;
+  }
+  @media screen and (max-width: 795px) {
+    zoom: 0.7;
+  }
+  @media screen and (max-width: 695px) {
+    zoom: 0.6;
+  }
+  @media screen and (max-width: 595px) {
+    zoom: 0.5;
+  }
+  @media screen and (max-width: 495px) {
+    zoom: 0.4;
+  }
+  @media screen and (max-width: 395px) {
+    zoom: 0.3;
+  }
   .center_container {
     width: 300px;
     height: 400px;
@@ -130,6 +151,27 @@ const SeriesResult = styled.div`
   justify-content: center;
   align-items: center;
   font-size: 20px;
+  @media screen and (max-width: 980px) {
+    zoom: 0.9;
+  }
+  @media screen and (max-width: 895px) {
+    zoom: 0.8;
+  }
+  @media screen and (max-width: 795px) {
+    zoom: 0.7;
+  }
+  @media screen and (max-width: 695px) {
+    zoom: 0.6;
+  }
+  @media screen and (max-width: 595px) {
+    zoom: 0.5;
+  }
+  @media screen and (max-width: 495px) {
+    zoom: 0.4;
+  }
+  @media screen and (max-width: 395px) {
+    zoom: 0.3;
+  }
   .winner_team_name {
     font-size: 24px;
     color: #fff;
@@ -154,15 +196,24 @@ const SeriesResult = styled.div`
   .team_winner_logo {
     margin: 0.6rem 0;
     .team_img {
-      width: 64px;
-      height: 64px;
-      min-width: 64px;
-      min-height: 64px;
+      width: 4rem;
+      height: 4rem;
+      min-width: 4rem;
+      min-height: 4rem;
       opacity: 1;
+      @media screen and (max-width: 768px) {
+        width: 2rem;
+        height: 2rem;
+        min-width: 2rem;
+        min-height: 2rem;
+      }
     }
   }
   .outcome_result {
     font-size: 36px;
+    @media screen and (max-width: 768px) {
+      font-size: 2rem;
+    }
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 2px;
@@ -185,11 +236,17 @@ const GameWinnerStyles = styled.div`
     display: flex;
     margin: 1rem 0;
     .winner_logo_img {
-      width: 64px;
-      height: 64px;
-      min-width: 64px;
-      min-height: 64px;
+      width: 4rem;
+      height: 4rem;
+      min-width: 4rem;
+      min-height: 4rem;
       opacity: 1;
+      @media screen and (max-width: 768px) {
+        width: 2rem;
+        height: 2rem;
+        min-width: 2rem;
+        min-height: 2rem;
+      }
     }
   }
   .game_details_btn {
