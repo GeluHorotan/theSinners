@@ -8,7 +8,8 @@ const GlobalStyle = createGlobalStyle`
   padding: 0;
   box-sizing: border-box;
   font-family: futura-pt,sans-serif;
- 
+     text-size-adjust:auto;
+    -webkit-text-size-adjust:auto;
 }
 
 * {
