@@ -55,6 +55,7 @@ const Watch = ({ leagues }) => {
   return (
     <WrapperStyles>
       <SeriesDetails></SeriesDetails>
+
       <UpcomingMatch leagues={leagues}></UpcomingMatch>
 
       <TeamComponentStyles>
@@ -188,13 +189,6 @@ const WrapperStyles = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-
-  @media screen and (max-width: 808px) {
-    transform: scale(85%);
-  }
-  @media screen and (max-width: 608px) {
-    transform: scale(65%);
-  }
 
   .load_more_button {
     margin: 5rem auto;

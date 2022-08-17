@@ -262,11 +262,8 @@ const SeriesDetails = () => {
                 </div>
                 <div className='header_team team_right'>
                   <div
-                    className='header_top_section'
+                    className='header_top_section right_aligner'
                     style={{
-                      flexDirection: 'row-reverse',
-                      justifyContent: 'flex-end',
-
                       textShadow: `${
                         activeGame.game.team_2_wins >
                         activeGame.game.team_1_wins
@@ -298,7 +295,7 @@ const SeriesDetails = () => {
                     <div className='header_focusable'>
                       <Image
                         isTeam
-                        className={'team_logo'}
+                        className={'right_team'}
                         id={activeGame.game.team_id_2}
                       ></Image>
                     </div>
@@ -462,12 +459,10 @@ const Wrapper = styled.section`
   justify-content: center;
   position: relative;
   z-index: 2;
- 
- 
 
   .bg_container {
     background-image: url(https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/backgrounds/bg_grout_texture.jpg);
-  padding: 5rem 0;
+    padding: 5rem 0;
     width: 100%;
     background-size: 100% auto;
     background-position: top, center;
@@ -477,14 +472,14 @@ const Wrapper = styled.section`
     align-items: center;
     justify-content: center;
     position: relative;
-height: 900px;
+    height: 900px;
     min-height: 900px;
-   
+
     transition-property: height;
     transition-timing-function: ease-in-out;
     transition-duration: 0.2s;
   }
-   .fade_container {
+  .fade_container {
     left: 0px;
     bottom: 0px;
 
@@ -502,8 +497,8 @@ height: 900px;
       position: absolute;
       width: 100%;
       height: 100%;
-    } 
-  
+    }
+  }
 `;
 
 const SeriesDetailsStyles = styled.div`
@@ -515,7 +510,6 @@ const SeriesDetailsStyles = styled.div`
     max-width: 800px;
   }
 
-  border: 1px solid red;
   button {
     background: none;
     border: none;
@@ -535,9 +529,13 @@ const SeriesDetailsStyles = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
+    background: red;
     justify-content: space-between;
     position: relative;
     margin-bottom: 4px;
+    @media screen and (max-width: 520px) {
+      justify-content: center;
+    }
 
     img {
       width: 1rem;
@@ -546,10 +544,15 @@ const SeriesDetailsStyles = styled.div`
     margin-bottom: 4px;
     .team_right {
       clip-path: polygon(40px 0px, 100% 0px, 100% 110px, 0px 110px);
+      @media screen and (max-width: 800px) {
+        clip-path: none;
+      }
     }
+
     .header_center_details {
       width: 300px;
       height: 100%;
+
       background-color: #0b0b0c;
       display: flex;
       flex-direction: column;
@@ -561,7 +564,18 @@ const SeriesDetailsStyles = styled.div`
       left: 0;
       right: 0;
       margin: 0 auto;
+      z-index: 1;
       clip-path: polygon(0px 0px, 300px 0px, 260px 110px, 40px 110px);
+
+      @media screen and (max-width: 800px) {
+        top: -55%;
+        width: 100%;
+        height: 50%;
+        clip-path: none;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+      }
 
       .game_region {
         color: #fff;
@@ -603,14 +617,32 @@ const SeriesDetailsStyles = styled.div`
     }
     .team_left {
       clip-path: polygon(0px 0px, calc(100% - 40px) 0px, 100% 110px, 0px 110px);
+      @media screen and (max-width: 800px) {
+        clip-path: none;
+      }
     }
     .header_team {
       width: 365px;
       height: 100%;
+      position: relative;
       @media screen and (max-width: 1000px) {
         width: 284px;
       }
+      @media screen and (max-width: 800px) {
+        width: 100%;
+      }
+      @media screen and (max-width: 520px) {
+        min-width: 0;
+      }
+      .right_aligner {
+        display: flex;
+        flex-direction: row-reverse;
 
+        justify-content: flex-end;
+        @media screen and (max-width: 520px) {
+          justify-content: center;
+        }
+      }
       min-height: 0;
       display: flex;
       flex-direction: column;
@@ -627,32 +659,80 @@ const SeriesDetailsStyles = styled.div`
 
         align-items: center;
         justify-content: flex-end;
-        gap: 12px;
+        gap: 0.7rem;
+        @media screen and (max-width: 520px) {
+          justify-content: center;
+        }
+
         .header_series_label {
           min-height: 0px;
           display: flex;
           flex-direction: column;
+          flex-grow: 0;
 
           text-align: left;
+          @media screen and (max-width: 520px) {
+            text-align: center;
+          }
           .header_team_name {
-            width: 100%;
             color: #fff;
             font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 2px;
+
+            @media screen and (max-width: 520px) {
+              font-size: 0.8rem;
+              white-space: break-spaces;
+            }
           }
           .header_record {
             width: 100%;
-            font-size: 14px;
+            font-size: 0.8rem;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 1px;
+            @media screen and (max-width: 520px) {
+              font-size: 0.6rem;
+            }
           }
         }
         .header_focusable {
+          .right_team {
+            width: 3rem;
+            height: 3rem;
+            @media screen and (max-width: 520px) {
+              width: 2rem;
+              height: 2rem;
+            }
+            @media screen and (max-width: 460px) {
+              position: absolute;
+              opacity: 0.05;
+              filter: grayscale(1);
+              width: 7rem;
+              height: 7rem;
+              top: 50%;
+              right: 0;
+              transform: translate(0, -50%);
+            }
+          }
           .team_logo {
             width: 3rem;
             height: 3rem;
+            @media screen and (max-width: 520px) {
+              width: 2rem;
+              height: 2rem;
+            }
+            @media screen and (max-width: 460px) {
+              position: absolute;
+              opacity: 0.05;
+
+              filter: grayscale(1);
+              width: 7rem;
+              height: 7rem;
+              top: 50%;
+              left: 0;
+              transform: translate(0, -50%);
+            }
           }
         }
         .header_live_score {

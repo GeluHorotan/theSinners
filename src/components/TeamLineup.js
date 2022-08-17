@@ -12,7 +12,7 @@ const TeamLineup = ({
   activeGame,
   matchIndex,
 }) => {
-  const [isActive, setIsActive] = useState({ active: false, currentIndex: -1 });
+  const [isActive, setIsActive] = useState(false);
 
   const [winner, setWinner] = useState('');
   const [heroesList, setHeroesList] = useState();
@@ -23,9 +23,9 @@ const TeamLineup = ({
     setHeroesList((prevState) => json.result.data.heroes);
   };
 
-  const classHandler = (index, className) => {
+  const classHandler = (index, addedClass) => {
     if (index === isActive) {
-      return className;
+      return addedClass;
     } else {
       return null;
     }
@@ -97,7 +97,6 @@ const TeamLineup = ({
                           }
                         }}
                       >
-                        {index}
                         <div
                           className='hero_and_level'
                           style={{ textAlign: 'right' }}
@@ -131,57 +130,59 @@ const TeamLineup = ({
                           </div>
                         </div>
                       </div>
-                      <div
-                        className={`match_player_overlay  ${classHandler(
-                          index,
-                          'active_window'
-                        )}`}
-                      >
-                        <div className='overlay_top_section'>
-                          <Video
-                            className={'hero_portrait_container'}
-                            isHero
-                            id={player.hero_id}
-                          ></Video>
+                      {index === isActive && (
+                        <div
+                          className={`match_player_overlay  ${classHandler(
+                            index,
+                            'active_window'
+                          )}`}
+                        >
+                          <div className='overlay_top_section'>
+                            <Video
+                              className={'hero_portrait_container'}
+                              isHero
+                              id={player.hero_id}
+                            ></Video>
 
-                          <div className='overlay_player'>
-                            <div className='player_name'>
-                              {' '}
-                              {player.pro_name}
+                            <div className='overlay_player'>
+                              <div className='player_name'>
+                                {' '}
+                                {player.pro_name}
+                              </div>
+                              <div className='team_name'>
+                                {' '}
+                                {teamInfos.primaryTeam.team_name}
+                              </div>
+
+                              <Image
+                                className={'player_image'}
+                                isPlayer
+                                id={player.account_id}
+                              ></Image>
+
+                              <Image
+                                isTeam
+                                id={teamInfos.primaryTeam.team_id}
+                                className='team_image'
+                              ></Image>
                             </div>
-                            <div className='team_name'>
-                              {' '}
-                              {teamInfos.primaryTeam.team_name}
-                            </div>
-
-                            <Image
-                              className={'player_image'}
-                              isPlayer
-                              id={player.account_id}
-                            ></Image>
-
-                            <Image
-                              isTeam
-                              id={teamInfos.primaryTeam.team_id}
-                              className='team_image'
-                            ></Image>
+                          </div>
+                          <div className='overlay_item_section'>
+                            {player.items.map((item, index) => {
+                              if (item !== 0)
+                                return (
+                                  item !== 0 && (
+                                    <Image
+                                      className={'item_icon'}
+                                      isItem
+                                      id={item}
+                                    ></Image>
+                                  )
+                                );
+                            })}
                           </div>
                         </div>
-                        <div className='overlay_item_section'>
-                          {player.items.map((item, index) => {
-                            if (item !== 0)
-                              return (
-                                item !== 0 && (
-                                  <Image
-                                    className={'item_icon'}
-                                    isItem
-                                    id={item}
-                                  ></Image>
-                                )
-                              );
-                          })}
-                        </div>
-                      </div>
+                      )}
                     </>
                   );
               })}
@@ -263,57 +264,59 @@ const TeamLineup = ({
                           </div>
                         </div>
                       </div>
-                      <div
-                        className={`match_player_overlay right_overlay ${classHandler(
-                          index,
-                          'active_window'
-                        )}`}
-                      >
-                        <div className='overlay_top_section'>
-                          <Video
-                            className={'hero_portrait_container'}
-                            isHero
-                            id={player.hero_id}
-                          ></Video>
+                      {index === isActive && (
+                        <div
+                          className={`match_player_overlay right_overlay ${classHandler(
+                            index,
+                            'active_window'
+                          )}`}
+                        >
+                          <div className='overlay_top_section'>
+                            <Video
+                              className={'hero_portrait_container'}
+                              isHero
+                              id={player.hero_id}
+                            ></Video>
 
-                          <div className='overlay_player'>
-                            <div className='player_name'>
-                              {' '}
-                              {player.pro_name}
+                            <div className='overlay_player'>
+                              <div className='player_name'>
+                                {' '}
+                                {player.pro_name}
+                              </div>
+                              <div className='team_name'>
+                                {' '}
+                                {teamInfos.secondaryTeam.team_name}
+                              </div>
+
+                              <Image
+                                className={'player_image'}
+                                isPlayer
+                                id={player.account_id}
+                              ></Image>
+
+                              <Image
+                                isTeam
+                                id={teamInfos.secondaryTeam.team_id}
+                                className='team_image'
+                              ></Image>
                             </div>
-                            <div className='team_name'>
-                              {' '}
-                              {teamInfos.secondaryTeam.team_name}
-                            </div>
-
-                            <Image
-                              className={'player_image'}
-                              isPlayer
-                              id={player.account_id}
-                            ></Image>
-
-                            <Image
-                              isTeam
-                              id={teamInfos.secondaryTeam.team_id}
-                              className='team_image'
-                            ></Image>
+                          </div>
+                          <div className='overlay_item_section'>
+                            {player.items.map((item, index) => {
+                              if (item !== 0)
+                                return (
+                                  item !== 0 && (
+                                    <Image
+                                      className={'item_icon'}
+                                      isItem
+                                      id={item}
+                                    ></Image>
+                                  )
+                                );
+                            })}
                           </div>
                         </div>
-                        <div className='overlay_item_section'>
-                          {player.items.map((item, index) => {
-                            if (item !== 0)
-                              return (
-                                item !== 0 && (
-                                  <Image
-                                    className={'item_icon'}
-                                    isItem
-                                    id={item}
-                                  ></Image>
-                                )
-                              );
-                          })}
-                        </div>
-                      </div>
+                      )}
                     </>
                   );
               })}

@@ -188,17 +188,17 @@ const GameWinnerStyles = styled.div`
     display: flex;
     margin: 1rem 0;
     .winner_logo_img {
-      width: 4rem;
-      height: 4rem;
-      min-width: 4rem;
-      min-height: 4rem;
+      width: 64px;
+      height: 64px;
+      min-width: 64px;
+      min-height: 64px;
       opacity: 1;
-      @media screen and (max-width: 768px) {
+      /* @media screen and (max-width: 768px) {
         width: 2rem;
         height: 2rem;
         min-width: 2rem;
         min-height: 2rem;
-      }
+      } */
     }
   }
   .game_details_btn {
