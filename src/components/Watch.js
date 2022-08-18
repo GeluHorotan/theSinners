@@ -153,18 +153,19 @@ const Watch = ({ leagues }) => {
             </TabelsGridStyles>
           </>
         )}
-
-        {teamList &&
-          teamList.map((team, index) => {
-            if (teamsCounter > index)
-              return (
-                <Team
-                  leagues={leagues}
-                  teamId={team.id}
-                  teamName={team.name}
-                ></Team>
-              );
-          })}
+        <div className='teams'>
+          {teamList &&
+            teamList.map((team, index) => {
+              if (teamsCounter > index)
+                return (
+                  <Team
+                    leagues={leagues}
+                    teamId={team.id}
+                    teamName={team.name}
+                  ></Team>
+                );
+            })}
+        </div>
       </TeamComponentStyles>
       <Button
         setClassName='load_more_button'
@@ -192,6 +193,27 @@ const WrapperStyles = styled.div`
 
   .load_more_button {
     margin: 5rem auto;
+  }
+  .teams {
+    @media screen and (max-width: 1100px) {
+      width: 85%;
+    }
+    @media screen and (max-width: 1000px) {
+      width: 99%;
+    }
+    @media screen and (max-width: 838px) {
+      height: 75px;
+      min-height: 75px;
+    }
+    @media screen and (max-width: 586px) {
+      zoom: 0.8;
+    }
+    @media screen and (max-width: 470px) {
+      zoom: 0.7;
+    }
+    @media screen and (max-width: 340px) {
+      zoom: 0.6;
+    }
   }
 `;
 
