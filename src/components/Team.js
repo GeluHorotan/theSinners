@@ -360,6 +360,8 @@ const TeamEntryStyles = styled.div`
   border: 1px solid green;
   zoom: 0.2;
 
+  font-size: 1rem !important;
+
   .teamlist_favorite_section {
     min-width: 70px;
     height: 100%;
@@ -403,6 +405,12 @@ const TeamEntryStyles = styled.div`
     opacity: 1;
     margin-left: 18px;
     margin-right: 12px;
+    @media screen and (max-width: 768px) {
+      width: 1rem;
+      height: 1rem;
+      min-width: 1rem;
+      min-height: 1rem;
+    }
   }
   .teamlist_team_info {
     flex-grow: 1;
@@ -474,6 +482,10 @@ const TeamEntryStyles = styled.div`
         img {
           width: 100%;
           padding-top: 15%;
+        }
+        @media screen and (max-width: 768px) {
+          width: 1rem;
+          height: 1em;
         }
       }
     }
@@ -564,6 +576,11 @@ const TeamEntryStyles = styled.div`
         margin-right: 10px;
         width: 3rem;
         height: 3rem;
+
+        @media screen and (max-width: 768px) {
+          width: 1rem;
+          height: 1em;
+        }
       }
     }
   }
