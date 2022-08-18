@@ -341,8 +341,11 @@ const LineupStyles = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
   padding: 1.7rem;
   top: 0;
-
   left: 0;
+
+  @media screen and (max-width: 768px) {
+    padding: 0.1rem;
+  }
 
   .body {
     width: 100%;
@@ -374,14 +377,20 @@ const LineupStyles = styled.div`
         background-color: #2a2a30;
         color: #a3a3a3;
         .team {
-          font-size: 20px;
+          font-size: 1.2rem;
           text-transform: uppercase;
           font-weight: 600;
           letter-spacing: 1px;
           margin-top: 3px;
+          @media screen and (max-width: 768px) {
+            font-size: 1rem;
+          }
         }
         .score {
           font-size: 1.5rem;
+          @media screen and (max-width: 768px) {
+            font-size: 1.2rem;
+          }
           font-weight: 700;
         }
       }
@@ -403,12 +412,19 @@ const LineupStyles = styled.div`
           display: flex;
           align-items: center;
           flex-direction: row;
+
           color: #a3a3a3;
           background-color: #1f2025;
           cursor: pointer;
           position: relative;
           border-top: 1px solid transparent;
           border-bottom: 1px solid transparent;
+
+          @media screen and (max-width: 558px) {
+            justify-content: flex-start;
+            padding: 0 10vw;
+          }
+
           .hero_and_level {
             flex-grow: 1;
             flex-basis: 0px;
@@ -417,26 +433,52 @@ const LineupStyles = styled.div`
             flex-direction: column;
 
             .hero_name {
-              font-size: 16px;
+              font-size: 1rem;
               font-weight: bold;
               text-transform: uppercase;
               letter-spacing: 1px;
+
+              @media screen and (max-width: 768px) {
+                font-size: 0.7rem;
+                font-weight: 600;
+              }
+              @media screen and (max-width: 558px) {
+                font-size: 0.6rem;
+                font-weight: 500;
+              }
+              @media screen and (max-width: 420px) {
+                overflow: hidden;
+                white-space: nowrap;
+                max-width: 40px;
+                text-overflow: ellipsis;
+              }
             }
             .hero_level {
-              font-size: 12px;
-              font-weight: 600;
+              font-size: 0.8rem;
+              @media screen and (max-width: 768px) {
+                font-size: 0.6rem;
+              }
+              @media screen and (max-width: 558px) {
+                font-size: 0.5rem;
+              }
+              font-weight: 500;
               text-transform: uppercase;
               letter-spacing: 1px;
             }
           }
           .player_icon {
-            width: 64px;
-            height: 64px;
-            margin: 0px 12px;
+            width: 4rem;
+            height: 4rem;
+            margin: 0px 0.7rem;
             border: 1px solid #000;
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
+            @media screen and (max-width: 768px) {
+              width: 2rem;
+              height: 2rem;
+              margin: 0 0.5rem;
+            }
           }
           .name_and_stats {
             flex-grow: 1;
@@ -444,14 +486,38 @@ const LineupStyles = styled.div`
             min-height: 0;
             display: flex;
             flex-direction: column;
+            align-items: center;
+            @media screen and (max-width: 558px) {
+              position: absolute;
+              align-items: center;
+              gap: 0.2rem;
+              flex-direction: row;
+              right: 5%;
+              bottom: 0;
+              transform: translate(-5%, 0);
+            }
 
             .player_name {
               font-size: 1rem;
               font-weight: bold;
+              @media screen and (max-width: 768px) {
+                font-size: 0.7rem;
+                font-weight: 600;
+
+                overflow: hidden;
+                white-space: nowrap;
+                max-width: 50px;
+                text-overflow: ellipsis;
+              }
             }
             .player_stats {
               font-size: 0.7rem;
               font-weight: bold;
+
+              @media screen and (max-width: 768px) {
+                font-size: 0.5rem;
+                font-weight: 500;
+              }
             }
           }
         }
@@ -481,13 +547,27 @@ const LineupStyles = styled.div`
             flex-direction: row;
             align-items: center;
             overflow: hidden;
+
+            @media screen and (max-width: 552px) {
+              flex-direction: column;
+            }
             .hero_portrait_container {
               width: 80%;
               position: absolute;
-              top: 0;
-              right: -10%;
+              top: 50%;
+              right: 1%;
+              transform: translate(-1%, -50%);
               opacity: 0.7;
               z-index: 1;
+              @media screen and (max-width: 768px) {
+                width: 50%;
+              }
+              @media screen and (max-width: 552px) {
+                bottom: 0;
+                top: 90%;
+                left: 50%;
+                transform: translate(-50%, -90%);
+              }
             }
             .overlay_player {
               width: 60%;
@@ -498,15 +578,22 @@ const LineupStyles = styled.div`
               justify-content: center;
               z-index: 2;
               position: relative;
-
+              @media screen and (max-width: 552px) {
+                justify-content: flex-start;
+                padding: 3.5rem 0;
+              }
               .player_name {
                 width: 100%;
                 color: #fff;
                 text-align: center;
                 text-transform: uppercase;
                 font-weight: 700;
-                font-size: 22px;
+                font-size: 1.4rem;
                 margin-bottom: 4px;
+                @media screen and (max-width: 768px) {
+                  font-size: 1rem;
+                  font-weight: 600;
+                }
               }
               .team_name {
                 width: 100%;
@@ -514,22 +601,33 @@ const LineupStyles = styled.div`
                 text-align: center;
                 text-transform: uppercase;
                 font-weight: 700;
-                font-size: 17px;
-                margin-bottom: 12px;
+                font-size: 1rem;
+                margin-bottom: 0.7rem;
+                @media screen and (max-width: 768px) {
+                  font-size: 0.7rem;
+                }
               }
               .player_image {
-                width: 140px;
-                height: 140px;
+                width: 8rem;
+                height: 8rem;
                 background-size: cover;
                 background-repeat: no-repeat;
                 background-color: #27272a;
                 border: 1px solid #000;
                 box-shadow: 2px 2px 7px rgb(0 0 0 / 50%);
+                @media screen and (max-width: 768px) {
+                  width: 4rem;
+                  height: 4rem;
+                }
               }
               .team_image {
-                width: 64px;
-                height: 64px;
+                width: 4rem;
+                height: 4rem;
                 margin-top: 1rem;
+                @media screen and (max-width: 768px) {
+                  width: 2rem;
+                  height: 2rem;
+                }
               }
             }
           }
@@ -540,7 +638,7 @@ const LineupStyles = styled.div`
             display: flex;
             flex-direction: row;
             justify-content: space-evenly;
-            padding: 20px 0px;
+            padding: 1.5rem 0;
             .item_icon {
               width: 66px;
               height: 48px;
@@ -548,6 +646,14 @@ const LineupStyles = styled.div`
               background-repeat: no-repeat;
               border: 1px solid #000;
               box-shadow: 2px 2px 7px rgb(0 0 0 / 50%);
+              @media screen and (max-width: 1000px) {
+                width: 2.063rem;
+                height: 1.5rem;
+              }
+              @media screen and (max-width: 1000px) {
+                width: 1.0315rem;
+                height: 0.7rem;
+              }
             }
           }
         }

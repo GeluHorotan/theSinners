@@ -792,7 +792,7 @@ const SeriesDetailsStyles = styled.div`
     }
 
     .game_option {
-      @media screen and (max-width: 800px) {
+      @media screen and (max-width: 768px) {
         font-size: 0.7rem;
       }
       flex-grow: 1;
@@ -870,6 +870,7 @@ const SeriesDetailsStyles = styled.div`
       @media screen and (max-width: 1000px) {
         width: 150px;
       }
+
       button {
         cursor: pointer;
         background: none;
@@ -888,6 +889,9 @@ const SeriesDetailsStyles = styled.div`
         padding: 1.5rem;
         background: #0b0b0c;
         cursor: pointer;
+        @media screen and (max-width: 768px) {
+          font-size: 0.7rem;
+        }
         &:hover {
           background-color: #131315;
         }
