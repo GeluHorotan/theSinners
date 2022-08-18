@@ -348,6 +348,7 @@ const TeamEntryStyles = styled.div`
   width: 75%;
   height: 100px;
   min-height: 100px;
+
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -357,25 +358,7 @@ const TeamEntryStyles = styled.div`
   margin-top: 1rem;
   position: relative;
   z-index: 1;
-  @media screen and (max-width: 1100px) {
-    width: 85%;
-  }
-  @media screen and (max-width: 1000px) {
-    width: 99%;
-  }
-  @media screen and (max-width: 838px) {
-    height: 75px;
-    min-height: 75px;
-  }
-  @media screen and (max-width: 586px) {
-    zoom: 0.8;
-  }
-  @media screen and (max-width: 470px) {
-    zoom: 0.7;
-  }
-  @media screen and (max-width: 340px) {
-    zoom: 0.6;
-  }
+
   .teamlist_favorite_section {
     min-width: 70px;
     height: 100%;
@@ -384,9 +367,6 @@ const TeamEntryStyles = styled.div`
     justify-content: center;
     align-items: center;
     background-color: #6e6e7766;
-    @media screen and (max-width: 869px) {
-      min-width: 50px;
-    }
 
     .teamlist_following_line {
       cursor: pointer;
@@ -422,13 +402,6 @@ const TeamEntryStyles = styled.div`
     opacity: 1;
     margin-left: 18px;
     margin-right: 12px;
-    @media screen and (max-width: 838px) {
-      width: 2rem;
-      height: 2rem;
-      min-width: 2rem;
-      min-height: 2rem;
-      margin: 0 0.4rem;
-    }
   }
   .teamlist_team_info {
     flex-grow: 1;
@@ -448,10 +421,6 @@ const TeamEntryStyles = styled.div`
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 4px;
-        @media screen and (max-width: 838px) {
-          font-weight: 500;
-          font-size: 0.8rem;
-        }
       }
     }
     .team_region {
@@ -460,13 +429,6 @@ const TeamEntryStyles = styled.div`
       text-transform: uppercase;
       letter-spacing: 2px;
       white-space: pre-wrap;
-      @media screen and (max-width: 838px) {
-        font-weight: 500;
-        font-size: 0.5rem;
-      }
-      @media screen and (max-width: 586px) {
-        display: none;
-      }
     }
     .team_division {
       color: #6b7785;
@@ -474,13 +436,6 @@ const TeamEntryStyles = styled.div`
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 2px;
-      @media screen and (max-width: 838px) {
-        font-weight: 600;
-        font-size: 0.5rem;
-      }
-      @media screen and (max-width: 586px) {
-        display: none;
-      }
     }
   }
   .teamlist_player_section {
@@ -489,7 +444,10 @@ const TeamEntryStyles = styled.div`
     flex-direction: row;
     align-items: center;
     margin-right: -14px;
-
+    @media screen and (max-width: 768px) {
+      border: 2px solid blue;
+      zoom: 0.3;
+    }
     .teamlist_player_image_container {
       height: 100%;
       width: 5.625rem;
@@ -501,12 +459,6 @@ const TeamEntryStyles = styled.div`
         rgba(0, 0, 0, 0.3)
       );
       clip-path: polygon(30px 0px, 100% 0px, calc(100% - 30px) 100%, 0px 100%);
-      @media screen and (max-width: 586px) {
-        zoom: 0.8;
-      }
-      @media screen and (max-width: 470px) {
-        zoom: 0.7;
-      }
 
       .teamlist_player_gradient {
         width: 100%;
@@ -521,9 +473,6 @@ const TeamEntryStyles = styled.div`
         img {
           width: 100%;
           padding-top: 15%;
-          @media screen and (max-width: 838px) {
-            width: 55%;
-          }
         }
       }
     }
@@ -539,16 +488,13 @@ const TeamEntryStyles = styled.div`
     text-decoration: none;
     color: #fff;
 
-    @media screen and (max-width: 586px) {
-      zoom: 0.8;
-    }
-    @media screen and (max-width: 470px) {
-      zoom: 0.7;
+    @media screen and (max-width: 768px) {
+      border: 2px solid blue;
+      zoom: 0.3;
     }
 
     .teamlist_top_bar {
       width: 100%;
-
       padding: 0.2rem;
       background-color: #202023bf;
       display: flex;
@@ -561,18 +507,6 @@ const TeamEntryStyles = styled.div`
       text-transform: uppercase;
       letter-spacing: 2px;
 
-      @media screen and (max-width: 838px) {
-        font-size: 0.5rem;
-        font-weight: 400;
-      }
-      @media screen and (max-width: 768px) {
-        white-space: pre-wrap;
-        padding-left: 2rem;
-        flex-direction: column;
-        font-size: 0.4rem;
-
-        text-align: center;
-      }
       .won_game {
         color: green;
       }
@@ -589,20 +523,16 @@ const TeamEntryStyles = styled.div`
       background-color: #252528bf;
       display: flex;
       flex-direction: row;
-      justify-content: flex-end;
+      justify-content: center;
 
       .teamlist_bottom_section {
-        width: 75%;
+        width: 100%;
         height: 100%;
         display: flex;
         flex-direction: row;
         justify-content: center;
         align-items: center;
         padding-right: 1.4rem;
-
-        @media screen and (max-width: 768px) {
-          white-space: pre-wrap;
-        }
 
         .focusable {
           position: relative;
@@ -625,13 +555,6 @@ const TeamEntryStyles = styled.div`
             display: flex;
             justify-content: center;
             letter-spacing: 1px;
-            @media screen and (max-width: 838px) {
-              font-size: 0.6rem;
-              font-weight: 600;
-            }
-            @media screen and (max-width: 586px) {
-              display: none;
-            }
           }
         }
       }
@@ -640,10 +563,6 @@ const TeamEntryStyles = styled.div`
         margin-right: 10px;
         width: 3rem;
         height: 3rem;
-        @media screen and (max-width: 768px) {
-          width: 2rem;
-          height: 2rem;
-        }
       }
     }
   }
@@ -652,16 +571,6 @@ const TeamEntryStyles = styled.div`
 const TooltipStyles = styled(motion.div)`
   background: ${obsidian};
   box-shadow: 0px 0px 4px black;
-
-  @media screen and (max-width: 831px) {
-    zoom: 0.6;
-  }
-  @media screen and (max-width: 731px) {
-    zoom: 0.6;
-  }
-  @media screen and (max-width: 697px) {
-    zoom: 0.4;
-  }
 
   .tooltip_container {
     color: white;
@@ -688,12 +597,6 @@ const TooltipStyles = styled(motion.div)`
         min-width: 64px;
         min-height: 64px;
         opacity: 1;
-        @media screen and (max-width: 831px) {
-          width: 48px;
-          height: 48px;
-          min-width: 48px;
-          min-height: 48px;
-        }
       }
       .enemy_team_name {
         display: flex;
