@@ -358,9 +358,16 @@ const TeamEntryStyles = styled.div`
   position: relative;
   z-index: 1;
   border: 1px solid green;
-  zoom: 0.2;
 
-  font-size: 1rem !important;
+  @media screen and (max-width: 1100px) {
+    width: 99%;
+  }
+  @media screen and (max-width: 838px) {
+    zoom: 0.8;
+  }
+  @media screen and (max-width: 838px) {
+    zoom: 0.8;
+  }
 
   .teamlist_favorite_section {
     min-width: 70px;
@@ -453,13 +460,10 @@ const TeamEntryStyles = styled.div`
     flex-direction: row;
     align-items: center;
     margin-right: -14px;
-    @media screen and (max-width: 768px) {
-      border: 2px solid blue;
-      zoom: 0.3;
-    }
+
     .teamlist_player_image_container {
       height: 100%;
-      /* width: 5.625rem; */
+      width: 5.625rem;
       margin: 0px -14px;
       background-image: linear-gradient(
         280deg,
@@ -468,6 +472,10 @@ const TeamEntryStyles = styled.div`
         rgba(0, 0, 0, 0.3)
       );
       clip-path: polygon(30px 0px, 100% 0px, calc(100% - 30px) 100%, 0px 100%);
+
+      @media screen and (max-width: 768px) {
+        width: 100%;
+      }
 
       .teamlist_player_gradient {
         width: 100%;
@@ -485,7 +493,7 @@ const TeamEntryStyles = styled.div`
         }
         @media screen and (max-width: 768px) {
           width: 1rem;
-          height: 1em;
+          height: 1rem;
         }
       }
     }
@@ -500,11 +508,6 @@ const TeamEntryStyles = styled.div`
     clip-path: polygon(30px 0px, 100% 0px, 100% 100%, 0% 100%);
     text-decoration: none;
     color: #fff;
-
-    @media screen and (max-width: 768px) {
-      border: 2px solid blue;
-      zoom: 0.3;
-    }
 
     .teamlist_top_bar {
       width: 100%;
