@@ -348,7 +348,6 @@ const TeamEntryStyles = styled.div`
   width: 75%;
   height: 100px;
   min-height: 100px;
-
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -358,6 +357,8 @@ const TeamEntryStyles = styled.div`
   margin-top: 1rem;
   position: relative;
   z-index: 1;
+  border: 1px solid green;
+  zoom: 0.2;
 
   .teamlist_favorite_section {
     min-width: 70px;
