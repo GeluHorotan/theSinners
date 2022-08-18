@@ -133,7 +133,10 @@ const SeriesResult = styled.div`
   font-size: 20px;
 
   .winner_team_name {
-    font-size: 24px;
+    font-size: 1.5rem;
+    @media screen and (max-width: 768px) {
+      font-size: 1rem;
+    }
     color: #fff;
     font-weight: 500;
     text-transform: uppercase;
@@ -141,7 +144,10 @@ const SeriesResult = styled.div`
     text-align: center;
   }
   .winner_score {
-    font-size: 18px;
+    font-size: 1.1rem;
+    @media screen and (max-width: 768px) {
+      font-size: 0.8rem;
+    }
     color: #a3a3a3;
     font-weight: 400;
     text-transform: uppercase;
@@ -161,12 +167,21 @@ const SeriesResult = styled.div`
       min-width: 4rem;
       min-height: 4rem;
       opacity: 1;
+      @media screen and (max-width: 768px) {
+        width: 2rem;
+        height: 2rem;
+        min-width: 2rem;
+        min-height: 2rem;
+      }
     }
   }
   .outcome_result {
-    font-size: 36px;
-
+    font-size: 2.5rem;
     font-weight: 700;
+
+    @media screen and (max-width: 768px) {
+      font-size: 1.5rem;
+    }
     text-transform: uppercase;
     letter-spacing: 2px;
     color: #fff;
@@ -188,26 +203,29 @@ const GameWinnerStyles = styled.div`
     display: flex;
     margin: 1rem 0;
     .winner_logo_img {
-      width: 64px;
-      height: 64px;
-      min-width: 64px;
-      min-height: 64px;
+      width: 4rem;
+      height: 4rem;
+      min-width: 4rem;
+      min-height: 4rem;
       opacity: 1;
-      /* @media screen and (max-width: 768px) {
+      @media screen and (max-width: 768px) {
         width: 2rem;
         height: 2rem;
         min-width: 2rem;
         min-height: 2rem;
-      } */
+      }
     }
   }
   .game_details_btn {
-    margin-top: 2rem;
+    margin-top: 0.5rem;
   }
 
   .game_number {
-    font-size: 30px;
+    font-size: 1.9rem;
     font-weight: 500;
+    @media screen and (max-width: 768px) {
+      font-size: 1rem;
+    }
     text-transform: uppercase;
     letter-spacing: 2px;
     color: #fff;
@@ -215,7 +233,10 @@ const GameWinnerStyles = styled.div`
     font-family: 'Radiance', sans-serif;
   }
   .winning_team_name {
-    font-size: 24px;
+    font-size: 1.5rem;
+    @media screen and (max-width: 768px) {
+      font-size: 1rem;
+    }
     color: #fff;
     text-shadow: 0px 0px 10px #06f;
     font-weight: 600;

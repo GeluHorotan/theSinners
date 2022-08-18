@@ -244,13 +244,7 @@ const SeriesDetails = () => {
                     {' '}
                     {displayTeamRegion(teamInfos.region)}
                   </div>
-                  <div className='game_division'>
-                    {' '}
-                    DIVISION&nbsp;
-                    {teamInfos.name
-                      .split(' ')
-                      .filter((name) => name === 'I' || name === 'II')}
-                  </div>
+
                   {liveGames.length !== 0 ? (
                     <div className='game_isLive'>
                       Live
@@ -259,6 +253,13 @@ const SeriesDetails = () => {
                   ) : (
                     formatTimestamp(activeGame.game.actual_time, 'classic')
                   )}
+                  <div className='game_division'>
+                    {' '}
+                    DIVISION&nbsp;
+                    {teamInfos.name
+                      .split(' ')
+                      .filter((name) => name === 'I' || name === 'II')}
+                  </div>
                 </div>
                 <div className='header_team team_right'>
                   <div
@@ -529,7 +530,7 @@ const SeriesDetailsStyles = styled.div`
     display: flex;
     flex-direction: row;
     align-items: center;
-    background: red;
+
     justify-content: space-between;
     position: relative;
     margin-bottom: 4px;
@@ -552,7 +553,7 @@ const SeriesDetailsStyles = styled.div`
     .header_center_details {
       width: 300px;
       height: 100%;
-
+      gap: 0.3rem;
       background-color: #0b0b0c;
       display: flex;
       flex-direction: column;
@@ -566,7 +567,10 @@ const SeriesDetailsStyles = styled.div`
       margin: 0 auto;
       z-index: 1;
       clip-path: polygon(0px 0px, 300px 0px, 260px 110px, 40px 110px);
-
+      @media screen and (max-width: 768px) {
+        font-size: 0.7rem;
+        font-weight: 500;
+      }
       @media screen and (max-width: 800px) {
         top: -55%;
         width: 100%;
@@ -580,20 +584,27 @@ const SeriesDetailsStyles = styled.div`
       .game_region {
         color: #fff;
         max-width: 230px;
-        font-size: 16px;
+        font-size: 1rem;
         font-weight: 700;
+        @media screen and (max-width: 768px) {
+          font-size: 0.7rem;
+          font-weight: 500;
+        }
         text-transform: uppercase;
         letter-spacing: 2px;
-        margin-bottom: 3px;
       }
       .game_division {
         color: #a3a3a3;
         max-width: 230px;
-        font-size: 14px;
+        font-size: 0.8rem;
         font-weight: bold;
         text-transform: uppercase;
         letter-spacing: 1px;
-        margin-bottom: 8px;
+
+        @media screen and (max-width: 768px) {
+          font-size: 0.7rem;
+          font-weight: 500;
+        }
       }
       .game_isLive {
         background-color: #00ab30;
@@ -665,14 +676,15 @@ const SeriesDetailsStyles = styled.div`
         }
 
         .header_series_label {
-          min-height: 0px;
           display: flex;
           flex-direction: column;
-          flex-grow: 0;
+
+          align-items: center;
+          justify-content: center;
 
           text-align: left;
           @media screen and (max-width: 520px) {
-            text-align: center;
+            text-align: left;
           }
           .header_team_name {
             color: #fff;
@@ -680,9 +692,8 @@ const SeriesDetailsStyles = styled.div`
             text-transform: uppercase;
             letter-spacing: 2px;
 
-            @media screen and (max-width: 520px) {
+            @media screen and (max-width: 768px) {
               font-size: 0.8rem;
-              white-space: break-spaces;
             }
           }
           .header_record {
@@ -691,7 +702,7 @@ const SeriesDetailsStyles = styled.div`
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 1px;
-            @media screen and (max-width: 520px) {
+            @media screen and (max-width: 768px) {
               font-size: 0.6rem;
             }
           }
@@ -781,6 +792,9 @@ const SeriesDetailsStyles = styled.div`
     }
 
     .game_option {
+      @media screen and (max-width: 800px) {
+        font-size: 0.7rem;
+      }
       flex-grow: 1;
       font-weight: 600;
       cursor: pointer;
