@@ -459,15 +459,15 @@ const TeamEntryStyles = styled.div`
     }
     .teamlist_player_image_container {
       height: 100%;
-      width: 5.625rem;
+      /* width: 5.625rem; */
       margin: 0px -14px;
-      /* background-image: linear-gradient(
+      background-image: linear-gradient(
         280deg,
         rgba(0, 0, 0, 0.3),
         transparent,
         rgba(0, 0, 0, 0.3)
       );
-      clip-path: polygon(30px 0px, 100% 0px, calc(100% - 30px) 100%, 0px 100%); */
+      clip-path: polygon(30px 0px, 100% 0px, calc(100% - 30px) 100%, 0px 100%);
 
       .teamlist_player_gradient {
         width: 100%;
