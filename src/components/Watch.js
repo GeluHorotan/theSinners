@@ -275,7 +275,7 @@ const TabelsGridStyles = styled.section`
   grid-row-gap: 8rem;
   grid-column-gap: 2rem;
   margin-bottom: 5rem;
-
+  display: none;
   @media screen and (max-width: 980px) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-template-rows: repeat(2, minmax(0, 1fr));
