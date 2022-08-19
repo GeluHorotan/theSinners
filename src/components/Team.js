@@ -510,11 +510,13 @@ const TeamEntryStyles = styled.div`
     flex-direction: row;
     align-items: center;
     margin-right: -14px;
-    flex-grow: 1;
+    /* flex-grow: 1; */
+    border: 1px solid red;
     .teamlist_player_image_container {
       height: 100%;
       width: 5.625rem;
       margin: 0px -14px;
+      border: 2px solid magenta;
       background-image: linear-gradient(
         280deg,
         rgba(0, 0, 0, 0.3),
@@ -564,6 +566,10 @@ const TeamEntryStyles = styled.div`
     text-decoration: none;
     color: #fff;
     flex-grow: 1;
+    border: 1px solid green;
+    @media screen and (min-width: 769px) {
+      width: 330px;
+    }
     .teamlist_top_bar {
       width: 100%;
       padding: 0.2rem 0;
