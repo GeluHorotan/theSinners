@@ -419,9 +419,10 @@ const TeamEntryStyles = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    @media screen and (max-width: 538px) {
+    /* @media screen and (max-width: 538px) {
       flex-direction: column;
-    }
+    } */
+    padding: 0 2vw;
   }
   .team_logo {
     width: 4rem;
@@ -451,9 +452,10 @@ const TeamEntryStyles = styled.div`
     align-items: flex-start;
 
     @media screen and (max-width: 538px) {
-      align-items: center;
-      text-align: center;
-      padding: 0 1vw;
+      /* align-items: center;
+      text-align: center; */
+      /* padding: 0 7vw; */
+      /* gap: 0.2rem; */
     }
 
     .team_info {
@@ -463,10 +465,10 @@ const TeamEntryStyles = styled.div`
 
       align-items: center;
 
-      @media screen and (max-width: 538px) {
+      /* @media screen and (max-width: 538px) {
         justify-content: center;
         text-align: center;
-      }
+      } */
 
       .team_name {
         color: #fff;
@@ -516,6 +518,7 @@ const TeamEntryStyles = styled.div`
       height: 100%;
 
       width: 5.625rem;
+
       margin: 0px -14px;
       border: 2px solid magenta;
       background-image: linear-gradient(
@@ -526,7 +529,7 @@ const TeamEntryStyles = styled.div`
       );
       clip-path: polygon(30px 0px, 100% 0px, calc(100% - 30px) 100%, 0px 100%);
       @media screen and (max-width: 768px) {
-        width: 3.8rem;
+        width: 100%;
       }
 
       .teamlist_player_gradient {
@@ -540,7 +543,7 @@ const TeamEntryStyles = styled.div`
         justify-content: center;
 
         img {
-          width: 100%;
+          width: 5rem;
           padding-top: 15%;
           flex-grow: 1;
           @media screen and (max-width: 768px) {
@@ -550,13 +553,15 @@ const TeamEntryStyles = styled.div`
             width: 4.5rem;
             height: 4.5rem;
             margin-top: 2rem;
-          } */
+          }  */
         }
       }
     }
   }
   .teamlist_match_section {
     height: 100%;
+    flex-grow: 1;
+    flex-basis: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -588,7 +593,7 @@ const TeamEntryStyles = styled.div`
         padding-left: 2rem;
       }
 
-      @media screen and (max-width: 468px) {
+      @media screen and (max-width: 533px) {
         font-size: 0.5rem;
         font-weight: 400;
         flex-direction: column;
@@ -624,7 +629,7 @@ const TeamEntryStyles = styled.div`
         align-items: center;
         padding-right: 1.4rem;
 
-        @media screen and (max-width: 468px) {
+        @media screen and (max-width: 533px) {
           padding: 0;
           flex-direction: column;
           justify-content: center;
@@ -651,7 +656,7 @@ const TeamEntryStyles = styled.div`
             justify-content: center;
             letter-spacing: 1px;
 
-            @media screen and (max-width: 468px) {
+            @media screen and (max-width: 533px) {
               font-size: 0.5rem;
             }
           }
