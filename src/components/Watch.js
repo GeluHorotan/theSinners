@@ -305,10 +305,6 @@ const TabelsGridStyles = styled.section`
       letter-spacing: 2px;
     }
     .tabel_in_grid {
-      min-width: 30rem;
-      zoom: 0.85;
-      text-size-adjust: auto;
-      -webkit-text-size-adjust: auto;
       box-shadow: 4px 4px 16px rgb(0 0 0 / 40%);
 
       th {
