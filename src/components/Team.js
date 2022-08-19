@@ -145,21 +145,22 @@ const Team = ({ teamId, teamName, leagues, className, children }) => {
             </div>
           </div>
         </div>
-
-        <div className='teamlist_team_logo'>
-          <Image
-            isTeam
-            className='team_logo'
-            id={teamId}
-            alt={teamName}
-          ></Image>
-        </div>
-        <div className='teamlist_team_info'>
-          <div className='team_info'>
-            <div className='team_name'>{teamName}</div>
+        <div className='team_container'>
+          <div className='teamlist_team_logo'>
+            <Image
+              isTeam
+              className='team_logo'
+              id={teamId}
+              alt={teamName}
+            ></Image>
           </div>
-          <div className='team_region'>{displayTeamRegion(teamRegion)}</div>
-          <div className='team_division'>DIVISION {teamDivision}</div>
+          <div className='teamlist_team_info'>
+            <div className='team_info'>
+              <div className='team_name'>{teamName}</div>
+            </div>
+            <div className='team_region'>{displayTeamRegion(teamRegion)}</div>
+            <div className='team_division'>DIVISION {teamDivision}</div>
+          </div>
         </div>
         <div className='teamlist_player_section'>
           {teamPlayers &&
@@ -186,7 +187,7 @@ const Team = ({ teamId, teamName, leagues, className, children }) => {
             {recentMatches.length !== 0 &&
               formatTimestamp(recentMatches[0].matchTime)}
             {recentMatches.length === 0 && lastMatches.length === 0
-              ? 'No match data recorded'
+              ? 'No data'
               : ''}
 
             {lastMatches.length !== 0 && recentMatches.length === 0 ? (
@@ -357,13 +358,9 @@ const TeamEntryStyles = styled.div`
   margin-top: 1rem;
   position: relative;
   z-index: 1;
-  border: 1px solid green;
 
   @media screen and (max-width: 1100px) {
     width: 99%;
-  }
-  @media screen and (max-width: 838px) {
-    zoom: 0.8;
   }
   @media screen and (max-width: 838px) {
     zoom: 0.8;
@@ -378,6 +375,10 @@ const TeamEntryStyles = styled.div`
     align-items: center;
     background-color: #6e6e7766;
 
+    @media screen and (max-width: 600px) {
+      min-width: 15px;
+    }
+
     .teamlist_following_line {
       cursor: pointer;
 
@@ -390,6 +391,10 @@ const TeamEntryStyles = styled.div`
           background-repeat: no-repeat;
           transition: filter 250ms ease-in-out;
           filter: brightness(1.3);
+          @media screen and (max-width: 600px) {
+            width: 0.45rem;
+            height: 0.45rem;
+          }
         }
         .star_sign_active {
           background-image: url('https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/star_gold.png');
@@ -400,8 +405,22 @@ const TeamEntryStyles = styled.div`
           transition: filter 250ms ease-in-out;
           filter: drop-shadow(0px 0px 4px rgba(255, 255, 255, 0.5))
             brightness(1.3);
+
+          @media screen and (max-width: 600px) {
+            width: 0.9rem;
+            height: 0.9rem;
+          }
         }
       }
+    }
+  }
+
+  .team_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @media screen and (max-width: 538px) {
+      flex-direction: column;
     }
   }
   .team_logo {
@@ -412,31 +431,53 @@ const TeamEntryStyles = styled.div`
     opacity: 1;
     margin-left: 18px;
     margin-right: 12px;
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 538px) {
       width: 1rem;
       height: 1rem;
       min-width: 1rem;
       min-height: 1rem;
+      margin-left: 0;
+      margin-right: 0.3rem;
     }
   }
   .teamlist_team_info {
     flex-grow: 1;
+
     flex-basis: 0;
     display: flex;
     flex-direction: column;
+
+    justify-content: center;
+    align-items: flex-start;
+
+    @media screen and (max-width: 538px) {
+      align-items: center;
+      text-align: center;
+      padding: 0 1vw;
+    }
 
     .team_info {
       display: flex;
 
       flex-direction: row;
-      margin-right: 1rem;
+
       align-items: center;
+
+      @media screen and (max-width: 538px) {
+        justify-content: center;
+        text-align: center;
+      }
 
       .team_name {
         color: #fff;
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 4px;
+        @media screen and (max-width: 538px) {
+          font-size: 0.7rem;
+          font-weight: 500;
+          letter-spacing: 1px;
+        }
       }
     }
     .team_region {
@@ -445,6 +486,10 @@ const TeamEntryStyles = styled.div`
       text-transform: uppercase;
       letter-spacing: 2px;
       white-space: pre-wrap;
+      @media screen and (max-width: 538px) {
+        font-size: 0.45rem;
+        font-weight: 400;
+      }
     }
     .team_division {
       color: #6b7785;
@@ -452,6 +497,11 @@ const TeamEntryStyles = styled.div`
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 2px;
+
+      @media screen and (max-width: 538px) {
+        font-size: 0.45rem;
+        font-weight: 400;
+      }
     }
   }
   .teamlist_player_section {
@@ -460,7 +510,7 @@ const TeamEntryStyles = styled.div`
     flex-direction: row;
     align-items: center;
     margin-right: -14px;
-
+    flex-grow: 1;
     .teamlist_player_image_container {
       height: 100%;
       width: 5.625rem;
@@ -492,14 +542,19 @@ const TeamEntryStyles = styled.div`
           padding-top: 15%;
         }
         @media screen and (max-width: 768px) {
-          /* width: 1rem;
-          height: 1rem; */
+          width: 5rem;
+          height: 5rem;
+          margin-top: 2rem;
+        }
+        @media screen and (max-width: 340px) {
+          width: 4.5rem;
+          height: 4.5rem;
+          margin-top: 2rem;
         }
       }
     }
   }
   .teamlist_match_section {
-    width: 330px;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -508,7 +563,7 @@ const TeamEntryStyles = styled.div`
     clip-path: polygon(30px 0px, 100% 0px, 100% 100%, 0% 100%);
     text-decoration: none;
     color: #fff;
-
+    flex-grow: 1;
     .teamlist_top_bar {
       width: 100%;
       padding: 0.2rem 0;
@@ -522,15 +577,17 @@ const TeamEntryStyles = styled.div`
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 2px;
-      border: 1px solid magenta;
-      white-space: nowrap;
 
+      white-space: nowrap;
       @media screen and (max-width: 768px) {
+        padding-left: 2rem;
+      }
+
+      @media screen and (max-width: 468px) {
         font-size: 0.5rem;
         font-weight: 400;
         flex-direction: column;
         align-items: flex-end;
-        padding-left: 2rem;
       }
 
       .won_game {
@@ -546,6 +603,7 @@ const TeamEntryStyles = styled.div`
     .teamlist_bottom_section_wrapper {
       width: 100%;
       flex-grow: 1;
+
       background-color: #252528bf;
       display: flex;
       flex-direction: row;
@@ -560,7 +618,7 @@ const TeamEntryStyles = styled.div`
         align-items: center;
         padding-right: 1.4rem;
 
-        @media screen and (max-width: 768px) {
+        @media screen and (max-width: 468px) {
           padding: 0;
           flex-direction: column;
           justify-content: center;
@@ -587,7 +645,7 @@ const TeamEntryStyles = styled.div`
             justify-content: center;
             letter-spacing: 1px;
 
-            @media screen and (max-width: 768px) {
+            @media screen and (max-width: 468px) {
               font-size: 0.5rem;
             }
           }
@@ -599,7 +657,7 @@ const TeamEntryStyles = styled.div`
         width: 3rem;
         height: 3rem;
 
-        @media screen and (max-width: 768px) {
+        @media screen and (max-width: 468px) {
           width: 1rem;
           height: 1em;
         }
