@@ -169,7 +169,15 @@ const Team = ({ teamId, teamName, leagues, className, children }) => {
                 return (
                   <div className='teamlist_player_image_container'>
                     <div className='teamlist_player_gradient'>
-                      <Image isPlayer className={'player'} id={player}></Image>
+                      {/* <Image isPlayer className={'player'} id={player}></Image> */}
+                      <div
+                        style={{
+                          backgroundImage: `url('https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg?w=2000')`,
+                          width: '100%',
+                          height: '100%',
+                          backgroundSize: '200px',
+                        }}
+                      ></div>
                     </div>
                   </div>
                 );
@@ -526,13 +534,12 @@ const TeamEntryStyles = styled.div`
       clip-path: polygon(30px 0px, 100% 0px, calc(100% - 30px) 100%, 0px 100%);
 
       @media screen and (max-width: 768px) {
-        width: 100%;
+        flex-grow: 1;
       }
 
       .teamlist_player_gradient {
         width: 100%;
         height: 100%;
-
         mask-image: linear-gradient(#fff, #fff 76%, transparent 80%);
 
         mask-image: linear-gradient(#fff, #fff 80%, transparent 95%);
@@ -543,16 +550,16 @@ const TeamEntryStyles = styled.div`
           width: 100%;
           padding-top: 15%;
         }
-        @media screen and (max-width: 768px) {
-          width: 1rem;
+        /* @media screen and (max-width: 768px) {
+           width: 1rem;
           height: 1rem;
-          margin-top: 5rem;
+          margin-top: 5rem; 
         }
         @media screen and (max-width: 340px) {
-          /* width: 4.5rem;
+           width: 4.5rem;
           height: 4.5rem;
-          margin-top: 2rem; */
-        }
+          margin-top: 2rem; 
+        } */
       }
     }
   }
