@@ -83,21 +83,33 @@ const Esports = () => {
                 <HeaderStyles></HeaderStyles>
                 <MenuStyles>
                   <Tab.List className='menubar_list'>
-                    <Tab>
+                    <Tab
+                      className={({ selected }) =>
+                        selected ? 'tab_active' : ''
+                      }
+                    >
                       <div className='menubar_label'>WATCH</div>
-                    </Tab>
-                    <Tab>
-                      {' '}
-                      <div className='menubar_label'>SCHEDULE</div>
                     </Tab>
                     <Tab
                       className={({ selected }) =>
                         selected ? 'tab_active' : ''
                       }
                     >
-                      <div className='menubar_label'>STANDINGS</div>
+                      {' '}
+                      <div className='menubar_label'>SCHEDULE</div>
                     </Tab>
-                    <Tab>
+                    {/* <Tab
+                      className={({ selected }) =>
+                        selected ? 'tab_active' : ''
+                      }
+                    >
+                      <div className='menubar_label'>STANDINGS</div>
+                    </Tab> */}
+                    <Tab
+                      className={({ selected }) =>
+                        selected ? 'tab_active' : ''
+                      }
+                    >
                       <div className='menubar_label'>ABOUT</div>
                     </Tab>
                   </Tab.List>
@@ -113,7 +125,7 @@ const Esports = () => {
                     <Tab.Panel>
                       <Schedule></Schedule>
                     </Tab.Panel>
-                    <Tab.Panel>
+                    {/* <Tab.Panel>
                       <Standings
                         tournaments={
                           leagues &&
@@ -124,7 +136,7 @@ const Esports = () => {
                           )
                         }
                       ></Standings>
-                    </Tab.Panel>
+                    </Tab.Panel> */}
                     <Tab.Panel>Content 4</Tab.Panel>
                   </Tab.Panels>
                 </ContentStyles>
@@ -170,11 +182,9 @@ const MenuStyles = styled.div`
   top: 0;
   z-index: 10;
   @media screen and (max-width: 743px) {
-    zoom: 0.9;
-  }
-  @media screen and (max-width: 500px) {
     zoom: 0.8;
   }
+
   @media screen and (max-width: 400px) {
     zoom: 0.6;
   }
@@ -186,7 +196,7 @@ const MenuStyles = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
-    padding: 0 5.2rem;
+    padding: 0 1.2rem;
     button {
       background: none;
       border: none;
@@ -213,6 +223,7 @@ const MenuStyles = styled.div`
 
       @media screen and (max-width: 743px) {
         font-size: 0.7rem;
+        padding: 0 2.2rem;
       }
       @media screen and (max-width: 500px) {
         font-size: 0.7rem;

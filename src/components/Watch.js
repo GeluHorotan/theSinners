@@ -265,24 +265,28 @@ const TeamComponentStyles = styled.section`
 `;
 
 const TabelsGridStyles = styled.section`
-  display: grid;
+  /* display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   grid-template-rows: repeat(3, minmax(0, 1fr));
-  width: 75%;
   align-self: center;
-  justify-items: center;
+  justify-items: center; */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  width: 85%;
   margin: 0 auto;
   grid-row-gap: 8rem;
   grid-column-gap: 2rem;
-  margin-bottom: 5rem;
-  display: none;
+  min-height: 0;
+
+  margin: 15rem 0;
+
   @media screen and (max-width: 980px) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     grid-template-rows: repeat(2, minmax(0, 1fr));
     zoom: 0.8;
     width: 100%;
-    text-size-adjust: auto;
-    -webkit-text-size-adjust: auto;
   }
   @media screen and (max-width: 1550px) {
     zoom: 0.8;
