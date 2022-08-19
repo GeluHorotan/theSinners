@@ -282,26 +282,18 @@ const TabelsGridStyles = styled.section`
 
   margin: 15rem 0;
 
-  @media screen and (max-width: 980px) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-rows: repeat(2, minmax(0, 1fr));
+  @media screen and (max-width: 1000px) {
     zoom: 0.8;
     width: 100%;
   }
-  @media screen and (max-width: 1550px) {
-    zoom: 0.8;
-    width: 85%;
+  @media screen and (max-width: 690px) {
+    zoom: 0.6;
   }
-  @media screen and (max-width: 1200px) {
-    zoom: 0.7;
+  @media screen and (max-width: 511px) {
+    zoom: 0.4;
   }
-  @media screen and (max-width: 668px) {
-    width: 75%;
-    zoom: 0.55;
-  }
-  @media screen and (max-width: 568px) {
-    width: 100%;
-    zoom: 0.35;
+  @media screen and (max-width: 342px) {
+    zoom: 0.3;
   }
 
   .tabel_container {
