@@ -524,14 +524,8 @@ const TeamEntryStyles = styled.div`
         rgba(0, 0, 0, 0.3)
       );
       clip-path: polygon(30px 0px, 100% 0px, calc(100% - 30px) 100%, 0px 100%);
-
       @media screen and (max-width: 768px) {
-        width: 5rem;
-        height: 5rem;
-      }
-      @media screen and (max-width: 340px) {
-        width: 4.5rem;
-        height: 4.5rem;
+        /* width: 10%; */
       }
 
       .teamlist_player_gradient {
@@ -547,15 +541,13 @@ const TeamEntryStyles = styled.div`
           width: 100%;
           padding-top: 15%;
           @media screen and (max-width: 768px) {
-            width: 5rem;
-            height: 5rem;
-            margin-top: 5rem;
+            width: 30%;
           }
-          @media screen and (max-width: 340px) {
+          /* @media screen and (max-width: 340px) {
             width: 4.5rem;
             height: 4.5rem;
             margin-top: 2rem;
-          }
+          } */
         }
       }
     }
