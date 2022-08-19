@@ -453,7 +453,7 @@ const TeamEntryStyles = styled.div`
     @media screen and (max-width: 538px) {
       align-items: center;
       text-align: center;
-      padding: 0 1vw;
+      /* padding: 0 1vw; */
     }
 
     .team_info {
@@ -510,7 +510,7 @@ const TeamEntryStyles = styled.div`
     flex-direction: row;
     align-items: center;
     margin-right: -14px;
-    /* flex-grow: 1; */
+
     border: 1px solid red;
     .teamlist_player_image_container {
       height: 100%;
@@ -565,7 +565,7 @@ const TeamEntryStyles = styled.div`
     clip-path: polygon(30px 0px, 100% 0px, 100% 100%, 0% 100%);
     text-decoration: none;
     color: #fff;
-    flex-grow: 1;
+
     border: 1px solid green;
     @media screen and (min-width: 769px) {
       width: 330px;
@@ -608,7 +608,8 @@ const TeamEntryStyles = styled.div`
     }
     .teamlist_bottom_section_wrapper {
       width: 100%;
-      flex-grow: 1;
+      height: 100%;
+      /* flex-grow: 1; */
 
       background-color: #252528bf;
       display: flex;
