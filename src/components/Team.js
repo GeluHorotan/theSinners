@@ -525,7 +525,7 @@ const TeamEntryStyles = styled.div`
       );
       clip-path: polygon(30px 0px, 100% 0px, calc(100% - 30px) 100%, 0px 100%);
       @media screen and (max-width: 768px) {
-        /* width: 10%; */
+        width: 10%;
       }
 
       .teamlist_player_gradient {
