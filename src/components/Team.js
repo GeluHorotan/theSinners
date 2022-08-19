@@ -511,7 +511,7 @@ const TeamEntryStyles = styled.div`
 
     .teamlist_top_bar {
       width: 100%;
-      padding: 0.2rem;
+      padding: 0.2rem 0;
       background-color: #202023bf;
       display: flex;
       flex-direction: row;
@@ -522,6 +522,16 @@ const TeamEntryStyles = styled.div`
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 2px;
+      border: 1px solid magenta;
+      white-space: nowrap;
+
+      @media screen and (max-width: 768px) {
+        font-size: 0.5rem;
+        font-weight: 400;
+        flex-direction: column;
+        align-items: flex-end;
+        padding-left: 2rem;
+      }
 
       .won_game {
         color: green;
@@ -550,6 +560,12 @@ const TeamEntryStyles = styled.div`
         align-items: center;
         padding-right: 1.4rem;
 
+        @media screen and (max-width: 768px) {
+          padding: 0;
+          flex-direction: column;
+          justify-content: center;
+          align-items: flex-end;
+        }
         .focusable {
           position: relative;
           display: flex;
@@ -562,7 +578,6 @@ const TeamEntryStyles = styled.div`
           flex-direction: column;
 
           justify-content: center;
-
           .teamlist_team_name {
             color: #fff;
 
@@ -571,6 +586,10 @@ const TeamEntryStyles = styled.div`
             display: flex;
             justify-content: center;
             letter-spacing: 1px;
+
+            @media screen and (max-width: 768px) {
+              font-size: 0.5rem;
+            }
           }
         }
       }
