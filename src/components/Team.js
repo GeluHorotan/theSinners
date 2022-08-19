@@ -451,24 +451,12 @@ const TeamEntryStyles = styled.div`
     justify-content: center;
     align-items: flex-start;
 
-    @media screen and (max-width: 538px) {
-      /* align-items: center;
-      text-align: center; */
-      /* padding: 0 7vw; */
-      /* gap: 0.2rem; */
-    }
-
     .team_info {
       display: flex;
 
       flex-direction: row;
 
       align-items: center;
-
-      /* @media screen and (max-width: 538px) {
-        justify-content: center;
-        text-align: center;
-      } */
 
       .team_name {
         color: #fff;

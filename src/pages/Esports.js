@@ -80,7 +80,7 @@ const Esports = () => {
           <HeroesContext.Provider value={heroesList}>
             <TeamsContext.Provider value={teamList}>
               <LeagueContext.Provider value={leagues}>
-                <HeaderStyles>TEST</HeaderStyles>
+                <HeaderStyles></HeaderStyles>
                 <MenuStyles>
                   <Tab.List className='menubar_list'>
                     <Tab>
@@ -139,12 +139,14 @@ const Esports = () => {
 
 const WrapperStyles = styled.div`
   width: 100%;
+  margin-top: 10vh;
 `;
 
 const HeaderStyles = styled.div`
   height: 400px;
-  background-image: url(https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/backgrounds/dpc_header_event_summer22.jpg),
+  background-image: url('https://cdn.mos.cms.futurecdn.net/GH95hpiUpqfZ6jqgbPxsM3.jpg'),
     linear-gradient(to right, rgb(192, 49, 125) 49%, rgb(67, 149, 148) 51%);
+  filter: grayscale(0.8);
   width: 100%;
   position: relative;
   display: flex;
@@ -152,7 +154,7 @@ const HeaderStyles = styled.div`
   justify-content: center;
   align-items: center;
   background-repeat: no-repeat;
-  background-position: top, center;
+  background-position: center center;
 `;
 
 const MenuStyles = styled.div`
@@ -184,7 +186,7 @@ const MenuStyles = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
-    padding: 0 1.2rem;
+    padding: 0 5.2rem;
     button {
       background: none;
       border: none;
@@ -215,7 +217,7 @@ const MenuStyles = styled.div`
       @media screen and (max-width: 500px) {
         font-size: 0.7rem;
       }
-      margin: 0 1.2rem;
+
       &:hover {
         color: ${white};
       }
