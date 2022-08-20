@@ -190,7 +190,6 @@ const MenuStyles = styled.div`
   @media screen and (max-width: 400px) {
     zoom: 0.6;
   }
-  display: none;
 
   .menubar_list {
     flex-grow: 1;
@@ -200,6 +199,7 @@ const MenuStyles = styled.div`
     align-items: center;
     justify-content: space-around;
     padding: 0 1.2rem;
+    border: 1px solid red;
     button {
       background: none;
       border: none;
@@ -225,10 +225,6 @@ const MenuStyles = styled.div`
       font-size: 0.9rem;
 
       @media screen and (max-width: 743px) {
-        font-size: 0.7rem;
-        padding: 0 2.2rem;
-      }
-      @media screen and (max-width: 500px) {
         font-size: 0.7rem;
       }
 
