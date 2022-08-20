@@ -199,7 +199,7 @@ const MenuStyles = styled.div`
     align-items: center;
     justify-content: space-around;
     padding: 0 1.2rem;
-    border: 1px solid red;
+
     button {
       background: none;
       border: none;

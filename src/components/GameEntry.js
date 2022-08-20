@@ -8,7 +8,7 @@ import { formatTimestamp } from '../Functions/formatTimestamp';
 import { obsH } from '../Utility/Colors';
 import Button from './Button';
 import Image from './Image';
-import HashLoader from 'react-spinners/HashLoader';
+import { PropagateLoader } from 'react-spinners';
 import * as MdIcons from 'react-icons/md';
 
 const GameEntry = ({
@@ -40,6 +40,12 @@ const GameEntry = ({
     }
     setIsLoading((prevState) => false);
   };
+
+  useEffect(() => {
+    if (isActive && seriesMatches.length === 0) {
+      getSeriesMatches();
+    }
+  }, [isActive]);
 
   function secondsToHms(d) {
     d = Number(d);
@@ -135,7 +141,6 @@ const GameEntry = ({
                         className='py-2'
                         onClick={() => {
                           setIsActive((prevState) => !isActive);
-                          getSeriesMatches();
                         }}
                         style={{
                           background: 'none',
@@ -162,15 +167,12 @@ const GameEntry = ({
 
           <DpcDisclosureStyles>
             <Disclosure.Panel className='disclosure_container disclosure_active '>
-              <HashLoader
-                loading={isLoading}
-                color='white'
-                size={35}
-                speed={2}
-              />
-              {!isLoading &&
-                gamesDetails.matches.length !== 0 &&
-                seriesMatches.length === gamesDetails.matches.length &&
+              {isLoading && (
+                <div className='middle_align'>
+                  <PropagateLoader color='#fff' />
+                </div>
+              )}
+              {seriesMatches.length === gamesDetails.matches.length &&
                 gamesDetails.matches.map((match, index) => {
                   return (
                     <div className='disclosure_box'>
@@ -267,6 +269,16 @@ const WrapperStyles = styled.div`
 
   flex-direction: column;
   align-items: center;
+
+  @media screen and (max-width: 768px) {
+    zoom: 0.7;
+  }
+  @media screen and (max-width: 450px) {
+    zoom: 0.5;
+  }
+  @media screen and (max-width: 350px) {
+    zoom: 0.4;
+  }
 `;
 
 const DpcHeaderStyles = styled.div`
@@ -318,9 +330,9 @@ const DpcListStyles = styled.div`
       top: 0;
       z-index: 2;
       box-shadow: 0px 0px 16px rgb(0 0 0 / 40%);
-      @media screen and (max-width: 1000px) {
+      /* @media screen and (max-width: 1000px) {
         width: 100%;
-      }
+      } */
       .schedule_date_label {
         color: #fff;
         font-size: 12px;
@@ -347,10 +359,10 @@ const DpcListStyles = styled.div`
         flex-direction: column;
         margin-bottom: 2px;
         transition: all 200ms ease-in-out;
-        @media screen and (max-width: 1000px) {
+        /* @media screen and (max-width: 1000px) {
           width: 100%;
           display: inline-block;
-        }
+        } */
       }
     }
   }
@@ -377,10 +389,10 @@ const DpcBodyStyles = styled.div`
     justify-content: center;
     align-items: center;
     padding-left: 2.5rem;
-    @media screen and (max-width: 900px) {
+    /* @media screen and (max-width: 900px) {
       padding-left: 1rem;
       align-items: flex-start;
-    }
+    } */
 
     .node_type_upper {
       font-size: 0.9rem;
@@ -444,12 +456,12 @@ const DpcBodyStyles = styled.div`
       min-width: 3rem;
       min-height: 3rem;
 
-      @media screen and (max-width: 900px) {
+      /* @media screen and (max-width: 900px) {
         width: 2rem;
         height: 2rem;
         min-width: 2rem;
         min-height: 2rem;
-      }
+      } */
     }
 
     .dpc_team_section {
@@ -521,13 +533,13 @@ const DpcBodyStyles = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    @media screen and (max-width: 900px) {
+    /* @media screen and (max-width: 900px) {
       padding-right: 1rem;
       align-items: flex-end;
     }
     @media screen and (max-width: 500px) {
       width: 15%;
-    }
+    } */
   }
 `;
 
@@ -550,10 +562,10 @@ const DpcDisclosureStyles = styled.div`
     gap: 1rem;
     align-items: center;
     padding: 1rem 0;
-    @media screen and (max-width: 1000px) {
+    /* @media screen and (max-width: 1000px) {
       width: 100%;
       display: inline-block;
-    }
+    } */
     .disclosure_box {
       width: 100%;
       padding: 0.5rem 0;
@@ -571,10 +583,10 @@ const DpcDisclosureStyles = styled.div`
         justify-content: center;
         align-items: center;
 
-        @media screen and (max-width: 900px) {
+        /* @media screen and (max-width: 900px) {
           padding-left: 1rem;
           align-items: flex-start;
-        }
+        } */
 
         .disclosure_time {
           color: #6b7785;
@@ -609,10 +621,10 @@ const DpcDisclosureStyles = styled.div`
         justify-content: space-between;
         margin: 0 2.5rem;
 
-        @media screen and (max-width: 900px) {
+        /* @media screen and (max-width: 900px) {
           flex-wrap: wrap;
           gap: 0.5rem;
-        }
+        } */
 
         .hero_logo {
           width: 2rem;
@@ -685,10 +697,10 @@ const DpcDisclosureStyles = styled.div`
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        @media screen and (max-width: 900px) {
+        /* @media screen and (max-width: 900px) {
           padding-right: 1rem;
           align-items: flex-end;
-        }
+        } */
       }
       &::after {
         width: calc(100% - 48px);
