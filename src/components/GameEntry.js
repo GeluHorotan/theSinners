@@ -600,8 +600,7 @@ const DpcDisclosureStyles = styled.div`
       flex-direction: row;
       align-items: center;
       position: relative;
-      min-height: 20rem;
-      border: 1px solid yellow;
+      min-height: 10rem;
 
       @media screen and (max-width: 768px) {
         padding: 0 0.2rem;
@@ -647,7 +646,6 @@ const DpcDisclosureStyles = styled.div`
         display: flex;
         flex-direction: row;
         align-items: center;
-        border: 1px solid magenta;
 
         /* @media screen and (max-width: 900px) {
           flex-wrap: wrap;
@@ -674,7 +672,7 @@ const DpcDisclosureStyles = styled.div`
       .disclosure_center {
         flex-grow: 1;
         min-width: 20%;
-        border: 1px solid blue;
+
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -727,6 +725,7 @@ const DpcDisclosureStyles = styled.div`
           margin-bottom: 0.8rem;
           @media screen and (max-width: 768px) {
             font-size: 0.6rem;
+            white-space: pre-wrap;
           }
         }
         .center_game_duration {
