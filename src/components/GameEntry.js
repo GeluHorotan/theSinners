@@ -351,6 +351,7 @@ const DpcListStyles = styled.div`
       .schedule_date_label {
         color: #fff;
         font-size: 12px;
+        margin-left: 5rem;
         text-transform: uppercase;
         letter-spacing: 3px;
         text-align: center;
