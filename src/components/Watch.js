@@ -269,6 +269,9 @@ const TabelsGridStyles = styled.section`
   grid-template-columns: repeat(2, minmax(0, 1fr));
   grid-template-rows: repeat(2, minmax(0, 1fr));
   width: 85%;
+  align-content: center;
+  justify-items: center;
+  justify-content: center;
   margin: 0 auto;
   gap: 3rem;
   min-height: 0;
@@ -281,6 +284,8 @@ const TabelsGridStyles = styled.section`
   }
   @media screen and (max-width: 690px) {
     zoom: 0.6;
+    grid-template-columns: repeat(2, minmax(0, 0.5fr));
+    grid-template-rows: repeat(1, minmax(0, 1fr));
   }
   @media screen and (max-width: 511px) {
     zoom: 0.4;
