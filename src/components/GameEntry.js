@@ -456,6 +456,13 @@ const DpcBodyStyles = styled.div`
       min-width: 3rem;
       min-height: 3rem;
 
+      @media screen and (max-width: 768px) {
+        width: 1rem;
+        height: 1rem;
+        min-width: 1rem;
+        min-height: 1rem;
+      }
+
       /* @media screen and (max-width: 900px) {
         width: 2rem;
         height: 2rem;
@@ -631,11 +638,7 @@ const DpcDisclosureStyles = styled.div`
           height: 2rem;
           background-size: cover;
           background-repeat: no-repeat;
-          @media screen and (max-width: 900px) {
-            width: 1.5rem;
-            height: 1.5rem;
-          }
-          @media screen and (max-width: 500px) {
+          @media screen and (max-width: 768px) {
             width: 1rem;
             height: 1rem;
           }
@@ -655,11 +658,17 @@ const DpcDisclosureStyles = styled.div`
           margin-bottom: 0.5rem;
 
           .team_logo {
-            width: 32px;
-            height: 32px;
-            min-width: 32px;
-            min-height: 32px;
+            width: 2rem;
+            height: 2rem;
+            min-width: 2rem;
+            min-height: 2rem;
             opacity: 1;
+            @media screen and (max-width: 768px) {
+              width: 1rem;
+              height: 1rem;
+              min-width: 1rem;
+              min-height: 1rem;
+            }
           }
           .center_game_number {
             font-size: 0.8rem;
@@ -679,7 +688,7 @@ const DpcDisclosureStyles = styled.div`
           color: #a3a3a3;
           text-align: center;
           margin-bottom: 0.8rem;
-          @media screen and (max-width: 500px) {
+          @media screen and (max-width: 768px) {
             font-size: 0.6rem;
           }
         }
@@ -689,6 +698,10 @@ const DpcDisclosureStyles = styled.div`
           text-transform: uppercase;
           letter-spacing: 2px;
           color: #6b7785;
+          @media screen and (max-width: 768px) {
+            font-size: 0.6rem;
+            font-weight: 500;
+          }
         }
       }
       .disclosure_right_section {
