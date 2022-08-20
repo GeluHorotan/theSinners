@@ -257,7 +257,7 @@ const GameEntry = ({
                             );
                         })}
                       </div>
-                      <div className='disclosure_right_section'></div>
+                      <div className='disclosure_right_section'>X</div>
                     </div>
                   );
                 })}
@@ -643,9 +643,7 @@ const DpcDisclosureStyles = styled.div`
         display: flex;
         flex-direction: row;
         align-items: center;
-
         border: 1px solid magenta;
-        margin: 0 2.5rem;
 
         /* @media screen and (max-width: 900px) {
           flex-wrap: wrap;
