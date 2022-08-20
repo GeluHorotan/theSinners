@@ -190,6 +190,7 @@ const MenuStyles = styled.div`
   @media screen and (max-width: 400px) {
     zoom: 0.6;
   }
+  display: none;
 
   .menubar_list {
     flex-grow: 1;
