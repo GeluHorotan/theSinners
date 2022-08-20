@@ -432,7 +432,7 @@ const TeamEntryStyles = styled.div`
     opacity: 1;
     margin-left: 18px;
     margin-right: 12px;
-    @media screen and (max-width: 538px) {
+    @media screen and (max-width: 548px) {
       width: 1rem;
       height: 1rem;
       min-width: 1rem;
@@ -463,7 +463,7 @@ const TeamEntryStyles = styled.div`
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 4px;
-        @media screen and (max-width: 538px) {
+        @media screen and (max-width: 548px) {
           font-size: 0.7rem;
           font-weight: 500;
           letter-spacing: 1px;
@@ -476,7 +476,7 @@ const TeamEntryStyles = styled.div`
       text-transform: uppercase;
       letter-spacing: 2px;
       white-space: pre-wrap;
-      @media screen and (max-width: 538px) {
+      @media screen and (max-width: 548px) {
         font-size: 0.45rem;
         font-weight: 400;
       }
@@ -488,7 +488,7 @@ const TeamEntryStyles = styled.div`
       text-transform: uppercase;
       letter-spacing: 2px;
 
-      @media screen and (max-width: 538px) {
+      @media screen and (max-width: 548px) {
         font-size: 0.45rem;
         font-weight: 400;
       }
@@ -517,6 +517,7 @@ const TeamEntryStyles = styled.div`
       clip-path: polygon(30px 0px, 100% 0px, calc(100% - 30px) 100%, 0px 100%);
       @media screen and (max-width: 768px) {
         width: 100%;
+        border: 1px solid red;
       }
 
       .teamlist_player_gradient {
@@ -534,8 +535,8 @@ const TeamEntryStyles = styled.div`
           padding-top: 15%;
           flex-grow: 1;
 
-          @media screen and (max-width: 533px) {
-            width: 30%;
+          @media screen and (max-width: 400px) {
+            width: 4rem;
           }
         }
       }
@@ -575,11 +576,11 @@ const TeamEntryStyles = styled.div`
         padding-left: 2rem;
       }
 
-      @media screen and (max-width: 533px) {
+      @media screen and (max-width: 548px) {
         font-size: 0.5rem;
         font-weight: 400;
         flex-direction: column;
-        align-items: flex-end;
+        /* align-items: flex-end; */
       }
 
       .won_game {
@@ -611,11 +612,11 @@ const TeamEntryStyles = styled.div`
         align-items: center;
         padding-right: 1.4rem;
 
-        @media screen and (max-width: 533px) {
+        @media screen and (max-width: 548px) {
           padding: 0;
-          flex-direction: column;
+          /* flex-direction: column; */
           justify-content: center;
-          align-items: flex-end;
+          /* align-items: flex-end; */
         }
         .focusable {
           position: relative;
@@ -638,7 +639,7 @@ const TeamEntryStyles = styled.div`
             justify-content: center;
             letter-spacing: 1px;
 
-            @media screen and (max-width: 533px) {
+            @media screen and (max-width: 548px) {
               font-size: 0.5rem;
             }
           }
@@ -650,9 +651,9 @@ const TeamEntryStyles = styled.div`
         width: 3rem;
         height: 3rem;
 
-        @media screen and (max-width: 468px) {
+        @media screen and (max-width: 548px) {
           width: 1rem;
-          height: 1em;
+          height: 1rem;
         }
       }
     }

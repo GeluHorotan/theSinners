@@ -151,7 +151,9 @@ const Esports = () => {
 
 const WrapperStyles = styled.div`
   width: 100%;
-  margin-top: 10vh;
+  @media screen and (min-width: 768px) {
+    margin-top: 10vh;
+  }
 `;
 
 const HeaderStyles = styled.div`
@@ -180,7 +182,7 @@ const MenuStyles = styled.div`
   filter: ${obsidianShadow};
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 8;
   @media screen and (max-width: 743px) {
     zoom: 0.8;
   }
