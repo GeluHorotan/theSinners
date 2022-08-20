@@ -151,6 +151,8 @@ const Watch = ({ leagues }) => {
                   );
                 })}
             </TabelsGridStyles>
+            <EliminationHintStyles></EliminationHintStyles>
+            <div className='hint_title'>DEMOTED TO DIVISION II </div>
           </>
         )}
 
@@ -192,6 +194,12 @@ const WrapperStyles = styled.div`
 
   .load_more_button {
     margin: 5rem auto;
+  }
+  .hint_title {
+    font-weight: 400;
+    font-size: 1rem;
+    margin: 1rem 0;
+    margin-bottom: 5rem;
   }
 `;
 
@@ -264,6 +272,13 @@ const TeamComponentStyles = styled.section`
   }
 `;
 
+const EliminationHintStyles = styled.div`
+  width: 5rem;
+  height: 5rem;
+  border-top: 1px solid rgb(146, 40, 32);
+  background: linear-gradient(rgba(146, 40, 32, 0.2), rgba(146, 40, 32, 0.06));
+`;
+
 const TabelsGridStyles = styled.section`
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -275,9 +290,7 @@ const TabelsGridStyles = styled.section`
   margin: 0 auto;
   gap: 3rem;
   min-height: 0;
-
-  margin: 15rem 0;
-
+  margin: 5rem 0;
   @media screen and (max-width: 1000px) {
     zoom: 0.8;
     width: 100%;

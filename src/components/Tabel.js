@@ -30,6 +30,8 @@ const TabelStyles = styled.table`
   width: 100%;
   position: relative;
 
+  width: 25rem;
+
   th {
     background: ${obsH};
   }
