@@ -333,6 +333,9 @@ const DpcListStyles = styled.div`
       /* @media screen and (max-width: 1000px) {
         width: 100%;
       } */
+      @media screen and (max-width: 768px) {
+        width: 100%;
+      }
       .schedule_date_label {
         color: #fff;
         font-size: 12px;
@@ -351,7 +354,9 @@ const DpcListStyles = styled.div`
       gap: 3px;
       .dpc_schedule_entry {
         width: 90%;
-
+        @media screen and (max-width: 768px) {
+          width: 100%;
+        }
         background-color: #27272dbf;
 
         box-shadow: 4px 4px 8px rgba (0, 0, 0, 0.2);
@@ -376,7 +381,7 @@ const DpcListStyles = styled.div`
 const DpcBodyStyles = styled.div`
   width: 100%;
 
-  height: 100px;
+  padding: 2rem 0;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -439,6 +444,8 @@ const DpcBodyStyles = styled.div`
   .dpc_center_section {
     flex-grow: 1;
 
+    border: 1px solid red;
+
     width: 50%;
     height: 100%;
     display: flex;
@@ -487,12 +494,12 @@ const DpcBodyStyles = styled.div`
         letter-spacing: 2px;
 
         @media screen and (max-width: 900px) {
-          font-size: 0.75rem;
+          font-size: 0.7rem;
           font-weight: 600;
           letter-spacing: 1px;
         }
         @media screen and (max-width: 670px) {
-          font-size: 0.55rem;
+          font-size: 0.5rem;
         }
       }
       .dpc_team_record {
@@ -500,11 +507,11 @@ const DpcBodyStyles = styled.div`
         font-weight: 700;
         color: #6b7785;
         @media screen and (max-width: 900px) {
-          font-size: 0.75rem;
+          font-size: 0.7rem;
           font-weight: 600;
         }
         @media screen and (max-width: 670px) {
-          font-size: 0.55rem;
+          font-size: 0.5rem;
           font-weight: 500;
         }
       }
@@ -573,6 +580,9 @@ const DpcDisclosureStyles = styled.div`
       width: 100%;
       display: inline-block;
     } */
+    @media screen and (max-width: 768px) {
+      width: 100%;
+    }
     .disclosure_box {
       width: 100%;
       padding: 0.5rem 0;
@@ -603,10 +613,10 @@ const DpcDisclosureStyles = styled.div`
           letter-spacing: 3px;
           text-align: center;
           @media screen and (max-width: 900px) {
-            font-size: 0.65rem;
+            font-size: 0.6rem;
           }
           @media screen and (max-width: 500px) {
-            font-size: 0.55rem;
+            font-size: 0.5rem;
           }
         }
         .disclosure_watched_box {
@@ -627,6 +637,11 @@ const DpcDisclosureStyles = styled.div`
         align-items: center;
         justify-content: space-between;
         margin: 0 2.5rem;
+
+        @media screen and (max-width: 768px) {
+          width: 10%;
+          flex-grow: 1;
+        }
 
         /* @media screen and (max-width: 900px) {
           flex-wrap: wrap;
@@ -678,6 +693,10 @@ const DpcDisclosureStyles = styled.div`
             color: #fff;
             margin-left: 0.5rem;
             white-space: nowrap;
+
+            @media screen and (max-width: 768px) {
+              font-size: 0.5rem;
+            }
           }
         }
         .center_winning_team {
@@ -714,6 +733,9 @@ const DpcDisclosureStyles = styled.div`
           padding-right: 1rem;
           align-items: flex-end;
         } */
+        @media screen and (max-width: 768px) {
+          width: 25%;
+        }
       }
       &::after {
         width: calc(100% - 48px);
