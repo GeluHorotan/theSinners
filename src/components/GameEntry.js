@@ -653,7 +653,9 @@ const DpcDisclosureStyles = styled.div`
         } */
 
         @media screen and (max-width: 768px) {
-          width: 50%;
+          /* width: 50%; */
+          flex-grow: 1;
+          flex-basis: 0;
         }
 
         .hero_logo {
