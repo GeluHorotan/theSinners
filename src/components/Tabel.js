@@ -30,7 +30,9 @@ const TabelStyles = styled.table`
   width: 100%;
   position: relative;
 
-  width: 25rem;
+  @media screen and (min-width: 768px) {
+    width: 25rem;
+  }
 
   th {
     background: ${obsH};
