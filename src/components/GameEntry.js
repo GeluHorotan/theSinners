@@ -100,7 +100,10 @@ const GameEntry = ({
                             {leftTeam[0].losses}
                           </div>
                         </div>
-                        <div className='team_logo'>
+                        <div
+                          className='team_logo'
+                          style={{ marginLeft: '0.3rem' }}
+                        >
                           <Image
                             className={'team_logo'}
                             id={leftTeam[0].team_id}
@@ -116,7 +119,10 @@ const GameEntry = ({
                       </div>
 
                       <div className='dpc_team_section right_team'>
-                        <div className='team_logo'>
+                        <div
+                          className='team_logo'
+                          style={{ marginRight: '0.3rem' }}
+                        >
                           <Image
                             className={'team_logo'}
                             id={rightTeam[0].team_id}
@@ -724,6 +730,7 @@ const DpcDisclosureStyles = styled.div`
           @media screen and (max-width: 768px) {
             font-size: 0.6rem;
             white-space: pre-wrap;
+            margin: 0 0.2rem;
           }
         }
         .center_game_duration {
