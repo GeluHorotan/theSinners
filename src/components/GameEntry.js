@@ -392,7 +392,7 @@ const DpcBodyStyles = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  border: 1px solid red;
+
   @media screen and (max-width: 768px) {
     padding: 2rem 0.2rem;
   }
@@ -406,7 +406,7 @@ const DpcBodyStyles = styled.div`
       padding-left: 1rem;
       align-items: flex-start;
     } */
-    border: 1px solid red;
+
     .node_type_upper {
       font-size: 0.9rem;
       font-weight: 700;
@@ -451,8 +451,6 @@ const DpcBodyStyles = styled.div`
   }
   .dpc_center_section {
     flex-grow: 1;
-
-    border: 1px solid red;
 
     height: 100%;
     display: flex;
@@ -600,7 +598,7 @@ const DpcDisclosureStyles = styled.div`
       flex-direction: row;
       align-items: center;
       position: relative;
-      min-height: 10rem;
+      /* min-height: 10rem; */
 
       @media screen and (max-width: 768px) {
         padding: 0 0.2rem;
