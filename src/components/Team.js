@@ -536,7 +536,7 @@ const TeamEntryStyles = styled.div`
           flex-grow: 1;
 
           @media screen and (max-width: 561px) {
-            width: 30%;
+            width: 70%;
             flex-grow: 0;
           }
         }
@@ -554,7 +554,7 @@ const TeamEntryStyles = styled.div`
     clip-path: polygon(30px 0px, 100% 0px, 100% 100%, 0% 100%);
     text-decoration: none;
     color: #fff;
-
+    border: 2px solid green;
     @media screen and (min-width: 769px) {
       width: 330px;
     }
