@@ -407,7 +407,10 @@ const DpcBodyStyles = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
+    width: 10%;
+    @media screen and (max-width: 768px) {
+      align-items: flex-start;
+    }
     /* @media screen and (max-width: 900px) {
       padding-left: 1rem;
       align-items: flex-start;
@@ -419,6 +422,7 @@ const DpcBodyStyles = styled.div`
       letter-spacing: 3px;
       color: #fff;
       margin-bottom: 2px;
+      text-align: center;
 
       @media screen and (max-width: 900px) {
         font-size: 0.7rem;
@@ -433,6 +437,7 @@ const DpcBodyStyles = styled.div`
       font-weight: 700;
       text-transform: uppercase;
       text-align: center;
+
       margin-bottom: 8px;
       @media screen and (max-width: 900px) {
         font-size: 0.55rem;
@@ -605,9 +610,9 @@ const DpcDisclosureStyles = styled.div`
       align-items: center;
       position: relative;
       /* min-height: 10rem; */
-
+      padding: 2rem 0;
       @media screen and (max-width: 768px) {
-        padding: 0 0.2rem;
+        padding: 2rem 0.2rem;
       }
 
       .disclosure_left_section {
