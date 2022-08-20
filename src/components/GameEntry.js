@@ -184,7 +184,10 @@ const GameEntry = ({
                           )}
                         </div>
                       </div>
-                      <div className='disclosure_hero_list left'>
+                      <div
+                        className='disclosure_hero_list left'
+                        style={{ justifyContent: 'flex-end' }}
+                      >
                         {' '}
                         {seriesMatches[index].players.map((player, i) => {
                           if (
@@ -234,7 +237,10 @@ const GameEntry = ({
                         </div>
                       </div>
 
-                      <div className='disclosure_hero_list right'>
+                      <div
+                        className='disclosure_hero_list right'
+                        style={{ justifyContent: 'flex-start' }}
+                      >
                         {seriesMatches[index].players.map((player, i) => {
                           if (
                             rightTeam[0].team_id ===
@@ -381,24 +387,26 @@ const DpcListStyles = styled.div`
 const DpcBodyStyles = styled.div`
   width: 100%;
 
-  padding: 2rem 0;
+  padding: 2rem 2rem;
   display: flex;
   flex-direction: row;
   align-items: center;
-
+  justify-content: space-between;
+  border: 1px solid red;
+  @media screen and (max-width: 768px) {
+    padding: 2rem 0.2rem;
+  }
   .dpc_left_section {
-    width: 25%;
-    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding-left: 2.5rem;
+
     /* @media screen and (max-width: 900px) {
       padding-left: 1rem;
       align-items: flex-start;
     } */
-
+    border: 1px solid red;
     .node_type_upper {
       font-size: 0.9rem;
       font-weight: 700;
@@ -446,7 +454,6 @@ const DpcBodyStyles = styled.div`
 
     border: 1px solid red;
 
-    width: 50%;
     height: 100%;
     display: flex;
     flex-direction: row;
@@ -540,9 +547,6 @@ const DpcBodyStyles = styled.div`
     }
   }
   .dpc_right_section {
-    width: 25%;
-
-    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -559,6 +563,7 @@ const DpcBodyStyles = styled.div`
 
 const DpcDisclosureStyles = styled.div`
   width: 100%;
+
   .disclosure_active {
     border: 1px solid #2c3b63;
     border-top: none;
@@ -575,7 +580,12 @@ const DpcDisclosureStyles = styled.div`
     flex-direction: column;
     gap: 1rem;
     align-items: center;
-    padding: 1rem 0;
+    padding: 1rem 2rem;
+
+    @media screen and (max-width: 768px) {
+      padding: 1rem 0.2rem;
+    }
+
     /* @media screen and (max-width: 1000px) {
       width: 100%;
       display: inline-block;
@@ -592,9 +602,8 @@ const DpcDisclosureStyles = styled.div`
       flex-direction: row;
       align-items: center;
       position: relative;
+
       .disclosure_left_section {
-        width: 25%;
-        padding-left: 2.5rem;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -631,22 +640,21 @@ const DpcDisclosureStyles = styled.div`
         }
       }
       .disclosure_hero_list {
-        width: 10.625rem;
         display: flex;
         flex-direction: row;
         align-items: center;
-        justify-content: space-between;
-        margin: 0 2.5rem;
 
-        @media screen and (max-width: 768px) {
-          width: 10%;
-          flex-grow: 1;
-        }
+        border: 1px solid magenta;
+        margin: 0 2.5rem;
 
         /* @media screen and (max-width: 900px) {
           flex-wrap: wrap;
           gap: 0.5rem;
         } */
+
+        @media screen and (max-width: 768px) {
+          width: 50%;
+        }
 
         .hero_logo {
           width: 2rem;
@@ -661,10 +669,16 @@ const DpcDisclosureStyles = styled.div`
       }
       .disclosure_center {
         flex-grow: 1;
+        min-width: 20%;
+        border: 1px solid blue;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+
+        @media screen and (max-width: 768px) {
+          flex-grow: 0;
+        }
         .center_first_line {
           display: flex;
           flex-direction: row;
@@ -724,7 +738,6 @@ const DpcDisclosureStyles = styled.div`
         }
       }
       .disclosure_right_section {
-        width: 250px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -733,9 +746,6 @@ const DpcDisclosureStyles = styled.div`
           padding-right: 1rem;
           align-items: flex-end;
         } */
-        @media screen and (max-width: 768px) {
-          width: 25%;
-        }
       }
       &::after {
         width: calc(100% - 48px);
