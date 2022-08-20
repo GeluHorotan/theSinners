@@ -257,7 +257,7 @@ const GameEntry = ({
                             );
                         })}
                       </div>
-                      <div className='disclosure_right_section'>X</div>
+                      <div className='disclosure_right_section'></div>
                     </div>
                   );
                 })}
@@ -582,8 +582,9 @@ const DpcDisclosureStyles = styled.div`
     align-items: center;
     padding: 1rem 2rem;
     height: 100%;
+
     @media screen and (max-width: 768px) {
-      padding: 1rem 0.2rem;
+      padding: 0.5rem 0;
     }
 
     /* @media screen and (max-width: 1000px) {
@@ -595,14 +596,17 @@ const DpcDisclosureStyles = styled.div`
     }
     .disclosure_box {
       width: 100%;
-      padding: 0.5rem 0;
-
       display: flex;
       flex-direction: row;
       align-items: center;
       position: relative;
       min-height: 20rem;
       border: 1px solid yellow;
+
+      @media screen and (max-width: 768px) {
+        padding: 0 0.2rem;
+      }
+
       .disclosure_left_section {
         display: flex;
         flex-direction: column;
@@ -742,6 +746,7 @@ const DpcDisclosureStyles = styled.div`
         flex-direction: column;
         justify-content: center;
         align-items: center;
+
         /* @media screen and (max-width: 900px) {
           padding-right: 1rem;
           align-items: flex-end;
