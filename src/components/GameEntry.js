@@ -581,7 +581,7 @@ const DpcDisclosureStyles = styled.div`
     gap: 1rem;
     align-items: center;
     padding: 1rem 2rem;
-
+    height: 100%;
     @media screen and (max-width: 768px) {
       padding: 1rem 0.2rem;
     }
@@ -602,7 +602,8 @@ const DpcDisclosureStyles = styled.div`
       flex-direction: row;
       align-items: center;
       position: relative;
-
+      min-height: 20rem;
+      border: 1px solid yellow;
       .disclosure_left_section {
         display: flex;
         flex-direction: column;
