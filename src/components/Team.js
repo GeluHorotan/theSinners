@@ -536,9 +536,8 @@ const TeamEntryStyles = styled.div`
           flex-grow: 1;
 
           @media screen and (max-width: 561px) {
-            width: 4rem;
-            height: 4rem;
-            padding: 0;
+            width: 30%;
+            flex-grow: 0;
           }
         }
       }
