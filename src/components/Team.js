@@ -365,9 +365,6 @@ const TeamEntryStyles = styled.div`
   @media screen and (max-width: 838px) {
     zoom: 0.8;
   }
-  @media screen and (max-width: 600px) {
-    zoom: 0.5;
-  }
 
   .teamlist_favorite_section {
     min-width: 70px;
@@ -378,7 +375,7 @@ const TeamEntryStyles = styled.div`
     align-items: center;
     background-color: #6e6e7766;
 
-    @media screen and (max-width: 600px) {
+    @media screen and (max-width: 602px) {
       min-width: 15px;
     }
 
@@ -435,7 +432,7 @@ const TeamEntryStyles = styled.div`
     opacity: 1;
     margin-left: 18px;
     margin-right: 12px;
-    @media screen and (max-width: 548px) {
+    @media screen and (max-width: 561px) {
       width: 1rem;
       height: 1rem;
       min-width: 1rem;
@@ -466,7 +463,7 @@ const TeamEntryStyles = styled.div`
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 4px;
-        @media screen and (max-width: 548px) {
+        @media screen and (max-width: 561px) {
           font-size: 0.7rem;
           font-weight: 500;
           letter-spacing: 1px;
@@ -479,7 +476,7 @@ const TeamEntryStyles = styled.div`
       text-transform: uppercase;
       letter-spacing: 2px;
       white-space: pre-wrap;
-      @media screen and (max-width: 548px) {
+      @media screen and (max-width: 561px) {
         font-size: 0.45rem;
         font-weight: 400;
       }
@@ -491,7 +488,7 @@ const TeamEntryStyles = styled.div`
       text-transform: uppercase;
       letter-spacing: 2px;
 
-      @media screen and (max-width: 548px) {
+      @media screen and (max-width: 561px) {
         font-size: 0.45rem;
         font-weight: 400;
       }
@@ -538,8 +535,10 @@ const TeamEntryStyles = styled.div`
           padding-top: 15%;
           flex-grow: 1;
 
-          @media screen and (max-width: 400px) {
+          @media screen and (max-width: 561px) {
             width: 4rem;
+            height: 4rem;
+            padding: 0;
           }
         }
       }
@@ -579,7 +578,7 @@ const TeamEntryStyles = styled.div`
         padding-left: 2rem;
       }
 
-      @media screen and (max-width: 548px) {
+      @media screen and (max-width: 561px) {
         font-size: 0.5rem;
         font-weight: 400;
         flex-direction: column;
@@ -615,7 +614,7 @@ const TeamEntryStyles = styled.div`
         align-items: center;
         padding-right: 1.4rem;
 
-        @media screen and (max-width: 548px) {
+        @media screen and (max-width: 561px) {
           padding: 0;
           /* flex-direction: column; */
           justify-content: center;
@@ -642,7 +641,7 @@ const TeamEntryStyles = styled.div`
             justify-content: center;
             letter-spacing: 1px;
 
-            @media screen and (max-width: 548px) {
+            @media screen and (max-width: 561px) {
               font-size: 0.5rem;
             }
           }
@@ -654,7 +653,7 @@ const TeamEntryStyles = styled.div`
         width: 3rem;
         height: 3rem;
 
-        @media screen and (max-width: 548px) {
+        @media screen and (max-width: 561px) {
           width: 1rem;
           height: 1rem;
         }
