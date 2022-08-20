@@ -45,7 +45,7 @@ const TabelStyles = styled.table`
     width: 100%;
     left: 0;
     position: absolute;
-    height: 140px;
+    height: calc(100% - 77%);
     border-top: 1px solid rgb(146, 40, 32);
     background: linear-gradient(
       rgba(146, 40, 32, 0.2),

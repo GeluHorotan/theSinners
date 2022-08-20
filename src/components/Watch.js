@@ -265,19 +265,12 @@ const TeamComponentStyles = styled.section`
 `;
 
 const TabelsGridStyles = styled.section`
-  /* display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  grid-template-rows: repeat(3, minmax(0, 1fr));
-  align-self: center;
-  justify-items: center; */
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
   width: 85%;
   margin: 0 auto;
-  grid-row-gap: 8rem;
-  grid-column-gap: 2rem;
+  gap: 3rem;
   min-height: 0;
 
   margin: 15rem 0;
@@ -337,12 +330,20 @@ const TabelsGridStyles = styled.section`
         letter-spacing: 2px;
         font-weight: 650;
         flex-grow: 1;
+
         font-size: 1rem;
+        @media screen and (max-width: 768px) {
+          font-size: 0.8rem;
+        }
       }
       .team_logo {
         width: 2.5em;
         height: 2.5rem;
         margin-right: 0.5rem;
+        @media screen and (max-width: 768px) {
+          width: 1em;
+          height: 1rem;
+        }
       }
     }
 
