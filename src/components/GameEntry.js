@@ -422,7 +422,7 @@ const DpcBodyStyles = styled.div`
       letter-spacing: 3px;
       color: #fff;
       margin-bottom: 2px;
-      text-align: center;
+      text-align: left;
 
       @media screen and (max-width: 900px) {
         font-size: 0.7rem;
@@ -436,8 +436,8 @@ const DpcBodyStyles = styled.div`
       color: #a3a3a3;
       font-weight: 700;
       text-transform: uppercase;
-      text-align: center;
-
+      text-align: left;
+      white-space: nowrap;
       margin-bottom: 8px;
       @media screen and (max-width: 900px) {
         font-size: 0.55rem;
