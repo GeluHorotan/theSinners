@@ -596,8 +596,7 @@ const DpcDisclosureStyles = styled.div`
     .disclosure_box {
       width: 100%;
       padding: 0.5rem 0;
-      flex-grow: 1;
-      flex-basis: 0px;
+
       display: flex;
       flex-direction: row;
       align-items: center;
