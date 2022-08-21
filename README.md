@@ -2,7 +2,7 @@ The Sinners - Dota 2 Web Application
 ====================================================================================================================================
 
 An web application created for a Dota 2 team where you can get information about Dota 2 (the game), as well about the Dota 2 team.
---------------------------------------------------------</p>
+--------------------------------------------------------
 <p align="center">
 Status
 
