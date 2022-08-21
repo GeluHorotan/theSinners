@@ -1,4 +1,12 @@
-Project Name & Short Bio
+My name is Horotan Gelu
+2
+====================================================================================================================================
+3
+​
+4
+Software Developer - JavaScript - ReactJS - HTML3 - CSS5
+5
+--------------------------------------------------------
 
 
 The Sinners - Dota 2 Web Application
