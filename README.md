@@ -13,7 +13,7 @@ This project is currently under development.
 2. News page where you can find latest news about the game (View mode scroll or pagination); 
 * Section for Gameplay Updates and Blog;
 4. Esports page with information about Dota 2 Pro Circuit which includes:
-
+</p>
 Watch tab:
 * Component that shows you the latest / live games from a specific league (You can access information like the item builds players went for, as well as the heroes the players played in that specific game, their kills / deaths / assists and hero level);
 * Upcoming match information (Which teams are next to play and the time their match is scheduled);
