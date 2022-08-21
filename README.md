@@ -37,13 +37,14 @@ About tab:
 
 
 Screenshots
+
 COMING SOON
 
-
+<p align="center">
 <a href="https://www.twitter.com/oxymoron365" target="_blank" rel="noreferrer"><img
 src="https://img.shields.io/twitter/follow/oxymoron365?logo=twitter&style=for-the-badge&color=a855f7&labelColor=171717"
 /></a><a href="https://www.github.com/HorotanGelu" target="_blank" rel="noreferrer"><img
-src="https://img.shields.io/github/followers/HorotanGelu?logo=github&style=for-the-badge&color=a855f7&labelColor=171717" /></a>
+src="https://img.shields.io/github/followers/HorotanGelu?logo=github&style=for-the-badge&color=a855f7&labelColor=171717" /></a></p>
 
 
 <p align="center">
