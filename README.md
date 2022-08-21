@@ -3,7 +3,7 @@ The Sinners - Dota 2 Web Application
 
 An web application created for a Dota 2 team where you can get information about Dota 2 (the game), as well about the Dota 2 team.
 --------------------------------------------------------
-<p align="center">
+
 Status
 
 This project is currently under development.
@@ -13,7 +13,7 @@ This project is currently under development.
 2. News page where you can find latest news about the game (View mode scroll or pagination); 
 * Section for Gameplay Updates and Blog;
 4. Esports page with information about Dota 2 Pro Circuit which includes:
-</p>
+
 Watch tab:
 * Component that shows you the latest / live games from a specific league (You can access information like the item builds players went for, as well as the heroes the players played in that specific game, their kills / deaths / assists and hero level);
 * Upcoming match information (Which teams are next to play and the time their match is scheduled);
@@ -60,4 +60,4 @@ src="https://img.shields.io/github/followers/HorotanGelu?logo=github&style=for-t
 <a href="https://www.adobe.com/uk/products/photoshop.html" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/photoshop-colored.svg" width="36" height="36" alt="Photoshop" /></a>
 <a href="adobe.com/uk/products/illustrator.html" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/illustrator-colored.svg" width="36" height="36" alt="Illustrator" /></a>
 <a href="https://www.adobe.com/uk/products/xd.html" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/danielcranney/readme-generator/main/public/icons/skills/xd-colored.svg" width="36" height="36" alt="XD" /></a>
-</p></p>
+</p>
