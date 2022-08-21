@@ -9,17 +9,17 @@ Status
 This project is currently under development.
 
   Users have access to the following:
-    1. List with all heroes currently available in the game (Filter functionality implemented and specific details for every hero);
-    2. News page where you can find latest news about the game (View mode scroll or pagination); 
-    3. Esports page with information about Dota 2 Pro Circuit which includes:
-         Watch tab:
+1. List with all heroes currently available in the game (Filter functionality implemented and specific details for every hero);
+2. News page where you can find latest news about the game (View mode scroll or pagination); 
+3. Esports page with information about Dota 2 Pro Circuit which includes:
+        Watch tab:
         * Component that shows you the latest / live games from a specific league (You can access information like the item builds players went for, as well as the heroes the players played in that specific game, their kills / deaths / assists and hero level);
         * Upcoming match information (Which teams are next to play and the time their match is scheduled);
         * Grid with tabels where you can see the group stage results filtered by DIVISION;
         * List with favourite teams with specific information for every team (Team region, division, name, logo, player roster, last / next match and the outcome of it).
-          Schedule tab:
+         Schedule tab:
         * List with all matches that are scheduled to be played in that league, with filtering options based on region, division and a search bar where you can search for your favourite team.
-          About tab:
+         About tab:
         * Tab with information about Dota 2 Pro Circuit.
         
 
