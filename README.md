@@ -1,17 +1,9 @@
-My name is Horotan Gelu
-2
-====================================================================================================================================
-3
-​
-4
-Software Developer - JavaScript - ReactJS - HTML3 - CSS5
-5
---------------------------------------------------------
-
-
 The Sinners - Dota 2 Web Application
 
+====================================================================================================================================
+
 An web application created for a Dota 2 team where you can get information about Dota 2 (the game), as well about the Dota 2 team.
+--------------------------------------------------------
 
 Status
 
