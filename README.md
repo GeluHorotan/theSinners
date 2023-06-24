@@ -2,6 +2,10 @@
 
 This is a platform where users can read blog posts, news, patch notes and updates, as well as information about the heroes and match results between dota teams. 
 
+## Website link
+
+https://thesinners.netlify.app/
+
 ## Tech used
 
 - React;
