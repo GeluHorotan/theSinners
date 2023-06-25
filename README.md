@@ -44,4 +44,5 @@ Live demo of the app available here: https://thesinners.netlify.app/
 ## Author
 
 - GitHub [@GeluHorotan](https://github.com/GeluHorotan) 
-- LinkedIn [@gelu-horotan](https://www.linkedin.com/in/gelu-horotan/) 
+- LinkedIn [@gelu-horotan](https://www.linkedin.com/in/gelu-horotan/)
+- Twitter [@oxymoron365](https://www.twitter.com/oxymoron365)
