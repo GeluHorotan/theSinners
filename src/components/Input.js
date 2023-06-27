@@ -1,11 +1,11 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 import {
   accent,
   desaturatedRed,
   saturatedRed,
   secondary,
-} from '../Utility/Colors';
+} from "../Utility/Colors";
 
 const Input = ({
   onChange,
@@ -23,19 +23,19 @@ const Input = ({
       colors={colors}
       colorTrigger={colorTrigger}
       placeholderStyles={placeholderStyles}
-      id='form-container'
+      id="form-container"
       className={className}
     >
-      <div className='form'>
+      <div className="form">
         <input
-          type='text'
-          id='searchHero'
-          className='form__input'
-          autoComplete='off'
-          placeholder=' '
+          type="text"
+          id="searchHero"
+          className="form__input"
+          autoComplete="off"
+          placeholder=" "
           onChange={onChange}
         />
-        <label htmlFor='searchHero' className='form__label'>
+        <label htmlFor="searchHero" className="form__label">
           {label}
         </label>
       </div>
@@ -70,15 +70,15 @@ const StyledWrapper = styled.div`
         border: 2px solid
           ${(props) =>
             props.colorTrigger.length !== 0
-              ? 'green'
+              ? "green"
               : props.colorTrigger.length === 0
-              ? 'red'
+              ? "red"
               : `${desaturatedRed}`};
 
         transition: ${(props) =>
           props.colorTrigger.length !== 0
-            ? '1ms ease-in-out'
-            : '0.25ms ease-in-out'};
+            ? "1ms ease-in-out"
+            : "0.25ms ease-in-out"};
       }
 
       border-radius: 0.5rem;

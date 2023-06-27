@@ -1,22 +1,22 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useLocation } from 'react-router';
-import styled from 'styled-components';
-import { secondary, accent } from '../Utility/Colors';
-import { motion } from 'framer-motion';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import rehypeRaw from 'rehype-raw';
+import React, { useState, useEffect, useRef } from "react";
+import { useLocation } from "react-router";
+import styled from "styled-components";
+import { secondary, accent } from "../Utility/Colors";
+import { motion } from "framer-motion";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
 
 // Functions
-import { processHeroName } from '../Functions/for Hero Component/processHeroName';
-import { leftSlide, rightSlide } from './animation';
-import DisplayAbilityInfo from './DisplayAbilityInfo';
-import HeroPagination from './HeroPagination';
-import Tooltip from './Tooltip';
-import TalentTree from './TalentTree';
-import { escapeText } from '../Functions/for Hero Component/escapeText';
-import { getAttackType } from '../Functions/for Hero Component/getAttackType';
-import Navigator from './Navigator';
+import { processHeroName } from "../Functions/for Hero Component/processHeroName";
+import { leftSlide, rightSlide } from "./animation";
+import DisplayAbilityInfo from "./DisplayAbilityInfo";
+import HeroPagination from "./HeroPagination";
+import Tooltip from "./Tooltip";
+import TalentTree from "./TalentTree";
+import { escapeText } from "../Functions/for Hero Component/escapeText";
+import { getAttackType } from "../Functions/for Hero Component/getAttackType";
+import Navigator from "./Navigator";
 
 const Hero = () => {
   const location = useLocation();
@@ -76,23 +76,23 @@ const Hero = () => {
   const complexityDiamonds = [1, 2, 3];
   const strength = (
     <img
-      className='attrImg'
-      src='https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_strength.png'
-      alt=''
+      className="attrImg"
+      src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_strength.png"
+      alt=""
     />
   );
   const agility = (
     <img
-      className='attrImg'
-      src='https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_agility.png'
-      alt=''
+      className="attrImg"
+      src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_agility.png"
+      alt=""
     />
   );
   const intelligence = (
     <img
-      className='attrImg'
-      src='https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_intelligence.png'
-      alt=''
+      className="attrImg"
+      src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/hero_intelligence.png"
+      alt=""
     />
   );
 
@@ -173,26 +173,26 @@ const Hero = () => {
 
   const processHeroRoles = () => {
     const rolesArray = [
-      'Carry',
-      'Support',
-      'Nuker',
-      'Disabler',
-      'Jungler',
-      'Durable',
-      'Escape',
-      'Pusher',
-      'Initiator',
+      "Carry",
+      "Support",
+      "Nuker",
+      "Disabler",
+      "Jungler",
+      "Durable",
+      "Escape",
+      "Pusher",
+      "Initiator",
     ];
     return rolesArray.map((role, index) => {
       return (
-        <div className='roles_single_role' key={index}>
+        <div className="roles_single_role" key={index}>
           <p>{role}</p>
-          <div className='roles_bar_container'>
-            <div className='roles_bar_background'></div>
+          <div className="roles_bar_container">
+            <div className="roles_bar_background"></div>
             <motion.div
-              initial={{ width: '0%' }}
+              initial={{ width: "0%" }}
               animate={{ width: `${processWidthGrow(roleLevels[index])}%` }}
-              className='roles_bar_fill'
+              className="roles_bar_fill"
             ></motion.div>
           </div>
         </div>
@@ -205,43 +205,43 @@ const Hero = () => {
     heroStats = {
       attack: [
         {
-          icon: 'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//heroes/stats/icon_damage.png',
+          icon: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//heroes/stats/icon_damage.png",
           value: `${heroData.damage_max} - ${heroData.damage_min}`,
         },
         {
-          icon: 'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//heroes/stats/icon_attack_time.png',
+          icon: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//heroes/stats/icon_attack_time.png",
           value: `${heroData.attack_rate.toFixed(2)}`,
         },
         {
-          icon: 'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//heroes/stats/icon_attack_range.png',
+          icon: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//heroes/stats/icon_attack_range.png",
           value: `${processNumberUp(heroData.attack_range)}`,
         },
         {
-          icon: 'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//heroes/stats/icon_projectile_speed.png',
+          icon: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//heroes/stats/icon_projectile_speed.png",
           value: `${heroData.projectile_speed}`,
         },
       ],
       defense: [
         {
-          icon: 'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//heroes/stats/icon_armor.png',
+          icon: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//heroes/stats/icon_armor.png",
           value: `${heroData.armor.toFixed(1)}`,
         },
         {
-          icon: 'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//heroes/stats/icon_magic_resist.png',
+          icon: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//heroes/stats/icon_magic_resist.png",
           value: `${heroData.magic_resistance}`,
         },
       ],
       mobility: [
         {
-          icon: 'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//heroes/stats/icon_movement_speed.png',
+          icon: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//heroes/stats/icon_movement_speed.png",
           value: `${heroData.movement_speed}`,
         },
         {
-          icon: 'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//heroes/stats/icon_turn_rate.png',
+          icon: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//heroes/stats/icon_turn_rate.png",
           value: `${heroData.turn_rate.toFixed(1)}`,
         },
         {
-          icon: 'https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//heroes/stats/icon_vision.png',
+          icon: "https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//heroes/stats/icon_vision.png",
           value: `${heroData.sight_range_day} - ${heroData.sight_range_night}`,
         },
       ],
@@ -253,12 +253,12 @@ const Hero = () => {
       return;
     }
     return (
-      <div className='stats_single_row'>
-        <h6 className='stats_stat_title'>{title}</h6>
+      <div className="stats_single_row">
+        <h6 className="stats_stat_title">{title}</h6>
         {object.map((stat, index) => {
           return (
-            <div className='stats_values_section' key={index}>
-              <img src={`${stat.icon}`} alt='' />
+            <div className="stats_values_section" key={index}>
+              <img src={`${stat.icon}`} alt="" />
               <p>{stat.value}</p>
             </div>
           );
@@ -271,12 +271,12 @@ const Hero = () => {
     if (upgrade.ability_has_shard || upgrade.ability_is_granted_by_shard) {
       return (
         <div
-          className='ability_upgrade'
+          className="ability_upgrade"
           style={{
             background: `url(https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/stats/aghs_shard.png)`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center center',
-            backgroundRepeat: 'no-repeat',
+            backgroundSize: "cover",
+            backgroundPosition: "center center",
+            backgroundRepeat: "no-repeat",
           }}
         ></div>
       );
@@ -285,12 +285,12 @@ const Hero = () => {
     if (upgrade.ability_has_scepter || upgrade.ability_is_granted_by_scepter) {
       return (
         <div
-          className='ability_upgrade'
+          className="ability_upgrade"
           style={{
             background: `url(https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/stats/aghs_scepter.png)`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center center',
-            backgroundRepeat: 'no-repeat',
+            backgroundSize: "cover",
+            backgroundPosition: "center center",
+            backgroundRepeat: "no-repeat",
           }}
         ></div>
       );
@@ -305,21 +305,21 @@ const Hero = () => {
 
   const processAbilityUpgrade = (element) => {
     switch (true) {
-      case element.name == 'morphling_adaptive_strike_str':
+      case element.name == "morphling_adaptive_strike_str":
         return null;
       case element.shard_loc.length > 0:
         return (
           <div
             className={`ability_details_ability_square ${
               activeUpgrade && activeUpgrade.name === element.name
-                ? 'ability_details_active_ability'
-                : 'ability_details_inactive_ability'
+                ? "ability_details_active_ability"
+                : "ability_details_inactive_ability"
             }`}
             style={{
               background: `url(https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/${element.name}.png)`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center center',
-              backgroundRepeat: 'no-repeat',
+              backgroundSize: "cover",
+              backgroundPosition: "center center",
+              backgroundRepeat: "no-repeat",
             }}
             onClick={() => {
               setIsUpgrade(true);
@@ -336,14 +336,14 @@ const Hero = () => {
           <div
             className={`ability_details_ability_square ${
               activeUpgrade && activeUpgrade.name === element.name
-                ? 'ability_details_active_ability'
-                : 'ability_details_inactive_ability'
+                ? "ability_details_active_ability"
+                : "ability_details_inactive_ability"
             }`}
             style={{
               background: `url(https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/${element.name}.png)`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center center',
-              backgroundRepeat: 'no-repeat',
+              backgroundSize: "cover",
+              backgroundPosition: "center center",
+              backgroundRepeat: "no-repeat",
             }}
             onClick={() => {
               setIsUpgrade(true);
@@ -359,14 +359,14 @@ const Hero = () => {
           <div
             className={`ability_details_ability_square ${
               activeUpgrade && activeUpgrade.name === element.name
-                ? 'ability_details_active_ability'
-                : 'ability_details_inactive_ability'
+                ? "ability_details_active_ability"
+                : "ability_details_inactive_ability"
             }`}
             style={{
               background: `url(https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/${element.name}.png)`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center center',
-              backgroundRepeat: 'no-repeat',
+              backgroundSize: "cover",
+              backgroundPosition: "center center",
+              backgroundRepeat: "no-repeat",
             }}
             onClick={() => {
               setIsUpgrade(true);
@@ -382,14 +382,14 @@ const Hero = () => {
           <div
             className={`ability_details_ability_square ${
               activeUpgrade && activeUpgrade.name === element.name
-                ? 'ability_details_active_ability'
-                : 'ability_details_inactive_ability'
+                ? "ability_details_active_ability"
+                : "ability_details_inactive_ability"
             }`}
             style={{
               background: `url(https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/${element.name}.png)`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center center',
-              backgroundRepeat: 'no-repeat',
+              backgroundSize: "cover",
+              backgroundPosition: "center center",
+              backgroundRepeat: "no-repeat",
             }}
             onClick={() => {
               setIsUpgrade(true);
@@ -414,70 +414,70 @@ const Hero = () => {
             backgroundImage: `${getAttrColors(heroData.primary_attr)}%`,
           }}
         >
-          <div className='heroVerticalBar'>
+          <div className="heroVerticalBar">
             {getAttrIcon(heroData.primary_attr)}
-            <h6 className='vertical_text'>
-              {' '}
+            <h6 className="vertical_text">
+              {" "}
               {heroData.name_loc.toUpperCase()}
             </h6>
-            <h6 className='vertical_text'>{heroData.id}</h6>
-            <span className='verticalLine'></span>
+            <h6 className="vertical_text">{heroData.id}</h6>
+            <span className="verticalLine"></span>
           </div>
           <motion.div
             variants={rightSlide}
-            initial='hidden'
-            animate='show'
-            className='heroDetails'
+            initial="hidden"
+            animate="show"
+            className="heroDetails"
           >
             <motion.div
-              className='heroInfo'
+              className="heroInfo"
               variants={leftSlide}
-              initial='hidden'
-              animate='show'
-              transition={{ duration: 0.5, ease: 'easeInOut' }}
+              initial="hidden"
+              animate="show"
+              transition={{ duration: 0.5, ease: "easeInOut" }}
             >
-              <div className='attribute'>
+              <div className="attribute">
                 {getAttrIconText(heroData.primary_attr)}
               </div>
-              <h1 className='hero_name'>{heroData.name_loc}</h1>
+              <h1 className="hero_name">{heroData.name_loc}</h1>
 
-              <h5 className='short_hero_bio'>{heroData.npe_desc_loc}</h5>
+              <h5 className="short_hero_bio">{heroData.npe_desc_loc}</h5>
 
-              <div className='heroLore paragraph'>
+              <div className="heroLore paragraph">
                 <ReactMarkdown
                   remarkPlugins={[remarkGfm]}
                   rehypePlugins={[rehypeRaw]}
-                  components={{ b: 'span', p: 'h6' }}
+                  components={{ b: "span", p: "h6" }}
                 >
                   {lore ? heroData.bio_loc : heroData.hype_loc}
                 </ReactMarkdown>
 
                 <button
-                  className='history_button'
+                  className="history_button"
                   onClick={() => {
                     setLore(!lore);
                   }}
                 >
-                  {lore ? 'Close History' : 'Read Full History'}
+                  {lore ? "Close History" : "Read Full History"}
                 </button>
               </div>
-              <div className='all_category'>
-                <div className='mini_category'>
-                  <p className='hero_details_mini_title'>ATTACK TYPE</p>
-                  <div className='hero_mini_info'>
+              <div className="all_category">
+                <div className="mini_category">
+                  <p className="hero_details_mini_title">ATTACK TYPE</p>
+                  <div className="hero_mini_info">
                     {getAttackType(heroData.attack_capability, true)}
                   </div>
                 </div>
-                <div className='mini_category'>
-                  <p className='hero_details_mini_title'> COMPLEXITY</p>
-                  <div className='hero_mini_info hero_mini_complexity'>
+                <div className="mini_category">
+                  <p className="hero_details_mini_title"> COMPLEXITY</p>
+                  <div className="hero_mini_info hero_mini_complexity">
                     {complexityDiamonds.map((diamond, index) => {
                       return (
                         <div
                           className={`diamond ${
-                            heroData.complexity === index + 1
-                              ? 'filled_diamond'
-                              : ''
+                            heroData.complexity >= index + 1
+                              ? "filled_diamond"
+                              : ""
                           }`}
                           key={index}
                         ></div>
@@ -488,24 +488,24 @@ const Hero = () => {
               </div>
             </motion.div>
             <video
-              transition={{ duration: 0.5, ease: 'easeInOut' }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
               autoPlay
               loop
               muted
-              className='hero_portrait_video'
+              className="hero_portrait_video"
             >
               <source
                 src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/${processHeroName(
                   heroData.name
                 )}.webm`}
-                type='video/mp4'
+                type="video/mp4"
               />
             </video>
             <Navigator heroProps={heroProps} key={Navigator}></Navigator>
-            <div className='upper_section_ability_container'>
+            <div className="upper_section_ability_container">
               <h5>ABILITIES</h5>
-              <div className='upper_section_all_squares'>
-                <div className='uppper_section_ability_square upper_single_container'>
+              <div className="upper_section_all_squares">
+                <div className="uppper_section_ability_square upper_single_container">
                   <Tooltip>
                     <TalentTree
                       talents={talents}
@@ -513,19 +513,19 @@ const Hero = () => {
                     ></TalentTree>
                   </Tooltip>
                   <img
-                    className='ability_talent_tree upper_section_ability_img'
-                    src='https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/talents.svg'
-                    alt=''
+                    className="ability_talent_tree upper_section_ability_img"
+                    src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/icons/talents.svg"
+                    alt=""
                   />
                 </div>
                 {abilities &&
                   abilities.map((ability, index) => {
                     return (
-                      <div className='upper_single_container' key={index}>
-                        <Tooltip trigger='ability_single_container'>
-                          <div className='tooltip_video'>
+                      <div className="upper_single_container" key={index}>
+                        <Tooltip trigger="ability_single_container">
+                          <div className="tooltip_video">
                             <video
-                              preload='auto'
+                              preload="auto"
                               playsInline
                               autoPlay
                               loop
@@ -535,24 +535,24 @@ const Hero = () => {
                               )}/${ability.name}.webm`}
                             >
                               <source
-                                type='video/webm'
+                                type="video/webm"
                                 src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/abilities/${processHeroName(
                                   heroData.name
                                 )}/${ability.name}.webm`}
                               />
                               <source
-                                type='video/mp4'
+                                type="video/mp4"
                                 source={`https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/abilities/${processHeroName(
                                   heroData.name
                                 )}/${ability.name}.mp4`}
                               ></source>
                             </video>
                           </div>
-                          <div className='tooltip_description'>
-                            <div className='tooltip_title'>
+                          <div className="tooltip_description">
+                            <div className="tooltip_title">
                               {ability.name_loc}
                             </div>
-                            <div className='tooltip_text'>
+                            <div className="tooltip_text">
                               <ReactMarkdown
                                 remarkPlugins={[remarkGfm]}
                                 rehypePlugins={[rehypeRaw]}
@@ -567,14 +567,14 @@ const Hero = () => {
                         </Tooltip>
                         <img
                           src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/${ability.name}.png`}
-                          className='upper_section_ability_img'
+                          className="upper_section_ability_img"
                           onClick={() => {
                             setIsUpgrade(false);
                             setActiveAbility(ability);
                             setActiveUpgrade(null);
                             topSkill.current.scrollIntoView({
-                              behavior: 'smooth',
-                              block: 'start',
+                              behavior: "smooth",
+                              block: "start",
                             });
                           }}
                           alt={ability.name}
@@ -584,100 +584,100 @@ const Hero = () => {
                   })}
               </div>
             </div>
-            <div className='pillar_bar'></div>
-            <div className='fade_container'>
-              <div className='fade_fade'></div>
+            <div className="pillar_bar"></div>
+            <div className="fade_container">
+              <div className="fade_fade"></div>
             </div>
           </motion.div>
-          <div className='fade-bottom'>
-            <div className='fade-b'></div>
+          <div className="fade-bottom">
+            <div className="fade-b"></div>
           </div>
         </TopStyles>
         <DetailsBarStyles>
           <motion.div
             variants={leftSlide}
-            initial='hidden'
-            animate='show'
-            className='detailsContainer'
+            initial="hidden"
+            animate="show"
+            className="detailsContainer"
           >
-            <div className='attributes_main_container'>
-              <div className='attributesHeroPortrait'>
+            <div className="attributes_main_container">
+              <div className="attributesHeroPortrait">
                 <img
                   src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/${processHeroName(
                     heroData.name
                   )}.png`}
-                  alt=''
+                  alt=""
                 />
-                <div className='attributes_bar health_color'>
+                <div className="attributes_bar health_color">
                   <p>{heroData.max_health}</p>
 
-                  <p className='attribute_minor_number'>
+                  <p className="attribute_minor_number">
                     + {processNumberUp(heroData.health_regen)}
                   </p>
                 </div>
-                <div className='attributes_bar mana_color'>
+                <div className="attributes_bar mana_color">
                   <p>{heroData.max_mana}</p>
-                  <p className='attribute_minor_number'>
+                  <p className="attribute_minor_number">
                     + {processNumberUp(heroData.mana_regen)}
                   </p>
                 </div>
               </div>
-              <div className='attributes_all_attributes_container'>
-                <div className='attributes_single_attribute'>
+              <div className="attributes_all_attributes_container">
+                <div className="attributes_single_attribute">
                   {strength} <h5>{heroData.str_base}</h5>
-                  <p className='attributes_single_attribute_gainer'>
+                  <p className="attributes_single_attribute_gainer">
                     + {heroData.str_gain.toFixed(1)}
                   </p>
                 </div>
-                <div className='attributes_single_attribute'>
+                <div className="attributes_single_attribute">
                   {agility} <h5>{heroData.agi_base}</h5>
-                  <p className='attributes_single_attribute_gainer'>
+                  <p className="attributes_single_attribute_gainer">
                     + {heroData.agi_gain.toFixed(1)}
                   </p>
                 </div>
-                <div className='attributes_single_attribute'>
+                <div className="attributes_single_attribute">
                   {intelligence} <h5>{heroData.int_base}</h5>
-                  <p className='attributes_single_attribute_gainer'>
+                  <p className="attributes_single_attribute_gainer">
                     + {heroData.int_gain.toFixed(1)}
                   </p>
                 </div>
               </div>
             </div>
 
-            <h5 className='header'>ATTRIBUTES</h5>
+            <h5 className="header">ATTRIBUTES</h5>
           </motion.div>
-          <div className='detailsVerticalSeparator'></div>
-          <div className='detailsContainer'>
-            <div className='roles_main_container'>{processHeroRoles()}</div>
-            <h5 className='header'>ROLES</h5>
+          <div className="detailsVerticalSeparator"></div>
+          <div className="detailsContainer">
+            <div className="roles_main_container">{processHeroRoles()}</div>
+            <h5 className="header">ROLES</h5>
           </div>
-          <div className='detailsVerticalSeparator'></div>
+          <div className="detailsVerticalSeparator"></div>
           <motion.div
             variants={rightSlide}
-            initial='hidden'
-            animate='show'
-            className='detailsContainer'
+            initial="hidden"
+            animate="show"
+            className="detailsContainer"
           >
-            <div className='stats_main_container'>
-              {' '}
-              <div className='stats_all_stats_container'>
-                {processStats(heroStats.attack, 'ATTACK')}
-                {processStats(heroStats.defense, 'DEFENSE')}
-                {processStats(heroStats.mobility, 'MOBILITY')}
+            <div className="stats_main_container">
+              {" "}
+              <div className="stats_all_stats_container">
+                {processStats(heroStats.attack, "ATTACK")}
+                {processStats(heroStats.defense, "DEFENSE")}
+                {processStats(heroStats.mobility, "MOBILITY")}
               </div>
             </div>
 
-            <h5 className='header'>STATS</h5>
+            <h5 className="header">STATS</h5>
           </motion.div>
         </DetailsBarStyles>
         <MiddleSectionStyles>
           <h4>ABILITY DETAILS:</h4>
-          <div className='middle_ability_details_container'>
+          <div className="middle_ability_details_container">
             <motion.div
               variants={leftSlide}
-              initial='hidden'
-              animate='show'
-              className='ability_details_left_container'
+              initial="hidden"
+              animate="show"
+              className="ability_details_left_container"
             >
               <motion.video
                 initial={{ y: 0 }}
@@ -689,10 +689,10 @@ const Hero = () => {
                 transition={{
                   duration: 0.5,
 
-                  ease: 'easeInOut',
+                  ease: "easeInOut",
                 }}
-                className='videoTag'
-                preload='auto'
+                className="videoTag"
+                preload="auto"
                 playsInline
                 autoPlay
                 loop
@@ -708,11 +708,11 @@ const Hero = () => {
                     : activeUpgrade.ability_has_scepter ||
                       activeUpgrade.ability_is_granted_by_scepter
                     ? `${processHeroName(heroData.name)}_aghanims_scepter`
-                    : ''
+                    : ""
                 }.webm`}
               >
                 <source
-                  type='video/webm'
+                  type="video/webm"
                   src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/abilities/${processHeroName(
                     heroData.name
                   )}/${
@@ -724,11 +724,11 @@ const Hero = () => {
                       : activeUpgrade.ability_has_scepter ||
                         activeUpgrade.ability_is_granted_by_scepter
                       ? `${processHeroName(heroData.name)}_aghanims_scepter`
-                      : ''
+                      : ""
                   }.webm`}
                 />
                 <source
-                  type='video/mp4'
+                  type="video/mp4"
                   src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/videos/dota_react/abilities/${processHeroName(
                     heroData.name
                   )}/${
@@ -740,13 +740,13 @@ const Hero = () => {
                       : activeUpgrade.ability_has_scepter ||
                         activeUpgrade.ability_is_granted_by_scepter
                       ? `${processHeroName(heroData.name)}_aghanims_scepter`
-                      : ''
+                      : ""
                   }.mp4`}
                 ></source>
               </motion.video>
 
               <div
-                className='ability_details_ability_square_container'
+                className="ability_details_ability_square_container"
                 ref={topSkill}
               >
                 {abilities &&
@@ -756,14 +756,14 @@ const Hero = () => {
                         <div
                           className={`ability_details_ability_square ${
                             activeAbility && activeAbility.name === ability.name
-                              ? 'ability_details_active_ability'
-                              : 'ability_details_inactive_ability'
+                              ? "ability_details_active_ability"
+                              : "ability_details_inactive_ability"
                           }`}
                           style={{
                             background: `url(https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/abilities/${ability.name}.png)`,
-                            backgroundSize: 'cover',
-                            backgroundPosition: 'center center',
-                            backgroundRepeat: 'no-repeat',
+                            backgroundSize: "cover",
+                            backgroundPosition: "center center",
+                            backgroundRepeat: "no-repeat",
                           }}
                           onClick={() => {
                             setIsUpgrade(false);
@@ -791,9 +791,9 @@ const Hero = () => {
 
             <motion.div
               variants={rightSlide}
-              initial='hidden'
-              animate='show'
-              className='ability_details_ability_right'
+              initial="hidden"
+              animate="show"
+              className="ability_details_ability_right"
             >
               <DisplayAbilityInfo
                 spell={activeAbility ? activeAbility : activeUpgrade}
@@ -841,6 +841,7 @@ const HeroContainer = styled.div`
 
 const TopStyles = styled.div`
   display: flex;
+
   background-color: #000;
   background-image: url(https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//backgrounds/greyfade.jpg);
   background-size: 100% auto;
@@ -884,6 +885,7 @@ const TopStyles = styled.div`
   }
   .upper_section_ability_container {
     display: flex;
+
     flex-direction: column;
     position: absolute;
     right: 10rem;
@@ -1062,6 +1064,7 @@ const TopStyles = styled.div`
     }
     .hero_name {
       text-transform: uppercase;
+      margin-top: 5rem;
     }
     .short_hero_bio {
       color: #a5e0f3;
@@ -1245,7 +1248,7 @@ const DetailsBarStyles = styled.div`
     }
 
     &::after {
-      content: '';
+      content: "";
       width: 100%;
       height: 80%;
       background-color: #4f4f4f;

@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-import Pagination from '../components/Pagination';
-import InfiniteScroll from '../components/InfiniteScroll';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
+import Pagination from "../components/Pagination";
+import InfiniteScroll from "../components/InfiniteScroll";
 
-import ViewMode from '../components/ViewMode';
-import LargeEntry from '../components/LargeEntry';
-import { useQuery } from 'react-query';
+import ViewMode from "../components/ViewMode";
+import LargeEntry from "../components/LargeEntry";
+import { useQuery } from "react-query";
 
 const fetchUsers = async (countParam) => {
   const res = await fetch(`/.netlify/functions/news/?count=${countParam}`);
@@ -14,52 +14,52 @@ const fetchUsers = async (countParam) => {
 };
 
 const News = () => {
-  const [view, setView] = useState('pagination');
+  const [view, setView] = useState("pagination");
   const [page, setPage] = useState(15);
 
   const { isLoading, isError, error, data, isFetching } = useQuery(
-    ['events', page],
+    ["events", page],
     () => fetchUsers(page),
     { keepPreviousData: true }
   );
 
   const setViewPageHandler = () => {
-    setView('pagination');
+    setView("pagination");
   };
   const setViewScrollHandler = () => {
-    setView('infiniteScroll');
+    setView("infiniteScroll");
   };
-
-  return (
-    <Wrapper>
-      <LargeEntry
-        content={
-          data &&
-          data.events.filter(
-            (data) => !data.announcement_body.tags[0].includes('patchnotes')
-          )[0]
-        }
-      ></LargeEntry>
-      <TabGroupStyles>
-        <div className='tabs_group'>
-          <Link to='/news' className='tab_active'>
-            NEWS
-          </Link>
-          <Link to='/news/updates'>UPDATES</Link>
-        </div>
-      </TabGroupStyles>
-      <BottomSectionStyles>
-        <div className='sub_entries'>
-          <ViewMode
-            pageFunction={setViewPageHandler}
-            scrollFunction={setViewScrollHandler}
-            viewMode={view}
-          />
-          {view === 'pagination' ? <Pagination /> : <InfiniteScroll />}
-        </div>
-      </BottomSectionStyles>
-    </Wrapper>
-  );
+  if (data)
+    return (
+      <Wrapper>
+        <LargeEntry
+          content={
+            data &&
+            data.events.filter(
+              (data) => !data.announcement_body.tags[0].includes("patchnotes")
+            )[0]
+          }
+        ></LargeEntry>
+        <TabGroupStyles>
+          <div className="tabs_group">
+            <Link to="/news" className="tab_active">
+              NEWS
+            </Link>
+            <Link to="/news/updates">UPDATES</Link>
+          </div>
+        </TabGroupStyles>
+        <BottomSectionStyles>
+          <div className="sub_entries">
+            <ViewMode
+              pageFunction={setViewPageHandler}
+              scrollFunction={setViewScrollHandler}
+              viewMode={view}
+            />
+            {view === "pagination" ? <Pagination /> : <InfiniteScroll />}
+          </div>
+        </BottomSectionStyles>
+      </Wrapper>
+    );
 };
 
 const Wrapper = styled.section`
@@ -114,7 +114,7 @@ const TabGroupStyles = styled.section`
 `;
 
 const BottomSectionStyles = styled.section`
-  background: url('https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//blog/bg_repeater.jpg');
+  background: url("https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//blog/bg_repeater.jpg");
   width: 100%;
 
   .sub_entries {

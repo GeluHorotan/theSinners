@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
-import styled from 'styled-components';
-import { motion } from 'framer-motion';
-import { AnimatePresence } from 'framer-motion';
+import styled from "styled-components";
+import { motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 
 // Colors
 import {
@@ -13,11 +13,11 @@ import {
   primary,
   saturatedRed,
   secondary,
-} from '../Utility/Colors';
-import Input from '../components/Input';
+} from "../Utility/Colors";
+import Input from "../components/Input";
 
 // Functions
-import { getAttrImg } from '../Functions/getAttrImg';
+import { getAttrImg } from "../Functions/getAttrImg";
 
 const Heroes = () => {
   // Steam Valve API / Dota2.com API
@@ -64,9 +64,10 @@ const Heroes = () => {
 
   const filterButtons = [
     [
-      { name: 'str', aLevel: 0 },
-      { name: 'agi', aLevel: 1 },
-      { name: 'int', aLevel: 2 },
+      { name: "str", aLevel: 0 },
+      { name: "agi", aLevel: 1 },
+      { name: "int", aLevel: 2 },
+      { name: "uni", aLevel: 3 },
     ],
     [{ cLevel: 1 }, { cLevel: 2 }, { cLevel: 3 }],
   ];
@@ -140,8 +141,8 @@ const Heroes = () => {
     setInputSearch(e.target.value);
 
     if (e.target.value.length !== 0) {
-      attrBtns.current.style.pointerEvents = 'none';
-      complexityBtns.current.style.pointerEvents = 'none';
+      attrBtns.current.style.pointerEvents = "none";
+      complexityBtns.current.style.pointerEvents = "none";
 
       const sHero = heroesList.filter((hero) =>
         hero.name_loc.toLowerCase().includes(e.target.value)
@@ -150,8 +151,8 @@ const Heroes = () => {
     }
     if (e.target.value.length === 0) {
       setFilteredHeroes(heroesList);
-      attrBtns.current.style.pointerEvents = 'all';
-      complexityBtns.current.style.pointerEvents = 'all';
+      attrBtns.current.style.pointerEvents = "all";
+      complexityBtns.current.style.pointerEvents = "all";
 
       if (activeAttribute !== 4) {
         const filtered = heroesList.filter(
@@ -182,10 +183,10 @@ const Heroes = () => {
         <AnimatePresence>
           <motion.h2
             initial={{ x: 0, opacity: 0 }}
-            animate={{ x: '50%', opacity: 1 }}
+            animate={{ x: "50%", opacity: 1 }}
             exit={{ x: 0, opacity: 0 }}
-            transition={{ duration: 0.25, type: 'tween' }}
-            id='heroes_no_heroes_warning'
+            transition={{ duration: 0.25, type: "tween" }}
+            id="heroes_no_heroes_warning"
           >
             {message}
           </motion.h2>
@@ -197,22 +198,22 @@ const Heroes = () => {
   return (
     <StyledWrapper>
       <StyledImageBackground>
-        <div className='fade-top'>
-          <div className='fade-t'></div>
+        <div className="fade-top">
+          <div className="fade-t"></div>
         </div>
-        <div className='fade-bottom'>
-          <div className='fade-b'></div>
+        <div className="fade-bottom">
+          <div className="fade-b"></div>
         </div>
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{
             duration: 0.25,
-            ease: 'circIn',
+            ease: "circIn",
           }}
-          className='image_background_header'
+          className="image_background_header"
         >
-          {' '}
+          {" "}
           <h1>Choose your hero</h1>
           <h5>
             From magical tacticians to fierce brutes and cunning rogues, Dota
@@ -222,65 +223,71 @@ const Heroes = () => {
         </motion.div>
       </StyledImageBackground>
       <StyledFilter>
-        <h5 style={{ color: secondary }}>FILTER HEROES</h5>
-        <div className='heroes_filter_details_container'>
-          <h6>ATTRIBUTES</h6>
-          <div className='heroes_filter_attributes' ref={attrBtns}>
-            {filterButtons[0].map((aBtn, index) => (
-              <button
-                className={`${
-                  activeAttribute === aBtn.aLevel && !inputSearch
-                    ? 'heroes_filter_active'
-                    : ''
+        <h5 className="filter_header">FILTER HEROES</h5>
+
+        <div className="heroes_filter_details_container">
+          <h6 className="heroes_com">ATTRIBUTES</h6>
+          <div className="heroes_filter_complexity" ref={complexityBtns}>
+            {filterButtons[0].map((a, index) => (
+              <div
+                className={`filter_btn ${
+                  activeAttribute === a.aLevel && !inputSearch
+                    ? "heroes_filter_active"
+                    : ""
                 } `}
-                style={{
-                  background: `url(https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/herogrid/filter-${aBtn.name}-active.png)`,
-                }}
-                onClick={() => filterAttr(aBtn.aLevel)}
+                onClick={() => filterAttr(a.aLevel)}
                 ref={attrBtn}
                 key={index}
-              ></button>
+              >
+                <img
+                  src={`https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/herogrid/filter-${a.name}-active.png`}
+                  alt={`Complexity: ${a.name}`}
+                />
+              </div>
             ))}
           </div>
         </div>
 
-        <div className='heroes_filter_details_container'>
-          <h6>COMPLEXITY</h6>
-          <div className='heroes_filter_complexity' ref={complexityBtns}>
+        <div className="heroes_filter_details_container">
+          <h6 className="heroes_com">COMPLEXITY</h6>
+          <div className="heroes_filter_complexity" ref={complexityBtns}>
             {filterButtons[1].map((c, index) => (
-              <button
-                className={
+              <div
+                className={`filter_btn  ${
                   activeComplexity !== 4 &&
                   activeComplexity >= index + 1 &&
                   !inputSearch
-                    ? 'heroes_filter_active'
-                    : ''
-                }
-                style={{
-                  background: `url(https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/herogrid/filter-diamond.png)`,
-                }}
+                    ? "heroes_filter_active"
+                    : ""
+                }`}
                 onClick={() => filterComplexity(c.cLevel)}
                 ref={complexityBtn}
                 key={index}
-              ></button>
+              >
+                <img
+                  src="https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/herogrid/filter-diamond.png"
+                  alt={`Complexity: ${c}`}
+                />
+              </div>
             ))}
           </div>
         </div>
-
-        <Input
-          onChange={searchHero}
-          label='Search hero'
-          colorTrigger={filteredHeroes}
-          topOffset={'-1.2rem'}
-        ></Input>
+        <div className="input">
+          <Input
+            onChange={searchHero}
+            label="Search hero"
+            colorTrigger={filteredHeroes}
+            topOffset={"-1.2rem"}
+          ></Input>
+        </div>
       </StyledFilter>
       <StyledGridContainer>
-        {processNoResults('No heroes match your filter')}
+        {processNoResults("No heroes match your filter")}
 
-        <motion.div layout className='heroes-grid'>
+        <motion.div layout className="heroes-grid">
           {filteredHeroes &&
             filteredHeroes.map((hero, index) => {
-              const localizedName = hero.name.replace('npc_dota_hero_', '');
+              const localizedName = hero.name.replace("npc_dota_hero_", "");
 
               return (
                 <motion.div
@@ -291,7 +298,7 @@ const Heroes = () => {
                   }}
                   animate={{ x: 0, y: 0 }}
                   transition={{
-                    type: 'spring',
+                    type: "spring",
 
                     stifness: 300 + index,
 
@@ -320,22 +327,22 @@ const Heroes = () => {
                         list: heroesList,
                       }}
                     >
-                      <div className='hero-card'>
+                      <div className="hero-card">
                         <div
-                          className='heroPortrait'
+                          className="heroPortrait"
                           style={{
                             backgroundImage: `url(https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/heroes/${localizedName}.png)`,
                           }}
                         >
-                          {' '}
+                          {" "}
                           <div
-                            className='attributeFade'
+                            className="attributeFade"
                             style={{
                               background:
-                                'linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.733) 40%, rgb(0, 0, 0) 100%)',
+                                "linear-gradient(rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.733) 40%, rgb(0, 0, 0) 100%)",
                             }}
                           >
-                            <div className='heroPortraitDetails'>
+                            <div className="heroPortraitDetails">
                               {getAttrImg(hero.primary_attr)}
                               <h5>{hero.name_loc.toUpperCase()}</h5>
                             </div>
@@ -354,7 +361,7 @@ const Heroes = () => {
 };
 
 const StyledWrapper = styled.div`
-  background: url('https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/backgrounds/greyfade.jpg');
+  background: url("https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/backgrounds/greyfade.jpg");
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -372,7 +379,7 @@ const StyledImageBackground = styled.div`
   max-width: 100%;
   min-height: 55vh;
   position: relative;
-  background: url('https://r4.wallpaperflare.com/wallpaper/214/767/597/abaddon-defense-of-the-ancient-dota-dota-2-wallpaper-6b36acdd63b15fd975a49ba9dd8cdc00.jpg');
+  background: url("https://r4.wallpaperflare.com/wallpaper/214/767/597/abaddon-defense-of-the-ancient-dota-dota-2-wallpaper-6b36acdd63b15fd975a49ba9dd8cdc00.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center 50%;
@@ -463,26 +470,58 @@ const StyledFilter = styled.div`
   margin: 0 auto;
   padding: 1.5rem 1rem;
   display: flex;
+
   justify-content: space-between;
   align-items: center;
   border: 1px solid #11111190;
   box-shadow: 0px 0px 30px #00000050;
+
   background: linear-gradient(
     to right,
     rgba(0, 0, 0, 0.5),
     rgba(0, 0, 0, 0.3) 70%
   );
+
+  .filter_header {
+    color: #fff;
+   @media screen and (max-width: 1100px) {
+      display: none;
+  }
+    font-size: 18px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+   
+    }
+    .heroes_filter_details_container { 
+      display: flex;
+    flex-direction: row;
+    align-items: center;
+  
+    }
+    .heroes_filter_complexity, .heroes_filter_attributes {
+      display: flex; 
+    gap: 0.2rem;
+    }
+    .heroes_attr, .heroes_com {
+      color: #808fa6;
+    font-size: 17px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-right: 20px;
+    }
+    
+  }
   @media screen and (max-width: 1300px) {
     width: 95%;
   }
 
-  @media screen and (max-width: 1100px) {
+   @media screen and (max-width: 800px) {
     flex-direction: column;
-    gap: 1.5rem;
-    justify-content: center;
-
-    align-items: center;
+    gap: 1rem;
+    
   }
+
+ 
   @media screen and (max-width: 482px) {
     #form-container {
       width: 75%;
@@ -492,30 +531,39 @@ const StyledFilter = styled.div`
     }
   }
 
-  .heroes_filter_details_container {
-    display: flex;
-    color: #808fa6;
-    gap: 1rem;
-    align-items: center;
-  }
-  button {
-    border: none;
-    width: 2.688rem;
-    height: 2.188rem;
+  .filter_btn {
+      width: 32px;
+    height: 32px;
     margin-left: -4px;
     background-size: cover;
     background-repeat: no-repeat;
     transition-property: filter;
     transition-timing-function: ease-in-out;
-    transition-duration: 0.1s;
+    transition-duration: .1s;
     cursor: pointer;
     color: #fff;
     filter: brightness(0.5) saturate(0);
-  }
-
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    }
+   
   .heroes_filter_active {
     filter: brightness(1) saturate(1);
   }
+
+  .input {
+    width: 30%;
+    @media screen and (max-width: 768px) {
+      width: 60%;
+  }
+  }
+
+ 
+
+
 `;
 
 const StyledGridContainer = styled(motion.div)`
