@@ -1,12 +1,12 @@
-import React from 'react';
-import styled from 'styled-components';
-import { useQuery } from 'react-query';
-import BlogCapsule from './BlogCapsule';
-import { Link } from 'react-router-dom';
-import PropagateLoader from 'react-spinners/PropagateLoader';
-import FetchingLoading from './FetchingLoading';
-import FetchErrorMessage from '../FetchErrorMessage';
-import { obsH2 } from '../Utility/Colors';
+import React from "react";
+import styled from "styled-components";
+import { useQuery } from "react-query";
+import BlogCapsule from "./BlogCapsule";
+import { Link } from "react-router-dom";
+import PropagateLoader from "react-spinners/PropagateLoader";
+import FetchingLoading from "./FetchingLoading";
+import FetchErrorMessage from "../FetchErrorMessage";
+import { obsH2 } from "../Utility/Colors";
 
 const fetchUsers = async (countParam) => {
   const res = await fetch(`/.netlify/functions/news/?count=${countParam}`);
@@ -15,7 +15,7 @@ const fetchUsers = async (countParam) => {
 
 const LatestArticles = ({ currentGid, padding, allNews }) => {
   const { isLoading, isError, error, data, isFetching } = useQuery(
-    ['events', 11],
+    ["events", 11],
     () => fetchUsers(11),
     { keepPreviousData: true }
   );
@@ -30,26 +30,26 @@ const LatestArticles = ({ currentGid, padding, allNews }) => {
 
   return (
     <Wrapper padding={padding} allNews={allNews}>
-      <div className='news_top'>
+      <div className="news_top">
         <div
-          className='latest_news'
-          style={{ color: `${!allNews ? obsH2 : ''}` }}
+          className="latest_news"
+          style={{ color: `${!allNews ? obsH2 : ""}` }}
         >
           Latest News
         </div>
         {allNews && (
-          <Link className='view_all' to='/news'>
+          <Link className="view_all" to="/news">
             VIEW ALL
-            <div className='right_arrow'></div>
+            <div className="right_arrow"></div>
           </Link>
         )}
       </div>
 
-      <div className='container'>
+      <div className="container">
         {data.events
           .filter(
             (article) =>
-              !article.announcement_body.tags[0].includes('patchnotes') &&
+              !article.announcement_body.tags[0].includes("patchnotes") &&
               article.announcement_body.gid !== currentGid
           )
           .map((article, index) => {
@@ -69,7 +69,7 @@ const LatestArticles = ({ currentGid, padding, allNews }) => {
 const Wrapper = styled.section`
   width: 100%;
 
-  padding: ${(props) => (props.padding ? 'none' : '100px 14vw')};
+  padding: ${(props) => (props.padding ? "none" : "100px 14vw")};
   margin: auto;
   @media screen and (max-width: 1300px) {
     zoom: 0.8;
@@ -95,7 +95,7 @@ const Wrapper = styled.section`
   }
 
   .news_top {
-    display: ${(props) => (props.allNews ? 'flex' : 'none')};
+    display: ${(props) => (props.allNews ? "flex" : "none")};
     flex-direction: row;
     width: 100%;
     display: flex;
@@ -125,7 +125,7 @@ const Wrapper = styled.section`
         transform: scale(1.1);
       }
       .right_arrow {
-        background: url('https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//arrow_left.png');
+        background: url("https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react//arrow_left.png");
         width: 20px;
         height: 20px;
         margin: 0px 8px;

@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@bbob/html": "^2.9.0",
+    "@bbob/preset-html5": "^2.9.0",
+    "@bbob/preset-react": "^2.9.0",
+    "@bbob/react": "^2.9.0",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@floating-ui/react-dom": "^0.7.2",

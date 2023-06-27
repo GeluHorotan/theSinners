@@ -1,50 +1,50 @@
-import React from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import { formatTimestamp } from '../Functions/formatTimestamp';
+import React from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { formatTimestamp } from "../Functions/formatTimestamp";
 
 const LargeEntry = ({ content }) => {
-  const getImage = () => {
-    const bodyDesc = content.announcement_body.body.split('[/img]');
-
-    return bodyDesc[0]
-      .replace('[img]{STEAM_CLAN_IMAGE}', '')
-      .replace('[url=http://www.dota2.com/filmcontest]', '')
-      .replace(
-        '[url=https://www.dota2.com/labyrinth]/3703047/0e0799b188b3b8a9b231bb612b29f9fea9b33953.jpg',
-        ''
-      );
-  };
-
+  const bodyDesc = content.announcement_body.body.split("[/img]");
+  const image = bodyDesc[0]
+    .replace("[img]{STEAM_CLAN_IMAGE}", "")
+    .replace("[url=http://www.dota2.com/filmcontest]", "")
+    .replace(
+      "[url=https://www.dota2.com/labyrinth]/3703047/0e0799b188b3b8a9b231bb612b29f9fea9b33953.jpg",
+      ""
+    );
   if (content)
     return (
       <LargeEntryStyles>
-        <div
-          className='heading_image'
-          style={{
-            background: `url(
-            'https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/clans${getImage()}'
-          )`,
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'cover',
-            backgroundPosition: 'top',
-          }}
-        ></div>
-        <div className='fade_container'>
-          <div className='fade_overlay'></div>
+        <img
+          className="heading_image"
+          src={`https://clan.cloudflare.steamstatic.com/images//${image}`}
+          alt={content.event_name}
+        />
+        <div className="fade_container">
+          <div className="fade_overlay"></div>
         </div>
-        <div className='bottom_fade'></div>
-        <div className='featured_content'>
-          <div className='post_tag'>Featured Post</div>
+        <div className="bottom_fade"></div>
+        <div className="featured_content">
+          <div className="post_tag">Featured Post</div>
           {content && (
-            <div className='post_date'>
-              {formatTimestamp(content.announcement_body.posttime, 'news')}
+            <div className="post_date">
+              {formatTimestamp(content.announcement_body.posttime, "news")}
             </div>
           )}
-          <div className='post_title'>
+          <div className="post_title">
             {content && content.announcement_body.headline}
           </div>
-          <Link className='post_link' to='#'>
+          <Link
+            className="post_link"
+            to={`/newsentry/${content.gid}`}
+            state={{
+              title: content.event_name,
+              body: content.announcement_body.body,
+              timestamp: content.announcement_body.posttime,
+              imgSrc: image,
+              gid: content.announcement_body.gid,
+            }}
+          >
             READ MORE
           </Link>
         </div>
@@ -56,19 +56,22 @@ const LargeEntryStyles = styled.section`
   width: 100%;
   height: 600px;
   position: relative;
-  cursor: pointer;
+
   user-select: none;
   display: block;
   transition: 250ms all ease-in-out;
   overflow: hidden;
   .heading_image {
     width: 100%;
-    height: 600px;
+    height: 100%;
+    top: 0;
+    left: 0;
     position: absolute;
     z-index: 1;
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
+    object-fit: cover;
     transition-duration: 0.5s;
     opacity: 0.8;
     vertical-align: middle;
