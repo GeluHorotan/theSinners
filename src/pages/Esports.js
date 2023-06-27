@@ -1,18 +1,18 @@
-import React, { useState, useEffect, createContext } from 'react';
-import styled from 'styled-components';
+import React, { useState, useEffect, createContext } from "react";
+import styled from "styled-components";
 
-import MatchBox from '../components/MatchBox';
+import MatchBox from "../components/MatchBox";
 
 // Import Functions
-import { Tab } from '@headlessui/react';
+import { Tab } from "@headlessui/react";
 
 // Import Components
-import Menubar from '../components/Menubar';
-import Standings from '../components/Standings';
-import Watch from '../components/Watch';
-import { Link } from 'react-router-dom';
-import { grey, obsidian, obsidianShadow, white } from '../Utility/Colors';
-import Schedule from '../components/Schedule';
+import Menubar from "../components/Menubar";
+import Standings from "../components/Standings";
+import Watch from "../components/Watch";
+import { Link } from "react-router-dom";
+import { grey, obsidian, obsidianShadow, white } from "../Utility/Colors";
+import Schedule from "../components/Schedule";
 
 export const LeagueContext = React.createContext();
 export const ItemsContext = React.createContext();
@@ -20,7 +20,7 @@ export const HeroesContext = React.createContext();
 export const TeamsContext = React.createContext();
 
 const Esports = () => {
-  const [activeDivision, setActiveDivision] = useState('Division I');
+  const [activeDivision, setActiveDivision] = useState("Division I");
   const [activeRegion, setActiveRegion] = useState(1);
   const [leagueInfo, setLeagueInfo] = useState([]);
   const [dotaItems, setDotaItems] = useState();
@@ -51,6 +51,7 @@ const Esports = () => {
     const json = await res.json();
 
     setLeagues(json.leagues);
+    console.log(json.leagues);
 
     json.leagues.forEach((league) => {
       setLeagueInfo((prevState) => [
@@ -82,42 +83,28 @@ const Esports = () => {
               <LeagueContext.Provider value={leagues}>
                 <HeaderStyles></HeaderStyles>
                 <MenuStyles>
-                  <Tab.List className='menubar_list'>
+                  <Tab.List className="menubar_list">
                     <Tab
                       className={({ selected }) =>
-                        selected ? 'tab_active' : ''
+                        selected ? "tab_active" : ""
                       }
                     >
-                      <div className='menubar_label'>WATCH</div>
+                      <div className="menubar_label">WATCH</div>
                     </Tab>
                     <Tab
                       className={({ selected }) =>
-                        selected ? 'tab_active' : ''
+                        selected ? "tab_active" : ""
                       }
                     >
-                      {' '}
-                      <div className='menubar_label'>SCHEDULE</div>
-                    </Tab>
-                    {/* <Tab
-                      className={({ selected }) =>
-                        selected ? 'tab_active' : ''
-                      }
-                    >
-                      <div className='menubar_label'>STANDINGS</div>
-                    </Tab> */}
-                    <Tab
-                      className={({ selected }) =>
-                        selected ? 'tab_active' : ''
-                      }
-                    >
-                      <div className='menubar_label'>ABOUT</div>
+                      {" "}
+                      <div className="menubar_label">SCHEDULE</div>
                     </Tab>
                   </Tab.List>
                 </MenuStyles>
 
                 <ContentStyles>
-                  {' '}
-                  <Tab.Panels className='content'>
+                  {" "}
+                  <Tab.Panels className="content">
                     <Tab.Panel>
                       <Watch leagues={leagues}></Watch>
                     </Tab.Panel>
@@ -125,19 +112,6 @@ const Esports = () => {
                     <Tab.Panel>
                       <Schedule></Schedule>
                     </Tab.Panel>
-                    {/* <Tab.Panel>
-                      <Standings
-                        tournaments={
-                          leagues &&
-                          leagues.filter(
-                            (tournament) =>
-                              tournament.info.region === activeRegion &&
-                              tournament.info.name.includes(' I ')
-                          )
-                        }
-                      ></Standings>
-                    </Tab.Panel> */}
-                    <Tab.Panel>Content 4</Tab.Panel>
                   </Tab.Panels>
                 </ContentStyles>
               </LeagueContext.Provider>
@@ -158,7 +132,7 @@ const WrapperStyles = styled.div`
 
 const HeaderStyles = styled.div`
   height: 400px;
-  background-image: url('https://cdn.mos.cms.futurecdn.net/GH95hpiUpqfZ6jqgbPxsM3.jpg'),
+  background-image: url("https://cdn.mos.cms.futurecdn.net/GH95hpiUpqfZ6jqgbPxsM3.jpg"),
     linear-gradient(to right, rgb(192, 49, 125) 49%, rgb(67, 149, 148) 51%);
   filter: grayscale(0.8);
   width: 100%;
@@ -249,7 +223,7 @@ const ContentStyles = styled.div`
   justify-content: center;
 
   color: ${white};
-  background: url('https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/backgrounds/bg_granite_texture_sched.jpg');
+  background: url("https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/backgrounds/bg_granite_texture_sched.jpg");
   background-size: 100% auto;
   background-position: top, center;
   background-repeat: repeat-y;

@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
-import * as BsIcons from 'react-icons/bs';
-import { useNavigate, useLocation } from 'react-router';
+import React, { useState } from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import * as BsIcons from "react-icons/bs";
+import { useNavigate, useLocation } from "react-router";
 // Components
-import Button from '../components/Button';
+import Button from "../components/Button";
 // Images
-import Logo from '../img/logo.png';
+import Logo from "../img/logo.png";
 // Global Style
 import {
   accent,
@@ -15,17 +15,17 @@ import {
   secondary,
   obsH2,
   primary,
-} from '../Utility/Colors';
+} from "../Utility/Colors";
 // Icons
-import * as FaIcons from 'react-icons/fa';
-import * as AiIcons from 'react-icons/ai';
-import { IconContext } from 'react-icons';
+import * as FaIcons from "react-icons/fa";
+import * as AiIcons from "react-icons/ai";
+import { IconContext } from "react-icons";
 
 // Animation
-import { motion } from 'framer-motion';
-import { navUl, navLogo, comingTop, fadeLeft } from './animation';
-import DropdownMenu from '../DropdownMenu';
-import { Menu, Transition } from '@headlessui/react';
+import { motion } from "framer-motion";
+import { navUl, navLogo, comingTop, fadeLeft } from "./animation";
+import DropdownMenu from "../DropdownMenu";
+import { Menu, Transition } from "@headlessui/react";
 
 const Navigation = () => {
   const [sidebar, setSidebar] = useState(false);
@@ -35,102 +35,75 @@ const Navigation = () => {
 
   return (
     <>
-      <NavigationStyle className='nav'>
-        <Link to='/'>
+      <NavigationStyle className="nav">
+        <Link to="/">
           <motion.img
             variants={fadeLeft}
-            initial={'hidden'}
-            animate='show'
-            id='logo'
+            initial={"hidden"}
+            animate="show"
+            id="logo"
             src={Logo}
-            alt=''
+            alt=""
           />
         </Link>
 
         <motion.div
-          className='header_container'
+          className="header_container"
           variants={fadeLeft}
-          initial={'hidden'}
-          animate='show'
+          initial={"hidden"}
+          animate="show"
         >
-          <div className='dropdown_container'>
-            <DropdownMenu title={'GAME'} className={'game_dropdown'}>
+          <div className="dropdown_container">
+            <DropdownMenu title={"GAME"} className={"game_dropdown"}>
               <Menu.Item>
                 <div
-                  className='menu_options'
+                  className="menu_options"
                   onClick={() => {
-                    navigate('/heroes');
+                    navigate("/heroes");
                   }}
                 >
-                  HEROES{' '}
+                  HEROES{" "}
                 </div>
               </Menu.Item>
               <Menu.Item>
                 <div
-                  className='menu_options'
+                  className="menu_options"
                   onClick={() => {
-                    navigate('/patches');
+                    navigate("/patches");
                   }}
                 >
-                  PATCHES{' '}
+                  PATCHES{" "}
                 </div>
               </Menu.Item>
 
               <Menu.Item>
                 <div
-                  className='menu_options'
+                  className="menu_options"
                   onClick={() => {
-                    navigate('/news/updates');
+                    navigate("/news/updates");
                   }}
                 >
-                  GAMEPLAY UPDATES{' '}
-                </div>
-              </Menu.Item>
-              <Menu.Item>
-                <div
-                  className='menu_options'
-                  onClick={() => {
-                    navigate('/store');
-                  }}
-                >
-                  STORE{' '}
+                  GAMEPLAY UPDATES{" "}
                 </div>
               </Menu.Item>
             </DropdownMenu>
           </div>
-          <div
-            className='nav_btn'
-            onClick={() => {
-              navigate('/about');
-            }}
-          >
-            ABOUT
-          </div>
 
           <div
-            className='nav_btn'
+            className="nav_btn"
             onClick={() => {
-              navigate('/news');
+              navigate("/news");
             }}
           >
             NEWS
           </div>
           <div
-            className='nav_btn'
+            className="nav_btn"
             onClick={() => {
-              navigate('/esports');
+              navigate("/esports");
             }}
           >
             ESPORTS
-          </div>
-
-          <div
-            className='nav_btn'
-            onClick={() => {
-              navigate('/contact');
-            }}
-          >
-            CONTACT
           </div>
         </motion.div>
       </NavigationStyle>
@@ -139,68 +112,68 @@ const Navigation = () => {
         <SideNavStyles>
           <BarsStyle>
             <FaIcons.FaBars
-              className={sidebar ? 'hidden' : 'visible'}
+              className={sidebar ? "hidden" : "visible"}
               onClick={showSidebar}
             />
-            <div className='x_mark'>
+            <div className="x_mark">
               <AiIcons.AiOutlineClose
-                className={sidebar ? 'visible' : 'hidden'}
+                className={sidebar ? "visible" : "hidden"}
                 onClick={showSidebar}
               />
             </div>
           </BarsStyle>
-          <SidebarStyles id={sidebar ? 'overlay-active' : ''}>
+          <SidebarStyles id={sidebar ? "overlay-active" : ""}>
             <div
-              className='overlay'
+              className="overlay"
               onClick={() => {
                 setSidebar((prevState) => false);
               }}
             ></div>
 
-            <div className='sidebar_half' id={sidebar ? 'sidebar-active' : ''}>
+            <div className="sidebar_half" id={sidebar ? "sidebar-active" : ""}>
               <motion.img
                 variants={fadeLeft}
-                initial={'hidden'}
-                animate='show'
-                className='logo'
+                initial={"hidden"}
+                animate="show"
+                className="logo"
                 src={Logo}
-                alt=''
+                alt=""
                 onClick={() => {
-                  navigate('/');
+                  navigate("/");
                   setSidebar((prevState) => false);
                 }}
               />
               <Menu>
                 {({ open }) => (
                   <>
-                    <Menu.Button className='side_bar_btn selector'>
-                      GAME{' '}
+                    <Menu.Button className="side_bar_btn selector">
+                      GAME{" "}
                       {!open ? (
-                        <div className='arrow'>
-                          {' '}
-                          <BsIcons.BsCaretDownFill></BsIcons.BsCaretDownFill>{' '}
+                        <div className="arrow">
+                          {" "}
+                          <BsIcons.BsCaretDownFill></BsIcons.BsCaretDownFill>{" "}
                         </div>
                       ) : (
-                        <div className='arrow'>
-                          {' '}
-                          <BsIcons.BsCaretUpFill></BsIcons.BsCaretUpFill>{' '}
+                        <div className="arrow">
+                          {" "}
+                          <BsIcons.BsCaretUpFill></BsIcons.BsCaretUpFill>{" "}
                         </div>
                       )}
                     </Menu.Button>
                     <Transition
-                      enter='transition duration-100 ease-out'
-                      enterFrom='transform scale-95 opacity-0'
-                      enterTo='transform scale-100 opacity-100'
-                      leave='transition duration-75 ease-out'
-                      leaveFrom='transform scale-100 opacity-100'
-                      leaveTo='transform scale-95 opacity-0'
+                      enter="transition duration-100 ease-out"
+                      enterFrom="transform scale-95 opacity-0"
+                      enterTo="transform scale-100 opacity-100"
+                      leave="transition duration-75 ease-out"
+                      leaveFrom="transform scale-100 opacity-100"
+                      leaveTo="transform scale-95 opacity-0"
                     >
-                      <Menu.Items className={'dropdown_items'}>
+                      <Menu.Items className={"dropdown_items"}>
                         <Menu.Item>
                           <div
-                            className='side_bar_btn dropdown_btn'
+                            className="side_bar_btn dropdown_btn"
                             onClick={() => {
-                              navigate('/heroes');
+                              navigate("/heroes");
                               setSidebar((prevState) => false);
                             }}
                           >
@@ -209,9 +182,9 @@ const Navigation = () => {
                         </Menu.Item>
                         <Menu.Item>
                           <div
-                            className='side_bar_btn dropdown_btn'
+                            className="side_bar_btn dropdown_btn"
                             onClick={() => {
-                              navigate('/patches');
+                              navigate("/patches");
                               setSidebar((prevState) => false);
                             }}
                           >
@@ -220,9 +193,9 @@ const Navigation = () => {
                         </Menu.Item>
                         <Menu.Item>
                           <div
-                            className='side_bar_btn dropdown_btn'
+                            className="side_bar_btn dropdown_btn"
                             onClick={() => {
-                              navigate('/news/updates');
+                              navigate("/news/updates");
                               setSidebar((prevState) => false);
                             }}
                           >
@@ -231,9 +204,9 @@ const Navigation = () => {
                         </Menu.Item>
                         <Menu.Item>
                           <div
-                            className='side_bar_btn dropdown_btn'
+                            className="side_bar_btn dropdown_btn"
                             onClick={() => {
-                              navigate('/store');
+                              navigate("/store");
                               setSidebar((prevState) => false);
                             }}
                           >
@@ -247,66 +220,66 @@ const Navigation = () => {
               </Menu>
 
               <div
-                className='side_bar_btn'
+                className="side_bar_btn"
                 onClick={() => {
-                  navigate('/about');
+                  navigate("/about");
                   setSidebar((prevState) => false);
                 }}
               >
                 ABOUT
               </div>
               <div
-                className='side_bar_btn'
+                className="side_bar_btn"
                 onClick={() => {
-                  navigate('/news');
+                  navigate("/news");
                   setSidebar((prevState) => false);
                 }}
               >
                 NEWS
               </div>
               <div
-                className='side_bar_btn'
+                className="side_bar_btn"
                 onClick={() => {
-                  navigate('/esports');
+                  navigate("/esports");
                   setSidebar((prevState) => false);
                 }}
               >
                 ESPORTS
               </div>
               <div
-                className='side_bar_btn'
+                className="side_bar_btn"
                 onClick={() => {
-                  navigate('/contact');
+                  navigate("/contact");
                   setSidebar((prevState) => false);
                 }}
               >
                 CONTACT
               </div>
 
-              <div className='socials'>
-                <div className='social_icon'>
+              <div className="socials">
+                <div className="social_icon">
                   <a
-                    href='https://github.com/HorotanGelu'
-                    rel='noreferrer'
-                    target='_blank'
+                    href="https://github.com/HorotanGelu"
+                    rel="noreferrer"
+                    target="_blank"
                   >
                     <BsIcons.BsGithub></BsIcons.BsGithub>
                   </a>
                 </div>
-                <div className='social_icon'>
+                <div className="social_icon">
                   <a
-                    href='https://twitter.com/oxymoron365'
-                    rel='noreferrer'
-                    target='_blank'
+                    href="https://twitter.com/oxymoron365"
+                    rel="noreferrer"
+                    target="_blank"
                   >
                     <BsIcons.BsTwitter></BsIcons.BsTwitter>
                   </a>
                 </div>
-                <div className='social_icon'>
+                <div className="social_icon">
                   <a
-                    href='https://www.linkedin.com/in/gelu-horotan-698084193/'
-                    rel='noreferrer'
-                    target='_blank'
+                    href="https://www.linkedin.com/in/gelu-horotan-698084193/"
+                    rel="noreferrer"
+                    target="_blank"
                   >
                     <AiIcons.AiFillLinkedin></AiIcons.AiFillLinkedin>
                   </a>

@@ -1,8 +1,8 @@
-import React from 'react';
-import Tippy from '@tippyjs/react/headless';
-import { useSpring } from 'framer-motion';
-import styled from 'styled-components';
-import { preventOverflow } from '@popperjs/core';
+import React from "react";
+import Tippy from "@tippyjs/react/headless";
+import { useSpring } from "framer-motion";
+import styled from "styled-components";
+import { preventOverflow } from "@popperjs/core";
 
 const Tooltiper = ({
   children,
@@ -41,8 +41,8 @@ const Tooltiper = ({
       inlinePositioning={true}
       render={(attrs) => (
         <TooltipStyles
-          className='box'
-          tabIndex='-1'
+          className="box"
+          tabIndex="-1"
           popperOptions={preventOverflow}
           style={{
             scale,
@@ -50,7 +50,7 @@ const Tooltiper = ({
           }}
           {...attrs}
         >
-          <div className='tooltip_container'>{children}</div>
+          <div className="tooltip_container">{children}</div>
         </TooltipStyles>
       )}
       onMount={onMount}

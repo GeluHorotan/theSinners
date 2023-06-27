@@ -1,17 +1,17 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import styled from "styled-components";
 
 // Tooltip Engine
-import { createPopper } from '@popperjs/core/lib/popper-lite.js';
+import { createPopper } from "@popperjs/core/lib/popper-lite.js";
 
 const Tooltip = ({ children, triggerElement }) => {
-  const tooltip = document.querySelector('.tooltip');
-  const trigger = document.querySelector('.focusable');
+  const tooltip = document.querySelector(".tooltip");
+  const trigger = document.querySelector(".focusable");
 
   createPopper(trigger, tooltip, {
     modifiers: [
       {
-        name: 'offset',
+        name: "offset",
         options: {
           offset: [0, 8],
         },
@@ -19,8 +19,8 @@ const Tooltip = ({ children, triggerElement }) => {
     ],
   });
   return (
-    <TooltipStyles className='tooltip'>
-      <div className='tooltip_body'>{children}</div>
+    <TooltipStyles className="tooltip">
+      <div className="tooltip_body">{children}</div>
     </TooltipStyles>
   );
 };

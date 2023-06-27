@@ -1,19 +1,19 @@
-import React, { useState, useEffect, useContext } from 'react';
-import styled from 'styled-components';
-import { formatTimestamp } from '../Functions/formatTimestamp';
+import React, { useState, useEffect, useContext } from "react";
+import styled from "styled-components";
+import { formatTimestamp } from "../Functions/formatTimestamp";
 
-import { LeagueContext } from '../pages/Esports';
-import Image from './Image';
+import { LeagueContext } from "../pages/Esports";
+import Image from "./Image";
 
-import { Tab } from '@headlessui/react';
-import Button from './Button';
-import { useLayoutEffect } from 'react';
-import { displayTeamRegion } from '../Functions/displayTeamRegion';
-import { getPips } from '../Functions/getPips';
-import { displayPlayerRole } from '../Functions/displayPlayerRole';
-import MatchResult from './MatchResult';
-import TeamLineup from './TeamLineup';
-import { grey } from '../Utility/Colors';
+import { Tab } from "@headlessui/react";
+import Button from "./Button";
+import { useLayoutEffect } from "react";
+import { displayTeamRegion } from "../Functions/displayTeamRegion";
+import { getPips } from "../Functions/getPips";
+import { displayPlayerRole } from "../Functions/displayPlayerRole";
+import MatchResult from "./MatchResult";
+import TeamLineup from "./TeamLineup";
+import { grey } from "../Utility/Colors";
 
 const SeriesDetails = () => {
   const [activeGame, setActiveGame] = useState([]);
@@ -101,7 +101,7 @@ const SeriesDetails = () => {
       } else if (liveGames.length === 0 && lastGames.length !== 0) {
         setActiveGame((prevsState) =>
           lastGames.reduce((previousValue, currentValue, index) => {
-            return previousValue.game.actual_time <
+            return previousValue.game.actual_time >
               currentValue.game.actual_time
               ? { game: previousValue.game, league: previousValue.league }
               : { game: currentValue.game, league: currentValue.league };
@@ -173,59 +173,59 @@ const SeriesDetails = () => {
     return (
       <Tab.Group defaultIndex={6}>
         <Wrapper>
-          <div className='bg_container'>
+          <div className="bg_container">
             <SeriesDetailsStyles>
-              <div className='series_details_header'>
-                <div className='header_team team_left'>
+              <div className="series_details_header">
+                <div className="header_team team_left">
                   <div
-                    className='header_top_section'
+                    className="header_top_section"
                     style={{
                       textShadow: `${
                         activeGame.game.team_1_wins >
                         activeGame.game.team_2_wins
-                          ? '0px 0px 10px #06f'
-                          : ''
+                          ? "0px 0px 10px #06f"
+                          : ""
                       }`,
                     }}
                   >
                     <div
-                      className='header_series_label'
+                      className="header_series_label"
                       style={{
                         filter: `${
                           activeGame.game.team_1_wins >
                           activeGame.game.team_2_wins
-                            ? 'drop-shadow(0px 0px 30px blue) drop-shadow(0px 0px 30px rgba(0, 0, 255, 0.5))'
-                            : ''
+                            ? "drop-shadow(0px 0px 30px blue) drop-shadow(0px 0px 30px rgba(0, 0, 255, 0.5))"
+                            : ""
                         }`,
                       }}
                     >
-                      <div className='header_team_name'>
-                        {' '}
+                      <div className="header_team_name">
+                        {" "}
                         {teamInfos.primaryTeam.team_name}
                       </div>
-                      <div className='header_record'>
-                        {teamInfos.primaryTeam.wins} -{' '}
+                      <div className="header_record">
+                        {teamInfos.primaryTeam.wins} -{" "}
                         {teamInfos.primaryTeam.losses}
                       </div>
                     </div>
-                    <div className='header_focusable'>
+                    <div className="header_focusable">
                       <Image
                         isTeam
-                        className={'team_logo'}
+                        className={"team_logo"}
                         id={activeGame.game.team_id_1}
                       ></Image>
                     </div>
 
-                    <div className='header_live_score'>
+                    <div className="header_live_score">
                       <div
-                        className='pip_container'
+                        className="pip_container"
                         style={{
-                          flexDirection: 'row-reverse',
+                          flexDirection: "row-reverse",
                           filter: `${
                             activeGame.game.team_1_wins >
                             activeGame.game.team_2_wins
-                              ? 'drop-shadow(0px 0px 30px blue) drop-shadow(0px 0px 30px rgba(0, 0, 255, 0.5))'
-                              : ''
+                              ? "drop-shadow(0px 0px 30px blue) drop-shadow(0px 0px 30px rgba(0, 0, 255, 0.5))"
+                              : ""
                           }`,
                         }}
                       >
@@ -233,86 +233,86 @@ const SeriesDetails = () => {
                           activeGame.game.team_id_1 ===
                             teamInfos.primaryTeam.team_id
                             ? activeGame.game.team_1_wins
-                            : ''
+                            : ""
                         )}
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className='header_center_details'>
-                  <div className='game_region'>
-                    {' '}
+                <div className="header_center_details">
+                  <div className="game_region">
+                    {" "}
                     {displayTeamRegion(teamInfos.region)}
                   </div>
 
                   {liveGames.length !== 0 ? (
-                    <div className='game_isLive'>
+                    <div className="game_isLive">
                       Live
-                      <div className='live_dot'></div>
+                      <div className="live_dot"></div>
                     </div>
                   ) : (
-                    formatTimestamp(activeGame.game.actual_time, 'classic')
+                    formatTimestamp(activeGame.game.actual_time, "classic")
                   )}
-                  <div className='game_division'>
-                    {' '}
+                  <div className="game_division">
+                    {" "}
                     DIVISION&nbsp;
                     {teamInfos.name
-                      .split(' ')
-                      .filter((name) => name === 'I' || name === 'II')}
+                      .split(" ")
+                      .filter((name) => name === "I" || name === "II")}
                   </div>
                 </div>
-                <div className='header_team team_right'>
+                <div className="header_team team_right">
                   <div
-                    className='header_top_section right_aligner'
+                    className="header_top_section right_aligner"
                     style={{
                       textShadow: `${
                         activeGame.game.team_2_wins >
                         activeGame.game.team_1_wins
-                          ? '0px 0px 10px #06f'
-                          : ''
+                          ? "0px 0px 10px #06f"
+                          : ""
                       }`,
                     }}
                   >
                     <div
-                      className='header_series_label'
+                      className="header_series_label"
                       style={{
                         filter: `${
                           activeGame.game.team_2_wins >
                           activeGame.game.team_1_wins
-                            ? 'drop-shadow(0px 0px 30px blue) drop-shadow(0px 0px 30px rgba(0, 0, 255, 0.5))'
-                            : ''
+                            ? "drop-shadow(0px 0px 30px blue) drop-shadow(0px 0px 30px rgba(0, 0, 255, 0.5))"
+                            : ""
                         }`,
                       }}
                     >
-                      <div className='header_team_name'>
+                      <div className="header_team_name">
                         {teamInfos.secondaryTeam.team_name}
                       </div>
-                      <div className='header_record'>
-                        {' '}
-                        {teamInfos.secondaryTeam.wins} -{' '}
+                      <div className="header_record">
+                        {" "}
+                        {teamInfos.secondaryTeam.wins} -{" "}
                         {teamInfos.secondaryTeam.losses}
                       </div>
                     </div>
-                    <div className='header_focusable'>
+                    <div className="header_focusable">
                       <Image
                         isTeam
-                        className={'right_team'}
+                        className={"right_team"}
                         id={activeGame.game.team_id_2}
                       ></Image>
                     </div>
 
                     <div
-                      className='header_live_score'
-                      style={{ transform: 'skewX(-21deg)' }}
+                      className="header_live_score"
+                      style={{ transform: "skewX(-21deg)" }}
                     >
                       <div
-                        className='pip_container'
+                        className="pip_container"
                         style={{
                           filter: `${
                             activeGame.game.team_2_wins >
                             activeGame.game.team_1_wins
-                              ? 'drop-shadow(0px 0px 30px blue) drop-shadow(0px 0px 30px rgba(0, 0, 255, 0.5))'
-                              : ''
+                              ? "drop-shadow(0px 0px 30px blue) drop-shadow(0px 0px 30px rgba(0, 0, 255, 0.5))"
+                              : ""
                           }`,
                         }}
                       >
@@ -320,19 +320,19 @@ const SeriesDetails = () => {
                           activeGame.game.team_id_2 ===
                             teamInfos.secondaryTeam.team_id
                             ? activeGame.game.team_2_wins
-                            : ''
+                            : ""
                         )}
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className='series_details_game_selector'>
-                <Tab.List className='game_tab_list'>
+              <div className="series_details_game_selector">
+                <Tab.List className="game_tab_list">
                   {activeGame.game.matches.map((match, index) => {
                     return (
                       <Tab
-                        className='game_option'
+                        className="game_option"
                         key={index}
                         onClick={() => {
                           setGameLineup((prevState) => index);
@@ -340,7 +340,7 @@ const SeriesDetails = () => {
                       >
                         {({ selected }) => (
                           <div
-                            className={selected ? 'active_tab game_option' : ''}
+                            className={selected ? "active_tab game_option" : ""}
                           >
                             GAME {index + 1}
                           </div>
@@ -351,8 +351,8 @@ const SeriesDetails = () => {
                 </Tab.List>
               </div>
 
-              <div className='series_details_details_body'>
-                <div className='game_details_container players_showcase'>
+              <div className="series_details_details_body">
+                <div className="game_details_container players_showcase">
                   <Tab.Panels>
                     {lastGames.length !== 0 &&
                     activeGame.game.matches.length !== 0
@@ -382,8 +382,8 @@ const SeriesDetails = () => {
                             </Tab.Panel>
                           );
                         })
-                      : ''}
-                    {liveGames.length !== 0 ? <>isLive</> : ''}
+                      : ""}
+                    {liveGames.length !== 0 ? <>isLive</> : ""}
 
                     {liveGames.length !== 0 && <Tab.Panel>ROSTER</Tab.Panel>}
 
@@ -412,12 +412,12 @@ const SeriesDetails = () => {
                   </Tab.Panels>
                 </div>
               </div>
-              <Tab.List className='footer_panels'>
-                <div className='series_details_footer'>
-                  <div className='footer_left_tabs'>
+              <Tab.List className="footer_panels">
+                <div className="series_details_footer">
+                  <div className="footer_left_tabs">
                     <div
                       className={`view_tab ${
-                        isLineup ? 'view_tab_active' : ''
+                        isLineup ? "view_tab_active" : ""
                       }`}
                       onClick={() => {
                         setIsLineup((prevState) => !isLineup);
@@ -428,7 +428,7 @@ const SeriesDetails = () => {
 
                     <Tab>
                       <div
-                        className='view_tab'
+                        className="view_tab"
                         onClick={() => {
                           setIsLineup((prevState) => false);
                         }}
@@ -441,8 +441,8 @@ const SeriesDetails = () => {
               </Tab.List>
             </SeriesDetailsStyles>
           </div>
-          <div className='fade_container'>
-            <div className='fade_overlay_bottom'></div>
+          <div className="fade_container">
+            <div className="fade_overlay_bottom"></div>
           </div>
         </Wrapper>
       </Tab.Group>

@@ -1,24 +1,24 @@
-import React, { useState, useEffect, useContext } from 'react';
-import styled from 'styled-components';
-import GameEntry from './GameEntry';
-import { LeagueContext, TeamsContext } from '../pages/Esports';
-import { sorter } from '../Functions/sorter';
-import { displayTeamRegion } from '../Functions/displayTeamRegion';
-import { formatTimestamp } from '../Functions/formatTimestamp';
-import Image from './Image';
-import { HeroesContext } from '../pages/Esports';
-import DropdownMenu from '../DropdownMenu';
-import { Menu } from '@headlessui/react';
-import Input from './Input';
+import React, { useState, useEffect, useContext } from "react";
+import styled from "styled-components";
+import GameEntry from "./GameEntry";
+import { LeagueContext, TeamsContext } from "../pages/Esports";
+import { sorter } from "../Functions/sorter";
+import { displayTeamRegion } from "../Functions/displayTeamRegion";
+import { formatTimestamp } from "../Functions/formatTimestamp";
+import Image from "./Image";
+import { HeroesContext } from "../pages/Esports";
+import DropdownMenu from "../DropdownMenu";
+import { Menu } from "@headlessui/react";
+import Input from "./Input";
 import {
   accent,
   blue,
   desaturatedRed,
   saturatedRed,
   secondary,
-} from '../Utility/Colors';
-import * as FaIcons from 'react-icons/fa';
-import { useLayoutEffect } from 'react';
+} from "../Utility/Colors";
+import * as FaIcons from "react-icons/fa";
+import { useLayoutEffect } from "react";
 
 const Schedule = ({ children }) => {
   const dotaHeroes = React.useContext(HeroesContext);
@@ -31,7 +31,7 @@ const Schedule = ({ children }) => {
   const [activeRegion, setActiveRegion] = useState();
   const [activeDivision, setActiveDivision] = useState();
   const inputRef = React.createRef(null);
-  const [sorterOption, setSorterOption] = useState('ascending');
+  const [sorterOption, setSorterOption] = useState("ascending");
   const [games, setGames] = useState([]);
   const [fetchedGames, setFetchedGames] = useState([]);
 
@@ -48,8 +48,8 @@ const Schedule = ({ children }) => {
               leagueId: league.info.league_id,
               region: league.info.region,
               division: league.info.name
-                .split(' ')
-                .filter((name) => name === 'II' || name === 'I')
+                .split(" ")
+                .filter((name) => name === "II" || name === "I")
                 .toString(),
             },
           ])
@@ -66,8 +66,8 @@ const Schedule = ({ children }) => {
               leagueId: league.info.league_id,
               region: league.info.region,
               division: league.info.name
-                .split(' ')
-                .filter((name) => name === 'II' || name === 'I')
+                .split(" ")
+                .filter((name) => name === "II" || name === "I")
                 .toString(),
             },
           ])
@@ -139,46 +139,46 @@ const Schedule = ({ children }) => {
   }, []);
 
   const regions = [
-    { category: 'all regions' },
-    { category: 'north america' },
-    { category: 'south america' },
-    { category: 'western europe' },
-    { category: 'eastern europe' },
+    { category: "all regions" },
+    { category: "north america" },
+    { category: "south america" },
+    { category: "western europe" },
+    { category: "eastern europe" },
 
-    { category: 'CHINA' },
-    { category: 'southest asia' },
+    { category: "CHINA" },
+    { category: "southest asia" },
   ];
   const divisions = [
-    { category: 'all divisions' },
-    { category: 'Division I' },
-    { category: 'Division II' },
+    { category: "all divisions" },
+    { category: "Division I" },
+    { category: "Division II" },
   ];
 
   return (
     <ScheduleStyles>
       <GamesStyles>
         <FilterStyles>
-          <div className='menu_options'>
-            <div className='dropdown_options'>
-              <div className='dropdown_1'>
+          <div className="menu_options">
+            <div className="dropdown_options">
+              <div className="dropdown_1">
                 <DropdownMenu
                   title={
                     activeDivision
                       ? `DIVISION ${activeDivision}`
-                      : 'ALL DIVISIONS'
+                      : "ALL DIVISIONS"
                   }
-                  className={'division_filter'}
+                  className={"division_filter"}
                 >
                   {divisions.map((division, index) => {
                     return (
                       <Menu.Item>
                         <div
-                          className='menu_options'
+                          className="menu_options"
                           onClick={() => {
                             if (index !== 0) {
                               if (activeRegion) {
                                 setActiveDivision((prevState) =>
-                                  index === 1 ? 'I' : index === 2 ? 'II' : ''
+                                  index === 1 ? "I" : index === 2 ? "II" : ""
                                 );
                                 setFiltered((prevState) =>
                                   nodes.filter(
@@ -186,16 +186,16 @@ const Schedule = ({ children }) => {
                                       node.division ===
                                         `${
                                           index === 1
-                                            ? 'I'
+                                            ? "I"
                                             : index === 2
-                                            ? 'II'
-                                            : ''
+                                            ? "II"
+                                            : ""
                                         }` && node.region === activeRegion
                                   )
                                 );
                               } else if (!activeRegion) {
                                 setActiveDivision((prevState) =>
-                                  index === 1 ? 'I' : index === 2 ? 'II' : ''
+                                  index === 1 ? "I" : index === 2 ? "II" : ""
                                 );
                                 setFiltered((prevState) =>
                                   nodes.filter(
@@ -203,10 +203,10 @@ const Schedule = ({ children }) => {
                                       node.division ===
                                       `${
                                         index === 1
-                                          ? 'I'
+                                          ? "I"
                                           : index === 2
-                                          ? 'II'
-                                          : ''
+                                          ? "II"
+                                          : ""
                                       }`
                                   )
                                 );
@@ -231,20 +231,20 @@ const Schedule = ({ children }) => {
                   })}
                 </DropdownMenu>
               </div>
-              <div className='dropdown_1'>
+              <div className="dropdown_1">
                 <DropdownMenu
                   title={
                     activeRegion
                       ? `${displayTeamRegion(activeRegion)}`
-                      : 'ALL REGIONS'
+                      : "ALL REGIONS"
                   }
-                  className={'division_filter'}
+                  className={"division_filter"}
                 >
                   {regions.map((region, index) => {
                     return (
                       <Menu.Item>
                         <div
-                          className='menu_options'
+                          className="menu_options"
                           onClick={() => {
                             if (index !== 0) {
                               if (activeDivision) {
@@ -284,27 +284,27 @@ const Schedule = ({ children }) => {
               </div>
             </div>
           </div>
-          <div className='search_filter'>
+          <div className="search_filter">
             <Input
-              className={'search_filter'}
+              className={"search_filter"}
               ref={inputRef}
               onChange={searchHandler}
-              label='Search Match'
+              label="Search Match"
               colorTrigger={filtered}
-              topOffset={'-1.2rem'}
+              topOffset={"-1.2rem"}
             ></Input>
-            <div className='sort_options'>
-              <div className='ascending'>
+            <div className="sort_options">
+              <div className="ascending">
                 <FaIcons.FaSortAmountUp
                   onClick={() => {
-                    setSorterOption((prevState) => 'ascending');
+                    setSorterOption((prevState) => "ascending");
                   }}
                 ></FaIcons.FaSortAmountUp>
               </div>
-              <div className='descending'>
+              <div className="descending">
                 <FaIcons.FaSortAmountDownAlt
                   onClick={() => {
-                    setSorterOption((prevState) => 'descending');
+                    setSorterOption((prevState) => "descending");
                   }}
                 ></FaIcons.FaSortAmountDownAlt>
               </div>
@@ -328,12 +328,12 @@ const Schedule = ({ children }) => {
                   division={node.division}
                   cTimestamp={formatTimestamp(
                     node.series.scheduled_time,
-                    'day'
+                    "day"
                   )}
                   pTimestamp={formatTimestamp(
                     filtered[index - 1 === -1 ? filtered.length - 1 : index - 1]
                       .series.scheduled_time,
-                    'day'
+                    "day"
                   )}
                   heroes={dotaHeroes}
                 ></GameEntry>
@@ -345,7 +345,7 @@ const Schedule = ({ children }) => {
 };
 
 const ScheduleStyles = styled.div`
-  background-image: url('https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/backgrounds/bg_granite_texture_sched.jpg');
+  background-image: url("https://cdn.cloudflare.steamstatic.com/apps/dota2/images/dota_react/backgrounds/bg_granite_texture_sched.jpg");
   color: #fff;
   width: 100%;
   background-size: 100% auto;
@@ -398,6 +398,7 @@ const FilterStyles = styled.div`
 
       .dropdown_1 {
         width: 15rem;
+        z-index: 30;
         @media screen and (max-width: 580px) {
           width: 11rem;
         }

@@ -559,6 +559,9 @@ const StyledFilter = styled.div`
     @media screen and (max-width: 768px) {
       width: 60%;
   }
+    @media screen and (max-width: 500px) {
+      width: 100%;
+  }
   }
 
  

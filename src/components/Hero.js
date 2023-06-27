@@ -1026,6 +1026,7 @@ const TopStyles = styled.div`
 
   .heroDetails {
     display: flex;
+    margin-top: 5rem;
     @media screen and (max-width: 550px) {
       zoom: 0.8;
     }
@@ -1064,7 +1065,6 @@ const TopStyles = styled.div`
     }
     .hero_name {
       text-transform: uppercase;
-      margin-top: 5rem;
     }
     .short_hero_bio {
       color: #a5e0f3;

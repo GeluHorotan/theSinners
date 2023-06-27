@@ -1,25 +1,25 @@
-import React, { useState, useEffect } from 'react';
-import Team from './Team';
-import styled from 'styled-components';
-import HashLoader from 'react-spinners/HashLoader';
+import React, { useState, useEffect } from "react";
+import Team from "./Team";
+import styled from "styled-components";
+import HashLoader from "react-spinners/HashLoader";
 
 // Functions
-import { ordinal_suffix_of } from '../Functions/ordinal_suffix_of';
-import { motion } from 'framer-motion';
+import { ordinal_suffix_of } from "../Functions/ordinal_suffix_of";
+import { motion } from "framer-motion";
 // Components
-import Tabel from './Tabel';
-import { obsH, obsH2, obsHD, obsidianShadow, textObs } from '../Utility/Colors';
-import { displayTeamRegion } from '../Functions/displayTeamRegion';
-import Button from './Button';
+import Tabel from "./Tabel";
+import { obsH, obsH2, obsHD, obsidianShadow, textObs } from "../Utility/Colors";
+import { displayTeamRegion } from "../Functions/displayTeamRegion";
+import Button from "./Button";
 
 // Headless UI
-import { Menu, Transition } from '@headlessui/react';
-import UpcomingMatch from './UpcomingMatch';
-import Image from './Image';
-import SeriesDetails from './SeriesDetails';
+import { Menu, Transition } from "@headlessui/react";
+import UpcomingMatch from "./UpcomingMatch";
+import Image from "./Image";
+import SeriesDetails from "./SeriesDetails";
 
 const Watch = ({ leagues }) => {
-  const [activeDivision, setActiveDivision] = useState('I');
+  const [activeDivision, setActiveDivision] = useState("I");
   const [loading, setLoading] = useState(true);
   const [teamList, setTeamList] = useState();
   const [teamsCounter, setTeamsCounter] = useState(8);
@@ -30,7 +30,7 @@ const Watch = ({ leagues }) => {
       (prevState) =>
         leagues &&
         leagues.filter((league) =>
-          league.info.name.split(' ').includes(activeDivision)
+          league.info.name.split(" ").includes(activeDivision)
         )
     );
     setLoading(false);
@@ -56,34 +56,32 @@ const Watch = ({ leagues }) => {
     <WrapperStyles>
       <SeriesDetails></SeriesDetails>
 
-      <UpcomingMatch leagues={leagues}></UpcomingMatch>
-
       <TeamComponentStyles>
-        <HashLoader loading={loading} color='white' size={55} speed={2} />
+        <HashLoader loading={loading} color="white" size={55} speed={2} />
         {!loading && (
           <>
-            <div className='dropdown_menu'>
-              {' '}
+            <div className="dropdown_menu">
+              {" "}
               <Menu>
-                <Menu.Button className={'menu_button'}>
-                  <div className='dropdown_selector'>
+                <Menu.Button className={"menu_button"}>
+                  <div className="dropdown_selector">
                     DIVISION {activeDivision}
                   </div>
 
                   <Transition
-                    enter='transition duration-100 ease-out'
-                    enterFrom='transform scale-95 opacity-0'
-                    enterTo='transform scale-100 opacity-100'
-                    leave='transition duration-75 ease-out'
-                    leaveFrom='transform scale-100 opacity-100'
-                    leaveTo='transform scale-95 opacity-0'
+                    enter="transition duration-100 ease-out"
+                    enterFrom="transform scale-95 opacity-0"
+                    enterTo="transform scale-100 opacity-100"
+                    leave="transition duration-75 ease-out"
+                    leaveFrom="transform scale-100 opacity-100"
+                    leaveTo="transform scale-95 opacity-0"
                   >
-                    <Menu.Items className={'grid_tabels_dropdown_menu'}>
+                    <Menu.Items className={"grid_tabels_dropdown_menu"}>
                       <Menu.Item>
                         <div
-                          className='menu_options'
+                          className="menu_options"
                           onClick={() => {
-                            setActiveDivision((prevState) => 'I');
+                            setActiveDivision((prevState) => "I");
                           }}
                         >
                           DIVISION I
@@ -91,9 +89,9 @@ const Watch = ({ leagues }) => {
                       </Menu.Item>
                       <Menu.Item>
                         <div
-                          className='menu_options'
+                          className="menu_options"
                           onClick={() => {
-                            setActiveDivision((prevState) => 'II');
+                            setActiveDivision((prevState) => "II");
                           }}
                         >
                           DIVISION II
@@ -109,37 +107,37 @@ const Watch = ({ leagues }) => {
               {divisionOne &&
                 divisionOne.map((league, index) => {
                   return (
-                    <div className='tabel_container'>
-                      <div className='tabel_region'>
+                    <div className="tabel_container">
+                      <div className="tabel_region">
                         {displayTeamRegion(league.info.region)}
                       </div>
                       <Tabel
                         eliminationMode={true}
-                        className='tabel_in_grid'
+                        className="tabel_in_grid"
                         headers={[
-                          { name: 'Rank', class: 'team_rank_header' },
-                          { name: 'Team', class: 'team_team_header' },
-                          { name: 'Record', class: 'team_record_header' },
+                          { name: "Rank", class: "team_rank_header" },
+                          { name: "Team", class: "team_team_header" },
+                          { name: "Record", class: "team_record_header" },
                         ]}
                       >
                         {league.node_groups[0].node_groups[0].team_standings.map(
                           (team, index) => {
                             return (
                               <tr>
-                                <td className='tabel_rank_cell'>
+                                <td className="tabel_rank_cell">
                                   {ordinal_suffix_of(team.standing)}
                                 </td>
-                                <td className='tabel_team_cell'>
+                                <td className="tabel_team_cell">
                                   <Image
                                     isTeam
-                                    className={'team_logo'}
+                                    className={"team_logo"}
                                     id={team.team_id}
                                     alt={team.name}
                                   ></Image>
 
                                   {team.team_name}
                                 </td>
-                                <td className='tabel_record_cell'>
+                                <td className="tabel_record_cell">
                                   {team.wins} - {team.losses}
                                 </td>
                               </tr>
@@ -152,7 +150,7 @@ const Watch = ({ leagues }) => {
                 })}
             </TabelsGridStyles>
             <EliminationHintStyles></EliminationHintStyles>
-            <div className='hint_title'>DEMOTED TO DIVISION II </div>
+            <div className="hint_title">DEMOTED TO DIVISION II </div>
           </>
         )}
 
@@ -169,9 +167,9 @@ const Watch = ({ leagues }) => {
           })}
       </TeamComponentStyles>
       <Button
-        setClassName='load_more_button'
+        setClassName="load_more_button"
         background={obsH}
-        bradius={'0.5rem'}
+        bradius={"0.5rem"}
         isRipple
         action={() => {
           setTeamsCounter((prevState) => prevState + 5);
