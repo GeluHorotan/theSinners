@@ -14,8 +14,8 @@ The Sinners is a dynamic frontend website designed exclusively for Dota 2 enthus
 
 * React;
 * Styled-Components;
-* Netlify;
-* React Query (TanStack).
+* React Query (TanStack);
+* Netlify.
 
 ## Demo
 
