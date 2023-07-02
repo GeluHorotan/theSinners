@@ -24,7 +24,7 @@ Live demo of the app available here: https://thesinners.netlify.app/
 
 * React for building user interfaces (UI).
 * Integration of serverless functions (Lambda functions).
-* Client-side routing using React Router to enable seamless transitions between pages without reloading the entire app.
+* Utilize backend serverless functions to overcome CORS restrictions.
 * Seamless integration of the Dota 2 API to provide real-time data.
 * Dynamic rendering of content for up-to-date information.
 * Interactive filtering and sorting options for efficient navigation.
