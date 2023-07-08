@@ -130,7 +130,7 @@ const Navigation = () => {
                   navigate("/");
                   setSidebar((prevState) => false);
                 }}
-                className="side_bar_btn logo"
+                className="side_bar_btn "
               >
                 <Logo />
               </div>
@@ -324,8 +324,9 @@ const SidebarStyles = styled.div`
   pointer-events: all;
 
   .logo {
-    width: 3rem;
     position: absolute;
+    border: 2px solid red;
+
     right: 1rem;
     top: 1rem;
     z-index: 999;
