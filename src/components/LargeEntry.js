@@ -19,6 +19,11 @@ const LargeEntry = ({ content }) => {
           className="heading_image"
           src={`https://clan.cloudflare.steamstatic.com/images//${image}`}
           alt={content.event_name}
+          onError={({ currentTarget }) => {
+            currentTarget.onerror = null;
+            currentTarget.src =
+              "https://clan.cloudflare.steamstatic.com/images/3703047/f0e6687b53aea09cffc644ef7760a834c1d348fd.jpg";
+          }}
         />
         <div className="fade_container">
           <div className="fade_overlay"></div>
