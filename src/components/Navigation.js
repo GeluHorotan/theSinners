@@ -6,7 +6,7 @@ import { useNavigate, useLocation } from "react-router";
 // Components
 import Button from "../components/Button";
 // Images
-import Logo from "../img/logo.png";
+import Logo from "../components/Logo";
 // Global Style
 import {
   accent,
@@ -36,17 +36,11 @@ const Navigation = () => {
   return (
     <>
       <NavigationStyle className="nav">
-        <Link to="/">
-          <motion.img
-            variants={fadeLeft}
-            initial={"hidden"}
-            animate="show"
-            id="logo"
-            src={Logo}
-            alt=""
-          />
-        </Link>
-
+        <motion.div variants={fadeLeft} initial={"hidden"} animate="show">
+          <Link to="/">
+            <Logo />
+          </Link>
+        </motion.div>
         <motion.div
           className="header_container"
           variants={fadeLeft}
@@ -311,7 +305,7 @@ const NavigationStyle = styled.nav`
   }
 
   #logo {
-    width: 3rem;
+    width: 15rem;
   }
 `;
 
