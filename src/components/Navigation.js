@@ -202,32 +202,12 @@ const Navigation = () => {
                             GAMEPLAY UPDATES
                           </div>
                         </Menu.Item>
-                        <Menu.Item>
-                          <div
-                            className="side_bar_btn dropdown_btn"
-                            onClick={() => {
-                              navigate("/store");
-                              setSidebar((prevState) => false);
-                            }}
-                          >
-                            STORE
-                          </div>
-                        </Menu.Item>
                       </Menu.Items>
                     </Transition>
                   </>
                 )}
               </Menu>
 
-              <div
-                className="side_bar_btn"
-                onClick={() => {
-                  navigate("/about");
-                  setSidebar((prevState) => false);
-                }}
-              >
-                ABOUT
-              </div>
               <div
                 className="side_bar_btn"
                 onClick={() => {
@@ -245,45 +225,6 @@ const Navigation = () => {
                 }}
               >
                 ESPORTS
-              </div>
-              <div
-                className="side_bar_btn"
-                onClick={() => {
-                  navigate("/contact");
-                  setSidebar((prevState) => false);
-                }}
-              >
-                CONTACT
-              </div>
-
-              <div className="socials">
-                <div className="social_icon">
-                  <a
-                    href="https://github.com/HorotanGelu"
-                    rel="noreferrer"
-                    target="_blank"
-                  >
-                    <BsIcons.BsGithub></BsIcons.BsGithub>
-                  </a>
-                </div>
-                <div className="social_icon">
-                  <a
-                    href="https://twitter.com/oxymoron365"
-                    rel="noreferrer"
-                    target="_blank"
-                  >
-                    <BsIcons.BsTwitter></BsIcons.BsTwitter>
-                  </a>
-                </div>
-                <div className="social_icon">
-                  <a
-                    href="https://www.linkedin.com/in/gelu-horotan-698084193/"
-                    rel="noreferrer"
-                    target="_blank"
-                  >
-                    <AiIcons.AiFillLinkedin></AiIcons.AiFillLinkedin>
-                  </a>
-                </div>
               </div>
             </div>
           </SidebarStyles>
@@ -385,7 +326,7 @@ const SidebarStyles = styled.div`
   height: 100vh;
   background: rgba(0, 0, 0, 0.6);
   position: fixed;
-  z-index: 9;
+  z-index: 99;
   opacity: 0;
   transform: scale(0);
 
@@ -455,37 +396,6 @@ const SidebarStyles = styled.div`
     border: none;
     letter-spacing: 3px;
     font-size: 1rem;
-  }
-
-  .socials {
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-    width: 100%;
-    margin: 5rem 0;
-    font-size: 1.5rem;
-    a {
-      text-decoration: none;
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .social_icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      cursor: pointer;
-      svg {
-        transition: all 250ms ease-in-out;
-      }
-      svg:hover {
-        transform: scale(1.5);
-        color: #4646f8 !important;
-      }
-    }
   }
 
   .side_bar_btn {
