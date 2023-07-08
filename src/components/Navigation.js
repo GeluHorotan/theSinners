@@ -125,18 +125,16 @@ const Navigation = () => {
             ></div>
 
             <div className="sidebar_half" id={sidebar ? "sidebar-active" : ""}>
-              <motion.img
-                variants={fadeLeft}
-                initial={"hidden"}
-                animate="show"
-                className="logo"
-                src={Logo}
-                alt=""
+              <div
                 onClick={() => {
                   navigate("/");
                   setSidebar((prevState) => false);
                 }}
-              />
+                className="side_bar_btn logo"
+              >
+                <Logo />
+              </div>
+
               <Menu>
                 {({ open }) => (
                   <>
@@ -323,15 +321,19 @@ const SidebarStyles = styled.div`
   z-index: 99;
   opacity: 0;
   transform: scale(0);
+  pointer-events: all;
 
   .logo {
     width: 3rem;
     position: absolute;
     right: 1rem;
     top: 1rem;
-    z-index: 15;
-
+    z-index: 999;
+    pointer-events: all;
     cursor: pointer;
+    &:hover {
+      padding-left: 0 !important;
+    }
   }
   .overlay {
     width: 100%;
