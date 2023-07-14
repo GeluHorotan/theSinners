@@ -4,14 +4,16 @@ import { Link } from "react-router-dom";
 import { formatTimestamp } from "../Functions/formatTimestamp";
 
 const LargeEntry = ({ content }) => {
-  const bodyDesc = content.announcement_body.body.split("[/img]");
-  const image = bodyDesc[0]
-    .replace("[img]{STEAM_CLAN_IMAGE}", "")
-    .replace("[url=http://www.dota2.com/filmcontest]", "")
-    .replace(
-      "[url=https://www.dota2.com/labyrinth]/3703047/0e0799b188b3b8a9b231bb612b29f9fea9b33953.jpg",
-      ""
-    );
+  const bodyDesc = content && content.announcement_body.body.split("[/img]");
+  const image =
+    bodyDesc &&
+    bodyDesc[0]
+      .replace("[img]{STEAM_CLAN_IMAGE}", "")
+      .replace("[url=http://www.dota2.com/filmcontest]", "")
+      .replace(
+        "[url=https://www.dota2.com/labyrinth]/3703047/0e0799b188b3b8a9b231bb612b29f9fea9b33953.jpg",
+        ""
+      );
   if (content)
     return (
       <LargeEntryStyles>
